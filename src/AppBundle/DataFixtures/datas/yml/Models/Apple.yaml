@@ -1,0 +1,321 @@
+# Apple models
+
+Iphone 5:
+    brand: Apple
+    family: Iphone
+    description: Apple lance la commercialisation de ce modèle en 2012. C'est le premier Iphone qui propose une connexion
+    au réseau 4G, m�me si les fréquences utilisées à son lancement n'assuraient pas de compatibilité avec les réseaux mobiles
+    français. Le problème a depuis été résolu.
+    constructor_page: https://www.apple.com/fr/newsroom/2012/09/12Apple-Introduces-iPhone-5/
+    release_year: 2012
+    medias:
+        local:
+            1:
+              name: iphone5_black.jpg
+              alt: Iphone 5 coloris Noir&Ardoise
+            2:
+              name: iphone5_white.jpg
+              alt: Iphone 5 coloris Blanc&Argenté
+    features:
+        physic:
+            width: 123.8mm
+            height: 58.6mm
+            depth: 7.6mm
+            weigth: 112g
+        unlock_with:
+            fingerprint: false
+            camera: false
+        micro_sd: false
+        sim:
+            slots_nbr: 1
+            format: nano
+        networks:
+            2g: true
+            3g: true
+            lte: true
+            nfc: false
+            wifi: 802.11a/b/g/n
+        bluetooth:
+            version: 4.0
+        localisation_options: [GPS (A-GPS), GLONASS, Boussole numérique, Plans Apple, Réseau cellulaire, Wi-Fi]
+        screen:
+            type: Retina
+            multipoint: true
+            glass_material: Gorilla Glass
+            size: 4"
+            width: 640px
+            height: 1136px
+            dpi: 326pp
+            luminosity: 550cd/m2
+            contrast: 800:1
+            model_specific: [Rev�tement oléophobe]
+        main_camera:
+            sensor_resolution: 8Mpx
+            aperture: f/2.2
+            video_max_quality: 1080p@30fps
+            flash: LED
+            soft_features: [Focus au toucher de la zone, tag de géolocalisation, panoramas, HDR]
+        front_camera:
+            sensor_resolution: 1.2Mpx
+            video_max_quality: 720p@30fps
+            flash: false
+        battery:
+            size: 1440mAh
+            speak_autonomy: 8h en 3G
+            surf_autonomy : 8h en 3G et 10h en Wi-Fi
+            video_autonomy: 10h
+            audio_autonomy: 40h
+            sleep_autonomy: 225h
+        charge:
+            connectivity: Lightning
+            max_intensity: 1A
+        system:
+            name: IOS
+            release_version: 6
+            still_updated : false
+            last_update_version: 10.3.3
+        processor:
+            name: A6
+            brand: Apple
+            contructor: Samsung
+            cores_number: 2
+            frequency: 1.3Ghz
+            architecture: 32bit
+            micro_architecture: ARMv7
+        graphic_chipset: PowerVR SGX543
+        ram:
+            size: 1Gb
+            type: DDR2
+        releases_colors: [Noir&Ardoise, Blanc&Argenté]
+        releases_memory_sizes: [16Gb, 32Gb, 64Gb]
+        realeases_versions:
+            A1428: Modèle GSM uniquement, possède des caractéristiques réseau cellulaire spécifiques ;
+            UMTS/HSPA+/DC-HSDPA (850, 900, 1700/2100, 1900, 2100 MHz),
+            GSM/EDGE (850, 900, 1800, 1900 MHz),
+            LTE (Bands 4 and 17)
+            A1429_CDMA: Une version A1429 GSM existe également, possède des caractéristiques réseau cellulaire spécifiques ;
+            CDMA EV-DO Rev. A and Rev. B (800, 1900, 2100 MHz),
+            UMTS/HSPA+/DC-HSDPA (850, 900, 1900, 2100 MHz),
+            GSM/EDGE (850, 900, 1800, 1900 MHz),
+            LTE (Bands 1, 3, 5, 13, 25)
+            A1429_GSM : Une version A1429 CDMA existe également, possède des caractéristiques réseau cellulaire spécifiques ;
+             UMTS/HSPA+/DC-HSDPA (850, 900, 1900, 2100 MHz),
+             GSM/EDGE (850, 900, 1800, 1900 MHz),
+             LTE (Bands 1, 3, 5)
+
+
+Iphone 6s:
+    brand: Apple
+    family: Iphone
+    description: Version "s" de la neuvième génération Iphone le 6s est un téléphone puissant et polyvalent. Ce modèle a
+    été dévoilé le 9 septembre 2015 lors du "Dis Siri, donne-moi un indice", une conférence Apple qui réunissait plus de 7000
+    personnes. Le 28 septembre 2015, Tim Cook déclarera avoir vendu plus de 13 millions d'appareils durant le week-end de lancement.
+    constructor_page: https://www.apple.com/fr/iphone/compare/
+    release_year: 2015
+    medias:
+        local:
+            1:
+              name: iphone6s_silver_front.png
+              alt: Façade avant Iphone 6s coloris Argenté
+            2:
+              name: iphone6s_silver_back.png
+              alt: Face arrière Iphone 6s coloris Argenté
+            3:
+              name: iphone6s_grey_front.png
+              alt: Façade avant Iphone 6s coloris Gris Sidéral
+            4:
+              name: iphone6s_grey_back.png
+              alt: Face arrière Iphone 6s coloris Gris Sidéral
+    features:
+        physic:
+            width: 67.1mm
+            height: 138.3mm
+            depth: 7.1mm
+            weigth: 143g
+        unlock_with:
+            fingerprint: Touch ID
+            camera: false
+        micro_sd: false
+        sim:
+            slots_nbr: 1
+            format: nano
+        networks:
+            2g: true
+            3g: true
+            lte: true
+            nfc: true
+            wifi: 802.11ac (MIMO)
+        bluetooth:
+            version: 4.2
+        localisation_options: [GPS (A-GPS), GLONASS, Galileo, QZSS, Boussole numérique, Réseau cellulaire, Wi-Fi, Microlocalisation iBeacon]
+        screen:
+            type: Retina HD
+            multipoint: true
+            glass_material: Gorilla Glass
+            size: 4.7"
+            width: 750px
+            height: 1334px
+            dpi: 326pp
+            luminosity: 500cd/m2
+            contrast: 1400:1
+            model_specific: [3D Touch, IPS, Rev�tement oléophobe, Pixels à double transistor (augmente l'angle de vision)]
+        main_camera:
+            sensor_resolution: 12Mpx
+            aperture: f/2.2
+            video_max_quality: 4k@30fps
+            flash: True Tone
+            soft_features: [Autofocus via Focus Pixels, HDR automatique, Geo-référencement, Capteur de luminosité]
+        front_camera:
+            sensor_resolution: 5Mpx
+            video_max_quality: 720p@30fps
+            flash: true
+        battery:
+            size: 1715mAh
+            speak_autonomy: 14h en 3G
+            surf_autonomy : 10h en 3G et 4G, 11h en Wi-Fi
+            video_autonomy: 11h
+            audio_autonomy: 50h
+            sleep_autonomy: 10j
+        charge:
+            connectivity: Lightning
+            max_intensity: 1A
+        system:
+            name: IOS
+            release_version: 9
+            still_updated : true
+        processor:
+            name: A9
+            brand: Apple
+            contructor: Samsung
+            cores_number: 2
+            frequency: 1.85Ghz
+            architecture: 64bits
+            micro_architecture: Twister, compatible ARMv8-A
+        graphic_chipset: PowerVR GT-7600
+        ram:
+            size: 2Gb
+            type: LP-DDR4
+        releases_colors: [Or rose, Or, Argent, Gris sidéral]
+        releases_memory_sizes: [32Gb, 128Gb]
+        realeases_versions:
+            A1633: Caractéristiques du réseau cellulaire spécifiques, partagées avec le modèle A1634 ;
+            LTE (bandes 1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 18, 19, 20, 25, 26, 27, 28, 29, 30),
+            TD-LTE (bandes 38, 39, 40, 41), TD-SCDMA 1 900 (F), 2 000 (A),
+            UMTS/HSPA+/DC-HSDPA (850, 900, 1 700/2 100, 1 900, 2 100 MHz),
+            CDMA EV-DO Rev. A (800, 1 700/2 100, 1 900, 2 100 MHz),
+            GSM/EDGE (850, 900, 1 800, 1 900 MHz)
+            A1634: Caractéristiques du réseau cellulaire spécifiques identiques à celles mentionnées pour le modèle A1634.
+            A1687: Caractéristiques du réseau cellulaire spécifiques, partagées avec le modèle A1688 ;
+            LTE (bandes 1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 18, 19, 20, 25, 26, 27, 28, 29),
+            TD-LTE (bandes 38, 39, 40, 41),
+            TD-SCDMA 1 900 (F), 2 000 (A),
+            CDMA EV-DO Rev. A (800, 1 700/2 100, 1 900, 2 100 MHz),
+            UMTS/HSPA+/DC-HSDPA (850, 900, 1 700/2 100, 1 900, 2 100 MHz),
+            GSM/EDGE (850, 900, 1 800, 1 900 MHz)
+            A1688: Caractéristiques du réseau cellulaire spécifiques identiques à celles mentionnées pour le modèle A1687.
+
+
+Iphone X:
+    brand: Apple
+    family: Iphone
+    description: L'Iphone X (à prononcer Iphone Ten) appartient à la 11e génération des smartphones Apple, au m�me titre
+    que l'Iphone 8. Les deux téléphones ont été présentés au grand public le 12 novembre 2017 lors d'une conférence d'Apple
+    à Cupertino, le lendemain d'une importante fuite d'informations sur le modèle.
+    Le téléphone est le premier de la gamme à offrir un écran "bordless" et le bouton d'accueil physique, une caractéristique
+    emblématique de la marque, est supprimé au profit d'une technologie proche de celle expérimentée avec l'Iphone 7.
+    constructor_page: https://www.apple.com/fr/iphone/compare/
+    release_year: 2017
+    medias:
+        local:
+            1:
+              name: iphoneX_black.jpg
+              alt: Iphone X en coloris Gris Sidéral
+            2:
+              name: iphoneX_white.jpg
+              alt: Iphone X en coloris Argent
+    features:
+        physic:
+            width: 70.9mm
+            height: 143.6mm
+            depth: 7.7mm
+            weigth: 174g
+        unlock_with:
+            fingerprint: false
+            camera: Face ID
+        micro_sd: false
+        sim:
+            slots_nbr: 1
+            format: nano
+        networks:
+            2g: true
+            3g: true
+            lte: true
+            lte+: true
+            nfc: Avec mode lecteur
+            wifi: 802.11ac (MIMO)
+        bluetooth:
+            version: 5.0
+        localisation_options: [GPS (A-GPS), GLONASS, Galileo, QZSS, Réseau cellulaire, Wi-Fi]
+        screen:
+            type: Super Retina HD
+            multipoint: true
+            glass_material: Verre Scratch-Resistant
+            size: 5.8"
+            width: 750px
+            height: 1334px
+            dpi: 326pp
+            luminosity: 500cd/m2
+            contrast: 1400:1
+            model_specific: [3D Touch, True Tone, Rev�tement oléophone, Bordless]
+        main_camera:
+            info: Deux capteurs (Grand Angle et TéléObjectif)
+            sensor_resolution: 12Mpx
+            aperture: f/1.8(GA) et f/2.4(TO)
+            video_max_quality: 4k@30fps
+            flash: True Tone quadri-LED
+            model_specific: [Hublot de protection en saphir, Focus Pixel, Filtre infrarouge, Auto HDR, Double stabilisation optique]
+        front_camera:
+            sensor_resolution: 7Mpx
+            video_max_quality: 1080p@30fps
+            flash: true
+        battery:
+            size: 2716mAh
+            speak_autonomy: 21h
+            surf_autonomy : 12h
+            video_autonomy: 13h
+            audio_autonomy: 60h
+            sleep_autonomy: Unknow
+        charge:
+            connectivity: Lightning
+            max_intensity: 1A
+            wireless: true
+        system:
+            name: IOS
+            release_version: 11
+            still_updated : true
+        processor:
+            name: A11 Bionic
+            brand: Apple
+            contructor: TSMC
+            cores_number: 6
+            frequency: 2.39Ghz
+            architecture: 64bits
+            micro_architecture: ARMv8-A
+        graphic_chipset: Intégré
+        ram:
+            size: 3Gb
+        releases_colors: [Argent, Gris sidéral]
+        releases_memory_sizes: [64Gb, 256Gb]
+        releases_versions:
+            A1865: Caractéristiques réseaux spécifiques à cette version ;
+            FDD-LTE (bandes 1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 18, 19, 20, 25, 26, 28, 29, 30, 66),
+            TD-LTE (bandes 34, 38, 39, 40, 41),
+            TD-SCDMA 1 900 (F), 2 000 (A),
+            CDMA EV-DO Rev. A (800, 1 900, 2 100 MHz),
+            UMTS/HSPA+/DC-HSDPA (850, 900, 1 700/2 100, 1 900, 2 100 MHz),
+            GSM/EDGE (850, 900, 1 800, 1 900 MHz)
+            A1901: Caractéristiques réseaux spécifiques à cette version ;
+            FDD-LTE (bandes 1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 18, 19, 20, 25, 26, 28, 29, 30, 66)
+            TD-LTE (bandes 34, 38, 39, 40, 41)
+            UMTS/HSPA+/DC-HSDPA (850, 900, 1 700/2 100, 1 900, 2 100 MHz)
+            GSM/EDGE (850, 900, 1 800, 1 900 MHz)
