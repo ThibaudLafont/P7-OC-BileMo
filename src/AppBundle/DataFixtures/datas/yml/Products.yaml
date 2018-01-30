@@ -89,39 +89,58 @@
     bootProperly: true
 
 
-3:
-    title: Iphone 5
-    model: Iphone 5
-    description: Appareil abimé avec écran cassé et caméra avant HS
-    price: 80
-    condition: used
-    state: bad
-    history: A chuté mais ne présente pas de traces d'oxydation
-    IMEI: 123456789012342
+5:
+    title: Galaxy S4
+    model: Galaxy S4
+    description: Appareil neuf avec boite d'origine, encore sous blister
+    price: 200
+    condition: new
+    state: unused
+    history: null
+    IMEI: 123456789112348
+    memorySize: 32
+    operatorLock: false
+    color: Noir
+    systemVersion: 5.0.1
+    formatted: true
+    bootProperly: true
+
+6:
+    title: Galaxy S4
+    model: Galaxy S4
+    description: Appareil reconditionné à neuf 
+    price: 170
+    condition: new
+    state: unused
+    history: Un particulier a bénéficié d'une offre de reprise pour ce téléphone dont le LCD était HS. 
+    IMEI: 128556789112348
     memorySize: 16
     operatorLock: false
-    color: Noir&Ardoise
-    systemVersion: 10.3.3
-    formatted: false
+    color: Blanc
+    systemVersion: 4.4
+    formatted: true
     bootProperly: true
-    notices:
+
+7:
+    title: Galaxy Note 2 non fonctionnel
+    model: Galaxy Note 2
+    description: null
+    price: 200
+    condition: new
+    state: unused
+    history: Téléphone professionnel acheté à une assurance
+    IMEI: 123456789112348
+    memorySize: 32
+    operatorLock: false
+    color: Noir
+    systemVersion: 5.0.1
+    formatted: true
+    bootProperly: true
+    notices: 
         1:
             type: info
-            content: Le téléphone n'a pas été réinitialisé et demande un code de déverouillage, qui ne nous a pas été
-            communiqué
-    tests:
-        screen:
-            condition: damaged
-            status: working
-            message: L'écran présente quelques rayures superficielles sur le tiers bas, LCD en état excellent
-    guarantees:
-        general:
-            isGuaranteed: true
-            lengthInMonth: 0.25
-            message: Le téléphone est garanti une semaine après réception à cause de son état.
-        camera:
-            isGuaranteed: false
-            message: Caméra HS
-        screen:
-            isGuaranteed: false
-            message: Écran fissuré
+            message: Aucune désoxydation n'a été effectuée
+        2: 
+            type: alert
+            message: Téléphone oxydé
+
