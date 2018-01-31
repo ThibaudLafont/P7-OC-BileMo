@@ -2,8 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ef38ac0-2794-4b6b-a217-059f5e6ddd97" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/bilemo.iml" afterPath="$PROJECT_DIR$/.idea/bilemo.iml" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" afterPath="$PROJECT_DIR$/.idea/php.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Product/Product.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Product/Product.php" />
+      <change beforePath="$PROJECT_DIR$/app/AppKernel.php" afterPath="$PROJECT_DIR$/app/AppKernel.php" />
+      <change beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Brand.yaml" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Brand.yaml" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Family.yaml" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Family.yaml" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Apple.yaml" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Apple.yaml" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Samsung.yaml" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Samsung.yaml" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Wiko.yaml" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Wiko.yaml" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Products.yaml" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Products.yaml" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Feature/Feature.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Feature/Feature.php" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Feature/Spec.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Feature/Spec.php" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Feature/SpecValue.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Feature/SpecValue.php" />
+      <change beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Product/Model.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Product/Model.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,8 +34,40 @@
       <file leaf-file-name="Apple.yaml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Apple.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1344">
-              <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+            <state relative-caret-position="-3482">
+              <caret line="4" column="9" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Fixtures.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/Fixtures.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-339">
+              <caret line="96" column="13" lean-forward="false" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
+              <folding>
+                <element signature="e#42#79#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpecValue.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/SpecValue.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="784">
+              <caret line="46" column="34" lean-forward="false" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Spec.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/Spec.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="35" column="29" lean-forward="false" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -30,34 +76,32 @@
       <file leaf-file-name="Samsung.yaml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Samsung.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
+            <state relative-caret-position="112">
+              <caret line="4" column="10" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="10" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Wiko.yaml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Wiko.yaml">
+      <file leaf-file-name="Family.yaml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Family.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Products.yaml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Products.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="753">
-              <caret line="115" column="109" lean-forward="false" selection-start-line="115" selection-start-column="109" selection-end-line="115" selection-end-column="109" />
+            <state relative-caret-position="420">
+              <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>un</find>
+      <find>unkn</find>
+      <find>family</find>
+      <find>famil</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,18 +120,14 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/User/User.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/User/Client.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/User/Partner.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Feature/Spec.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Feature/SpecValue.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Feature/ProductTest.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Feature/ModelFeature.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product/Family.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Guarantee/Guarantee.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Media/Local.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Media/Distant.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Feature/Feature.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Guarantee/Feature.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product/Notice.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product/Model.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product/Brand.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Media/Product/Distant/Brand.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Media/Product/Distant/Family.php" />
@@ -101,14 +141,21 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Guarantee/ProductSpecific.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/User/Company.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Model.yaml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product/Product.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Products.yaml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/Datafixtures.php" />
+        <option value="$PROJECT_DIR$/app/AppKernel.php" />
+        <option value="$PROJECT_DIR$/app/config/parameters.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Brand.yaml" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Family.yaml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product/Model.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Feature/Feature.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Wiko.yaml" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Samsung.yaml" />
         <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Apple.yaml" />
-        <option value="$PROJECT_DIR$/app/config/parameters.yml" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Product/Product.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Products.yaml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Feature/Spec.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Feature/SpecValue.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/DataFixtures/Fixtures.php" />
       </list>
     </option>
   </component>
@@ -189,6 +236,8 @@
       <path value="$PROJECT_DIR$/vendor/behat/mink-extension" />
       <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
       <path value="$PROJECT_DIR$/vendor/behatch/contexts" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
@@ -273,7 +322,25 @@
               <item name="bilemo" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="AppBundle" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="DataFixtures" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="datas" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="yml" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Models" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="bilemo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bilemo" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="AppBundle" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="Entity" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="bilemo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bilemo" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="src" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="AppBundle" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Entity" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Feature" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="bilemo" type="b2602c69:ProjectViewProjectNode" />
@@ -337,12 +404,13 @@
       <updated>1517160769782</updated>
       <workItem from="1517160772598" duration="791000" />
       <workItem from="1517161821182" duration="35182000" />
-      <workItem from="1517326181107" duration="4235000" />
+      <workItem from="1517326181107" duration="4328000" />
+      <workItem from="1517419671380" duration="8887000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40208000" />
+    <option name="totallyTimeSpent" value="49188000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="900" y="199" width="1920" height="1063" extended-state="0" />
@@ -476,31 +544,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/Spec.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="28" column="18" lean-forward="true" selection-start-line="28" selection-start-column="18" selection-end-line="37" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/SpecValue.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="37" column="18" lean-forward="true" selection-start-line="37" selection-start-column="18" selection-end-line="46" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/ProductTest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="39" column="50" lean-forward="false" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/ModelFeature.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="34" column="26" lean-forward="false" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -522,13 +569,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/Feature.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="46" column="43" lean-forward="false" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -560,24 +600,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product/Model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="92" column="36" lean-forward="false" selection-start-line="92" selection-start-column="36" selection-end-line="92" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product/Family.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="376">
           <caret line="44" column="19" lean-forward="false" selection-start-line="44" selection-start-column="19" selection-end-line="54" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product/Brand.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="90" column="36" lean-forward="false" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -658,67 +684,145 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Family.yaml">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Products.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="15" column="113" lean-forward="false" selection-start-line="15" selection-start-column="113" selection-end-line="15" selection-end-column="113" />
+        <state relative-caret-position="4060">
+          <caret line="145" column="0" lean-forward="false" selection-start-line="145" selection-start-column="0" selection-end-line="145" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Brand.yaml">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product/Brand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="11" column="104" lean-forward="false" selection-start-line="11" selection-start-column="104" selection-end-line="11" selection-end-column="104" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Wiko.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+        <state relative-caret-position="2520">
+          <caret line="90" column="36" lean-forward="false" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/parameters.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="4" column="29" lean-forward="false" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+        <state relative-caret-position="56">
+          <caret line="2" column="29" lean-forward="false" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Samsung.yaml">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Brand.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
+        <state relative-caret-position="448">
+          <caret line="16" column="6" lean-forward="false" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="30" column="90" lean-forward="false" selection-start-line="30" selection-start-column="90" selection-end-line="30" selection-end-column="90" />
+          <folding>
+            <element signature="e#7#59#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/doctrine/common/lib/Doctrine/Common/Persistence/ObjectManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-692">
+          <caret line="29" column="10" lean-forward="false" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product/Product.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5096">
-          <caret line="182" column="17" lean-forward="false" selection-start-line="182" selection-start-column="17" selection-end-line="182" selection-end-column="17" />
+        <state relative-caret-position="444">
+          <caret line="70" column="21" lean-forward="true" selection-start-line="70" selection-start-column="21" selection-end-line="77" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/ModelFeature.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="28" column="23" lean-forward="false" selection-start-line="28" selection-start-column="23" selection-end-line="37" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/Feature.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="55" column="5" lean-forward="false" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Product/Model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="106" column="26" lean-forward="false" selection-start-line="106" selection-start-column="26" selection-end-line="107" selection-end-column="30" />
+          <folding>
+            <element signature="e#44#83#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Wiko.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="45" column="35" lean-forward="false" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Family.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Samsung.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="4" column="10" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/Spec.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="35" column="29" lean-forward="false" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Feature/SpecValue.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="784">
+          <caret line="46" column="34" lean-forward="false" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models/Apple.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1344">
-          <caret line="0" column="7" lean-forward="false" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="7" />
+        <state relative-caret-position="-3482">
+          <caret line="4" column="9" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Products.yaml">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/DataFixtures/Fixtures.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="115" column="109" lean-forward="false" selection-start-line="115" selection-start-column="109" selection-end-line="115" selection-end-column="109" />
-          <folding />
+        <state relative-caret-position="-339">
+          <caret line="96" column="13" lean-forward="false" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
+          <folding>
+            <element signature="e#42#79#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

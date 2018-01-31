@@ -2,17 +2,17 @@
 
 Apple:
     description: Apple est une entreprise de nouvelles technologies. Réputée pour son intuitivité elle a su développer
-    des produits numériques de qualité dans différents domaines tels que la téléphonie ou l'informatique
+      des produits numériques de qualité dans différents domaines tels que la téléphonie ou l'informatique
     website_url: https://www.apple.com/fr/
 
 Samsung:
     description: Samsung est un contructeur coréen figurant parmi les leaders du marché de la téléphonie mobile.
-    Samsung s'est développé sur de nombreux marchés allant de l'électroménager à la téléphonie en passant par
-    la création de composant micro-électroniques. Il est d'ailleurs le fournisseur de certains de certains constructeurs
-    de smartphones comme Apple qui achète chez lui des composants internes comme le processeur ou la RAM.
+      Samsung s'est développé sur de nombreux marchés allant de l'électroménager à la téléphonie en passant par
+      la création de composant micro-électroniques. Il est d'ailleurs le fournisseur de certains de certains constructeurs
+      de smartphones comme Apple qui achète chez lui des composants internes comme le processeur ou la RAM.
     website_url: http://www.samsung.com/fr/
 
 Wiko:
     description: Wiko est une marque française de téléphonie mobile. Initialement positionnée sur le marché
-    low-cost, elle étend progressivement son catalogue et propose aujourd'hui des appareils de gamme supérieure.
+      low-cost, elle étend progressivement son catalogue et propose aujourd'hui des appareils de gamme supérieure.
     website_url: https://fr.wikomobile.com/

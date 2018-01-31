@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Feature\SpecValue;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +35,20 @@ class Model
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="constructor_url", type="text", nullable=true)
+     */
+    private $constructorUrl;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="release_year", type="bigint")
+     */
+    private $releaseYear;
 
     /**
      * @var \AppBundle\Entity\Media\Product\Local\Model
@@ -84,6 +99,23 @@ class Model
      */
     private $brand;
 
+    /**
+     * @var SpecValue
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Feature\SpecValue",
+     *     mappedBy="spec",
+     *     cascade={"persist"}
+     * )
+     */
+    private $specValue;
+
+    public function getSpecValue()
+    {
+        return $this->specValue;
+    }
+
+
     public function getLocalMedias()
     {
         return $this->localMedias;
@@ -97,7 +129,7 @@ class Model
     {
         return $this->family;
     }
-    public function setFamily(Family $family)
+    public function setFamily($family)
     {
         $this->family = $family;
     }
@@ -172,5 +204,37 @@ class Model
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getConstructorUrl(): string
+    {
+        return $this->constructorUrl;
+    }
+
+    /**
+     * @param null|string $constructorUrl
+     */
+    public function setConstructorUrl(string $constructorUrl)
+    {
+        $this->constructorUrl = $constructorUrl;
+    }
+
+    /**
+     * @return int
+     */
+    public function getReleaseYear(): int
+    {
+        return $this->releaseYear;
+    }
+
+    /**
+     * @param int $releaseYear
+     */
+    public function setReleaseYear(int $releaseYear)
+    {
+        $this->releaseYear = $releaseYear;
     }
 }

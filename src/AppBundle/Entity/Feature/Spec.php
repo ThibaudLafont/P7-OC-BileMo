@@ -29,11 +29,12 @@ class Spec
     private $name;
 
     /**
-     * @var Spec
+     * @var Feature
      *
      * @ORM\ManyToOne(
      *     targetEntity="Feature",
-     *     inversedBy="specs")
+     *     inversedBy="specs"
+     * )
      */
     private $feature;
 
@@ -42,7 +43,9 @@ class Spec
      *
      * @ORM\OneToMany(
      *     targetEntity="SpecValue",
-     *     mappedBy="spec")
+     *     mappedBy="spec",
+     *     cascade={"persist"}
+     * )
      */
     private $specValue;
 

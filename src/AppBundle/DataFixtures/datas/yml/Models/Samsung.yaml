@@ -25,7 +25,9 @@ Galaxy S4 I9505:
         unlock_with:
             fingerprint: false
             camera: Face Unlock
-        micro_sd: 64Go
+        micro_sd:
+            haveSlot: true
+            maxSize: 64Gb
         sim:
             slots_nbr: 1
             format: Micro
@@ -38,7 +40,8 @@ Galaxy S4 I9505:
             wifi: 802.11a/b/g/n/ac
         bluetooth:
             version: 4.0
-        localisation_options: [GPS (A-GPS), GLONASS, Google Maps, Réseau cellulaire, Wi-Fi]
+        localisation:
+            technologies: [GPS (A-GPS), GLONASS, Google Maps, Réseau cellulaire, Wi-Fi]
         screen:
             type: Super Amoled Full HD
             multipoint: true
@@ -48,7 +51,6 @@ Galaxy S4 I9505:
             height: 1080px
             dpi: 441pp
             luminosity: 400cd/m2
-            contrast: unknow
             model_specific: [Détection du survol, mode tactile en cas de gants]
         main_camera:
             sensor_resolution: 13Mpx
@@ -64,8 +66,6 @@ Galaxy S4 I9505:
             size: 2600mAh
             removable: true
             speak_autonomy: 17h
-            surf_autonomy : unknow
-            video_autonomy: unknow
             audio_autonomy: 62h
             sleep_autonomy: 370h
         charge:
@@ -85,20 +85,22 @@ Galaxy S4 I9505:
             frequency: 1.9Ghz
             architecture: 32bits
             micro_architecture: ARMv7
-        graphic_chipset: Qualcomm Adreno 320
+        graphic_chipset:
+            name: Qualcomm Adreno 320
         ram:
             size: 2Gb
             type: DDR3
-        releases_colors: [Blanc, Noir]
-        releases_memory_sizes: [16Gb, 32Gb]
-        releases_versions: [I9500, I9505, I9506]
+        releases_options:
+            colors: [Blanc, Noir]
+            memory_sizes: [16Gb, 32Gb]
+            versions: [I9500, I9505, I9506]
 
 Galaxy Note 2:
     brand: Samsung
     family: Galaxy Note
     description: Appartenant au haut de gamme des phablet Samsung, le Note II est commercialisé en 2012 sous deux versions
-    différentes, l'une supportant la 4G et l'autre non. Le modèle propose une amélioration du SPen, un stylet inovant
-    caractéristique des Note, qui devient sensible à l'intensité de pression avec ce modèle.
+      différentes, l'une supportant la 4G et l'autre non. Le modèle propose une amélioration du SPen, un stylet inovant
+      caractéristique des Note, qui devient sensible à l'intensité de pression avec ce modèle.
     constructor_page: Non maintenue
     release_year: 2012
     features:
@@ -110,7 +112,9 @@ Galaxy Note 2:
         unlock_with:
             fingerprint: false
             camera: Face Unlock
-        micro_sd: 64Go
+        micro_sd:
+            haveSlot: true
+            maxSize: 64Gb
         sim:
             slots_nbr: 1
             format: Micro
@@ -131,8 +135,6 @@ Galaxy Note 2:
             width: 720px
             height: 1280px
             dpi: 267pp
-            luminosity: unknow
-            contrast: unknow
             model_specific: [SPen]
         main_camera:
             sensor_resolution: 8Mpx
@@ -142,15 +144,11 @@ Galaxy Note 2:
             model_specific: [Tag géographique, Focus au toucher, HDR, Détection des visages]
         front_camera:
             sensor_resolution: 1.9Mpx
-            video_max_quality: unknow
             flash: false
         battery:
             size: 3100mAh
             removable: true
             speak_autonomy: 35h
-            surf_autonomy : unknow
-            video_autonomy: unknow
-            audio_autonomy: unknow
             sleep_autonomy: 980h
         charge:
             connectivity: Micro-A USB
@@ -169,10 +167,11 @@ Galaxy Note 2:
             frequency: 1.6Ghz
             architecture: 32bits
             micro_architecture: ARMv7-A
-        graphic_chipset: Mali-400 MP4
+        graphic_chipset:
+            name: Mali-400 MP4
         ram:
             size: 2Gb
-            type: unknow
-        releases_colors: [Blanc, Noir]
-        releases_memory_sizes: [16Gb, 32Gb, 64Gb]
-        releases_versions: [I7100, I7101, I7105]
+        releases_options:
+            colors: [Blanc, Noir]
+            memory_sizes: [16Gb, 32Gb, 64Gb]
+            versions: [I7100, I7101, I7105]
