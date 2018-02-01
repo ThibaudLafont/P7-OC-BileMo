@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Feature;
 
+use AppBundle\Entity\Product\Product;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,11 +23,18 @@ class ProductTest
     private $id;
 
     /**
-     * @var int
+     * @var bool
      *
-     * @ORM\Column(name="status", type="integer")
+     * @ORM\Column(name="phy_damager", type="boolean")
      */
-    private $status;
+    private $phyDamage;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_working", type="boolean")
+     */
+    private $isWorking;
 
     /**
      * @var string
@@ -36,16 +44,36 @@ class ProductTest
     private $message;
 
     /**
-     * @ORM\OneToMany(
-     *     targetEntity="AppBundle\Entity\Product\Product",
-     *     mappedBy="test"
+     * @ORM\ManyToOne(
+     *     targetEntity="Feature",
+     *     inversedBy="tests"
      * )
      */
-    private $products;
+    private $feature;
 
-    public function getProducts()
+    /**
+     * @ORM\ManyToOne(
+     *     targetEntity="AppBundle\Entity\Product\Product",
+     *     inversedBy="tests"
+     * )
+     */
+    private $product;
+
+    public function getFeature()
     {
-        return $this->products;
+        return $this->feature;
+    }
+    public function setFeature(Feature $feature)
+    {
+        $this->feature = $feature;
+    }
+    public function getProduct()
+    {
+        return $this->product;
+    }
+    public function setProduct(Product $product)
+    {
+        $this->product = $product;
     }
 
 
@@ -60,27 +88,51 @@ class ProductTest
     }
 
     /**
-     * Set status.
+     * Set feature has physical damages
      *
-     * @param int $status
+     * @param bool $phyDamage
      *
      * @return ProductTest
      */
-    public function setStatus($status)
+    public function setPhyDamage(bool $phyDamage)
     {
-        $this->status = $status;
+        $this->phyDamage = $phyDamage;
 
         return $this;
     }
 
     /**
-     * Get status.
+     * Get does feature has phy damages
      *
      * @return int
      */
-    public function getStatus()
+    public function getPhyDamage()
     {
-        return $this->status;
+        return $this->phyDamage;
+    }
+
+    /**
+     * Set isWorking
+     *
+     * @param bool $isWorking
+     *
+     * @return ProductTest
+     */
+    public function setIsWorking(bool $isWorking)
+    {
+        $this->isWorking = $isWorking;
+
+        return $this;
+    }
+
+    /**
+     * Get isWorking
+     *
+     * @return int
+     */
+    public function getIsWorking()
+    {
+        return $this->isWorking;
     }
 
     /**

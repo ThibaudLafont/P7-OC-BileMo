@@ -52,16 +52,16 @@ class Product
     /**
      * @var int
      *
-     * @ORM\Column(name="work_condition", type="integer")
+     * @ORM\Column(name="phy_condition", type="integer")
      */
-    private $workCondition;
+    private $condition;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="sell_state", type="integer")
+     * @ORM\Column(name="state", type="integer")
      */
-    private $sellState;
+    private $state;
 
     /**
      * @var string|null
@@ -92,6 +92,13 @@ class Product
     private $color;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="operator_lock", type="boolean")
+     */
+    private $operatorLock;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="system_version", type="string", length=55)
@@ -101,14 +108,14 @@ class Product
     /**
      * @var bool
      *
-     * @ORM\Column(name="formatted", type="boolean")
+     * @ORM\Column(name="formatted", type="boolean", nullable=true)
      */
     private $formatted;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="boot_properly", type="boolean")
+     * @ORM\Column(name="boot_properly", type="boolean", nullable=true)
      */
     private $bootProperly;
 
@@ -152,28 +159,50 @@ class Product
     private $model;
 
     /**
-     * @var AppBundle\Entity\Guarantee\ProductGlobal
-     *
-     * @ORM\OneToOne(
-     *     targetEntity="AppBundle\Entity\Guarantee\ProductGlobal"
-     * )
-     */
-    private $globalGuarantee;
-
-    /**
      * @var Notice
      *
      * @ORM\OneToMany(
      *     targetEntity="Notice",
-     *     mappedBy="product"
+     *     mappedBy="product",
+     *     cascade={"persist"}
      * )
      */
     private $notices;
 
+    /**
+     * @var \AppBundle\Entity\Feature\ProductTest
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Feature\ProductTest",
+     *     mappedBy="product"
+     * )
+     */
+    private $tests;
+
+    /**
+     * @var \AppBundle\Entity\Feature\ProductTest
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
+     *     mappedBy="product"
+     * )
+     */
+    private $specificGuarantees;
+
+    public function getTests()
+    {
+        return $this->tests;
+    }
+    public function getSpecificGuarantees()
+    {
+        return $this->specificGuarantees;
+    }
+
     // Condition constants
     const NEW = 1;
-    const REFURBISH = 2;
+    const REFURB = 2;
     const USED = 3;
+    const DEFECTIVE = 3;
 
     // State constants
     const UNUSED = 4;
@@ -207,15 +236,6 @@ class Product
     public function setModel(Model $model)
     {
         $this->model = $model;
-    }
-
-    public function getGlobalGuarantee()
-    {
-        return $this->globalGuarantee;
-    }
-    public function setGlobalGuarantee(ProductGlobal $guarantee)
-    {
-        $this->globalGuarantee = $guarantee;
     }
 
     public function getNotices()
@@ -330,51 +350,87 @@ class Product
     }
 
     /**
-     * Set workCondition.
-     *
-     * @param int $workCondition
+     * Set condition.
      *
      * @return Product
      */
-    public function setWorkCondition($workCondition)
+    public function setCondition($condition)
     {
-        $this->workCondition = $workCondition;
+        if($condition === 'new') $condition = self::NEW;
+        elseif($condition === 'refurb') $condition = self::REFURB;
+        elseif($condition === 'used') $condition = self::USED;
+        elseif($condition === 'defective') $condition = self::DEFECTIVE;
+        elseif(
+            !in_array(
+                $condition,
+                [self::DEFECTIVE, self::USED, self::REFURB, self::NEW]
+            )
+        ) return false;
+
+        $this->condition = $condition;
 
         return $this;
     }
 
     /**
-     * Get workCondition.
+     * Get condition.
      *
      * @return int
      */
-    public function getWorkCondition()
+    public function getCondition()
     {
-        return $this->workCondition;
+        $condition = $this->condition;
+
+        if($condition === self::NEW) $condition = 'Neuf';
+        elseif($condition === self::REFURB) $condition = 'Reconditionné';
+        elseif($condition === self::USED) $condition = 'Occasion';
+        elseif($condition === self::DEFECTIVE) $condition = 'Défectueux';
+
+        return $condition;
     }
 
     /**
-     * Set sellState.
+     * Set state.
      *
-     * @param int $sellState
+     * @param int $state
      *
      * @return Product
      */
-    public function setSellState($sellState)
+    public function setState($state)
     {
-        $this->sellState = $sellState;
+
+        if($state === 'unused') $state = self::UNUSED;
+        elseif($state === 'like_new') $state = self::LIKE_NEW;
+        elseif($state === 'good') $state = self::GOOD;
+        elseif($state === 'average') $state = self::AVERAGE;
+        elseif($state === 'bad') $state = self::BAD;
+        elseif(
+            !in_array(
+                $state,
+                [self::BAD, self::AVERAGE, self::GOOD, self::LIKE_NEW, self::UNUSED]
+            )
+        ) return false;
+
+        $this->state = $state;
 
         return $this;
     }
 
     /**
-     * Get sellState.
+     * Get state.
      *
      * @return int
      */
-    public function getSellState()
+    public function getState()
     {
-        return $this->sellState;
+        $state = $this->state;
+        if($state === self::UNUSED) $state = 'Non utilisé';
+        elseif($state === self::LIKE_NEW) $state = 'Comme neuf';
+        elseif($state === self::GOOD) $state = 'Bon';
+        elseif($state === self::AVERAGE) $state = 'Moyen';
+        elseif($state === self::BAD) $state = 'Mauvais';
+
+        return $state;
     }
 
     /**
@@ -473,6 +529,15 @@ class Product
         return $this->color;
     }
 
+    public function getOperatorLock()
+    {
+        return $this->operatorLock;
+    }
+    public function setOperatorLock(bool $locked)
+    {
+        $this->operatorLock = $locked;
+    }
+
     /**
      * Set systemVersion.
      *
@@ -528,9 +593,9 @@ class Product
      *
      * @return Product
      */
-    public function setBootProperly($bootPropely)
+    public function setBootProperly($bootProperly)
     {
-        $this->bootProperly = $bootPropely;
+        $this->bootProperly = $bootProperly;
 
         return $this;
     }

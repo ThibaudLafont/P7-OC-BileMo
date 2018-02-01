@@ -28,9 +28,9 @@ abstract class Guarantee
     private $guaranteed;
 
     /**
-     * @var integer
+     * @var float
      *
-     * @ORM\Column(name="month_length", type="integer")
+     * @ORM\Column(name="month_length", type="float")
      */
     private $lengthInMonth;
     /**
@@ -54,15 +54,15 @@ abstract class Guarantee
     {
         return $this->guaranteed;
     }
-    public function setGuanranteed(bool $guaranteed){
+    public function setGuaranteed(bool $guaranteed){
         $this->guaranteed = $guaranteed;
     }
 
-    public function setLengthInMonth(int $length)
+    public function setLengthInMonth($length)
     {
         $this->lengthInMonth = $length;
     }
-    public function getLengthInMonth() : int
+    public function getLengthInMonth()
     {
         return $this->lengthInMonth;
     }

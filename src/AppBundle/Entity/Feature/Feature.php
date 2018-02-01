@@ -29,13 +29,6 @@ class Feature
     private $name;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="type", type="integer")
-     */
-    private $type;
-
-    /**
      * @ORM\OneToMany(
      *     targetEntity="Spec",
      *     mappedBy="feature"
@@ -54,14 +47,24 @@ class Feature
     private $models;
 
     /**
-     * @var \AppBundle\Entity\Guarantee\Feature
+     * @var ProductTest
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Guarantee\Feature",
+     *     targetEntity="ProductTest",
      *     mappedBy="feature"
      * )
      */
-    private $guarantees;
+    private $tests;
+
+    /**
+     * @var \AppBundle\Entity\Feature\ProductTest
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
+     *     mappedBy="feature"
+     * )
+     */
+    private $specificGuarantees;
 
     public function getSpecs()
     {
@@ -72,11 +75,15 @@ class Feature
         return $this->models;
     }
 
-    public function getGuanrantees()
+    public function getTests()
     {
-        return $this->guarantees;
+        return $this->tests;
     }
 
+    public function getSpecificGuarantees()
+    {
+        return $this->specificGuarantees;
+    }
     /**
      * Get id.
      *
@@ -109,29 +116,5 @@ class Feature
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set type.
-     *
-     * @param int $type
-     *
-     * @return Feature
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type.
-     *
-     * @return int
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 }

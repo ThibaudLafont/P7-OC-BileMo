@@ -76,6 +76,15 @@ class SpecValue
      */
     public function getValue()
     {
-        return $this->value;
+        // Store value in var
+        $value = $this->value;
+
+        // Check if value is serialized
+        if(unserialize($value)) $value = unserialize($value);
+        // Check if value is boolean
+        if($value === "true") $value = true;
+        if($value === "false") $value = false;
+
+        return $value;
     }
 }

@@ -3,14 +3,14 @@
 Galaxy S:
     brand: Samsung
     description: L'appellation "Galaxy S" est réservée aux modèles de format classique haut de gamme (à ne pas confondre avec
-    les "Galaxy Core", "Galaxy Ace"). Les "Galaxy Note" sont des téléphones de la m�me gamme avec un format supérieur.
+      les "Galaxy Core", "Galaxy Ace"). Les "Galaxy Note" sont des téléphones de la m�me gamme avec un format supérieur.
 
 Galaxy Note:
     brand: Samsung
     description: Cette gamme représente la qualité supérieure des téléphones grand-format de chez Samsung. Elle est
-    donc complémentaire de la gamme "Galaxy S".
+      donc complémentaire de la gamme "Galaxy S".
 
 Iphone:
     brand: Apple
     description: Le nom "Iphone" est l'appellation de tous les smartphone Apple, commercialisés depuis 2007. En 2017
-    la marque comptabilisait 18 modèles différents, qui restent très appréciés et réputés auprès du grand public.
+      la marque comptabilisait 18 modèles différents, qui restent très appréciés et réputés auprès du grand public.
