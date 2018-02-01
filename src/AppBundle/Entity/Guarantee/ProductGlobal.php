@@ -18,4 +18,5 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ProductGlobal extends Guarantee
 {
+
 }

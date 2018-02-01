@@ -15,7 +15,7 @@ use AppBundle\Entity\Media\Distant;
  * Class Model
  *
  * @ORM\Entity()
- * @ORM\Table(name="distant_model")
+ * @ORM\Table(name="media_model_distant")
  */
 class Model extends Distant
 {

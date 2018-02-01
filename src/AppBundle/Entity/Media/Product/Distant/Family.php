@@ -13,11 +13,8 @@ use AppBundle\Entity\Media\Distant;
 
 /**
  * Class Model
- *
- * @ORM\Entity()
- * @ORM\Table(name="distant_family")
  */
-class Family extends Distant
+class Family 
 {
 
     /**

@@ -13,11 +13,8 @@ use AppBundle\Entity\Media\Local;
 
 /**
  * Class Model
- *
- * @ORM\Entity()
- * @ORM\Table(name="local_family")
  */
-class Family extends Local
+class Family 
 {
 
     /**

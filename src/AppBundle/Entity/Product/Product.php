@@ -140,15 +140,6 @@ class Product
     private $distantMedias;
 
     /**
-     * @var AppBundle\Entity\Feature\ProductTest
-     *
-     * @ORM\ManyToOne(
-     *     targetEntity="AppBundle\Entity\Feature\ProductTest",
-     *     inversedBy="products")
-     */
-    private $test;
-
-    /**
      * @var Model
      *
      * @ORM\ManyToOne(
@@ -189,14 +180,12 @@ class Product
      */
     private $specificGuarantees;
 
-    public function getTests()
-    {
-        return $this->tests;
-    }
-    public function getSpecificGuarantees()
-    {
-        return $this->specificGuarantees;
-    }
+    /**
+     * @ORM\OneToOne(
+     *  targetEntity="\AppBundle\Entity\Guarantee\ProductGlobal"
+     * )
+     */
+    private $globalGuarantee;
 
     // Condition constants
     const NEW = 1;
@@ -220,15 +209,6 @@ class Product
         return $this->distantMedias;
     }
 
-    public function getTest()
-    {
-        return $this->test;
-    }
-    public function setTest(ProductTest $test)
-    {
-        $this->test = $test;
-    }
-
     public function getModel()
     {
         return $this->model;
@@ -241,6 +221,27 @@ class Product
     public function getNotices()
     {
         return $this->notices;
+    }
+
+    public function getTests()
+    {
+        return $this->tests;
+    }
+    public function getSpecificGuarantees()
+    {
+        return $this->specificGuarantees;
+    }
+
+    public function setGlobalGuarantee($guarantee)
+    {
+        if(
+            get_class($guarantee, '\AppBundle\Guarantee\ProductGlobal') ||
+            is_null($guarantee)
+        ) $this->globalGuarantee = $guarantee;
+    }
+    public function getGlobalGuarantee()
+    {
+        return $this->globalGuarantee;
     }
 
     /**

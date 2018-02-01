@@ -15,7 +15,7 @@ use AppBundle\Entity\Media\Local;
  * Class Model
  *
  * @ORM\Entity()
- * @ORM\Table(name="local_model")
+ * @ORM\Table(name="media_model_local")
  */
 class Model extends Local
 {

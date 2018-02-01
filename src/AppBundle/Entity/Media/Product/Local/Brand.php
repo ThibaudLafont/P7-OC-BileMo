@@ -12,12 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Media\Local;
 
 /**
- * Class Model
- *
- * @ORM\Entity()
- * @ORM\Table(name="local_brand")
+ * Class Brand
  */
-class Brand extends Local
+class Brand 
 {
 
     /**

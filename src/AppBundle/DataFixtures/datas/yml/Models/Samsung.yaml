@@ -171,13 +171,7 @@ Galaxy Note 2:
             micro_architecture: ARMv7-A
         graphic_chipset: Mali-400 MP4
         ram:
-            size: 2Gb
-<<<<<<< Updated upstream
-            type: unknow
-        releases_colors: [Blanc, Noir]
-        releases_memory_sizes: [16Gb, 32Gb, 64Gb]
-        releases_versions: [I7100, I7101, I7105]
-=======
+            size: 2Gbss
         releases_options:
             colors: [Blanc, Noir]
             memory_sizes: [16Gb, 32Gb, 64Gb]

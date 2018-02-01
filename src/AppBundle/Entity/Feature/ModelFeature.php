@@ -6,9 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ModelFeature
- *
- * @ORM\Table(name="feature_model_feature")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\ModelFeatureRepository")
  */
 class ModelFeature
 {
@@ -80,4 +77,5 @@ class ModelFeature
     {
         return $this->available;
     }
+
 }

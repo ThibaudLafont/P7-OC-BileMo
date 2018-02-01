@@ -76,7 +76,6 @@ class Fixtures extends Fixture
         // First get and parse the yaml file
         $models = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Models.yaml'));
 
-
         foreach($models as $k => $v)
         {
             // Get family if exists, and brand of model
@@ -118,7 +117,7 @@ class Fixtures extends Fixture
                 foreach($fv as $fsk => $fsv)
                 {
                     // Check if spec exists in DDB
-                    $spec = $manager->getRepository('AppBundle:Feature\Feature')
+                    $spec = $manager->getRepository('AppBundle:Feature\Spec')
                         ->findOneBy(['name' => $fsk]);
 
                     // If not, create and persist
