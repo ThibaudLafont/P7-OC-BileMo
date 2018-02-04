@@ -119,4 +119,20 @@ class SpecValue
     {
         $this->model = $model;
     }
+
+    /**
+     * @return \AppBundle\Entity\Product\Model
+     */
+    public function getModel(): \AppBundle\Entity\Product\Model
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Product\Model $model
+     */
+    public function setModel(\AppBundle\Entity\Product\Model $model)
+    {
+        $this->model = $model;
+    }
 }

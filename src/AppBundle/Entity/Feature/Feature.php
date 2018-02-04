@@ -84,6 +84,7 @@ class Feature
     {
         return $this->specificGuarantees;
     }
+  
     /**
      * Get id.
      *

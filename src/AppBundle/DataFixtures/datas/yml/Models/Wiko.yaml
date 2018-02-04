@@ -2,7 +2,7 @@
 
 Rainbow Up 4G:
     brand: Wiko
-    family: generic
+    family: null
     description: Version compatible 4G du modèle Rainbow, téléphone grand public par Wiko.
     constructor_page: https://fr.wikomobile.com/rainbow-up-4g-black/
     release_year: 2015
@@ -15,7 +15,9 @@ Rainbow Up 4G:
         unlock_with:
             fingerprint: false
             camera: false
-        micro_sd: 64Go
+        micro_sd:
+            haveSlot: true
+            maxSize: 64Go
         sim:
             slots_nbr: 2
             format: Micro
@@ -31,40 +33,29 @@ Rainbow Up 4G:
         screen:
             type: LCD IPS
             multipoint: true
-            glass_material: unknow
             size: 5"
             width: 720px
             height: 1280px
             dpi: 294pp
-            luminosity: unknow
-            contrast: unknow
-            model_specific: []
         main_camera:
             sensor_resolution: 8Mpx
-            aperture: unknow
             video_max_quality: 720p@30fps
             flash: LED
             model_specific: [Beauty Face, HDR, Night Shot, Panorama, Sports, Autofocus]
         front_camera:
             sensor_resolution: 5Mpx
-            video_max_quality: unknow
             flash: false
         battery:
             size: 2800mAh
             removable: false
             speak_autonomy: 23h
-            surf_autonomy : unknow
-            video_autonomy: unknow
-            audio_autonomy: unknow
             sleep_autonomy: 451h
         charge:
             connectivity: Micro-A USB
-            max_intensity: unknow
             wireless: false
         system:
             name: Android
             release_version: 5.1
-            still_updated : unknow
         processor:
             name: Cortex-A53
             brand: ARM
@@ -73,9 +64,10 @@ Rainbow Up 4G:
             frequency: 1Ghz
             architecture: 64bits
             micro_architecture: ARMv8-A
-        graphic_chipset: false
+        graphic_chipset:
+            available: false
         ram:
             size: 1Gb
-            type: unknow
-        releases_colors: [Blanc, Noir, Rose, Jaune, Bleu, Rouge, Violet]
-        releases_memory_sizes: [8Gb]
+        release_options:
+            colors: [Blanc, Noir, Rose, Jaune, Bleu, Rouge, Violet]
+            memory_sizes: [8Gb]

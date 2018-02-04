@@ -59,11 +59,10 @@ class Fixtures extends Fixture
 
         }
 
-        // When every brand is persisted, flush content to DB
         $manager->flush();
 
     }
-
+  
     /**
      * Parse and process YAML file for Families persist
      *
@@ -86,12 +85,11 @@ class Fixtures extends Fixture
             $family->setName($k);
             $family->setDescription($v['description']);
             $family->setBrand($brand);
-
             // Persist build object
             $manager->persist($family);
         }
 
-        // When loop is done, flush datas
+        // When loop is done, flush datasr
         $manager->flush();
 
     }
@@ -127,8 +125,7 @@ class Fixtures extends Fixture
                 $brand =  $manager->getRepository('AppBundle:Product\Brand')
                     ->findOneBy(['name' => $v['brand_name']]);
             }
-
-            // Create and hydrate a new Model Object
+          
             $model = new Model();
             $model->setName($k);
             $model->setBrand($brand);
@@ -183,7 +180,7 @@ class Fixtures extends Fixture
         }
 
     }
-
+  
     public function loadProducts(ObjectManager $manager)
     {
         // First get and parse the yaml file
