@@ -1,21 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: thib
- * Date: 1/28/18
- * Time: 8:05 PM
- */
 
-namespace AppBundle\Entity\Media\Product\Local;
+namespace AppBundle\Entity\Media\Local;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Media\Local;
 
 /**
  * Class Model
  *
  * @ORM\Entity()
- * @ORM\Table(name="local_model")
+ * @ORM\Table(name="pm_media_local")
  */
 class Model extends Local
 {

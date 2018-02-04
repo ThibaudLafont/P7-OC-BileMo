@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Feature
  *
- * @ORM\Table(name="feature_feature")
+ * @ORM\Table(name="f_feature")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\FeatureRepository")
  */
 class Feature
@@ -46,6 +46,26 @@ class Feature
      */
     private $models;
 
+    /**
+     * @var ProductTest
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="Test",
+     *     mappedBy="feature"
+     * )
+     */
+    private $tests;
+
+    /**
+     * @var \AppBundle\Entity\Feature\ProductTest
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
+     *     mappedBy="feature"
+     * )
+     */
+    private $specificGuarantees;
+
     public function getSpecs()
     {
         return $this->specs;
@@ -55,6 +75,16 @@ class Feature
         return $this->models;
     }
 
+    public function getTests()
+    {
+        return $this->tests;
+    }
+
+    public function getSpecificGuarantees()
+    {
+        return $this->specificGuarantees;
+    }
+  
     /**
      * Get id.
      *

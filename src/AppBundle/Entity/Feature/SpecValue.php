@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SpecValue
  *
- * @ORM\Table(name="feature_spec_value")
+ * @ORM\Table(name="ms_value")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\SpecValueRepository")
  */
 class SpecValue
@@ -92,7 +92,32 @@ class SpecValue
      */
     public function getValue()
     {
-        return $this->value;
+        // Store value in var
+        $value = $this->value;
+
+        // Check if value is serialized
+        if(unserialize($value)) $value = unserialize($value);
+        // Check if value is boolean
+        if($value === "true") $value = true;
+        if($value === "false") $value = false;
+
+        return $value;
+    }
+
+    /**
+     * @return \AppBundle\Entity\Product\Model
+     */
+    public function getModel(): \AppBundle\Entity\Product\Model
+    {
+        return $this->model;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Product\Model $model
+     */
+    public function setModel(\AppBundle\Entity\Product\Model $model)
+    {
+        $this->model = $model;
     }
 
     /**

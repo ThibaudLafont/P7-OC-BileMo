@@ -2,12 +2,13 @@
 
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Brand
  *
- * @ORM\Table(name="product_brand")
+ * @ORM\Table(name="p_brand")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\BrandRepository")
  */
 class Brand
@@ -43,26 +44,6 @@ class Brand
     private $websiteUrl;
 
     /**
-     * @var \AppBundle\Entity\Media\Product\Distant\Brand
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Product\Distant\Brand",
-     *     mappedBy="brand"
-     * )
-     */
-    private $distantMedias;
-
-    /**
-     * @var \AppBundle\Entity\Media\Product\Local\Brand
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Product\Local\Brand",
-     *     mappedBy="brand"
-     * )
-     */
-    private $localMedias;
-
-    /**
      * @var Family
      *
      * @ORM\OneToMany(
@@ -82,14 +63,7 @@ class Brand
      */
     private $models;
 
-    public function getLocalMedias()
-    {
-        return $this->localMedias;
-    }
-    public function getDistantMedias()
-    {
-        return $this->distantMedias;
-    }
+    use Hydrate;
 
     public function getFamilies()
     {

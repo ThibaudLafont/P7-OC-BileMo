@@ -170,8 +170,82 @@ Galaxy Note 2:
         graphic_chipset:
             name: Mali-400 MP4
         ram:
-            size: 2Gb
+            size: 2Gbss
         releases_options:
             colors: [Blanc, Noir]
             memory_sizes: [16Gb, 32Gb, 64Gb]
             versions: [I7100, I7101, I7105]
+
+# Wiko models
+
+Rainbow Up 4G:
+    brand: Wiko
+    family: null
+    description: Version compatible 4G du modèle Rainbow, téléphone grand public par Wiko.
+    constructor_page: https://fr.wikomobile.com/rainbow-up-4g-black/
+    release_year: 2015
+    features:
+        physic:
+            width: 71.1mm
+            height: 143mm
+            depth: 8.35mm
+            weigth: 128g
+        unlock_with:
+            fingerprint: false
+            camera: false
+        micro_sd:
+            haveSlot: true
+            maxSize: 64Go
+        sim:
+            slots_nbr: 2
+            format: Micro
+        networks:
+            2g: true
+            3g: true
+            lte: true
+            lte+: false
+            nfc: false
+            wifi: 802.11a/b/g/n
+        bluetooth:
+            version: 4.0
+        screen:
+            type: LCD IPS
+            multipoint: true
+            size: 5"
+            width: 720px
+            height: 1280px
+            dpi: 294pp
+        main_camera:
+            sensor_resolution: 8Mpx
+            video_max_quality: 720p@30fps
+            flash: LED
+            model_specific: [Beauty Face, HDR, Night Shot, Panorama, Sports, Autofocus]
+        front_camera:
+            sensor_resolution: 5Mpx
+            flash: false
+        battery:
+            size: 2800mAh
+            removable: false
+            speak_autonomy: 23h
+            sleep_autonomy: 451h
+        charge:
+            connectivity: Micro-A USB
+            wireless: false
+        system:
+            name: Android
+            release_version: 5.1
+        processor:
+            name: Cortex-A53
+            brand: ARM
+            contructor: ARM
+            cores_number: 4
+            frequency: 1Ghz
+            architecture: 64bits
+            micro_architecture: ARMv8-A
+        graphic_chipset:
+            available: false
+        ram:
+            size: 1Gb
+        release_options:
+            colors: [Blanc, Noir, Rose, Jaune, Bleu, Rouge, Violet]
+            memory_sizes: [8Gb]

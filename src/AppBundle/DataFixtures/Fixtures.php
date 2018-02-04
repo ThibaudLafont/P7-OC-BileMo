@@ -4,11 +4,17 @@ namespace AppBundle\DataFixtures;
 
 use AppBundle\Entity\Feature\Feature;
 use AppBundle\Entity\Feature\ModelFeature;
+use AppBundle\Entity\Feature\ProductTest;
 use AppBundle\Entity\Feature\Spec;
 use AppBundle\Entity\Feature\SpecValue;
+use AppBundle\Entity\Feature\Test;
+use AppBundle\Entity\Guarantee\ProductGlobal;
+use AppBundle\Entity\Guarantee\ProductSpecific;
 use AppBundle\Entity\Product\Brand;
 use AppBundle\Entity\Product\Family;
 use AppBundle\Entity\Product\Model;
+use AppBundle\Entity\Product\Notice;
+use AppBundle\Entity\Product\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Yaml\Yaml;
@@ -17,7 +23,7 @@ class Fixtures extends Fixture
 {
 
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures by calling load methods
      *
      * @param ObjectManager $manager
      */
@@ -26,85 +32,118 @@ class Fixtures extends Fixture
         $this->loadBrands($manager);
         $this->loadFamilies($manager);
         $this->loadModels($manager);
+        $this->loadProducts($manager);
     }
 
+    /**
+     * Parse and process YAML file to persist phone brands
+     *
+     * @param ObjectManager $manager
+     */
     public function loadBrands(ObjectManager $manager)
     {
         // First get and parse the yaml file
         $brands = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Brand.yaml'));
+
+        // Loop on every index found
         foreach($brands as $k => $v)
         {
+
+            // Create new Brand object
             $brand = new Brand();
+            // Hydrate object with founded datas
             $brand->setName($k);
-            $brand->setDescription($v['description']);
-            $brand->setWebsiteUrl($v['website_url']);
+            $brand->hydrate($v);
+            // Then persist the build entity
             $manager->persist($brand);
+
         }
 
         $manager->flush();
 
     }
-
+  
+    /**
+     * Parse and process YAML file for Families persist
+     *
+     * @param ObjectManager $manager
+     */
     public function loadFamilies(ObjectManager $manager)
     {
 
         // First get and parse the yaml file
         $families = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Family.yaml'));
+
+        // Loop on every family
         foreach($families as $k => $v)
         {
+            // With brand_name, find the object in DB
             $brand = $manager->getRepository('AppBundle:Product\Brand')->findOneBy(['name' => $v['brand']]);
+
+            // Create and hydrate a new Family Object
             $family = new Family();
             $family->setName($k);
             $family->setDescription($v['description']);
             $family->setBrand($brand);
-
+            // Persist build object
             $manager->persist($family);
         }
 
+        // When loop is done, flush datasr
         $manager->flush();
 
     }
 
+    /**
+     * Parse and process YAML file for Families persist
+     *
+     * @param ObjectManager $manager
+     */
     public function loadModels(ObjectManager $manager)
     {
 
         // First get and parse the yaml file
-        $models = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Models/Apple.yaml'));
+        $models = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Models.yaml'));
 
+        // Loop en every entry of yaml
         foreach($models as $k => $v)
         {
-            // Get family if exists, and brand of model
-            if($v['family'] !== null)
+            // If the model has a family
+            if($v['family_name'] !== null)
             {
+                // Get family object in DB from given name
                 $family = $manager->getRepository('AppBundle:Product\Family')
-                    ->findOneBy(['name' => $v['family']]);
+                    ->findOneBy(['name' => $v['family_name']]);
+                // Get and store brand from family
                 $brand = $family->getBrand();
-            }else{
-                $family = $v['family'];
-                $brand =  $manager->getRepository('AppBundle:Product\Brand')
-                    ->findOneBy(['name' => $v['brand']]);
             }
-
+            // If model doesn't have a family
+            else{
+                // Set null as family
+                $family = $v['family_name'];
+                // Get the Brand Object from given name
+                $brand =  $manager->getRepository('AppBundle:Product\Brand')
+                    ->findOneBy(['name' => $v['brand_name']]);
+            }
+          
             $model = new Model();
             $model->setName($k);
             $model->setBrand($brand);
             $model->setFamily($family);
-            $model->setDescription($v['description']);
-            $model->setConstructorUrl($v['constructor_page']);
-            $model->setReleaseYear($v['release_year']);
+            $model->hydrate($v);
 
+            // Loop on every feature given for this model
             foreach($v['features'] as $fk => $fv)
             {
-                // Check if feature is in DDB
+                // Check if feature is already in DDB
                 $feature = $manager->getRepository('AppBundle:Feature\Feature')
                     ->findOneBy(['name' => $fk]);
 
-                // If not create and persist it
+                // If not knowed, create and persist it
                 if(is_null($feature))
                 {
                     $feature = new Feature();
                     $feature->setName($fk);
-
                     $manager->persist($feature);
                 }
 
@@ -112,7 +151,7 @@ class Fixtures extends Fixture
                 foreach($fv as $fsk => $fsv)
                 {
                     // Check if spec exists in DDB
-                    $spec = $manager->getRepository('AppBundle:Feature\Feature')
+                    $spec = $manager->getRepository('AppBundle:Feature\Spec')
                         ->findOneBy(['name' => $fsk]);
 
                     // If not, create and persist
@@ -120,7 +159,6 @@ class Fixtures extends Fixture
                         $spec = new Spec();
                         $spec->setName($fsk);
                         $spec->setFeature($feature);
-
                         $manager->persist($spec);
                     }
 
@@ -130,13 +168,107 @@ class Fixtures extends Fixture
                     $specValue->setModel($model);
                     $specValue->setValue($fsv);
 
+                    // Finally persist the spec value
                     $manager->persist($specValue);
                 }
             }
+
+            // One features and specs are stored, persist the model
             $manager->persist($model);
 
             $manager->flush();
         }
 
+    }
+  
+    public function loadProducts(ObjectManager $manager)
+    {
+        // First get and parse the yaml file
+        $products = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Products.yaml'));
+
+        // Loop on every index
+        foreach($products as $k => $v)
+        {
+
+            // Find the Model Object from given name
+            $model = $manager->getRepository('AppBundle:Product\Model')
+                ->findOneBy(['name' => $v['model_name']]);
+
+            // Create a new product and assign first datas
+            $product = new Product();
+            $product->setName($k);
+            $product->setModel($model);
+            $product->hydrate($v);
+
+            // If Notices are given, loop assign and persist them
+            if(isset($v['notices']))
+            {
+                foreach($v['notices'] as $nk => $nv)
+                {
+                    // Create, hydrate and persist new Notice Object
+                    $notice = new Notice();
+                    $notice->setType($nk);
+                    $notice->setProduct($product);
+                    $notice->setContent($nv);
+                    $manager->persist($notice);
+                }
+            }
+
+            // If Tests are given, loop assign and persist them
+            if(isset($v['tests']))
+            {
+                foreach($v['tests'] as $tk => $tv)
+                {
+                    // Get related feature in DB
+                    $feature = $manager->getRepository('AppBundle:Feature\Feature')
+                        ->findOneBy(['name' => $tk]);
+
+                    // Create, hydrate and persist new Test Object
+                    $test = new Test();
+                    $test->setProduct($product);
+                    $test->setFeature($feature);
+                    $test->hydrate($tv);
+                    $manager->persist($test);
+                }
+            }
+
+            // If Guarantees are given, loop assign and persist them
+            if(isset($v['guarantees']))
+            {
+                foreach($v['guarantees'] as $gk => $gv)
+                {
+                    // Check if guarantee is link to product or feature
+                    if($gk === 'global'){
+                        // If ProductGuarantee, create new Object
+                        $guarantee = new ProductGlobal();
+                    }else{
+                        // If FeatureGuarantee, first find related feature
+                        $feature = $manager->getRepository('AppBundle:Feature\Feature')
+                            ->findOneBy(['name' => $gk]);
+                        // Then create & hydrate ProductSpecific Object
+                        $guarantee = new ProductSpecific();
+                        $guarantee->setFeature($feature);
+                        $guarantee->setProduct($product);
+                    }
+
+                    // Then hydrate guarantee whatever it's type
+                    $guarantee->hydrate($gv);
+
+                    // If is GlobalGuarantee, link product to it
+                    if($gk === 'global'){
+                        $product->setGlobalGuarantee($guarantee);
+                    }
+
+                    // Persist the guarantee
+                    $manager->persist($guarantee);
+                }
+            }
+
+            // Persist product at end of loop
+            $manager->persist($product);
+        }
+
+        // Flush all persisted datas
+        $manager->flush();
     }
 }

@@ -1,87 +1,87 @@
-1:
-    title: Iphone 6s seconde main
-    model: Iphone 6s
+Iphone 6s seconde main:
+    model_name: Iphone 6s
     description: Très bon état général, micro-rayures au dos de l'appareil.
     price: 200
     condition: used
     state: good
+    available: true
     history: A appartenu à un particulier. Pas de trace de réparation.
     IMEI: 123456789012347
-    memorySize: 32
+    memorySizeInGb: 32
     operatorLock: false
     color: Noir&Ardoise
     systemVersion: 11
     formatted: true
     bootProperly: true
 
-2:
-    title: Iphone X
-    model: Iphone X
+Iphone X neuf:
+    model_name: Iphone X
     description: Appareil neuf avec boite d'origine, encore sous blister
     price: 1400
     condition: new
     state: unused
+    available: true
     history: null
     IMEI: 123456789012348
-    memorySize: 256
+    memorySizeInGb: 256
     operatorLock: false
     color: Noir&Ardoise
     systemVersion: 11
     formatted: true
     bootProperly: true
 
-3:
-    title: Iphone 5
-    model: Iphone 5
+Iphone 5 accidenté:
+    model_name: Iphone 5
     description: Appareil abimé avec écran cassé et caméra avant HS
     price: 80
-    condition: used
+    condition: defective
     state: bad
+    available: true
     history: A chuté mais ne présente pas de traces d'oxydation
     IMEI: 123456789012342
-    memorySize: 16
+    memorySizeInGb: 16
     operatorLock: false
     color: Noir&Ardoise
     systemVersion: 10.3.3
     formatted: false
     bootProperly: true
     notices:
-        1:
-            type: info
-            content: Le téléphone n'a pas été réinitialisé et demande un code de déverouillage, qui ne nous a pas été
-            communiqué
+        info: Le téléphone n'a pas été réinitialisé et demande un code de déverouillage, qui ne nous a pas été
+              communiqué
     tests:
-        camera:
-            condition: clean
-            status: not_working
+        main_camera:
+            phyDamage: false
+            isWorking: false
             message: La lentille ne présente pas de rayure ou de cassure et le hublot de protection n'est pas abimé. L'écran
-            reste noir au lancement de l'application appareil photo
+              reste noir au lancement de l'application appareil photo
         screen:
-            condition: damaged
-            status: working
+            phyDamage: true
+            isWorking: true
             message: L'écran présente plusieurs fissures profondes qui parcourent tout l'écran, pas de dégats au niveau du LCD
     guarantees:
-        general:
-            isGuaranteed: true
+        global:
+            guaranteed: true
             lengthInMonth: 0.25
-            message: Le téléphone est garanti une semaine après réception à cause de son état.
-        camera:
-            isGuaranteed: false
+            message: Cette garantie couvre les pièces non mentionnées ci-après
+        main_camera:
+            guaranteed: false
+            lengthInMonth: 0
             message: Caméra HS
         screen:
-            isGuaranteed: false
+            guaranteed: false
+            lengthInMonth: 0
             message: Écran fissuré
 
-4:
-    title: Iphone 5
-    model: Iphone 5
-    description: Appareil abimé avec écran cassé et caméra avant HS
+Iphone 5 reconditionné:
+    model_name: Iphone 5
+    description: Comme neuf, reconditionné par l'atelier BileMo
     price: 140
-    condition: refurbish
+    condition: refurb
     state: like_new
-    history: Téléphone reconditionné à neuf dans nos locaux, aucun défault à signaler
+    available: true
+    history: Reconditionné à neuf dans nos locaux, aucun d'historique
     IMEI: 123456789012342
-    memorySize: 64
+    memorySizeInGb: 64
     operatorLock: true
     color: Argent
     systemVersion: 10.3.3
@@ -89,57 +89,57 @@
     bootProperly: true
 
 
-5:
+Galaxy S4 sous blister:
     title: Galaxy S4
-    model: Galaxy S4
+    model_name: Galaxy S4 I9505
     description: Appareil neuf avec boite d'origine, encore sous blister
     price: 200
     condition: new
     state: unused
+    available: true
     history: null
     IMEI: 123456789112348
-    memorySize: 32
+    memorySizeInGb: 32
     operatorLock: false
     color: Noir
     systemVersion: 5.0.1
     formatted: true
     bootProperly: true
 
-6:
+GS4 reconditionné à neuf:
     title: Galaxy S4
-    model: Galaxy S4
-    description: Appareil reconditionné à neuf 
+    model_name: Galaxy S4 I9505
+    description: Appareil reconditionné à neuf
     price: 170
-    condition: new
-    state: unused
-    history: Un particulier a bénéficié d'une offre de reprise pour ce téléphone dont le LCD était HS. 
+    condition: refurb
+    state: like_new
+    available: true
+    history: Un particulier a bénéficié d'une offre de reprise pour ce téléphone dont le LCD était HS.
     IMEI: 128556789112348
-    memorySize: 16
+    memorySizeInGb: 16
     operatorLock: false
     color: Blanc
     systemVersion: 4.4
     formatted: true
     bootProperly: true
 
-7:
+Galaxy Note 2 pour pièces:
     title: Galaxy Note 2 non fonctionnel
-    model: Galaxy Note 2
-    description: null
+    model_name: Galaxy Note 2
+    description: Téléphone oxydé non testé, état esthétique parfait
     price: 200
-    condition: new
-    state: unused
-    history: Téléphone professionnel acheté à une assurance
+    condition: defective
+    state: like_new
+    available: true
+    history: Téléphone professionnel racheté à une assurance, a subi un sinistre
     IMEI: 123456789112348
-    memorySize: 32
+    memorySizeInGb: 32
     operatorLock: false
     color: Noir
     systemVersion: 5.0.1
-    formatted: true
-    bootProperly: true
-    notices: 
-        1:
-            type: info
-            message: Aucune désoxydation n'a été effectuée
-        2: 
-            type: alert
-            message: Téléphone oxydé
+    formatted: null
+    bootProperly: null
+    notices:
+        alert: Téléphone oxydé
+        info: Aucune désoxydation n'a été effectuée, mais le téléphone a été placé non-démonté dans de la silice
+          durant 3 jours. BileMo n'a pas tenté de redémarrer l'appareil

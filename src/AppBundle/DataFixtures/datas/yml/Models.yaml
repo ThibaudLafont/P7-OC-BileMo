@@ -1,0 +1,581 @@
+# Apple models
+
+Iphone 5:
+    brand_name: Apple
+    family_name: Iphone
+    description: Apple lance la commercialisation de ce modèle en 2012. C'est le premier Iphone qui propose une connexion
+      au réseau 4G, m�me si les fréquences utilisées à son lancement n'assuraient pas de compatibilité avec les réseaux mobiles
+      français. Le problème a depuis été résolu.
+    constructorUrl: https://www.apple.com/fr/newsroom/2012/09/12Apple-Introduces-iPhone-5/
+    releaseYear: 2012
+    medias:
+        local:
+            1:
+              name: iphone5_black.jpg
+              alt: Iphone 5 coloris Noir&Ardoise
+            2:
+              name: iphone5_white.jpg
+              alt: Iphone 5 coloris Blanc&Argenté
+    features:
+        physic:
+            width: 123.8mm
+            height: 58.6mm
+            depth: 7.6mm
+            weigth: 112g
+        unlock_with:
+            fingerprint: false
+            camera: false
+        micro_sd:
+            haveSlot: false
+        sim:
+            slots_nbr: 1
+            format: nano
+        networks:
+            2g: true
+            3g: true
+            lte: true
+            nfc: false
+            wifi: 802.11a/b/g/n
+        bluetooth:
+            version: 4.0
+        localisation:
+            technologies: [GPS (A-GPS), GLONASS, Boussole numérique, Plans Apple, Réseau cellulaire, Wi-Fi]
+        screen:
+            type: Retina
+            multipoint: true
+            glass_material: Gorilla Glass
+            size: 4"
+            width: 640px
+            height: 1136px
+            dpi: 326pp
+            luminosity: 550cd/m2
+            contrast: 800:1
+            model_specific: [Rev�tement oléophobe]
+        main_camera:
+            sensor_resolution: 8Mpx
+            aperture: f/2.2
+            video_max_quality: 1080p@30fps
+            flash: LED
+            soft_features: [Focus au toucher de la zone, tag de géolocalisation, panoramas, HDR]
+        front_camera:
+            sensor_resolution: 1.2Mpx
+            video_max_quality: 720p@30fps
+            flash: false
+        battery:
+            size: 1440mAh
+            speak_autonomy: 8h en 3G
+            surf_autonomy : 8h en 3G et 10h en Wi-Fi
+            video_autonomy: 10h
+            audio_autonomy: 40h
+            sleep_autonomy: 225h
+        charge:
+            connectivity: Lightning
+            max_intensity: 1A
+        system:
+            name: IOS
+            release_version: 6
+            still_updated : false
+            last_update_version: 10.3.3
+        processor:
+            name: A6
+            brand: Apple
+            contructor: Samsung
+            cores_number: 2
+            frequency: 1.3Ghz
+            architecture: 32bit
+            micro_architecture: ARMv7
+        graphic_chipset:
+            name: PowerVR SGX543
+        ram:
+            size: 1Gb
+            type: DDR2
+        releases_options:
+            colors: [Noir&Ardoise, Blanc&Argenté]
+            memory_sizes: [16Gb, 32Gb, 64Gb]
+            versions:
+                A1428: Modèle GSM uniquement, possède des caractéristiques réseau cellulaire spécifiques ;
+                  UMTS/HSPA+/DC-HSDPA (850, 900, 1700/2100, 1900, 2100 MHz),
+                  GSM/EDGE (850, 900, 1800, 1900 MHz),
+                  LTE (Bands 4 and 17)
+                A1429_CDMA: Une version A1429 GSM existe également, possède des caractéristiques réseau cellulaire spécifiques ;
+                  CDMA EV-DO Rev. A and Rev. B (800, 1900, 2100 MHz),
+                  UMTS/HSPA+/DC-HSDPA (850, 900, 1900, 2100 MHz),
+                  GSM/EDGE (850, 900, 1800, 1900 MHz),
+                  LTE (Bands 1, 3, 5, 13, 25)
+                A1429_GSM : Une version A1429 CDMA existe également, possède des caractéristiques réseau cellulaire spécifiques ;
+                 UMTS/HSPA+/DC-HSDPA (850, 900, 1900, 2100 MHz),
+                 GSM/EDGE (850, 900, 1800, 1900 MHz),
+                 LTE (Bands 1, 3, 5)
+
+Iphone 6s:
+    brand_name: Apple
+    family_name: Iphone
+    description: Version "s" de la neuvième génération Iphone le 6s est un téléphone puissant et polyvalent. Ce modèle a
+      été dévoilé le 9 septembre 2015 lors du "Dis Siri, donne-moi un indice", une conférence Apple qui réunissait plus de 7000
+      personnes. Le 28 septembre 2015, Tim Cook déclarera avoir vendu plus de 13 millions d'appareils durant le week-end de lancement.
+    constructorUrl: https://www.apple.com/fr/iphone/compare/
+    releaseYear: 2015
+    medias:
+        local:
+            1:
+              name: iphone6s_silver_front.png
+              alt: Façade avant Iphone 6s coloris Argenté
+            2:
+              name: iphone6s_silver_back.png
+              alt: Face arrière Iphone 6s coloris Argenté
+            3:
+              name: iphone6s_grey_front.png
+              alt: Façade avant Iphone 6s coloris Gris Sidéral
+            4:
+              name: iphone6s_grey_back.png
+              alt: Face arrière Iphone 6s coloris Gris Sidéral
+    features:
+        physic:
+            width: 67.1mm
+            height: 138.3mm
+            depth: 7.1mm
+            weigth: 143g
+        unlock_with:
+            fingerprint: Touch ID
+            camera: false
+        micro_sd:
+            haveSlot: false
+        sim:
+            slots_nbr: 1
+            format: nano
+        networks:
+            2g: true
+            3g: true
+            lte: true
+            nfc: true
+            wifi: 802.11ac (MIMO)
+        bluetooth:
+            version: 4.2
+        localisation:
+            technologies: [GPS (A-GPS), GLONASS, Galileo, QZSS, Boussole numérique, Réseau cellulaire, Wi-Fi, Microlocalisation iBeacon]
+        screen:
+            type: Retina HD
+            multipoint: true
+            glass_material: Gorilla Glass
+            size: 4.7"
+            width: 750px
+            height: 1334px
+            dpi: 326pp
+            luminosity: 500cd/m2
+            contrast: 1400:1
+            model_specific: [3D Touch, IPS, Rev�tement oléophobe, Pixels à double transistor (augmente l'angle de vision)]
+        main_camera:
+            sensor_resolution: 12Mpx
+            aperture: f/2.2
+            video_max_quality: 4k@30fps
+            flash: True Tone
+            soft_features: [Autofocus via Focus Pixels, HDR automatique, Geo-référencement, Capteur de luminosité]
+        front_camera:
+            sensor_resolution: 5Mpx
+            video_max_quality: 720p@30fps
+            flash: true
+        battery:
+            size: 1715mAh
+            speak_autonomy: 14h en 3G
+            surf_autonomy : 10h en 3G et 4G, 11h en Wi-Fi
+            video_autonomy: 11h
+            audio_autonomy: 50h
+            sleep_autonomy: 10j
+        charge:
+            connectivity: Lightning
+            max_intensity: 1A
+        system:
+            name: IOS
+            release_version: 9
+            still_updated : true
+        processor:
+            name: A9
+            brand: Apple
+            contructor: Samsung
+            cores_number: 2
+            frequency: 1.85Ghz
+            architecture: 64bits
+            micro_architecture: Twister, compatible ARMv8-A
+        graphic_chipset:
+            name: PowerVR GT-7600
+        ram:
+            size: 2Gb
+            type: LP-DDR4
+        releases_options:
+            colors: [Or rose, Or, Argent, Gris sidéral]
+            memory_sizes: [32Gb, 128Gb]
+            versions:
+                A1633: Caractéristiques du réseau cellulaire spécifiques, partagées avec le modèle A1634 ;
+                  LTE (bandes 1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 18, 19, 20, 25, 26, 27, 28, 29, 30),
+                  TD-LTE (bandes 38, 39, 40, 41), TD-SCDMA 1 900 (F), 2 000 (A),
+                  UMTS/HSPA+/DC-HSDPA (850, 900, 1 700/2 100, 1 900, 2 100 MHz),
+                  CDMA EV-DO Rev. A (800, 1 700/2 100, 1 900, 2 100 MHz),
+                  GSM/EDGE (850, 900, 1 800, 1 900 MHz)
+                A1634: Caractéristiques du réseau cellulaire spécifiques identiques à celles mentionnées pour le modèle A1634.
+                A1687: Caractéristiques du réseau cellulaire spécifiques, partagées avec le modèle A1688 ;
+                  LTE (bandes 1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 18, 19, 20, 25, 26, 27, 28, 29),
+                  TD-LTE (bandes 38, 39, 40, 41),
+                  TD-SCDMA 1 900 (F), 2 000 (A),
+                  CDMA EV-DO Rev. A (800, 1 700/2 100, 1 900, 2 100 MHz),
+                  UMTS/HSPA+/DC-HSDPA (850, 900, 1 700/2 100, 1 900, 2 100 MHz),
+                  GSM/EDGE (850, 900, 1 800, 1 900 MHz)
+                A1688: Caractéristiques du réseau cellulaire spécifiques identiques à celles mentionnées pour le modèle A1687.
+
+
+Iphone X:
+    brand_name: Apple
+    family_name: Iphone
+    description: L'Iphone X (à prononcer Iphone Ten) appartient à la 11e génération des smartphones Apple, au m�me titre
+      que l'Iphone 8. Les deux téléphones ont été présentés au grand public le 12 novembre 2017 lors d'une conférence d'Apple
+      à Cupertino, le lendemain d'une importante fuite d'informations sur le modèle.
+      Le téléphone est le premier de la gamme à offrir un écran "bordless" et le bouton d'accueil physique, une caractéristique
+      emblématique de la marque, est supprimé au profit d'une technologie proche de celle expérimentée avec l'Iphone 7.
+    constructorUrl: https://www.apple.com/fr/iphone/compare/
+    releaseYear: 2017
+    medias:
+        local:
+            1:
+              name: iphoneX_black.jpg
+              alt: Iphone X en coloris Gris Sidéral
+            2:
+              name: iphoneX_white.jpg
+              alt: Iphone X en coloris Argent
+    features:
+        physic:
+            width: 70.9mm
+            height: 143.6mm
+            depth: 7.7mm
+            weigth: 174g
+        unlock_with:
+            fingerprint: false
+            camera: Face ID
+        micro_sd:
+            haveSlot: false
+        sim:
+            slots_nbr: 1
+            format: nano
+        networks:
+            2g: true
+            3g: true
+            lte: true
+            lte+: true
+            nfc: Avec mode lecteur
+            wifi: 802.11ac (MIMO)
+        bluetooth:
+            version: 5.0
+        localisation:
+            technologies: [GPS (A-GPS), GLONASS, Galileo, QZSS, Réseau cellulaire, Wi-Fi]
+        screen:
+            type: Super Retina HD
+            multipoint: true
+            glass_material: Verre Scratch-Resistant
+            size: 5.8"
+            width: 750px
+            height: 1334px
+            dpi: 326pp
+            luminosity: 500cd/m2
+            contrast: 1400:1
+            model_specific: [3D Touch, True Tone, Rev�tement oléophone, Bordless]
+        main_camera:
+            info: Deux capteurs (Grand Angle et TéléObjectif)
+            sensor_resolution: 12Mpx
+            aperture: f/1.8(GA) et f/2.4(TO)
+            video_max_quality: 4k@30fps
+            flash: True Tone quadri-LED
+            model_specific: [Hublot de protection en saphir, Focus Pixel, Filtre infrarouge, Auto HDR, Double stabilisation optique]
+        front_camera:
+            sensor_resolution: 7Mpx
+            video_max_quality: 1080p@30fps
+            flash: true
+        battery:
+            size: 2716mAh
+            speak_autonomy: 21h
+            surf_autonomy : 12h
+            video_autonomy: 13h
+            audio_autonomy: 60h
+        charge:
+            connectivity: Lightning
+            max_intensity: 1A
+            wireless: true
+        system:
+            name: IOS
+            release_version: 11
+            still_updated : true
+        processor:
+            name: A11 Bionic
+            brand: Apple
+            contructor: TSMC
+            cores_number: 6
+            frequency: 2.39Ghz
+            architecture: 64bits
+            micro_architecture: ARMv8-A
+        ram:
+            size: 3Gb
+        releases_options:
+            colors: [Argent, Gris sidéral]
+            memory_sizes: [64Gb, 256Gb]
+            versions:
+                A1865: Caractéristiques réseaux spécifiques à cette version ;
+                  FDD-LTE (bandes 1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 18, 19, 20, 25, 26, 28, 29, 30, 66),
+                  TD-LTE (bandes 34, 38, 39, 40, 41),
+                  TD-SCDMA 1 900 (F), 2 000 (A),
+                  CDMA EV-DO Rev. A (800, 1 900, 2 100 MHz),
+                  UMTS/HSPA+/DC-HSDPA (850, 900, 1 700/2 100, 1 900, 2 100 MHz),
+                  GSM/EDGE (850, 900, 1 800, 1 900 MHz)
+                A1901: Caractéristiques réseaux spécifiques à cette version ;
+                  FDD-LTE (bandes 1, 2, 3, 4, 5, 7, 8, 12, 13, 17, 18, 19, 20, 25, 26, 28, 29, 30, 66)
+                  TD-LTE (bandes 34, 38, 39, 40, 41)
+                  UMTS/HSPA+/DC-HSDPA (850, 900, 1 700/2 100, 1 900, 2 100 MHz)
+                  GSM/EDGE (850, 900, 1 800, 1 900 MHz)
+
+# Samsung models
+
+Galaxy S4 I9505:
+    brand_name: Samsung
+    family_name: Galaxy S
+    description: Le Galaxy S4 vient agrandir la famille des Galaxy S en 2013 et sera distribué dans 5 pays auprès de plus
+     se 300 opérateurs téléphoniques.
+     Il intègre des technologies inovantes comme un écran Super Amoled Full HD capable
+     de déclencher des actions au survol du doigt, m�me si certaines s'avèrent peu fonctionnelles, le défilement automatique par exemple.
+     C'est un digne successeur du Galaxy S3, dont il reprend d'ailleurs l'esthétique. Il était doté de composants performants de dernière génération
+     comme le Qualcomm SnapDragon S600, processeur le plus puissant à l'époque qu'il est le second à implémenter, après le HTC One.
+    constructorUrl: www.samsung.com/fr/galaxys4/
+    releaseYear: 2013
+    medias:
+        local:
+            1:
+              name: galaxyS4_black.jpg
+              alt: Galaxy S4 coloris noir
+    features:
+        physic:
+            width: 69.8mm
+            height: 163.6mm
+            depth: 7.9mm
+            weigth: 130g
+        unlock_with:
+            fingerprint: false
+            camera: Face Unlock
+        micro_sd:
+            haveSlot: true
+            maxSize: 64Gb
+        sim:
+            slots_nbr: 1
+            format: Micro
+        networks:
+            2g: true
+            3g: true
+            lte: true
+            lte+: false
+            nfc: true
+            wifi: 802.11a/b/g/n/ac
+        bluetooth:
+            version: 4.0
+        localisation:
+            technologies: [GPS (A-GPS), GLONASS, Google Maps, Réseau cellulaire, Wi-Fi]
+        screen:
+            type: Super Amoled Full HD
+            multipoint: true
+            glass_material: Gorilla Glass
+            size: 4.99"
+            width: 1920px
+            height: 1080px
+            dpi: 441pp
+            luminosity: 400cd/m2
+            model_specific: [Détection du survol, mode tactile en cas de gants]
+        main_camera:
+            sensor_resolution: 13Mpx
+            aperture: f/2.2
+            video_max_quality: 1080p@30fps
+            flash: true
+            model_specific: [Tag géographique, Focus au toucher, HDR, Détection des visages]
+        front_camera:
+            sensor_resolution: 2Mpx
+            video_max_quality: 1080p@30fps
+            flash: false
+        battery:
+            size: 2600mAh
+            removable: true
+            speak_autonomy: 17h
+            audio_autonomy: 62h
+            sleep_autonomy: 370h
+        charge:
+            connectivity: Micro-A USB
+            max_intensity: 2A
+            wireless: false
+        system:
+            name: Android
+            release_version: 4.2.2
+            still_updated : false
+            last_version: 5.0.1
+        processor:
+            name: SnapDragon P600
+            brand: Qualcomm
+            contructor: Qualcomm
+            cores_number: 4
+            frequency: 1.9Ghz
+            architecture: 32bits
+            micro_architecture: ARMv7
+        graphic_chipset:
+            name: Qualcomm Adreno 320
+        ram:
+            size: 2Gb
+            type: DDR3
+        releases_options:
+            colors: [Blanc, Noir]
+            memory_sizes: [16Gb, 32Gb]
+            versions: [I9500, I9505, I9506]
+
+Galaxy Note 2:
+    brand_name: Samsung
+    family_name: Galaxy Note
+    description: Appartenant au haut de gamme des phablet Samsung, le Note II est commercialisé en 2012 sous deux versions
+      différentes, l'une supportant la 4G et l'autre non. Le modèle propose une amélioration du SPen, un stylet inovant
+      caractéristique des Note, qui devient sensible à l'intensité de pression avec ce modèle.
+    constructorUrl: Non maintenue
+    releaseYear: 2012
+    features:
+        physic:
+            width: 80.5mm
+            height: 151.1mm
+            depth: 9.4mm
+            weigth: 180g
+        unlock_with:
+            fingerprint: false
+            camera: Face Unlock
+        micro_sd:
+            haveSlot: true
+            maxSize: 64Gb
+        sim:
+            slots_nbr: 1
+            format: Micro
+        networks:
+            2g: true
+            3g: true
+            lte: N7105 only
+            lte+: false
+            nfc: true
+            wifi: 802.11a/b/g/n
+        bluetooth:
+            version: 4.0
+        screen:
+            type: Super Amoled
+            multipoint: true
+            glass_material: Gorilla Glass
+            size: 5.5"
+            width: 720px
+            height: 1280px
+            dpi: 267pp
+            model_specific: [SPen]
+        main_camera:
+            sensor_resolution: 8Mpx
+            aperture: f/2.6
+            video_max_quality: 1080p@30fps
+            flash: true
+            model_specific: [Tag géographique, Focus au toucher, HDR, Détection des visages]
+        front_camera:
+            sensor_resolution: 1.9Mpx
+            flash: false
+        battery:
+            size: 3100mAh
+            removable: true
+            speak_autonomy: 35h
+            sleep_autonomy: 980h
+        charge:
+            connectivity: Micro-A USB
+            max_intensity: 2A
+            wireless: false
+        system:
+            name: Android
+            release_version: 4.1.1
+            still_updated : false
+            last_version: 4.4.2
+        processor:
+            name: Cortex-A9
+            brand: ARM
+            contructor: ARM
+            cores_number: 4
+            frequency: 1.6Ghz
+            architecture: 32bits
+            micro_architecture: ARMv7-A
+        graphic_chipset:
+            name: Mali-400 MP4
+        ram:
+            size: 2Gb
+        releases_options:
+            colors: [Blanc, Noir]
+            memory_sizes: [16Gb, 32Gb, 64Gb]
+            versions: [I7100, I7101, I7105]
+
+# Wiko models
+
+Rainbow Up 4G:
+    brand_name: Wiko
+    family_name: null
+    description: Version compatible 4G du modèle Rainbow, téléphone grand public par Wiko.
+    constructorUrl: https://fr.wikomobile.com/rainbow-up-4g-black/
+    releaseYear: 2015
+    features:
+        physic:
+            width: 71.1mm
+            height: 143mm
+            depth: 8.35mm
+            weigth: 128g
+        unlock_with:
+            fingerprint: false
+            camera: false
+        micro_sd:
+            haveSlot: true
+            maxSize: 64Go
+        sim:
+            slots_nbr: 2
+            format: Micro
+        networks:
+            2g: true
+            3g: true
+            lte: true
+            lte+: false
+            nfc: false
+            wifi: 802.11a/b/g/n
+        bluetooth:
+            version: 4.0
+        screen:
+            type: LCD IPS
+            multipoint: true
+            size: 5"
+            width: 720px
+            height: 1280px
+            dpi: 294pp
+        main_camera:
+            sensor_resolution: 8Mpx
+            video_max_quality: 720p@30fps
+            flash: LED
+            model_specific: [Beauty Face, HDR, Night Shot, Panorama, Sports, Autofocus]
+        front_camera:
+            sensor_resolution: 5Mpx
+            flash: false
+        battery:
+            size: 2800mAh
+            removable: false
+            speak_autonomy: 23h
+            sleep_autonomy: 451h
+        charge:
+            connectivity: Micro-A USB
+            wireless: false
+        system:
+            name: Android
+            release_version: 5.1
+        processor:
+            name: Cortex-A53
+            brand: ARM
+            contructor: ARM
+            cores_number: 4
+            frequency: 1Ghz
+            architecture: 64bits
+            micro_architecture: ARMv8-A
+        graphic_chipset:
+            available: false
+        ram:
+            size: 1Gb
+        release_options:
+            colors: [Blanc, Noir, Rose, Jaune, Bleu, Rouge, Violet]
+            memory_sizes: [8Gb]

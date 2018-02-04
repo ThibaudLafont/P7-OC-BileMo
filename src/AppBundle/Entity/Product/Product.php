@@ -2,12 +2,15 @@
 
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Enumerations\ProductCondition;
+use AppBundle\Entity\Enumerations\ProductState;
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Product
  *
- * @ORM\Table(name="product_product")
+ * @ORM\Table(name="p_product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ProductRepository")
  */
 class Product
@@ -24,9 +27,9 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=55)
+     * @ORM\Column(name="title", type="string", length=55)
      */
-    private $name;
+    private $title;
 
     /**
      * @var string
@@ -50,18 +53,18 @@ class Product
     private $price;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="work_condition", type="integer")
+     * @ORM\Column(name="phy_condition", type="string", length=15)
      */
-    private $workCondition;
+    private $condition;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="sell_state", type="integer")
+     * @ORM\Column(name="state", type="string", length=15)
      */
-    private $sellState;
+    private $state;
 
     /**
      * @var string|null
@@ -92,6 +95,13 @@ class Product
     private $color;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="operator_lock", type="boolean")
+     */
+    private $operatorLock;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="system_version", type="string", length=55)
@@ -101,45 +111,36 @@ class Product
     /**
      * @var bool
      *
-     * @ORM\Column(name="formatted", type="boolean")
+     * @ORM\Column(name="formatted", type="boolean", nullable=true)
      */
     private $formatted;
 
     /**
      * @var bool
      *
-     * @ORM\Column(name="boot_properly", type="boolean")
+     * @ORM\Column(name="boot_properly", type="boolean", nullable=true)
      */
     private $bootProperly;
 
     /**
-     * @var \AppBundle\Entity\Media\Product\Local\Product
+     * @var \AppBundle\Entity\Media\Local\Product
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Product\Local\Product",
+     *     targetEntity="\AppBundle\Entity\Media\Local\Product",
      *     mappedBy="product"
      * )
      */
     private $localMedias;
 
     /**
-     * @var \AppBundle\Entity\Media\Product\Distant\Product
+     * @var \AppBundle\Entity\Media\Distant\Product
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Product\Distant\Product",
+     *     targetEntity="\AppBundle\Entity\Media\Distant\Product",
      *     mappedBy="product"
      * )
      */
     private $distantMedias;
-
-    /**
-     * @var AppBundle\Entity\Feature\ProductTest
-     *
-     * @ORM\ManyToOne(
-     *     targetEntity="AppBundle\Entity\Feature\ProductTest",
-     *     inversedBy="products")
-     */
-    private $test;
 
     /**
      * @var Model
@@ -152,35 +153,57 @@ class Product
     private $model;
 
     /**
-     * @var AppBundle\Entity\Guarantee\ProductGlobal
-     *
-     * @ORM\OneToOne(
-     *     targetEntity="AppBundle\Entity\Guarantee\ProductGlobal"
-     * )
-     */
-    private $globalGuarantee;
-
-    /**
      * @var Notice
      *
      * @ORM\OneToMany(
      *     targetEntity="Notice",
-     *     mappedBy="product"
+     *     mappedBy="product",
+     *     cascade={"persist"}
      * )
      */
     private $notices;
 
+    /**
+     * @var \AppBundle\Entity\Feature\Test
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Feature\Test",
+     *     mappedBy="product"
+     * )
+     */
+    private $tests;
+
+    /**
+     * @var \AppBundle\Entity\Feature\ProductTest
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
+     *     mappedBy="product"
+     * )
+     */
+    private $specificGuarantees;
+
+    /**
+     * @ORM\OneToOne(
+     *  targetEntity="\AppBundle\Entity\Guarantee\ProductGlobal"
+     * )
+     */
+    private $globalGuarantee;
+
     // Condition constants
-    const NEW = 1;
-    const REFURBISH = 2;
-    const USED = 3;
+//    const NEW = 1;
+//    const REFURB = 2;
+//    const USED = 3;
+//    const DEFECTIVE = 3;
 
     // State constants
-    const UNUSED = 4;
-    const LIKE_NEW = 5;
-    const GOOD = 6;
-    const AVERAGE = 7;
-    const BAD = 8;
+//    const UNUSED = 4;
+//    const LIKE_NEW = 5;
+//    const GOOD = 6;
+//    const AVERAGE = 7;
+//    const BAD = 8;
+
+    use Hydrate;
 
     public function getLocalMedias()
     {
@@ -189,15 +212,6 @@ class Product
     public function getDistantMedias()
     {
         return $this->distantMedias;
-    }
-
-    public function getTest()
-    {
-        return $this->test;
-    }
-    public function setTest(ProductTest $test)
-    {
-        $this->test = $test;
     }
 
     public function getModel()
@@ -209,18 +223,27 @@ class Product
         $this->model = $model;
     }
 
-    public function getGlobalGuarantee()
-    {
-        return $this->globalGuarantee;
-    }
-    public function setGlobalGuarantee(ProductGlobal $guarantee)
-    {
-        $this->globalGuarantee = $guarantee;
-    }
-
     public function getNotices()
     {
         return $this->notices;
+    }
+
+    public function getTests()
+    {
+        return $this->tests;
+    }
+    public function getSpecificGuarantees()
+    {
+        return $this->specificGuarantees;
+    }
+
+    public function setGlobalGuarantee($guarantee)
+    {
+        $this->globalGuarantee = $guarantee;
+    }
+    public function getGlobalGuarantee()
+    {
+        return $this->globalGuarantee;
     }
 
     /**
@@ -236,25 +259,25 @@ class Product
     /**
      * Set name.
      *
-     * @param string $name
+     * @param string $title
      *
      * @return Product
      */
-    public function setName($name)
+    public function setName($title)
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get name.
+     * Get title.
      *
      * @return string
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
@@ -330,51 +353,58 @@ class Product
     }
 
     /**
-     * Set workCondition.
+     * Set condition.
      *
-     * @param int $workCondition
-     *
+     * @param String $condition
      * @return Product
      */
-    public function setWorkCondition($workCondition)
+    public function setCondition(String $condition)
     {
-        $this->workCondition = $workCondition;
+        if (!in_array($condition, ProductCondition::getAvailableTypes())) {
+            throw new \InvalidArgumentException("Invalid ProductCondition");
+        }
+
+        $this->condition = $condition;
 
         return $this;
     }
 
     /**
-     * Get workCondition.
+     * Get condition.
      *
      * @return int
      */
-    public function getWorkCondition()
+    public function getCondition()
     {
-        return $this->workCondition;
+        return ProductCondition::getConditionValue($this->condition);
     }
 
     /**
-     * Set sellState.
+     * Set state.
      *
-     * @param int $sellState
+     * @param String $state
      *
      * @return Product
      */
-    public function setSellState($sellState)
+    public function setState(String $state)
     {
-        $this->sellState = $sellState;
+        if (!in_array($state, ProductState::getAvailableTypes())) {
+            throw new \InvalidArgumentException("Invalid ProductState");
+        }
+
+        $this->state = $state;
 
         return $this;
     }
 
     /**
-     * Get sellState.
+     * Get state.
      *
-     * @return int
+     * @return String
      */
-    public function getSellState()
+    public function getState()
     {
-        return $this->sellState;
+        return ProductState::getStateValue($this->state);
     }
 
     /**
@@ -473,6 +503,15 @@ class Product
         return $this->color;
     }
 
+    public function getOperatorLock()
+    {
+        return $this->operatorLock;
+    }
+    public function setOperatorLock(bool $locked)
+    {
+        $this->operatorLock = $locked;
+    }
+
     /**
      * Set systemVersion.
      *
@@ -528,9 +567,9 @@ class Product
      *
      * @return Product
      */
-    public function setBootProperly($bootPropely)
+    public function setBootProperly($bootProperly)
     {
-        $this->bootProperly = $bootPropely;
+        $this->bootProperly = $bootProperly;
 
         return $this;
     }

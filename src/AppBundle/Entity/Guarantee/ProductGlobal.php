@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class ProductGlobal
  *
  * @ORM\Entity()
- * @ORM\Table(name="product_guarantee_global")
+ * @ORM\Table(name="p_global_guarantee")
  */
 class ProductGlobal extends Guarantee
 {

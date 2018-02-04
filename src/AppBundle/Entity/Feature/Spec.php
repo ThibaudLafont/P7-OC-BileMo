@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Spec
  *
- * @ORM\Table(name="feature_spec")
+ * @ORM\Table(name="f_spec")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\SpecRepository")
  */
 class Spec

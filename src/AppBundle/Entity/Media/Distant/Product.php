@@ -1,23 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: thib
- * Date: 1/28/18
- * Time: 8:05 PM
- */
-
-namespace AppBundle\Entity\Media\Product\Local;
+namespace AppBundle\Entity\Media\Distant;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Media\Local;
 
 /**
  * Class Model
  *
  * @ORM\Entity()
- * @ORM\Table(name="local_product")
+ * @ORM\Table(name="p_media_distant")
  */
-class Product extends Local
+class Product extends Distant
 {
 
     /**
@@ -25,7 +17,7 @@ class Product extends Local
      *
      * @ORM\ManyToOne(
      *     targetEntity="\AppBundle\Entity\Product\Product",
-     *     inversedBy="distantMedias")
+     *     inversedBy="localMedias")
      */
     private $product;
 
@@ -37,5 +29,4 @@ class Product extends Local
     {
         $this->product = $product;
     }
-
 }

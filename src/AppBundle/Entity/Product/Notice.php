@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Notice
  *
- * @ORM\Table(name="product_notice")
+ * @ORM\Table(name="p_notice")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\NoticeRepository")
  */
 class Notice
@@ -44,6 +44,10 @@ class Notice
      */
     private $product;
 
+    // Constants
+    const INFO = 1;
+    const ALERT = 2;
+
     public function getProduct()
     {
         return $this->product;
@@ -72,6 +76,12 @@ class Notice
      */
     public function setType($type)
     {
+        if($type === 'info') $type = self::INFO;
+        elseif($type === 'alert') $type = self::ALERT;
+        elseif(
+            !in_array($type, [self::INFO, self::ALERT])
+        ) return false;
+
         $this->type = $type;
 
         return $this;
@@ -84,7 +94,12 @@ class Notice
      */
     public function getType()
     {
-        return $this->type;
+        $type = $this->type;
+
+        if($type === self::INFO) $type = 'Information';
+        elseif($type === self::INFO) $type = 'Alerte';
+
+        return $type;
     }
 
     /**
