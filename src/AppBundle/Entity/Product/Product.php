@@ -2,6 +2,8 @@
 
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Enumerations\ProductCondition;
+use AppBundle\Entity\Enumerations\ProductState;
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -51,16 +53,16 @@ class Product
     private $price;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="phy_condition", type="integer")
+     * @ORM\Column(name="phy_condition", type="string", length=15)
      */
     private $condition;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="state", type="integer")
+     * @ORM\Column(name="state", type="string", length=15)
      */
     private $state;
 
@@ -189,17 +191,17 @@ class Product
     private $globalGuarantee;
 
     // Condition constants
-    const NEW = 1;
-    const REFURB = 2;
-    const USED = 3;
-    const DEFECTIVE = 3;
+//    const NEW = 1;
+//    const REFURB = 2;
+//    const USED = 3;
+//    const DEFECTIVE = 3;
 
     // State constants
-    const UNUSED = 4;
-    const LIKE_NEW = 5;
-    const GOOD = 6;
-    const AVERAGE = 7;
-    const BAD = 8;
+//    const UNUSED = 4;
+//    const LIKE_NEW = 5;
+//    const GOOD = 6;
+//    const AVERAGE = 7;
+//    const BAD = 8;
 
     use Hydrate;
 
@@ -353,20 +355,14 @@ class Product
     /**
      * Set condition.
      *
+     * @param String $condition
      * @return Product
      */
-    public function setCondition($condition)
+    public function setCondition(String $condition)
     {
-        if($condition === 'new') $condition = self::NEW;
-        elseif($condition === 'refurb') $condition = self::REFURB;
-        elseif($condition === 'used') $condition = self::USED;
-        elseif($condition === 'defective') $condition = self::DEFECTIVE;
-        elseif(
-            !in_array(
-                $condition,
-                [self::DEFECTIVE, self::USED, self::REFURB, self::NEW]
-            )
-        ) return false;
+        if (!in_array($condition, ProductCondition::getAvailableTypes())) {
+            throw new \InvalidArgumentException("Invalid ProductCondition");
+        }
 
         $this->condition = $condition;
 
@@ -380,37 +376,21 @@ class Product
      */
     public function getCondition()
     {
-        $condition = $this->condition;
-
-        if($condition === self::NEW) $condition = 'Neuf';
-        elseif($condition === self::REFURB) $condition = 'Reconditionné';
-        elseif($condition === self::USED) $condition = 'Occasion';
-        elseif($condition === self::DEFECTIVE) $condition = 'Défectueux';
-
-        return $condition;
+        return ProductCondition::getConditionValue($this->condition);
     }
 
     /**
      * Set state.
      *
-     * @param int $state
+     * @param String $state
      *
      * @return Product
      */
-    public function setState($state)
+    public function setState(String $state)
     {
-
-        if($state === 'unused') $state = self::UNUSED;
-        elseif($state === 'like_new') $state = self::LIKE_NEW;
-        elseif($state === 'good') $state = self::GOOD;
-        elseif($state === 'average') $state = self::AVERAGE;
-        elseif($state === 'bad') $state = self::BAD;
-        elseif(
-            !in_array(
-                $state,
-                [self::BAD, self::AVERAGE, self::GOOD, self::LIKE_NEW, self::UNUSED]
-            )
-        ) return false;
+        if (!in_array($state, ProductState::getAvailableTypes())) {
+            throw new \InvalidArgumentException("Invalid ProductState");
+        }
 
         $this->state = $state;
 
@@ -420,18 +400,11 @@ class Product
     /**
      * Get state.
      *
-     * @return int
+     * @return String
      */
     public function getState()
     {
-        $state = $this->state;
-        if($state === self::UNUSED) $state = 'Non utilisé';
-        elseif($state === self::LIKE_NEW) $state = 'Comme neuf';
-        elseif($state === self::GOOD) $state = 'Bon';
-        elseif($state === self::AVERAGE) $state = 'Moyen';
-        elseif($state === self::BAD) $state = 'Mauvais';
-
-        return $state;
+        return ProductState::getStateValue($this->state);
     }
 
     /**
