@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\Guarantee;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,6 +40,8 @@ abstract class Guarantee
      * @ORM\Column(name="message", type="text", nullable=true)
      */
     private $message;
+
+    use Hydrate;
 
     /**
      * Get id.

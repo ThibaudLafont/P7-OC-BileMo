@@ -2,12 +2,13 @@
 
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Product
  *
- * @ORM\Table(name="product_product")
+ * @ORM\Table(name="p_product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ProductRepository")
  */
 class Product
@@ -24,9 +25,9 @@ class Product
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=55)
+     * @ORM\Column(name="title", type="string", length=55)
      */
-    private $name;
+    private $title;
 
     /**
      * @var string
@@ -120,20 +121,20 @@ class Product
     private $bootProperly;
 
     /**
-     * @var \AppBundle\Entity\Media\Product\Local\Product
+     * @var \AppBundle\Entity\Media\Local\Product
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Product\Local\Product",
+     *     targetEntity="\AppBundle\Entity\Media\Local\Product",
      *     mappedBy="product"
      * )
      */
     private $localMedias;
 
     /**
-     * @var \AppBundle\Entity\Media\Product\Distant\Product
+     * @var \AppBundle\Entity\Media\Distant\Product
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Product\Distant\Product",
+     *     targetEntity="\AppBundle\Entity\Media\Distant\Product",
      *     mappedBy="product"
      * )
      */
@@ -161,10 +162,10 @@ class Product
     private $notices;
 
     /**
-     * @var \AppBundle\Entity\Feature\ProductTest
+     * @var \AppBundle\Entity\Feature\Test
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Feature\ProductTest",
+     *     targetEntity="\AppBundle\Entity\Feature\Test",
      *     mappedBy="product"
      * )
      */
@@ -200,6 +201,8 @@ class Product
     const AVERAGE = 7;
     const BAD = 8;
 
+    use Hydrate;
+
     public function getLocalMedias()
     {
         return $this->localMedias;
@@ -234,10 +237,7 @@ class Product
 
     public function setGlobalGuarantee($guarantee)
     {
-        if(
-            get_class($guarantee, '\AppBundle\Guarantee\ProductGlobal') ||
-            is_null($guarantee)
-        ) $this->globalGuarantee = $guarantee;
+        $this->globalGuarantee = $guarantee;
     }
     public function getGlobalGuarantee()
     {
@@ -257,25 +257,25 @@ class Product
     /**
      * Set name.
      *
-     * @param string $name
+     * @param string $title
      *
      * @return Product
      */
-    public function setName($name)
+    public function setName($title)
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get name.
+     * Get title.
      *
      * @return string
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**

@@ -3,12 +3,13 @@
 namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Feature\SpecValue;
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Model
  *
- * @ORM\Table(name="product_model")
+ * @ORM\Table(name="p_model")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ModelRepository")
  */
 class Model
@@ -51,20 +52,20 @@ class Model
     private $releaseYear;
 
     /**
-     * @var \AppBundle\Entity\Media\Product\Local\Model
+     * @var \AppBundle\Entity\Media\Local\Model
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Product\Local\Model",
+     *     targetEntity="\AppBundle\Entity\Media\Local\Model",
      *     mappedBy="model"
      * )
      */
     private $localMedias;
 
     /**
-     * @var \AppBundle\Entity\Media\Product\Distant\Model
+     * @var \AppBundle\Entity\Media\Distant\Model
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Product\Distant\Model",
+     *     targetEntity="\AppBundle\Entity\Media\Distant\Model",
      *     mappedBy="model"
      * )
      */
@@ -109,6 +110,8 @@ class Model
      * )
      */
     private $specValue;
+
+    use Hydrate;
 
     public function getSpecValue()
     {

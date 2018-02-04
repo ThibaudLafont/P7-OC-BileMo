@@ -1,13 +1,13 @@
 # Apple models
 
 Iphone 5:
-    brand: Apple
-    family: Iphone
+    brand_name: Apple
+    family_name: Iphone
     description: Apple lance la commercialisation de ce modèle en 2012. C'est le premier Iphone qui propose une connexion
       au réseau 4G, m�me si les fréquences utilisées à son lancement n'assuraient pas de compatibilité avec les réseaux mobiles
       français. Le problème a depuis été résolu.
-    constructor_page: https://www.apple.com/fr/newsroom/2012/09/12Apple-Introduces-iPhone-5/
-    release_year: 2012
+    constructorUrl: https://www.apple.com/fr/newsroom/2012/09/12Apple-Introduces-iPhone-5/
+    releaseYear: 2012
     medias:
         local:
             1:
@@ -108,13 +108,13 @@ Iphone 5:
                  LTE (Bands 1, 3, 5)
 
 Iphone 6s:
-    brand: Apple
-    family: Iphone
+    brand_name: Apple
+    family_name: Iphone
     description: Version "s" de la neuvième génération Iphone le 6s est un téléphone puissant et polyvalent. Ce modèle a
       été dévoilé le 9 septembre 2015 lors du "Dis Siri, donne-moi un indice", une conférence Apple qui réunissait plus de 7000
       personnes. Le 28 septembre 2015, Tim Cook déclarera avoir vendu plus de 13 millions d'appareils durant le week-end de lancement.
-    constructor_page: https://www.apple.com/fr/iphone/compare/
-    release_year: 2015
+    constructorUrl: https://www.apple.com/fr/iphone/compare/
+    releaseYear: 2015
     medias:
         local:
             1:
@@ -223,15 +223,15 @@ Iphone 6s:
 
 
 Iphone X:
-    brand: Apple
-    family: Iphone
+    brand_name: Apple
+    family_name: Iphone
     description: L'Iphone X (à prononcer Iphone Ten) appartient à la 11e génération des smartphones Apple, au m�me titre
       que l'Iphone 8. Les deux téléphones ont été présentés au grand public le 12 novembre 2017 lors d'une conférence d'Apple
       à Cupertino, le lendemain d'une importante fuite d'informations sur le modèle.
       Le téléphone est le premier de la gamme à offrir un écran "bordless" et le bouton d'accueil physique, une caractéristique
       emblématique de la marque, est supprimé au profit d'une technologie proche de celle expérimentée avec l'Iphone 7.
-    constructor_page: https://www.apple.com/fr/iphone/compare/
-    release_year: 2017
+    constructorUrl: https://www.apple.com/fr/iphone/compare/
+    releaseYear: 2017
     medias:
         local:
             1:
@@ -331,16 +331,16 @@ Iphone X:
 # Samsung models
 
 Galaxy S4 I9505:
-    brand: Samsung
-    family: Galaxy S
+    brand_name: Samsung
+    family_name: Galaxy S
     description: Le Galaxy S4 vient agrandir la famille des Galaxy S en 2013 et sera distribué dans 5 pays auprès de plus
      se 300 opérateurs téléphoniques.
      Il intègre des technologies inovantes comme un écran Super Amoled Full HD capable
      de déclencher des actions au survol du doigt, m�me si certaines s'avèrent peu fonctionnelles, le défilement automatique par exemple.
      C'est un digne successeur du Galaxy S3, dont il reprend d'ailleurs l'esthétique. Il était doté de composants performants de dernière génération
      comme le Qualcomm SnapDragon S600, processeur le plus puissant à l'époque qu'il est le second à implémenter, après le HTC One.
-    constructor_page: www.samsung.com/fr/galaxys4/
-    release_year: 2013
+    constructorUrl: www.samsung.com/fr/galaxys4/
+    releaseYear: 2013
     medias:
         local:
             1:
@@ -426,13 +426,13 @@ Galaxy S4 I9505:
             versions: [I9500, I9505, I9506]
 
 Galaxy Note 2:
-    brand: Samsung
-    family: Galaxy Note
+    brand_name: Samsung
+    family_name: Galaxy Note
     description: Appartenant au haut de gamme des phablet Samsung, le Note II est commercialisé en 2012 sous deux versions
       différentes, l'une supportant la 4G et l'autre non. Le modèle propose une amélioration du SPen, un stylet inovant
       caractéristique des Note, qui devient sensible à l'intensité de pression avec ce modèle.
-    constructor_page: Non maintenue
-    release_year: 2012
+    constructorUrl: Non maintenue
+    releaseYear: 2012
     features:
         physic:
             width: 80.5mm
@@ -509,11 +509,11 @@ Galaxy Note 2:
 # Wiko models
 
 Rainbow Up 4G:
-    brand: Wiko
-    family: null
+    brand_name: Wiko
+    family_name: null
     description: Version compatible 4G du modèle Rainbow, téléphone grand public par Wiko.
-    constructor_page: https://fr.wikomobile.com/rainbow-up-4g-black/
-    release_year: 2015
+    constructorUrl: https://fr.wikomobile.com/rainbow-up-4g-black/
+    releaseYear: 2015
     features:
         physic:
             width: 71.1mm

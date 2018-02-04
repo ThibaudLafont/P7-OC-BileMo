@@ -1,21 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: thib
- * Date: 1/28/18
- * Time: 8:05 PM
- */
-
-namespace AppBundle\Entity\Media\Product\Distant;
+namespace AppBundle\Entity\Media\Distant;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Media\Distant;
 
 /**
  * Class Model
  *
  * @ORM\Entity()
- * @ORM\Table(name="media_product_distant")
+ * @ORM\Table(name="p_media_distant")
  */
 class Product extends Distant
 {

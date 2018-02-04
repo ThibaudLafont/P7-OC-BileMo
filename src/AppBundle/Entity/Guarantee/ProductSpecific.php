@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class ProductSpecific
  *
  * @ORM\Entity()
- * @ORM\Table(name="product_guarantee_specific")
+ * @ORM\Table(name="p_specific_guarantee")
  */
 class ProductSpecific extends Guarantee
 {

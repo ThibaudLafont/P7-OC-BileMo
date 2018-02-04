@@ -1,5 +1,5 @@
 Iphone 6s seconde main:
-    model: Iphone 6s
+    model_name: Iphone 6s
     description: Très bon état général, micro-rayures au dos de l'appareil.
     price: 200
     condition: used
@@ -7,7 +7,7 @@ Iphone 6s seconde main:
     available: true
     history: A appartenu à un particulier. Pas de trace de réparation.
     IMEI: 123456789012347
-    memorySize: 32
+    memorySizeInGb: 32
     operatorLock: false
     color: Noir&Ardoise
     systemVersion: 11
@@ -15,7 +15,7 @@ Iphone 6s seconde main:
     bootProperly: true
 
 Iphone X neuf:
-    model: Iphone X
+    model_name: Iphone X
     description: Appareil neuf avec boite d'origine, encore sous blister
     price: 1400
     condition: new
@@ -23,7 +23,7 @@ Iphone X neuf:
     available: true
     history: null
     IMEI: 123456789012348
-    memorySize: 256
+    memorySizeInGb: 256
     operatorLock: false
     color: Noir&Ardoise
     systemVersion: 11
@@ -31,7 +31,7 @@ Iphone X neuf:
     bootProperly: true
 
 Iphone 5 accidenté:
-    model: Iphone 5
+    model_name: Iphone 5
     description: Appareil abimé avec écran cassé et caméra avant HS
     price: 80
     condition: defective
@@ -39,7 +39,7 @@ Iphone 5 accidenté:
     available: true
     history: A chuté mais ne présente pas de traces d'oxydation
     IMEI: 123456789012342
-    memorySize: 16
+    memorySizeInGb: 16
     operatorLock: false
     color: Noir&Ardoise
     systemVersion: 10.3.3
@@ -59,21 +59,21 @@ Iphone 5 accidenté:
             isWorking: true
             message: L'écran présente plusieurs fissures profondes qui parcourent tout l'écran, pas de dégats au niveau du LCD
     guarantees:
-        physic:
-            isGuaranteed: true
+        global:
+            guaranteed: true
             lengthInMonth: 0.25
-            message: Le téléphone est garanti une semaine après réception à cause de son état.
+            message: Cette garantie couvre les pièces non mentionnées ci-après
         main_camera:
-            isGuaranteed: false
+            guaranteed: false
             lengthInMonth: 0
             message: Caméra HS
         screen:
-            isGuaranteed: false
+            guaranteed: false
             lengthInMonth: 0
             message: Écran fissuré
 
 Iphone 5 reconditionné:
-    model: Iphone 5
+    model_name: Iphone 5
     description: Comme neuf, reconditionné par l'atelier BileMo
     price: 140
     condition: refurb
@@ -81,7 +81,7 @@ Iphone 5 reconditionné:
     available: true
     history: Reconditionné à neuf dans nos locaux, aucun d'historique
     IMEI: 123456789012342
-    memorySize: 64
+    memorySizeInGb: 64
     operatorLock: true
     color: Argent
     systemVersion: 10.3.3
@@ -91,7 +91,7 @@ Iphone 5 reconditionné:
 
 Galaxy S4 sous blister:
     title: Galaxy S4
-    model: Galaxy S4 I9505
+    model_name: Galaxy S4 I9505
     description: Appareil neuf avec boite d'origine, encore sous blister
     price: 200
     condition: new
@@ -99,7 +99,7 @@ Galaxy S4 sous blister:
     available: true
     history: null
     IMEI: 123456789112348
-    memorySize: 32
+    memorySizeInGb: 32
     operatorLock: false
     color: Noir
     systemVersion: 5.0.1
@@ -108,7 +108,7 @@ Galaxy S4 sous blister:
 
 GS4 reconditionné à neuf:
     title: Galaxy S4
-    model: Galaxy S4 I9505
+    model_name: Galaxy S4 I9505
     description: Appareil reconditionné à neuf
     price: 170
     condition: refurb
@@ -116,7 +116,7 @@ GS4 reconditionné à neuf:
     available: true
     history: Un particulier a bénéficié d'une offre de reprise pour ce téléphone dont le LCD était HS.
     IMEI: 128556789112348
-    memorySize: 16
+    memorySizeInGb: 16
     operatorLock: false
     color: Blanc
     systemVersion: 4.4
@@ -125,7 +125,7 @@ GS4 reconditionné à neuf:
 
 Galaxy Note 2 pour pièces:
     title: Galaxy Note 2 non fonctionnel
-    model: Galaxy Note 2
+    model_name: Galaxy Note 2
     description: Téléphone oxydé non testé, état esthétique parfait
     price: 200
     condition: defective
@@ -133,7 +133,7 @@ Galaxy Note 2 pour pièces:
     available: true
     history: Téléphone professionnel racheté à une assurance, a subi un sinistre
     IMEI: 123456789112348
-    memorySize: 32
+    memorySizeInGb: 32
     operatorLock: false
     color: Noir
     systemVersion: 5.0.1

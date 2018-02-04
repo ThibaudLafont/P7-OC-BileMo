@@ -1,17 +1,17 @@
 <?php
-
 namespace AppBundle\Entity\Feature;
 
 use AppBundle\Entity\Product\Product;
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProductTest
+ * Test
  *
- * @ORM\Table(name="product_test")
+ * @ORM\Table(name="fp_test")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\ProductTestRepository")
  */
-class ProductTest
+class Test
 {
     /**
      * @var int
@@ -58,6 +58,8 @@ class ProductTest
      * )
      */
     private $product;
+
+    use Hydrate;
 
     public function getFeature()
     {

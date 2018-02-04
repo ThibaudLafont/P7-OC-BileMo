@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SpecValue
  *
- * @ORM\Table(name="model_spec_value")
+ * @ORM\Table(name="ms_value")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\SpecValueRepository")
  */
 class SpecValue

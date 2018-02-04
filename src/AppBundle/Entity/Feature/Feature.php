@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Feature
  *
- * @ORM\Table(name="feature_feature")
+ * @ORM\Table(name="f_feature")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\FeatureRepository")
  */
 class Feature
@@ -50,7 +50,7 @@ class Feature
      * @var ProductTest
      *
      * @ORM\OneToMany(
-     *     targetEntity="ProductTest",
+     *     targetEntity="Test",
      *     mappedBy="feature"
      * )
      */

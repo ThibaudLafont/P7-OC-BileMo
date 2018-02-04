@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Notice
  *
- * @ORM\Table(name="product_notice")
+ * @ORM\Table(name="p_notice")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\NoticeRepository")
  */
 class Notice
