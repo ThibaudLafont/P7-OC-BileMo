@@ -4,11 +4,34 @@ namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Enumerations\ProductCondition;
 use AppBundle\Entity\Enumerations\ProductState;
+use AppBundle\Entity\Guarantee\ProductGlobal;
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Product
+ *
+ * @ApiResource(
+ *     collectionOperations={
+ *          "list"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"list"}
+ *              }
+ *          }
+ *     },
+ *     itemOperations={
+ *          "product_show"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"product_show"}
+ *              }
+ *          }
+ *     }
+ * )
  *
  * @ORM\Table(name="p_product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ProductRepository")
@@ -18,113 +41,150 @@ class Product
     /**
      * @var int
      *
+     * Doctrine
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * Serialization
+     * @Groups("list")
      */
     private $id;
 
     /**
+     * Main title of product
      * @var string
      *
+     * Doctrine
      * @ORM\Column(name="title", type="string", length=55)
+     *
+     * Serialization
+     * @Groups({"list"})
      */
     private $title;
 
     /**
+     * Main description of product
      * @var string
      *
+     * Doctrine
      * @ORM\Column(name="description", type="text")
      */
     private $description;
 
     /**
+     * Is the product still available
      * @var bool
      *
+     * Doctrine
      * @ORM\Column(name="available", type="boolean")
      */
     private $available;
 
     /**
+     * Price of product
      * @var float
      *
+     * Doctrine
      * @ORM\Column(name="price", type="float")
      */
     private $price;
 
     /**
+     * Physical condition, linked to Enumerations\ProductCondition
      * @var string
      *
+     * Doctrine
      * @ORM\Column(name="phy_condition", type="string", length=15)
      */
     private $condition;
 
     /**
+     * Sell state, liked to Enumerations\ProductState
      * @var string
      *
+     * Doctrine
      * @ORM\Column(name="state", type="string", length=15)
      */
     private $state;
 
     /**
+     * Text about phone historic
      * @var string|null
      *
+     * Doctrine
      * @ORM\Column(name="history", type="text", nullable=true)
      */
     private $history;
 
     /**
+     * IMEI number
      * @var int
      *
+     * Doctrine
      * @ORM\Column(name="imei", type="bigint")
      */
     private $imei;
 
     /**
+     * Memory Size in GigaBytes
      * @var int
      *
+     * Doctrine
      * @ORM\Column(name="memorySizeInGb", type="integer")
      */
     private $memorySizeInGb;
 
     /**
+     * Color of product
      * @var string
      *
+     * Doctrine
      * @ORM\Column(name="color", type="string", length=55)
      */
     private $color;
 
     /**
+     * Is locked by operator
      * @var bool
      *
+     * Doctrine
      * @ORM\Column(name="operator_lock", type="boolean")
      */
     private $operatorLock;
 
     /**
+     * System version
      * @var string
      *
+     * Doctrine
      * @ORM\Column(name="system_version", type="string", length=55)
      */
     private $systemVersion;
 
     /**
+     * Has been formatted
      * @var bool
      *
+     * Doctrine
      * @ORM\Column(name="formatted", type="boolean", nullable=true)
      */
     private $formatted;
 
     /**
+     * Does product boot properly
      * @var bool
      *
+     * Doctrine
      * @ORM\Column(name="boot_properly", type="boolean", nullable=true)
      */
     private $bootProperly;
 
     /**
+     * Local medias
      * @var \AppBundle\Entity\Media\Local\Product
      *
+     * Doctrine
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Media\Local\Product",
      *     mappedBy="product"
@@ -133,8 +193,10 @@ class Product
     private $localMedias;
 
     /**
+     * Distant medias
      * @var \AppBundle\Entity\Media\Distant\Product
      *
+     * Doctrine
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Media\Distant\Product",
      *     mappedBy="product"
@@ -143,8 +205,10 @@ class Product
     private $distantMedias;
 
     /**
+     * Product model
      * @var Model
      *
+     * Doctrine
      * @ORM\ManyToOne(
      *     targetEntity="Model",
      *     inversedBy="products"
@@ -153,8 +217,10 @@ class Product
     private $model;
 
     /**
+     * Notices about product
      * @var Notice
      *
+     * Doctrine
      * @ORM\OneToMany(
      *     targetEntity="Notice",
      *     mappedBy="product",
@@ -164,8 +230,10 @@ class Product
     private $notices;
 
     /**
+     * Features test
      * @var \AppBundle\Entity\Feature\Test
      *
+     * Doctrine
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Feature\Test",
      *     mappedBy="product"
@@ -174,8 +242,10 @@ class Product
     private $tests;
 
     /**
+     * Guarantee linked to specific product feature
      * @var \AppBundle\Entity\Feature\ProductTest
      *
+     * Doctrine
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
      *     mappedBy="product"
@@ -184,66 +254,98 @@ class Product
     private $specificGuarantees;
 
     /**
+     * Global product Guarantee
+     * @var ProductGlobal
+     *
+     * Doctrine
      * @ORM\OneToOne(
      *  targetEntity="\AppBundle\Entity\Guarantee\ProductGlobal"
      * )
      */
     private $globalGuarantee;
 
-    // Condition constants
-//    const NEW = 1;
-//    const REFURB = 2;
-//    const USED = 3;
-//    const DEFECTIVE = 3;
-
-    // State constants
-//    const UNUSED = 4;
-//    const LIKE_NEW = 5;
-//    const GOOD = 6;
-//    const AVERAGE = 7;
-//    const BAD = 8;
-
+    // Traits
     use Hydrate;
 
-    public function getLocalMedias()
-    {
-        return $this->localMedias;
-    }
-    public function getDistantMedias()
-    {
-        return $this->distantMedias;
+
+    /**
+     * @Groups({"product_show"})
+     * @return array
+     */
+    public function getModelAttr(){
+        return [
+            'brand' => $this->getModel()->getBrand()->getName(),
+            'family' => $this->getModel()->getFamily()->getName(),
+            'model' => $this->getModel()->getName()
+        ];
     }
 
-    public function getModel()
-    {
-        return $this->model;
-    }
-    public function setModel(Model $model)
-    {
-        $this->model = $model;
-    }
-
-    public function getNotices()
-    {
-        return $this->notices;
-    }
-
-    public function getTests()
-    {
-        return $this->tests;
-    }
-    public function getSpecificGuarantees()
-    {
-        return $this->specificGuarantees;
+    /**
+     * @Groups({"product_show"})
+     * @return array
+     */
+    public function getGlobalInfos(){
+        return [
+            'title' => $this->getTitle(),
+            'sell_state' => $this->getState(),
+            'physic_state' => $this->getCondition(),
+            'description' => $this->getDescription(),
+            'price' => $this->getPrice(),
+            'available' => $this->getAvailable()
+        ];
     }
 
-    public function setGlobalGuarantee($guarantee)
-    {
-        $this->globalGuarantee = $guarantee;
+    /**
+     * @Groups({"product_show"})
+     * @return array
+     */
+    public function getProductSpecs(){
+        return [
+            'imei' => $this->getImei(),
+            'color' => $this->getColor(),
+            'memory_size' => $this->getMemorySizeInGb(),
+            'system_version' => $this->getSystemVersion(),
+        ];
     }
-    public function getGlobalGuarantee()
-    {
-        return $this->globalGuarantee;
+
+    /**
+     * @Groups({"product_show"})
+     * @return array
+     */
+    public function getProductInfos(){
+        $array = [
+            'history' => $this->getHistory(),
+            'is_formatted' => $this->getFormatted(),
+            'boot_properly' => $this->getBootProperly()
+        ];
+        if($this->getNotices()->count() !== 0){
+            $array['notices'] = [];
+            foreach($this->getNotices() as $v){
+                $array['notices'][] = $v->getProductNotice();
+            }
+        }
+        return $array;
+    }
+
+
+    /**
+     * @Groups({"product_show"})
+     * @return array
+     */
+    public function getProductGuarantees(){
+        $return = null;
+        if($this->getGlobalGuarantee() !== null){
+            $return = [
+                'global_guarantee' => $this->getGlobalGuarantee()->getProductGuarantee()
+            ];
+        }
+        if($this->getSpecificGuarantees()->count() !== 0){
+            $return['feature_guarantee'] = [];
+            foreach($this->getSpecificGuarantees() as $v){
+                $return['feature_guarantee'][] = $v->getProductSpecificGuarantee();
+            }
+        }
+        return $return;
     }
 
     /**
@@ -583,4 +685,95 @@ class Product
     {
         return $this->bootProperly;
     }
+
+    /**
+     * Get localMedias
+     *
+     * @return \AppBundle\Entity\Media\Local\Product
+     */
+    public function getLocalMedias()
+    {
+        return $this->localMedias;
+    }
+
+    /**
+     * Get distantMedias
+     *
+     * @return \AppBundle\Entity\Media\Distant\Product
+     */
+    public function getDistantMedias()
+    {
+        return $this->distantMedias;
+    }
+
+    /**
+     * Get model
+     *
+     * @return model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set model
+     *
+     * @param Model $model
+     */
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+    }
+
+    /**
+     * Get notices
+     *
+     * @return Notice
+     */
+    public function getNotices()
+    {
+        return $this->notices;
+    }
+
+    /**
+     * Get tests
+     *
+     * @return \AppBundle\Entity\Feature\Test
+     */
+    public function getTests()
+    {
+        return $this->tests;
+    }
+
+    /**
+     * Get specificGuarantees
+     *
+     * @return \AppBundle\Entity\Feature\ProductTest
+     */
+    public function getSpecificGuarantees()
+    {
+        return $this->specificGuarantees;
+    }
+
+    /**
+     * Set globalGuarantee
+     *
+     * @param $guarantee
+     */
+    public function setGlobalGuarantee($guarantee)
+    {
+        $this->globalGuarantee = $guarantee;
+    }
+
+    /**
+     * Get globalGuarantee
+     *
+     * @return ProductGlobal
+     */
+    public function getGlobalGuarantee()
+    {
+        return $this->globalGuarantee;
+    }
+
 }

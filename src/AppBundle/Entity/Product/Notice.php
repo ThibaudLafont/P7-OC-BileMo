@@ -3,6 +3,8 @@
 namespace AppBundle\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Notice
@@ -25,6 +27,7 @@ class Notice
      * @var int
      *
      * @ORM\Column(name="type", type="integer")
+     * @Groups("product_show")
      */
     private $type;
 
@@ -32,6 +35,7 @@ class Notice
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     * @Groups("product_show")
      */
     private $content;
 
@@ -47,6 +51,13 @@ class Notice
     // Constants
     const INFO = 1;
     const ALERT = 2;
+
+    public function getProductNotice(){
+        return [
+            'type' => $this->getType(),
+            'message' => $this->getContent()
+        ];
+    }
 
     public function getProduct()
     {

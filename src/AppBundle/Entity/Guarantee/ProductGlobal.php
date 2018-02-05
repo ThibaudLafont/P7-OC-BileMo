@@ -9,6 +9,7 @@
 namespace AppBundle\Entity\Guarantee;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * Class ProductGlobal
@@ -18,4 +19,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ProductGlobal extends Guarantee
 {
+
+    public function getProductGuarantee(){
+        return [
+            'is_guaranteed' => $this->isGuaranteed(),
+            'guarantee_length' => $this->getLengthInMonth(),
+            'message' => $this->getMessage()
+        ];
+    }
+
 }

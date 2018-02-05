@@ -125,7 +125,8 @@ class Fixtures extends Fixture
                 $brand =  $manager->getRepository('AppBundle:Product\Brand')
                     ->findOneBy(['name' => $v['brand_name']]);
             }
-          
+
+            // Create new model object and hydrate
             $model = new Model();
             $model->setName($k);
             $model->setBrand($brand);

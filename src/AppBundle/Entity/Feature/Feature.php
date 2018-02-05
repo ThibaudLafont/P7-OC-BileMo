@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Feature;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Feature
@@ -25,6 +26,7 @@ class Feature
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Groups({"product_show"})
      */
     private $name;
 

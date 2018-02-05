@@ -4,6 +4,8 @@ namespace AppBundle\Entity\Feature;
 use AppBundle\Entity\Product\Product;
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Test
@@ -13,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Test
 {
+
     /**
      * @var int
      *
@@ -26,6 +29,7 @@ class Test
      * @var bool
      *
      * @ORM\Column(name="phy_damager", type="boolean")
+     * @Groups({"product_show"})
      */
     private $phyDamage;
 
@@ -33,6 +37,7 @@ class Test
      * @var bool
      *
      * @ORM\Column(name="is_working", type="boolean")
+     * @Groups({"product_show"})
      */
     private $isWorking;
 
@@ -40,6 +45,7 @@ class Test
      * @var string
      *
      * @ORM\Column(name="message", type="text", nullable=true)
+     * @Groups({"product_show"})
      */
     private $message;
 
@@ -48,6 +54,7 @@ class Test
      *     targetEntity="Feature",
      *     inversedBy="tests"
      * )
+     * @Groups({"product_show"})
      */
     private $feature;
 
