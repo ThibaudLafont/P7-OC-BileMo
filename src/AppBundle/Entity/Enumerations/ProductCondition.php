@@ -8,7 +8,7 @@ class ProductCondition
     const USED = "used";
     const DEFECTIVE = "defective";
 
-    private static $conditionValue = [
+    private static $values = [
         self::NEW => "Neuf",
         self::REFURB => "Reconditionné",
         self::USED => "Occasion",
@@ -17,8 +17,8 @@ class ProductCondition
 
     public static function getValue($conditionType)
     {
-        if(!isset(static::$conditionValue[$conditionType])) return "Unknow condition";
-        else return static::$conditionValue[$conditionType];
+        if(!isset(static::$values[$conditionType])) return "Unknow condition";
+        else return static::$values[$conditionType];
     }
 
     public static function getAvailableTypes(){

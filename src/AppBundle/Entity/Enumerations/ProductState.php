@@ -9,7 +9,7 @@ class ProductState
     const AVERAGE = "average";
     const BAD = "bad";
 
-    private static $stateValue = [
+    private static $values = [
         self::UNUSED => "Jamais utilisé",
         self::LIKE_NEW => "Comme neuf",
         self::GOOD => "Bon",
@@ -18,8 +18,8 @@ class ProductState
     ];
 
     public static function getValue($stateType){
-        if(!isset(static::$stateValue[$stateType])) return "Unknow state type";
-        else return static::$stateValue[$stateType];
+        if(!isset(static::$values[$stateType])) return "Unknow state type";
+        else return static::$values[$stateType];
     }
 
     public static function getAvailableTypes(){

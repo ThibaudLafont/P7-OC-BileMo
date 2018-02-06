@@ -11,8 +11,8 @@ Iphone 6s seconde main:
     operatorLock: false
     color: Noir&Ardoise
     systemVersion: 11
-    formatted: true
-    bootProperly: true
+    formatted: formatted
+    bootProperly: boot_properly
 
 Iphone X neuf:
     model_name: Iphone X
@@ -27,8 +27,8 @@ Iphone X neuf:
     operatorLock: false
     color: Noir&Ardoise
     systemVersion: 11
-    formatted: true
-    bootProperly: true
+    formatted: formatted
+    bootProperly: boot_properly
 
 Iphone 5 accidenté:
     model_name: Iphone 5
@@ -43,8 +43,8 @@ Iphone 5 accidenté:
     operatorLock: false
     color: Noir&Ardoise
     systemVersion: 10.3.3
-    formatted: false
-    bootProperly: true
+    formatted: not_formatted
+    bootProperly: boot_properly
     notices:
         info: Le téléphone n'a pas été réinitialisé et demande un code de déverouillage, qui ne nous a pas été
               communiqué
@@ -85,8 +85,8 @@ Iphone 5 reconditionné:
     operatorLock: true
     color: Argent
     systemVersion: 10.3.3
-    formatted: true
-    bootProperly: true
+    formatted: formatted
+    bootProperly: boot_properly
 
 
 Galaxy S4 sous blister:
@@ -103,8 +103,8 @@ Galaxy S4 sous blister:
     operatorLock: false
     color: Noir
     systemVersion: 5.0.1
-    formatted: true
-    bootProperly: true
+    formatted: formatted
+    bootProperly: boot_properly
 
 GS4 reconditionné à neuf:
     title: Galaxy S4
@@ -120,8 +120,8 @@ GS4 reconditionné à neuf:
     operatorLock: false
     color: Blanc
     systemVersion: 4.4
-    formatted: true
-    bootProperly: true
+    formatted: formatted
+    bootProperly: boot_properly
 
 Galaxy Note 2 pour pièces:
     title: Galaxy Note 2 non fonctionnel
@@ -137,8 +137,8 @@ Galaxy Note 2 pour pièces:
     operatorLock: false
     color: Noir
     systemVersion: 5.0.1
-    formatted: null
-    bootProperly: null
+    formatted: unknow
+    bootProperly: unknow
     notices:
         alert: Téléphone oxydé
         info: Aucune désoxydation n'a été effectuée, mais le téléphone a été placé non-démonté dans de la silice

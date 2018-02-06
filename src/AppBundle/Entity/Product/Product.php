@@ -3,6 +3,8 @@
 namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Enumerations\ProductCondition;
+use AppBundle\Entity\Enumerations\ProductFormatStatus;
+use AppBundle\Entity\Enumerations\ProductSoftStatus;
 use AppBundle\Entity\Enumerations\ProductState;
 use AppBundle\Entity\Guarantee\ProductGlobal;
 use AppBundle\Entity\Traits\Hydrate;
@@ -167,7 +169,7 @@ class Product
      * @var bool
      *
      * Doctrine
-     * @ORM\Column(name="formatted", type="boolean", nullable=true)
+     * @ORM\Column(name="formatted", type="string")
      */
     private $formatted;
 
@@ -176,7 +178,7 @@ class Product
      * @var bool
      *
      * Doctrine
-     * @ORM\Column(name="boot_properly", type="boolean", nullable=true)
+     * @ORM\Column(name="boot_properly", type="string")
      */
     private $bootProperly;
 
@@ -675,12 +677,16 @@ class Product
     /**
      * Set formatted.
      *
-     * @param bool $formatted
+     * @param string $formatted
      *
      * @return Product
      */
     public function setFormatted($formatted)
     {
+        if (!in_array($formatted, ProductFormatStatus::getAvailableTypes())) {
+            throw new \InvalidArgumentException("Invalid ProductFormatStatus");
+        }
+
         $this->formatted = $formatted;
 
         return $this;
@@ -693,19 +699,23 @@ class Product
      */
     public function getFormatted()
     {
-        return $this->formatted;
+        return ProductFormatStatus::getValue($this->formatted);
     }
 
     /**
      * Set bootProperly.
      *
-     * @param bool $bootProperly
+     * @param string $bootStatus
      *
      * @return Product
      */
-    public function setBootProperly($bootProperly)
+    public function setBootProperly($bootStatus)
     {
-        $this->bootProperly = $bootProperly;
+        if (!in_array($bootStatus, ProductSoftStatus::getAvailableTypes())) {
+            throw new \InvalidArgumentException("Invalid ProductSoftStatus");
+        }
+
+        $this->bootProperly = $bootStatus;
 
         return $this;
     }
@@ -717,7 +727,7 @@ class Product
      */
     public function getBootProperly()
     {
-        return $this->bootProperly;
+        return ProductSoftStatus::getValue($this->bootProperly);
     }
 
     /**
