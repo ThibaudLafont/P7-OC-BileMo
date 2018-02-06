@@ -49,13 +49,6 @@ class Notice
      */
     private $product;
 
-    public function productNoticeToArray(){
-        return [
-            'type' => $this->getType(),
-            'message' => $this->getContent()
-        ];
-    }
-
     public function getProduct()
     {
         return $this->product;
