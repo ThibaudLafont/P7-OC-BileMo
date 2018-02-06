@@ -17,7 +17,7 @@ class ProductState
         self::BAD => "Mauvais"
     ];
 
-    public static function getStateValue($stateType){
+    public static function getValue($stateType){
         if(!isset(static::$stateValue[$stateType])) return "Unknow state type";
         else return static::$stateValue[$stateType];
     }

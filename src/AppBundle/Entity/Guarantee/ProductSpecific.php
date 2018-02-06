@@ -38,7 +38,7 @@ class ProductSpecific extends Guarantee
      */
     private $product;
 
-    public function getProductSpecificGuarantee(){
+    public function productSpecificGuaranteeToArray(){
         return [
             'concern' => $this->getFeature()->getName(),
             'is_guaranteed' => $this->isGuaranteed(),

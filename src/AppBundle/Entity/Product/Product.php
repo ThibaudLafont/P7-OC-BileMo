@@ -267,10 +267,12 @@ class Product
     // Traits
     use Hydrate;
 
-
     /**
-     * @Groups({"product_show"})
+     * Return selected datas about brand, model and family in array
      * @return array
+     *
+     * Serialisation
+     * @Groups({"product_show"})
      */
     public function getModelAttr(){
         return [
@@ -281,14 +283,17 @@ class Product
     }
 
     /**
-     * @Groups({"product_show"})
+     * Return main informations about product in array
      * @return array
+     *
+     * Serialisation
+     * @Groups({"product_show"})
      */
     public function getGlobalInfos(){
         return [
             'title' => $this->getTitle(),
-            'sell_state' => $this->getState(),
-            'physic_state' => $this->getCondition(),
+            'sellState' => $this->getState(),
+            'physicState' => $this->getCondition(),
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
             'available' => $this->getAvailable()
@@ -296,8 +301,11 @@ class Product
     }
 
     /**
-     * @Groups({"product_show"})
+     * Return product specific spec values in array
      * @return array
+     *
+     * Serialisation
+     * @Groups({"product_show"})
      */
     public function getProductSpecs(){
         return [
@@ -309,42 +317,68 @@ class Product
     }
 
     /**
-     * @Groups({"product_show"})
+     * Return specific product informations in array
+     * Loop on every Notice for custom display of attributes
      * @return array
+     *
+     * Serialisation
+     * @Groups({"product_show"})
      */
     public function getProductInfos(){
+
+        // Store Product Attributes in Array
         $array = [
             'history' => $this->getHistory(),
             'is_formatted' => $this->getFormatted(),
             'boot_properly' => $this->getBootProperly()
         ];
+
+        // Check if product contain notices
         if($this->getNotices()->count() !== 0){
+            // If does, create new index in Array
             $array['notices'] = [];
+            // Loop on every found notice
             foreach($this->getNotices() as $v){
-                $array['notices'][] = $v->getProductNotice();
+                // Store the infos in created index
+                $array['notices'][] = $v->productNoticeToArray();
             }
         }
+
         return $array;
     }
 
 
     /**
-     * @Groups({"product_show"})
+     * Get Global Guarantee and loop on every feature gurarantee
+     * Return formatted array
      * @return array
+     *
+     * Serialization
+     * @Groups({"product_show"})
      */
     public function getProductGuarantees(){
+        // Init $return to null
         $return = null;
+
+        // Check if Product has GlobalGuarantee
         if($this->getGlobalGuarantee() !== null){
+            // If does, create new index in $return
             $return = [
-                'global_guarantee' => $this->getGlobalGuarantee()->getProductGuarantee()
+                'global_guarantee' => $this->getGlobalGuarantee()->productGlobalGuaranteeToArray()
             ];
         }
+
+        // Check if product contains Feature Guarantees
         if($this->getSpecificGuarantees()->count() !== 0){
+            // If does, create new $return index
             $return['feature_guarantee'] = [];
+            // Then loop on notices
             foreach($this->getSpecificGuarantees() as $v){
-                $return['feature_guarantee'][] = $v->getProductSpecificGuarantee();
+                // Store infos in created index
+                $return['feature_guarantee'][] = $v->productSpecificGuaranteeToArray();
             }
         }
+
         return $return;
     }
 
@@ -478,7 +512,7 @@ class Product
      */
     public function getCondition()
     {
-        return ProductCondition::getConditionValue($this->condition);
+        return ProductCondition::getValue($this->condition);
     }
 
     /**
@@ -506,7 +540,7 @@ class Product
      */
     public function getState()
     {
-        return ProductState::getStateValue($this->state);
+        return ProductState::getValue($this->state);
     }
 
     /**

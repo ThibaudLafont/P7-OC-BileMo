@@ -15,7 +15,7 @@ class ProductCondition
         self::DEFECTIVE => "Défectueux"
     ];
 
-    public static function getConditionValue($conditionType)
+    public static function getValue($conditionType)
     {
         if(!isset(static::$conditionValue[$conditionType])) return "Unknow condition";
         else return static::$conditionValue[$conditionType];

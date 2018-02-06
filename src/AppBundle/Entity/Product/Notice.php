@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Enumerations\NoticeType;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -26,7 +27,7 @@ class Notice
     /**
      * @var int
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\Column(name="type", type="string", length=15)
      * @Groups("product_show")
      */
     private $type;
@@ -48,11 +49,7 @@ class Notice
      */
     private $product;
 
-    // Constants
-    const INFO = 1;
-    const ALERT = 2;
-
-    public function getProductNotice(){
+    public function productNoticeToArray(){
         return [
             'type' => $this->getType(),
             'message' => $this->getContent()
@@ -87,11 +84,9 @@ class Notice
      */
     public function setType($type)
     {
-        if($type === 'info') $type = self::INFO;
-        elseif($type === 'alert') $type = self::ALERT;
-        elseif(
-            !in_array($type, [self::INFO, self::ALERT])
-        ) return false;
+        if (!in_array($type, NoticeType::getAvailableTypes())) {
+            throw new \InvalidArgumentException("Invalid NoticeType");
+        }
 
         $this->type = $type;
 
@@ -105,12 +100,7 @@ class Notice
      */
     public function getType()
     {
-        $type = $this->type;
-
-        if($type === self::INFO) $type = 'Information';
-        elseif($type === self::INFO) $type = 'Alerte';
-
-        return $type;
+        return NoticeType::getValue($this->type);
     }
 
     /**
