@@ -2,13 +2,20 @@
 namespace AppBundle\Serializer\Normalizer;
 
 use AppBundle\Entity\Guarantee\ProductGlobal;
+use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
+use Symfony\Component\Serializer\Exception\ExtraAttributesException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
+use Symfony\Component\Serializer\Exception\RuntimeException;
+use Symfony\Component\Serializer\Exception\UnexpectedValueException;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
-class Product implements NormalizerInterface{
+class Product implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
+{
 
     /**
      * Product Instance witch call the normalizer
@@ -16,6 +23,16 @@ class Product implements NormalizerInterface{
      * @var \AppBundle\Entity\Product\Product
      */
     private $product;
+    private $decorated;
+
+    public function __construct(NormalizerInterface $decorated)
+    {
+        if (!$decorated instanceof DenormalizerInterface) {
+            throw new \InvalidArgumentException(sprintf('The decorated normalizer must implement the %s.', DenormalizerInterface::class));
+        }
+
+        $this->decorated = $decorated;
+    }
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -36,32 +53,44 @@ class Product implements NormalizerInterface{
         // Store Product instance
         $this->setProduct($object);
 
-        // Init $product
-        $product = [];
+        if($this->belongToSerializeGroup('product_show', $context)){
 
-        // Get Product Properties though Normalizer subMethods
-        $product['sell_infos'] = $this->productInfos();
-        $product['state'] = $this->productState();
-        $product['specifications'] = $this->productSpecs();
+            // Init $product
+            $product = $this->decorated->normalize($object, $format, $context);
 
-        // Check if product has notices, store them if it does
-        if($this->shouldDisplayNotices())
-            $product['state']['notices'] = $this->productNotices();
+            // Normalize sell_infos whatever serialization group
+            $product['sell_infos'] = $this->productInfos();
+            $product['state'] = $this->productState();
+            $product['specifications'] = $this->productSpecs();
 
-        // Check if product has a global guarantee, store it if it does
-        if($this->shouldDisplayGlobalGuarantee())
-            $product['guarantee']['global'] = $this->productGlobalGuarantee();
-        // Check if product has a specific guarantees, store them if it does
-        if($this->shouldDisplaySpecificGuarantees())
-            $product['guarantee']['specific'] = $this->productSpecificGuarantees();
+            // Check if product has notices, store them if it does
+            if($this->shouldDisplayNotices())
+                $product['state']['notices'] = $this->productNotices();
+
+            // Check if product has a global guarantee, store it if it does
+            if($this->shouldDisplayGlobalGuarantee())
+                $product['guarantee']['global'] = $this->productGlobalGuarantee();
+            // Check if product has a specific guarantees, store them if it does
+            if($this->shouldDisplaySpecificGuarantees())
+                $product['guarantee']['specific'] = $this->productSpecificGuarantees();
+
+        }elseif($this->belongToSerializeGroup('list', $context)){
+            $product = $this->productInfos();
+        }
 
         // Return dynamic build array
         return $product;
     }
 
+    public function belongToSerializeGroup($group, $context)
+    {
+        return in_array($group, $context['groups']);
+    }
+
     public function productInfos(){
         $product = $this->getProduct();
         return [
+            'id' => $product->getId(),
             'title' => $product->getTitle(),
             'sellState' => $product->getState(),
             'description' => $product->getDescription(),
@@ -173,4 +202,49 @@ class Product implements NormalizerInterface{
         $this->product = $product;
     }
 
+    /**
+     * Sets the owning Denormalizer object.
+     *
+     * @param DenormalizerInterface $denormalizer
+     */
+    public function setDenormalizer(DenormalizerInterface $denormalizer)
+    {
+        return;
+    }
+
+    /**
+     * Denormalizes data back into an object of the given class.
+     *
+     * @param mixed $data Data to restore
+     * @param string $class The expected class to instantiate
+     * @param string $format Format the given data was extracted from
+     * @param array $context Options available to the denormalizer
+     *
+     * @return object
+     *
+     * @throws BadMethodCallException   Occurs when the normalizer is not called in an expected context
+     * @throws InvalidArgumentException Occurs when the arguments are not coherent or not supported
+     * @throws UnexpectedValueException Occurs when the item cannot be hydrated with the given data
+     * @throws ExtraAttributesException Occurs when the item doesn't have attribute to receive given data
+     * @throws LogicException           Occurs when the normalizer is not supposed to denormalize
+     * @throws RuntimeException         Occurs if the class cannot be instantiated
+     */
+    public function denormalize($data, $class, $format = null, array $context = array())
+    {
+        return;
+    }
+
+    /**
+     * Checks whether the given class is supported for denormalization by this normalizer.
+     *
+     * @param mixed $data Data to denormalize from
+     * @param string $type The class to which the data should be denormalized
+     * @param string $format The format being deserialized from
+     *
+     * @return bool
+     */
+    public function supportsDenormalization($data, $type, $format = null)
+    {
+        return;
+    }
 }

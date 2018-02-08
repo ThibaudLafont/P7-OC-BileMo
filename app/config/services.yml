@@ -33,6 +33,7 @@ services:
         decorates: 'api_platform.jsonld.normalizer.item'
         public: false
         tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Product.inner' ]
 
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
