@@ -3,9 +3,39 @@
 namespace AppBundle\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Family
+ *
+ * @ApiResource(
+ *     collectionOperations={
+ *          "family_list"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"family_list"}
+ *              }
+ *          }
+ *     },
+ *     itemOperations={
+ *          "family_show"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"family_show"}
+ *              }
+ *          }
+ *     },
+ *     subresourceOperations={
+ *          "api_brands_families_get_subresource"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"brand_subresource"}
+ *              }
+ *          }
+ *     }
+ * )
  *
  * @ORM\Table(name="p_family")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\FamilyRepository")
@@ -18,6 +48,7 @@ class Family
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"brand_show"})
      */
     private $id;
 
@@ -25,6 +56,8 @@ class Family
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55)
+     *
+     * @Groups({"brand_show"})
      */
     private $name;
 
@@ -40,7 +73,8 @@ class Family
      *
      * @ORM\ManyToOne(
      *     targetEntity="Brand",
-     *     inversedBy="families")
+     *     inversedBy="families"
+     * )
      */
     private $brand;
 
@@ -51,6 +85,7 @@ class Family
      *     targetEntity="Model",
      *     mappedBy="family"
      * )
+     * @Groups({"brand_show"})
      */
     private $models;
 

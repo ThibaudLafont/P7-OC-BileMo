@@ -74,8 +74,10 @@ class Product implements NormalizerInterface, DenormalizerInterface, Denormalize
             if($this->shouldDisplaySpecificGuarantees())
                 $product['guarantee']['specific'] = $this->productSpecificGuarantees();
 
-        }elseif($this->belongToSerializeGroup('list', $context)){
-            $product = $this->productInfos();
+        }elseif($this->belongToSerializeGroup('product_list', $context)){
+            $product = $this->decorated->normalize($object, $format, $context);
+            $product[] = $this->productInfos();
+//            $product['model'] = $this->decorated->normalize($object->getModel(), $format, $context);
         }
 
         // Return dynamic build array

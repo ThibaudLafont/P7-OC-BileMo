@@ -18,10 +18,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ApiResource(
  *     collectionOperations={
- *          "list"={
+ *          "product_list"={
  *              "method"="GET",
  *              "normalization_context"={
- *                  "groups"={"list"}
+ *                  "groups"={"product_list"}
  *              }
  *          }
  *     },
@@ -47,9 +47,6 @@ class Product
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * Serialization
-     * @Groups("list")
      */
     private $id;
 
@@ -59,9 +56,6 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="title", type="string", length=55)
-     *
-     * Serialization
-     * @Groups({"list"})
      */
     private $title;
 

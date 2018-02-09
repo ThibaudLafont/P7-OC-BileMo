@@ -4,9 +4,31 @@ namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Brand
+ *
+ * @ApiResource(
+ *     collectionOperations={
+ *          "brand_list"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"brand_list"}
+ *              }
+ *          }
+ *     },
+ *     itemOperations={
+ *          "brand_show"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"brand_show"}
+ *              }
+ *          }
+ *     }
+ * )
  *
  * @ORM\Table(name="p_brand")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\BrandRepository")
@@ -19,6 +41,8 @@ class Brand
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Groups({"brand_list", "brand_show"})
      */
     private $id;
 
@@ -26,6 +50,7 @@ class Brand
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55, unique=true)
+     * @Groups({"brand_list", "brand_show"})
      */
     private $name;
 
@@ -33,6 +58,7 @@ class Brand
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Groups({"brand_show"})
      */
     private $description;
 
@@ -40,6 +66,7 @@ class Brand
      * @var string|null
      *
      * @ORM\Column(name="website_url", type="string", length=255, nullable=true)
+     * @Groups({"brand_show"})
      */
     private $websiteUrl;
 
@@ -50,6 +77,9 @@ class Brand
      *     targetEntity="Family",
      *     mappedBy="brand"
      * )
+     *
+     * @ApiSubresource
+     * @Groups({"brand_show"})
      */
     private $families;
 
@@ -60,6 +90,8 @@ class Brand
      *     targetEntity="Model",
      *     mappedBy="brand"
      * )
+     *
+     * @ApiSubresource
      */
     private $models;
 

@@ -3,13 +3,14 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  *
  * @ORM\MappedSuperclass()
  */
-abstract class User
+abstract class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -47,6 +48,13 @@ abstract class User
      * @ORM\Column(name="mail_address", type="string", length=255, unique=true)
      */
     private $mailAddress;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $pwd;
 
     /**
      * @var int
@@ -184,5 +192,21 @@ abstract class User
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPwd(): string
+    {
+        return $this->pwd;
+    }
+
+    /**
+     * @param string $pwd
+     */
+    public function setPwd(string $pwd)
+    {
+        $this->pwd = $pwd;
     }
 }

@@ -5,9 +5,31 @@ namespace AppBundle\Entity\Product;
 use AppBundle\Entity\Feature\SpecValue;
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Model
+ *
+ * @ApiResource(
+ *     collectionOperations={
+ *          "model_list"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"model_list"}
+ *              }
+ *          }
+ *     },
+ *     itemOperations={
+ *          "model_show"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"model_show"}
+ *              }
+ *          }
+ *     }
+ * )
  *
  * @ORM\Table(name="p_model")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ModelRepository")
@@ -20,6 +42,8 @@ class Model
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Groups("brand_show")
      */
     private $id;
 
@@ -27,6 +51,8 @@ class Model
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55)
+     *
+     * @Groups("brand_show")
      */
     private $name;
 
@@ -48,6 +74,7 @@ class Model
      * @var int
      *
      * @ORM\Column(name="release_year", type="bigint")
+     * @Groups("model_list")
      */
     private $releaseYear;
 

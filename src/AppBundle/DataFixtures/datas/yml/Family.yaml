@@ -14,3 +14,7 @@ Iphone:
     brand: Apple
     description: Le nom "Iphone" est l'appellation de tous les smartphone Apple, commercialisés depuis 2007. En 2017
       la marque comptabilisait 18 modèles différents, qui restent très appréciés et réputés auprès du grand public.
+
+Rainbow:
+    brand: Wiko
+    description: Phablet phare de Wiko
