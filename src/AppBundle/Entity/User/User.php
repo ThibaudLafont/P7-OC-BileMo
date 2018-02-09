@@ -24,30 +24,9 @@ abstract class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=70)
-     */
-    private $firstName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lastName", type="string", length=155)
-     */
-    private $lastName;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="userName", type="string", length=55, unique=true)
      */
     private $userName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mail_address", type="string", length=255, unique=true)
-     */
-    private $mailAddress;
 
     /**
      * @var string
@@ -57,11 +36,16 @@ abstract class User implements UserInterface, \Serializable
     private $pwd;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="role", type="integer")
+     * @ORM\Column(name="role", type="string", length=20)
      */
     private $role;
+
+    /**
+     * @var string
+     */
+    private $plainPassword;
 
 
     /**
@@ -72,54 +56,6 @@ abstract class User implements UserInterface, \Serializable
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set firstName.
-     *
-     * @param string $firstName
-     *
-     * @return User
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * Get firstName.
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * Set lastName.
-     *
-     * @param string $lastName
-     *
-     * @return User
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Get lastName.
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
     }
 
     /**
@@ -144,30 +80,6 @@ abstract class User implements UserInterface, \Serializable
     public function getUserName()
     {
         return $this->userName;
-    }
-
-    /**
-     * Set mailAddress.
-     *
-     * @param string $mailAddress
-     *
-     * @return User
-     */
-    public function setMailAddress($mailAddress)
-    {
-        $this->mailAddress = $mailAddress;
-
-        return $this;
-    }
-
-    /**
-     * Get mailAddress.
-     *
-     * @return string
-     */
-    public function getMailAddress()
-    {
-        return $this->mailAddress;
     }
 
     /**
@@ -208,5 +120,89 @@ abstract class User implements UserInterface, \Serializable
     public function setPwd(string $pwd)
     {
         $this->pwd = $pwd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * String representation of object
+     * @link http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->getId(),
+            $this->getUserName(),
+            $this->getPwd()
+        ]);
+    }
+
+    /**
+     * Constructs the object
+     * @link http://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->userName,
+            $this->pwd,
+            ) = unserialize($serialized);
+    }
+
+    /**
+     * Returns the password used to authenticate the user.
+     *
+     * This should be the encoded password. On authentication, a plain-text
+     * password will be salted, encoded, and then compared to this value.
+     *
+     * @return string The password
+     */
+    public function getPassword()
+    {
+        return $this->getPwd();
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        $this->setPlainPassword(null);
     }
 }

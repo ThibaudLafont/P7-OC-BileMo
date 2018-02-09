@@ -42,4 +42,12 @@ class Client extends User
     {
         return $this->phoneNumber;
     }
+
+    /**
+     * Returns the roles granted to the user.
+     */
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
 }

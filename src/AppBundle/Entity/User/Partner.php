@@ -33,4 +33,12 @@ class Partner extends User
     {
         $this->department = $department;
     }
+
+    /**
+     * Returns the roles granted to the user.
+     */
+    public function getRoles()
+    {
+        return ['ROLE_ADMIN'];
+    }
 }
