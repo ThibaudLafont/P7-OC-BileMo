@@ -24,23 +24,16 @@ abstract class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="userName", type="string", length=55, unique=true)
+     * @ORM\Column(name="username", type="string", length=55, unique=true)
      */
-    private $userName;
+    private $username;
 
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
-    private $pwd;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=20)
-     */
-    private $role;
+    private $password;
 
     /**
      * @var string
@@ -61,65 +54,41 @@ abstract class User implements UserInterface, \Serializable
     /**
      * Set userName.
      *
-     * @param string $userName
+     * @param string $username
      *
      * @return User
      */
-    public function setUserName($userName)
+    public function setUsername($username)
     {
-        $this->userName = $userName;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get userName.
+     * Get username.
      *
      * @return string
      */
-    public function getUserName()
+    public function getUsername()
     {
-        return $this->userName;
-    }
-
-    /**
-     * Set role.
-     *
-     * @param int $role
-     *
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Get role.
-     *
-     * @return int
-     */
-    public function getRole()
-    {
-        return $this->role;
+        return $this->username;
     }
 
     /**
      * @return string
      */
-    public function getPwd(): string
+    public function getPassword(): string
     {
-        return $this->pwd;
+        return $this->password;
     }
 
     /**
-     * @param string $pwd
+     * @param string $password
      */
-    public function setPwd(string $pwd)
+    public function setPassword(string $password)
     {
-        $this->pwd = $pwd;
+        $this->password = $password;
     }
 
     /**
@@ -149,7 +118,7 @@ abstract class User implements UserInterface, \Serializable
         return serialize([
             $this->getId(),
             $this->getUserName(),
-            $this->getPwd()
+            $this->getPassword()
         ]);
     }
 
@@ -167,21 +136,8 @@ abstract class User implements UserInterface, \Serializable
         list (
             $this->id,
             $this->userName,
-            $this->pwd,
+            $this->password,
             ) = unserialize($serialized);
-    }
-
-    /**
-     * Returns the password used to authenticate the user.
-     *
-     * This should be the encoded password. On authentication, a plain-text
-     * password will be salted, encoded, and then compared to this value.
-     *
-     * @return string The password
-     */
-    public function getPassword()
-    {
-        return $this->getPwd();
     }
 
     /**

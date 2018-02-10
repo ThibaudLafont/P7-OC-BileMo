@@ -1,15 +1,25 @@
 security:
     encoders:
-        AppBundle\Entity\User\User: bcrypt
+        AppBundle\Entity\User\Client: bcrypt
+        AppBundle\Entity\User\Partner: bcrypt
 
     providers:
         in_memory:
             memory: ~
 
         user_provider:
+            chain:
+                providers: [client_provider, partner_provider]
+
+        client_provider:
             entity:
-                class: AppBundle:User\User
-                property: userName
+                class: AppBundle:User\Client
+                property: username
+
+        partner_provider:
+            entity:
+                class: AppBundle:User\Partner
+                property: username
 
     firewalls:
         login:
@@ -19,8 +29,8 @@ security:
             provider: user_provider
             json_login:
                 check_path: /login_check
-                username_path: userName
-                password_path: pwd
+                username_path: username
+                password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
@@ -29,11 +39,12 @@ security:
             security: false
 
         main:
+            pattern:   ^/
             provider: user_provider
-            http_basic: ~
             stateless: true
             anonymous: true
             lexik_jwt: ~
 
     access_control:
-         - { path: ^/models, roles: ROLE_ADMIN }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/brands, role: IS_AUTHENTICATED_FULLY }
