@@ -1,0 +1,25 @@
+# Companies and clients
+
+WeFix:
+    johndoe:
+        firstName: John
+        lastName: Doe
+        mailAddress: johndoe@wefix.com
+        phoneNumber: 0677612526
+    mtremblay:
+        firstName: Marie
+        lastName: Tremblay
+        mailAddress: mtremblay@wefix.com
+        phoneNumber: 0677612528
+
+SOSav:
+    romain:
+        firstName: Romain
+        lastName: Drassier
+        mailAddress: rdrassier@sosav.fr
+        phoneNumber: 0788544986
+    alicia:
+        firstName: Alicia
+        lastName: Gamble
+        mailaddress: alicia@sosav.fr
+        phoneNumber: 0658733694

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\User;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
@@ -43,6 +44,18 @@ class Client extends User
      * @ORM\Column(name="phone_number", type="bigint")
      */
     private $phoneNumber;
+
+    /**
+     * Company of user
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="Company",
+     *     inversedBy="users"
+     * )
+     */
+    private $company;
+
+    use Hydrate;
 
     /**
      * Set firstName.
@@ -140,6 +153,13 @@ class Client extends User
         return $this->phoneNumber;
     }
 
+    public function getCompany()
+    {
+        return $this->company;
+    }
+    public function setCompany(Company $company){
+        $this->company = $company;
+    }
     /**
      * Returns the roles granted to the user.
      */

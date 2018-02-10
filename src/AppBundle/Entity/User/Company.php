@@ -28,6 +28,15 @@ class Company
      */
     private $name;
 
+    /**
+     * Users linked to company
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="Client",
+     *     mappedBy="company"
+     * )
+     */
+    private $users;
 
     /**
      * Get id.
@@ -61,6 +70,10 @@ class Company
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getUsers(){
+        return $this->users;
     }
 
 }

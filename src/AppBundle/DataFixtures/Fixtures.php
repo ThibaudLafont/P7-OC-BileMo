@@ -15,12 +15,22 @@ use AppBundle\Entity\Product\Family;
 use AppBundle\Entity\Product\Model;
 use AppBundle\Entity\Product\Notice;
 use AppBundle\Entity\Product\Product;
+use AppBundle\Entity\User\Client;
+use AppBundle\Entity\User\Company;
+use AppBundle\Entity\User\Partner;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Yaml\Yaml;
-
 class Fixtures extends Fixture
 {
+
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
 
     /**
      * Load data fixtures by calling load methods
@@ -33,6 +43,7 @@ class Fixtures extends Fixture
         $this->loadFamilies($manager);
         $this->loadModels($manager);
         $this->loadProducts($manager);
+        $this->loadUsers($manager);
     }
 
     /**
@@ -271,5 +282,44 @@ class Fixtures extends Fixture
 
         // Flush all persisted datas
         $manager->flush();
+    }
+
+    public function loadUsers(ObjectManager $manager){
+        // First get and parse the yaml file
+        $companies = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Clients.yaml'));
+
+        foreach($companies as $name => $workers)
+        {
+            $company = new Company();
+            $company->setName($name);
+
+            $manager->persist($company);
+
+            foreach($workers as $k => $v)
+            {
+                $user = new Client();
+                $user->setCompany($company);
+                $user->setUsername($k);
+                $user->setPassword(
+                    $this->encoder->encodePassword($user, $k)
+                );
+                $user->hydrate($v);
+
+                $manager->persist($user);
+            }
+        }
+
+        foreach(['jean', 'murielle', 'thib'] as $admin){
+            $user = new Partner();
+            $user->setUsername($admin);
+            $user->setPassword(
+                $this->encoder->encodePassword($user, $admin)
+            );
+
+            $manager->persist($user);
+        }
+
+        $manager->flush();
+
     }
 }
