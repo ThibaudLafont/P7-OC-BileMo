@@ -12,27 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Partner extends User
 {
-    /**
-     * @var String
-     *
-     * @ORM\Column(name="department", type="string", length=255)
-     */
-    private $department;
-
-    /**
-     * @return String
-     */
-    public function getDepartment(): String
-    {
-        return $this->department;
-    }
-    /**
-     * @param String $department
-     */
-    public function setDepartment(String $department)
-    {
-        $this->department = $department;
-    }
 
     /**
      * Returns the roles granted to the user.
@@ -41,4 +20,5 @@ class Partner extends User
     {
         return ['ROLE_ADMIN'];
     }
+
 }

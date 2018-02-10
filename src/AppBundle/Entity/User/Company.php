@@ -28,27 +28,6 @@ class Company
      */
     private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=255)
-     */
-    private $address;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="phoneNumber", type="bigint")
-     */
-    private $phoneNumber;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mail_address", type="string", length=255)
-     */
-    private $mailAddress;
-
 
     /**
      * Get id.
@@ -84,75 +63,4 @@ class Company
         return $this->name;
     }
 
-    /**
-     * Set address.
-     *
-     * @param string $address
-     *
-     * @return Company
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address.
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set phoneNumber.
-     *
-     * @param int $phoneNumber
-     *
-     * @return Company
-     */
-    public function setPhoneNumber($phoneNumber)
-    {
-        $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
-    /**
-     * Get phoneNumber.
-     *
-     * @return int
-     */
-    public function getPhoneNumber()
-    {
-        return $this->phoneNumber;
-    }
-
-    /**
-     * Set mailAddress.
-     *
-     * @param string $mailAddress
-     *
-     * @return Company
-     */
-    public function setMailAddress($mailAddress)
-    {
-        $this->mailAddress = $mailAddress;
-
-        return $this;
-    }
-
-    /**
-     * Get mailAddress.
-     *
-     * @return string
-     */
-    public function getMailAddress()
-    {
-        return $this->mailAddress;
-    }
 }
