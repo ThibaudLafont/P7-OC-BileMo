@@ -8,29 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
  * Client
  *
  * @ORM\Table(name="user_partner")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\User\ClientRepository")
+ * @ORM\Entity
  */
 class Partner extends User
 {
-    /**
-     * @var String
-     *
-     * @ORM\Column(name="department", type="string", length=255)
-     */
-    private $department;
 
     /**
-     * @return String
+     * Returns the roles granted to the user.
      */
-    public function getDepartment(): String
+    public function getRoles()
     {
-        return $this->department;
+        return ['ROLE_ADMIN'];
     }
-    /**
-     * @param String $department
-     */
-    public function setDepartment(String $department)
-    {
-        $this->department = $department;
-    }
+
 }

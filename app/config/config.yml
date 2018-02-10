@@ -90,3 +90,15 @@ api_platform:
         shared_max_age: 3600
         vary: ['Content-Type', 'Authorization']
         public: true
+    swagger:
+         api_keys:
+             apiKey:
+                name: Authorization
+                type: header
+
+lexik_jwt_authentication:
+    private_key_path:    '%kernel.root_dir%/../var/jwt/private.pem'
+    # ssh public key path
+    public_key_path:     '%kernel.root_dir%/../var/jwt/public.pem'
+    # ssh key pass phrase
+    pass_phrase:         'pommepomme'
