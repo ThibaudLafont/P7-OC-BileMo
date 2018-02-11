@@ -177,30 +177,6 @@ class Product
     private $bootProperly;
 
     /**
-     * Local medias
-     * @var \AppBundle\Entity\Media\Local\Product
-     *
-     * Doctrine
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Local\Product",
-     *     mappedBy="product"
-     * )
-     */
-    private $localMedias;
-
-    /**
-     * Distant medias
-     * @var \AppBundle\Entity\Media\Distant\Product
-     *
-     * Doctrine
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Distant\Product",
-     *     mappedBy="product"
-     * )
-     */
-    private $distantMedias;
-
-    /**
      * Product model
      * @var Model
      *
@@ -607,26 +583,6 @@ class Product
     public function getBootProperly()
     {
         return ProductSoftStatus::getValue($this->bootProperly);
-    }
-
-    /**
-     * Get localMedias
-     *
-     * @return \AppBundle\Entity\Media\Local\Product
-     */
-    public function getLocalMedias()
-    {
-        return $this->localMedias;
-    }
-
-    /**
-     * Get distantMedias
-     *
-     * @return \AppBundle\Entity\Media\Distant\Product
-     */
-    public function getDistantMedias()
-    {
-        return $this->distantMedias;
     }
 
     /**

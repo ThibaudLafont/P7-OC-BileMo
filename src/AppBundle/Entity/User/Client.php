@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * Client
+ * Represent an user of a bilemo's client company
  *
  * @ApiResource
  *
@@ -46,7 +47,8 @@ class Client extends User
     private $phoneNumber;
 
     /**
-     * Company of user
+     * Company of this user
+     * @var Company
      *
      * @ORM\ManyToOne(
      *     targetEntity="Company",
@@ -55,7 +57,21 @@ class Client extends User
      */
     private $company;
 
+    // Traits
     use Hydrate;
+
+    // Authorizations
+
+    /**
+     * Returns the roles granted to the user.
+     */
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+
+    // GETTERS / SETTERS
 
     /**
      * Set firstName.
@@ -153,18 +169,23 @@ class Client extends User
         return $this->phoneNumber;
     }
 
+    /**
+     * Get company
+     *
+     * @return Company
+     */
     public function getCompany()
     {
         return $this->company;
     }
+
+    /**
+     * Set company
+     *
+     * @param Company $company
+     */
     public function setCompany(Company $company){
         $this->company = $company;
     }
-    /**
-     * Returns the roles granted to the user.
-     */
-    public function getRoles()
-    {
-        return ['ROLE_USER'];
-    }
+
 }

@@ -26,6 +26,8 @@ class Notice
 
     /**
      * @var int
+     * Type of notice,
+     * Handle by Enumeration\NoticeType
      *
      * @ORM\Column(name="type", type="string", length=15)
      * @Groups("product_show")
@@ -34,11 +36,12 @@ class Notice
 
     /**
      * @var string
+     * Message to display
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="message", type="text")
      * @Groups("product_show")
      */
-    private $content;
+    private $message;
 
     /**
      * @var Product
@@ -48,15 +51,6 @@ class Notice
      *     inversedBy="notices")
      */
     private $product;
-
-    public function getProduct()
-    {
-        return $this->product;
-    }
-    public function setProduct(Product $product)
-    {
-        $this->product = $product;
-    }
 
     /**
      * Get id.
@@ -97,26 +91,47 @@ class Notice
     }
 
     /**
-     * Set content.
+     * Set message.
      *
-     * @param string $content
+     * @param string $message
      *
      * @return Notice
      */
-    public function setContent($content)
+    public function setMessage($message)
     {
-        $this->content = $content;
+        $this->message = $message;
 
         return $this;
     }
 
     /**
-     * Get content.
+     * Get message.
      *
      * @return string
      */
-    public function getContent()
+    public function getMessage()
     {
-        return $this->content;
+        return $this->message;
     }
+
+    /**
+     * Get product
+     *
+     * @return Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set product
+     *
+     * @param Product $product
+     */
+    public function setProduct(Product $product)
+    {
+        $this->product = $product;
+    }
+
 }

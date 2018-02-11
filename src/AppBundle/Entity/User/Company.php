@@ -72,6 +72,11 @@ class Company
         return $this->name;
     }
 
+    /**
+     * Get users of company
+     *
+     * @return mixed
+     */
     public function getUsers(){
         return $this->users;
     }

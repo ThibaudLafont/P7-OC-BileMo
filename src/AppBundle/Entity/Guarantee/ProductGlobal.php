@@ -19,13 +19,4 @@ use ApiPlatform\Core\Annotation\ApiResource;
  */
 class ProductGlobal extends Guarantee
 {
-
-    public function productGlobalGuaranteeToArray(){
-        return [
-            'is_guaranteed' => $this->isGuaranteed(),
-            'guarantee_length' => $this->getLengthInMonth(),
-            'message' => $this->getMessage()
-        ];
-    }
-
 }

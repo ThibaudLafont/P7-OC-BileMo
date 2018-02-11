@@ -65,6 +65,7 @@ class Model
 
     /**
      * @var string|null
+     * Product page on constructor website (if exists)
      *
      * @ORM\Column(name="constructor_url", type="text", nullable=true)
      */
@@ -72,6 +73,7 @@ class Model
 
     /**
      * @var int
+     * Model release year
      *
      * @ORM\Column(name="release_year", type="bigint")
      * @Groups("model_list")
@@ -79,27 +81,7 @@ class Model
     private $releaseYear;
 
     /**
-     * @var \AppBundle\Entity\Media\Local\Model
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Local\Model",
-     *     mappedBy="model"
-     * )
-     */
-    private $localMedias;
-
-    /**
-     * @var \AppBundle\Entity\Media\Distant\Model
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Distant\Model",
-     *     mappedBy="model"
-     * )
-     */
-    private $distantMedias;
-
-    /**
-     * @var Brand
+     * @var Family
      *
      * @ORM\ManyToOne(
      *     targetEntity="Family",
@@ -109,7 +91,20 @@ class Model
     private $family;
 
     /**
+     * @var SpecValue
+     * Models values to features specifications
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Feature\SpecValue",
+     *     mappedBy="spec",
+     *     cascade={"persist"}
+     * )
+     */
+    private $specValues;
+
+    /**
      * @var Product
+     * Products of this model
      *
      * @ORM\OneToMany(
      *     targetEntity="Product",
@@ -118,65 +113,8 @@ class Model
      */
     private $products;
 
-    /**
-     * @var Brand
-     *
-     * @ORM\ManyToOne(
-     *     targetEntity="Brand",
-     *     inversedBy="models")
-     */
-    private $brand;
-
-    /**
-     * @var SpecValue
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Feature\SpecValue",
-     *     mappedBy="spec",
-     *     cascade={"persist"}
-     * )
-     */
-    private $specValue;
-
+    // Traits
     use Hydrate;
-
-    public function getSpecValue()
-    {
-        return $this->specValue;
-    }
-
-
-    public function getLocalMedias()
-    {
-        return $this->localMedias;
-    }
-    public function getDistantMedias()
-    {
-        return $this->distantMedias;
-    }
-
-    public function getFamily()
-    {
-        return $this->family;
-    }
-    public function setFamily($family)
-    {
-        $this->family = $family;
-    }
-
-    public function getBrand()
-    {
-        return $this->brand;
-    }
-    public function setBrand(Brand $brand)
-    {
-        $this->brand = $brand;
-    }
-
-    public function getProducts()
-    {
-        return $this->products;
-    }
 
     /**
      * Get id.
@@ -237,6 +175,8 @@ class Model
     }
 
     /**
+     * Get constructorUrl
+     *
      * @return null|string
      */
     public function getConstructorUrl(): string
@@ -245,6 +185,8 @@ class Model
     }
 
     /**
+     * Set constructorUrl
+     *
      * @param null|string $constructorUrl
      */
     public function setConstructorUrl(string $constructorUrl)
@@ -253,6 +195,8 @@ class Model
     }
 
     /**
+     * Get releaseYear
+     *
      * @return int
      */
     public function getReleaseYear(): int
@@ -261,10 +205,53 @@ class Model
     }
 
     /**
+     * Set releaseYear
+     *
      * @param int $releaseYear
      */
     public function setReleaseYear(int $releaseYear)
     {
         $this->releaseYear = $releaseYear;
     }
+
+    /**
+     * Get family
+     *
+     * @return Family
+     */
+    public function getFamily()
+    {
+        return $this->family;
+    }
+
+    /**
+     * Set family
+     *
+     * @param Family
+     */
+    public function setFamily(Family $family)
+    {
+        $this->family = $family;
+    }
+
+    /**
+     * Get specValues
+     *
+     * @return array
+     */
+    public function getSpecValues()
+    {
+        return $this->specValues;
+    }
+
+    /**
+     * Get products
+     *
+     * @return Product
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
 }

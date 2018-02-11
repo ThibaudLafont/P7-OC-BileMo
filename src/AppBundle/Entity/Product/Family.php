@@ -70,6 +70,7 @@ class Family
 
     /**
      * @var Brand
+     * Family's brand
      *
      * @ORM\ManyToOne(
      *     targetEntity="Brand",
@@ -80,6 +81,7 @@ class Family
 
     /**
      * @var Model
+     * Family's models
      *
      * @ORM\OneToMany(
      *     targetEntity="Model",
@@ -88,20 +90,6 @@ class Family
      * @Groups({"brand_show"})
      */
     private $models;
-
-    public function getBrand()
-    {
-        return $this->brand;
-    }
-    public function setBrand(Brand $brand)
-    {
-        $this->brand = $brand;
-    }
-
-    public function getModels()
-    {
-        return $this->models;
-    }
 
     /**
      * Get id.
@@ -160,4 +148,35 @@ class Family
     {
         return $this->description;
     }
+
+    /**
+     * Get brand
+     *
+     * @return Brand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * Set brand
+     *
+     * @param Brand $brand
+     */
+    public function setBrand(Brand $brand)
+    {
+        $this->brand = $brand;
+    }
+
+    /**
+     * Get models
+     *
+     * @return Model
+     */
+    public function getModels()
+    {
+        return $this->models;
+    }
+
 }

@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Partner extends User
 {
 
+    // Authorization
+
     /**
      * Returns the roles granted to the user.
      */

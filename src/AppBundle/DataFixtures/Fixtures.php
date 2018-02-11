@@ -117,30 +117,15 @@ class Fixtures extends Fixture
         $models = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Models.yaml'));
 
         // Loop en every entry of yaml
-        foreach($models as $k => $v)
-        {
-            // If the model has a family
-            if($v['family_name'] !== null)
-            {
-                // Get family object in DB from given name
-                $family = $manager->getRepository('AppBundle:Product\Family')
-                    ->findOneBy(['name' => $v['family_name']]);
-                // Get and store brand from family
-                $brand = $family->getBrand();
-            }
-            // If model doesn't have a family
-            else{
-                // Set null as family
-                $family = $v['family_name'];
-                // Get the Brand Object from given name
-                $brand =  $manager->getRepository('AppBundle:Product\Brand')
-                    ->findOneBy(['name' => $v['brand_name']]);
-            }
+        foreach($models as $k => $v){
+
+            // Get family object in DB from given name
+            $family = $manager->getRepository('AppBundle:Product\Family')
+                ->findOneBy(['name' => $v['family_name']]);
 
             // Create new model object and hydrate
             $model = new Model();
             $model->setName($k);
-            $model->setBrand($brand);
             $model->setFamily($family);
             $model->hydrate($v);
 
@@ -221,7 +206,7 @@ class Fixtures extends Fixture
                     $notice = new Notice();
                     $notice->setType($nk);
                     $notice->setProduct($product);
-                    $notice->setContent($nv);
+                    $notice->setMessage($nv);
                     $manager->persist($notice);
                 }
             }
@@ -284,19 +269,30 @@ class Fixtures extends Fixture
         $manager->flush();
     }
 
+    /**
+     * Load users in DB
+     *
+     * @param ObjectManager $manager
+     */
     public function loadUsers(ObjectManager $manager){
-        // First get and parse the yaml file
+
+        // First get and parse the yaml file, only contain clients users
         $companies = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Clients.yaml'));
 
+        // Foreach company found, loop
         foreach($companies as $name => $workers)
         {
+            // Create object and assign name
             $company = new Company();
             $company->setName($name);
 
+            // Persist object in DB for Client assignation
             $manager->persist($company);
 
+            // Foreach workers found, loop
             foreach($workers as $k => $v)
             {
+                // Create and hydrate new Client object
                 $user = new Client();
                 $user->setCompany($company);
                 $user->setUsername($k);
@@ -305,20 +301,25 @@ class Fixtures extends Fixture
                 );
                 $user->hydrate($v);
 
+                // Persist it in DB
                 $manager->persist($user);
             }
         }
 
+        // Now create Partner users
         foreach(['jean', 'murielle', 'thib'] as $admin){
+            // Create and hydrate new Partner object
             $user = new Partner();
             $user->setUsername($admin);
             $user->setPassword(
                 $this->encoder->encodePassword($user, $admin)
             );
 
+            // Persist Partner in DB
             $manager->persist($user);
         }
 
+        // Flush all changes
         $manager->flush();
 
     }

@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
+ * Implement most par of logic for Doctrine Provider
  *
  * @ORM\MappedSuperclass()
  */
@@ -23,6 +24,7 @@ abstract class User implements UserInterface, \Serializable
 
     /**
      * @var string
+     * Username of user
      *
      * @ORM\Column(name="username", type="string", length=55, unique=true)
      */
@@ -30,16 +32,69 @@ abstract class User implements UserInterface, \Serializable
 
     /**
      * @var string
+     * Bcrypt hashed pwd (though PasswordEncoderInterface)
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
-    /**
-     * @var string
-     */
-    private $plainPassword;
+    // Authentication
 
+    /**
+     * String representation of object
+     *
+     * @return string the string representation of the object or null
+     */
+    public function serialize()
+    {
+        return serialize([
+            $this->getId(),
+            $this->getUserName(),
+            $this->getPassword()
+        ]);
+    }
+
+    /**
+     * Constructs the object
+     *
+     * @param string $serialized <p>
+     *
+     * @return void
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->userName,
+            $this->password,
+            ) = unserialize($serialized);
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        $this->setPlainPassword(null);
+    }
+
+
+    // GETTERS / SETTERS
 
     /**
      * Get id.
@@ -91,74 +146,4 @@ abstract class User implements UserInterface, \Serializable
         $this->password = $password;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
-    }
-
-    /**
-     * @param mixed $plainPassword
-     */
-    public function setPlainPassword($plainPassword)
-    {
-        $this->plainPassword = $plainPassword;
-    }
-
-    /**
-     * String representation of object
-     * @link http://php.net/manual/en/serializable.serialize.php
-     * @return string the string representation of the object or null
-     * @since 5.1.0
-     */
-    public function serialize()
-    {
-        return serialize([
-            $this->getId(),
-            $this->getUserName(),
-            $this->getPassword()
-        ]);
-    }
-
-    /**
-     * Constructs the object
-     * @link http://php.net/manual/en/serializable.unserialize.php
-     * @param string $serialized <p>
-     * The string representation of the object.
-     * </p>
-     * @return void
-     * @since 5.1.0
-     */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->userName,
-            $this->password,
-            ) = unserialize($serialized);
-    }
-
-    /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
-     */
-    public function getSalt()
-    {
-    }
-
-    /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
-    public function eraseCredentials()
-    {
-        $this->setPlainPassword(null);
-    }
 }

@@ -64,6 +64,7 @@ class Brand
 
     /**
      * @var string|null
+     * Brand home page
      *
      * @ORM\Column(name="website_url", type="string", length=255, nullable=true)
      * @Groups({"brand_show"})
@@ -71,7 +72,8 @@ class Brand
     private $websiteUrl;
 
     /**
-     * @var Family
+     * @var array
+     * Brand's families
      *
      * @ORM\OneToMany(
      *     targetEntity="Family",
@@ -84,7 +86,8 @@ class Brand
     private $families;
 
     /**
-     * @var Model
+     * @var array
+     * Brand's models
      *
      * @ORM\OneToMany(
      *     targetEntity="Model",
@@ -95,16 +98,8 @@ class Brand
      */
     private $models;
 
+    // Traits
     use Hydrate;
-
-    public function getFamilies()
-    {
-        return $this->families;
-    }
-    public function getModels()
-    {
-        return $this->models;
-    }
 
     /**
      * Get id.
@@ -187,4 +182,25 @@ class Brand
     {
         return $this->websiteUrl;
     }
+
+    /**
+     * Get families
+     *
+     * @return array
+     */
+    public function getFamilies()
+    {
+        return $this->families;
+    }
+
+    /**
+     * Get models
+     *
+     * @return array
+     */
+    public function getModels()
+    {
+        return $this->models;
+    }
+
 }
