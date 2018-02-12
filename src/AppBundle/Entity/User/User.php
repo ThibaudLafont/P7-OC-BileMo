@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Asset;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -10,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * Implement most par of logic for Doctrine Provider
  *
  * @ORM\MappedSuperclass()
+ * @ORM\EntityListeners({"AppBundle\EventListener\UserListener"})
  */
 abstract class User implements UserInterface, \Serializable
 {
@@ -27,6 +29,16 @@ abstract class User implements UserInterface, \Serializable
      * Username of user
      *
      * @ORM\Column(name="username", type="string", length=55, unique=true)
+     *
+     * @Asset\NotBlank(
+     *     message="Vous devez renseigner un username"
+     * )
+     * @Asset\Length(
+     *     min=2,
+     *     minMessage="Le nom d'utilisateur doit contenir plus de {{ limit }} caractères",
+     *     max=55,
+     *     maxMessage="Le nom d'utilisateur ne doit pas dépasser {{ limit }} caractères"
+     * )
      */
     private $username;
 
@@ -37,6 +49,22 @@ abstract class User implements UserInterface, \Serializable
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+
+    /**
+     * @var string
+     * Used for user register
+     *
+     * @Asset\NotBlank(
+     *     message="Veuillez renseigner un mot de passe"
+     * )
+     * @Asset\Length(
+     *     min=7,
+     *     minMessage="Le mot de passe doit contenir {{ limit }} caractères minimum",
+     *     max=30,
+     *     maxMessage="Le mot de passe ne doit pas contenir plus de {{ limit }} caractères"
+     * )
+     */
+    private $plainPassword;
 
     // Authentication
 
@@ -131,19 +159,43 @@ abstract class User implements UserInterface, \Serializable
     }
 
     /**
-     * @return string
+     * Get password
+     *
+     * @return string|null
      */
-    public function getPassword(): string
+    public function getPassword() : string
     {
         return $this->password;
     }
 
     /**
-     * @param string $password
+     * Set password
+     *
+     * @param string|null $password
      */
     public function setPassword(string $password)
     {
         $this->password = $password;
+    }
+
+    /**
+     * Get plainPassword
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * Set plainPassword
+     *
+     * @param string $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
     }
 
 }

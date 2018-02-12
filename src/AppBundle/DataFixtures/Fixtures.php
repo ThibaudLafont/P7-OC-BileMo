@@ -25,12 +25,12 @@ use Symfony\Component\Yaml\Yaml;
 class Fixtures extends Fixture
 {
 
-    private $encoder;
-
-    public function __construct(UserPasswordEncoderInterface $encoder)
-    {
-        $this->encoder = $encoder;
-    }
+//    private $encoder;
+//
+//    public function __construct(UserPasswordEncoderInterface $encoder)
+//    {
+//        $this->encoder = $encoder;
+//    }
 
     /**
      * Load data fixtures by calling load methods
@@ -296,9 +296,7 @@ class Fixtures extends Fixture
                 $user = new Client();
                 $user->setCompany($company);
                 $user->setUsername($k);
-                $user->setPassword(
-                    $this->encoder->encodePassword($user, $k)
-                );
+                $user->setPlainPassword($k);
                 $user->hydrate($v);
 
                 // Persist it in DB
@@ -311,9 +309,7 @@ class Fixtures extends Fixture
             // Create and hydrate new Partner object
             $user = new Partner();
             $user->setUsername($admin);
-            $user->setPassword(
-                $this->encoder->encodePassword($user, $admin)
-            );
+            $user->setPlainPassword($admin);
 
             // Persist Partner in DB
             $manager->persist($user);

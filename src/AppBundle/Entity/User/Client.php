@@ -4,6 +4,7 @@ namespace AppBundle\Entity\User;
 
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
@@ -22,6 +23,16 @@ class Client extends User
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=70)
+     *
+     * @Assert\NotBlank(
+     *     message="Le prénom est obligatoire"
+     * )
+     * @Assert\Length(
+     *     min=2,
+     *     minMessage="Le prénom doit contenir plus de {{ limit }} caractères",
+     *     max=70,
+     *     maxMessage="Le prénom ne peut pas contenir plus de {{ limit }} caractères"
+     * )
      */
     private $firstName;
 
@@ -29,6 +40,16 @@ class Client extends User
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=155)
+     *
+     * @Assert\NotBlank(
+     *     message="Le nom de famille est obligatoire"
+     * )
+     * @Assert\Length(
+     *     min=2,
+     *     minMessage="Le nom de famille doit contenir plus de {{ limit }} caractères",
+     *     max=70,
+     *     maxMessage="Le nom de famille ne peut pas contenir plus de {{ limit }} caractères"
+     * )
      */
     private $lastName;
 
@@ -36,6 +57,15 @@ class Client extends User
      * @var string
      *
      * @ORM\Column(name="mail_address", type="string", length=255, unique=true)
+     *
+     * @Assert\NotBlank(
+     *     message="L'adresse mail est obligatoire"
+     * )
+     * @Assert\Email(
+     *     message="Veuillez entrer une adresse mail valide",
+     *     checkMX=true,
+     *     checkHost=true
+     * )
      */
     private $mailAddress;
 
@@ -43,6 +73,15 @@ class Client extends User
      * @var int
      *
      * @ORM\Column(name="phone_number", type="bigint")
+     *
+     * @Assert\NotBlank(
+     *     message="Veuillez renseigner un numéro de téléphone"
+     * )
+     * @Assert\Length(
+     *     min=10,
+     *     max=10,
+     *     exactMessage="Veuillez entrer le numéro au format français à 10 chiffres"
+     * )
      */
     private $phoneNumber;
 
