@@ -42,11 +42,19 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
      */
     public function normalize($object, $format = null, array $context = array())
     {
-            $model['id'] = $object->getId();
-            $model['name'] = $object->getName();
 
-        return $model;
+        // Get serialized datas from normalizer
+//        $model = $this->decorated->normalize($object, $format, $context);
+        $return = [];
+        foreach($object->getSpecValues() as $specValue)
+        {
+            $spec = $specValue->getSpec();
+            $feature = $spec->getFeature();
 
+            $return[$feature->getName()][$spec->getName()] = $specValue->getValue();
+        }
+
+        return $return;
     }
 
     public function belongToSerializeGroup($group, $context)

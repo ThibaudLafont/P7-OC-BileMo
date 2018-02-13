@@ -48,7 +48,7 @@ class Family
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"brand_show"})
+     * @Groups({"brand_show", "family_list", "family_show", "model_list", "model_show"})
      */
     private $id;
 
@@ -57,7 +57,7 @@ class Family
      *
      * @ORM\Column(name="name", type="string", length=55)
      *
-     * @Groups({"brand_show"})
+     * @Groups({"brand_show", "family_list", "family_show", "model_list", "model_show"})
      */
     private $name;
 
@@ -65,6 +65,7 @@ class Family
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Groups({"family_show"})
      */
     private $description;
 
@@ -76,6 +77,7 @@ class Family
      *     targetEntity="Brand",
      *     inversedBy="families"
      * )
+     * @Groups({"family_list", "family_show"})
      */
     private $brand;
 
@@ -87,9 +89,16 @@ class Family
      *     targetEntity="Model",
      *     mappedBy="family"
      * )
-     * @Groups({"brand_show"})
+     * @Groups({"brand_show", "family_show"})
      */
     private $models;
+
+    /**
+     * @Groups({"brand_show", "family_list", "model_list", "model_show"})
+     */
+    public function getShowUrl(){
+        return "/families/" . $this->getId();
+    }
 
     /**
      * Get id.

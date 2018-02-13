@@ -35,7 +35,7 @@ services:
         tags: [serializer.normalizer]
         arguments: [ '@AppBundle\Serializer\Normalizer\Product.inner' ]
 
-    AppBundle\Serializer\Normalizer\Product:
+    AppBundle\Serializer\Normalizer\Model:
         decorates: 'api_platform.jsonld.normalizer.item'
         public: false
         tags: [serializer.normalizer]

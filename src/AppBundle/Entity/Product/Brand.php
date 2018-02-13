@@ -42,7 +42,7 @@ class Brand
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Groups({"brand_list", "brand_show"})
+     * @Groups({"brand_list", "brand_show", "family_list", "family_show"})
      */
     private $id;
 
@@ -50,7 +50,7 @@ class Brand
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55, unique=true)
-     * @Groups({"brand_list", "brand_show"})
+     * @Groups({"brand_list", "brand_show", "family_list", "family_show"})
      */
     private $name;
 
@@ -100,6 +100,15 @@ class Brand
 
     // Traits
     use Hydrate;
+
+    /**
+     * @return string
+     *
+     * @Groups({"brand_list", "family_list", "family_show"})
+     */
+    public function getShowUrl(){
+        return "/brands/" . $this->getId();
+    }
 
     /**
      * Get id.

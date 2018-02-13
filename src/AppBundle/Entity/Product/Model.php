@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Feature\SpecValue;
 use AppBundle\Entity\Traits\Hydrate;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -43,7 +44,7 @@ class Model
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Groups("brand_show")
+     * @Groups({"brand_show", "family_show", "model_list", "model_show"})
      */
     private $id;
 
@@ -52,7 +53,7 @@ class Model
      *
      * @ORM\Column(name="name", type="string", length=55)
      *
-     * @Groups("brand_show")
+     * @Groups({"brand_show", "family_show", "model_list", "model_show"})
      */
     private $name;
 
@@ -60,6 +61,7 @@ class Model
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Groups({"model_show"})
      */
     private $description;
 
@@ -68,6 +70,7 @@ class Model
      * Product page on constructor website (if exists)
      *
      * @ORM\Column(name="constructor_url", type="text", nullable=true)
+     * @Groups({"model_show"})
      */
     private $constructorUrl;
 
@@ -76,7 +79,7 @@ class Model
      * Model release year
      *
      * @ORM\Column(name="release_year", type="bigint")
-     * @Groups("model_list")
+     * @Groups("model_show")
      */
     private $releaseYear;
 
@@ -87,16 +90,17 @@ class Model
      *     targetEntity="Family",
      *     inversedBy="models"
      * )
+     * @Groups({"model_list", "model_show"})
      */
     private $family;
 
     /**
-     * @var SpecValue
+     * @var ArrayCollection
      * Models values to features specifications
      *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Feature\SpecValue",
-     *     mappedBy="spec",
+     *     mappedBy="model",
      *     cascade={"persist"}
      * )
      */
@@ -110,11 +114,39 @@ class Model
      *     targetEntity="Product",
      *     mappedBy="model"
      * )
+     * @Groups({"model_show"})
      */
     private $products;
 
     // Traits
     use Hydrate;
+
+    public function __construct()
+    {
+        $this->specValues = new ArrayCollection();
+    }
+
+    /**
+     * @Groups({"model_list", "model_show"})
+     */
+    public function getBrand(){
+        // Fetch brand from model family
+        $brand = $this->getFamily()->getBrand();
+
+        // Build and return array
+        return [
+            'id' => $brand->getId(),
+            'name' => $brand->getName(),
+            '@show' => $brand->getShowUrl()
+        ];
+    }
+
+    /**
+     * @Groups({"brand_show", "family_show", "model_list"})
+     */
+    public function getShowUrl(){
+        return "/models/" . $this->getId();
+    }
 
     /**
      * Get id.
