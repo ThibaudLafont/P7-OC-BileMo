@@ -38,11 +38,18 @@ class Client implements NormalizerInterface, DenormalizerInterface, Denormalizer
         if($this->belongToSerializeGroup(['company_subresource', 'client_list'], $context)){
 
             $return = $object->getClientCollection();
+            $return['_links'] = $object->getUserLinks();
 
         }elseif($this->belongToSerializeGroup(['client_show'], $context)){
 
             $return = $object->getClientItem();
+            $return['_links'] = $object->getUserLinks();
 
+        }
+
+        if(!$this->belongToSerializeGroup(['company_subresource'], $context)){
+            $return['_embedded']['company'] = $object->getCompany()->getCompanyCollection();
+            $return['_embedded']['company']['_links'] = $object->getCompany()->getCompanyLinks();
         }
 
         return $return;
@@ -54,7 +61,7 @@ class Client implements NormalizerInterface, DenormalizerInterface, Denormalizer
         $return = false;
 
         foreach($groups as $group){
-            if(in_array($group, $context)) $return = true;
+            if(in_array($group, $context['groups'])) $return = true;
         }
 
         return $return;

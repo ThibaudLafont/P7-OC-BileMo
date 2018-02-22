@@ -184,25 +184,31 @@ class Model
      * Model _embedded
      * @return array
      */
-    public function getModelEmbedded(){
+    public function getModelEmbedded($brand=true, $family=true){
 
         // Fetch Family and Brand of model
         $family = $this->getFamily();
         $brand = $this->getFamily()->getBrand();
 
-        // Return builded array
-        return [
-            'brand' => [
+        // Init empty array
+        $return = [];
+
+        // Check if family is required
+        if($brand) {
+            $return['brand'] = [
                 'id' => $brand->getId(),
                 'name' => $brand->getName(),
                 '_links' => $brand->getBrandLinks()
-            ],
-            'family' => [
+            ];
+        }
+
+        if($family){
+            $return['family'] = [
                 'id' => $family->getId(),
                 'name' => $family->getName(),
                 '_links' => $family->getFamilyLinks()
-            ]
-        ];
+            ];
+        }
     }
 
     /**

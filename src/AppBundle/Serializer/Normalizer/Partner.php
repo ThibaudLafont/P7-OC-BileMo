@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
-class Company implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
+class Partner implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
 {
 
     /**
@@ -34,35 +34,7 @@ class Company implements NormalizerInterface, DenormalizerInterface, Denormalize
     public function normalize($object, $format = null, array $context = array())
     {
 
-        $return = [];
-
-        // Handle a collection request
-        if($this->belongToSerializeGroup(['company_list', 'company_users'], $context)){
-
-            $return = $object->getCompanyCollection();
-
-        }
-        // Handle an item request
-        elseif($this->belongToSerializeGroup(['company_show'], $context)){
-
-            //
-            $return = $object->getCompanyItem();
-
-            foreach($object->getClients() as $user){
-                $return['clients'][] = $user->getClientCollection();
-            }
-
-        }
-
-        if($this->belongToSerializeGroup(['company_users'], $context)){
-
-            $return['clients'] = $object->getCompanyUsers();
-
-        }
-
-        $return['_links'] = $object->getCompanyLinks();
-
-        return $return;
+        return $object->getPartnerCollection();
 
     }
 
@@ -76,6 +48,7 @@ class Company implements NormalizerInterface, DenormalizerInterface, Denormalize
 
         return $return;
     }
+
     /**
      * Checks whether the given class is supported for normalization by this normalizer.
      *
@@ -86,7 +59,7 @@ class Company implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof \AppBundle\Entity\User\Company;
+        return $data instanceof \AppBundle\Entity\User\Partner;
     }
 
     /**

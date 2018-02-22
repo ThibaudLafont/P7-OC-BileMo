@@ -215,7 +215,7 @@ class Product
 
     /**
      * Guarantee linked to specific product feature
-     * @var \AppBundle\Entity\Feature\ProductTest
+     * @var array
      *
      * Doctrine
      * @ORM\OneToMany(
@@ -334,44 +334,26 @@ class Product
         // Store ProductLinks
         $return['_links'] = $this->getProductLinks();
 
-        // Check if Brand is needed
-        if($brand){
-
-            // Get brand from $this
-            $object = $this->getModel()->getFamily()->getBrand();
-
-            // Store brand collection in new empty array
-            $brand = $object->getBrandCollection();
-            // Store Brand links in same array
-            $brand['_links'] = $object->getBrandLinks();
-
-            // Store the brand in Product's embedded index
-            $return['_embedded']['brand'] = $brand;
-        }
-
         // Check if model is needed
         if($model){
 
-            // Store model collection in new empty array
-            $model = $this->getModel()->getModelCollection();
-            // Store model _links
-            $model['_links'] = $this->getModel()->getModelLinks();
-
             // Store model in embedded $return index
-            $return['_embedded']['model'] = $model;
+            $return['_embedded']['model'] = $this->getProductModel();
         }
 
         // Check if family is needed
         if($family){
 
-            // Store Family Collection in empty array
-            $family = $this->getModel()->getFamily()->getFamilyCollection();
-            // Add Family _links in array
-            $family['_links'] = $this->getModel()->getFamily()->getFamilyLinks();
-
             // Add new array in Product's _embedded
-            $return['_embedded']['family'] = $family;
+            $return['_embedded']['family'] = $this->getProductFamily();
 
+        }
+
+        // Check if Brand is needed
+        if($brand){
+
+            // Store the brand in Product's embedded index
+            $return['_embedded']['brand'] = $this->getProductBrand();
         }
 
         return $return;
@@ -391,10 +373,44 @@ class Product
         $model = $this->getModel()->getModelCollection();
         // Add _links
         $model['_links'] = $this->getModel()->getModelLinks();
-        // Add _embedded
-        $model['_embedded'] = $this->getModel()->getModelEmbedded();
 
         return $model;
+
+    }
+
+    public function getProductFamily(){
+
+        // Store product Family
+        $family = $this->getModel()->getFamily();
+
+        // Normalize Family
+        $return = $family->getFamilyCollection();
+        $return['_links'] = $family->getFamilyLinks();
+
+        return $return;
+
+    }
+
+    public function getProductBrand(){
+
+        // Store product brand
+        $brand = $this->getModel()->getFamily()->getBrand();
+
+        // Normalize Brand
+        $return = $brand->getBrandCollection();
+        $return['_links'] = $brand->getBrandLinks();
+
+        return $return;
+
+    }
+
+    public function getProductEmbedded(){
+
+        return [
+            'model' => $this->getProductModel(),
+            'family' => $this->getProductFamily(),
+            'brand' => $this->getProductBrand()
+        ];
 
     }
 

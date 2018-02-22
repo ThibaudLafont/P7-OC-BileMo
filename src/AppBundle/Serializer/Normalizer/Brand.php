@@ -16,7 +16,6 @@ use Symfony\Component\Serializer\Normalizer\scalar;
 class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
 
     private $decorated;
-    private $object;
 
     public function __construct(NormalizerInterface $decorated)
     {
@@ -79,7 +78,7 @@ class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerA
         $return = false;
 
         foreach($groups as $group){
-            if(in_array($group, $context)) $return = true;
+            if(in_array($group, $context['groups'])) $return = true;
         }
 
         return $return;
@@ -142,21 +141,5 @@ class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerA
     public function supportsDenormalization($data, $type, $format = null)
     {
         return;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getObject()
-    {
-        return $this->object;
-    }
-
-    /**
-     * @param mixed $object
-     */
-    public function setObject($object)
-    {
-        $this->object = $object;
     }
 }

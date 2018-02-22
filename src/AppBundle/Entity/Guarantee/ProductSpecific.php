@@ -38,7 +38,7 @@ class ProductSpecific extends Guarantee
      * @ORM\ManyToOne
      * (
      *      targetEntity="\AppBundle\Entity\Product\Product",
-     *      inversedBy="specificGarantees"
+     *      inversedBy="specificGuarantees"
      * )
      */
     private $product;

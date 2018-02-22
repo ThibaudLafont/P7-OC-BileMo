@@ -6,6 +6,7 @@ use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -26,14 +27,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "method"="GET",
  *              "normalization_context"={
  *                  "groups"={"client_show"}
- *              }
- *          }
- *     },
- *     subresourceOperations={
- *          "api_companies_users_get_subresource"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"company_list"}
  *              }
  *          }
  *     }
@@ -117,7 +110,7 @@ class Client extends User
      *
      * @ORM\ManyToOne(
      *     targetEntity="Company",
-     *     inversedBy="users"
+     *     inversedBy="clients"
      * )
      */
     private $company;

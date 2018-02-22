@@ -30,7 +30,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
  *          "company_users"={
  *              "method"="GET",
  *              "route_name"="company_users",
- *              "path"="/company/{id}/users",
+ *              "path"="/companies/{id}/clients",
  *              "normalization_context"={
  *                  "groups"={"company_users"}
  *              }
@@ -49,8 +49,6 @@ class Company
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @Groups({"company_list", "company_show"})
      */
     private $id;
 
@@ -58,8 +56,6 @@ class Company
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
-     *
-     * @Groups({"company_list", "company_show"})
      */
     private $name;
 
@@ -71,7 +67,7 @@ class Company
      *     mappedBy="company"
      * )
      */
-    private $users;
+    private $clients;
 
     public function getCompanyCollection(){
         return [
@@ -106,7 +102,7 @@ class Company
 
         $return = [];
 
-        foreach($this->getUsers() as $user){
+        foreach($this->getCLients() as $user){
             $insert = $user->getClientCollection();
             $insert['_links'] = $user->getUserLinks();
 
@@ -155,8 +151,8 @@ class Company
      *
      * @return mixed
      */
-    public function getUsers(){
-        return $this->users;
+    public function getClients(){
+        return $this->clients;
     }
 
 }
