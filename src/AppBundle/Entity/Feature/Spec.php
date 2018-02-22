@@ -40,6 +40,7 @@ class Spec
 
     /**
      * @var SpecValue
+     * Link model value for this spec
      *
      * @ORM\OneToMany(
      *     targetEntity="SpecValue",
@@ -47,22 +48,7 @@ class Spec
      *     cascade={"persist"}
      * )
      */
-    private $specValue;
-
-
-    public function getFeature()
-    {
-        return $this->feature;
-    }
-    public function setFeature(Feature $feature)
-    {
-        $this->feature = $feature;
-    }
-
-    public function getSpecValue()
-    {
-        return $this->specValue;
-    }
+    private $specValues;
 
 
     /**
@@ -98,4 +84,35 @@ class Spec
     {
         return $this->name;
     }
+
+    /**
+     * Get feature
+     *
+     * @return Feature
+     */
+    public function getFeature()
+    {
+        return $this->feature;
+    }
+
+    /**
+     * Set feature
+     *
+     * @param Feature $feature
+     */
+    public function setFeature(Feature $feature)
+    {
+        $this->feature = $feature;
+    }
+
+    /**
+     * Get specValue
+     *
+     * @return SpecValue
+     */
+    public function getSpecValues()
+    {
+        return $this->specValues;
+    }
+
 }

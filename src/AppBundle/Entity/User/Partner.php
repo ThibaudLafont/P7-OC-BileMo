@@ -3,34 +3,62 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
- * Client
+ * Partner
  *
  * @ORM\Table(name="user_partner")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\User\ClientRepository")
+ * @ORM\Entity
+ *
+ * @ApiResource(
+ *     collectionOperations={
+ *          "partner_list"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"partner_list"}
+ *              }
+ *          }
+ *     },
+ *     itemOperations={
+ *          "partner_show"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"partner_show"}
+ *              }
+ *          }
+ *     }
+ * )
  */
 class Partner extends User
 {
-    /**
-     * @var String
-     *
-     * @ORM\Column(name="department", type="string", length=255)
-     */
-    private $department;
 
     /**
-     * @return String
+     * @return array
      */
-    public function getDepartment(): String
-    {
-        return $this->department;
+    public function getPartnerCollection(){
+        return [
+            'id' => $this->getId(),
+            'username' => $this->getUsername(),
+            '_links' => [
+                '@self' => $this->getSelfUrl()
+            ]
+        ];
     }
+
+    public function getSelfUrl(){
+        return "/partners/" . $this->getId();
+    }
+
+
+    // Authorization
+
     /**
-     * @param String $department
+     * Returns the roles granted to the user.
      */
-    public function setDepartment(String $department)
+    public function getRoles()
     {
-        $this->department = $department;
+        return ['ROLE_ADMIN'];
     }
+
 }

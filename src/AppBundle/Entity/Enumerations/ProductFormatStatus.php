@@ -2,21 +2,20 @@
 namespace AppBundle\Entity\Enumerations;
 
 /**
- * Class ProductCondition
- * Define different sell status for Product
+ * Class ProductFormatStatus
+ * Say if product is formatted or not or unknow
  *
  * @package AppBundle\Entity\Enumerations
  */
-class ProductCondition
+class ProductFormatStatus
 {
 
     /**
      * Constants keys for DB persists
      */
-    const NEW = "new";
-    const REFURB = "refurb";
-    const USED = "used";
-    const DEFECTIVE = "defective";
+    const FORMATTED = "formatted";
+    const NOT_FORMATTED = "not_formatted";
+    const UNKNOW = "unknow";
 
     /**
      * @var array
@@ -24,10 +23,9 @@ class ProductCondition
      * String to display by cont key
      */
     private static $values = [
-        self::NEW => "Neuf",
-        self::REFURB => "Reconditionné",
-        self::USED => "Occasion",
-        self::DEFECTIVE => "Défectueux"
+        self::FORMATTED => "Réinitialisé",
+        self::NOT_FORMATTED => "Non réinitialisé",
+        self::UNKNOW => "Non renseigné"
     ];
 
     /**
@@ -38,7 +36,7 @@ class ProductCondition
      */
     public static function getValue($type)
     {
-        if(!isset(static::$values[$type])) return "Unknow condition";
+        if(!isset(static::$values[$type])) return "Unknow format status";
         else return static::$values[$type];
     }
 
@@ -49,10 +47,9 @@ class ProductCondition
      */
     public static function getAvailableTypes(){
         return [
-            self::NEW,
-            self::REFURB,
-            self::USED,
-            self::DEFECTIVE
+            self::FORMATTED,
+            self::NOT_FORMATTED,
+            self::UNKNOW
         ];
     }
 }

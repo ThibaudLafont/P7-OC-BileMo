@@ -1,22 +1,21 @@
 <?php
 namespace AppBundle\Entity\Enumerations;
-
 /**
- * Class ProductCondition
- * Define different sell status for Product
+ * Class ProductSoftStatus
+ * Define different software status for Product
  *
  * @package AppBundle\Entity\Enumerations
  */
-class ProductCondition
+class ProductSoftStatus
 {
 
     /**
      * Constants keys for DB persists
      */
-    const NEW = "new";
-    const REFURB = "refurb";
-    const USED = "used";
-    const DEFECTIVE = "defective";
+    const BOOT_PROPERLY = "boot_properly";
+    const SOFT_DEFECT = "soft_defect";
+    const SOFT_BRICK = "soft_brick";
+    const UNKNOW = "unknow";
 
     /**
      * @var array
@@ -24,10 +23,10 @@ class ProductCondition
      * String to display by cont key
      */
     private static $values = [
-        self::NEW => "Neuf",
-        self::REFURB => "Reconditionné",
-        self::USED => "Occasion",
-        self::DEFECTIVE => "Défectueux"
+        self::BOOT_PROPERLY => "Démarre normalement",
+        self::SOFT_DEFECT => "Problème soft",
+        self::SOFT_BRICK => "Brick logiciel - Ne démarre pas",
+        self::UNKNOW => "Non testé / Inconnu"
     ];
 
     /**
@@ -38,7 +37,7 @@ class ProductCondition
      */
     public static function getValue($type)
     {
-        if(!isset(static::$values[$type])) return "Unknow condition";
+        if(!isset(static::$values[$type])) return "Unknow soft status";
         else return static::$values[$type];
     }
 
@@ -49,10 +48,10 @@ class ProductCondition
      */
     public static function getAvailableTypes(){
         return [
-            self::NEW,
-            self::REFURB,
-            self::USED,
-            self::DEFECTIVE
+            self::BOOT_PROPERLY,
+            self::SOFT_DEFECT,
+            self::SOFT_BRICK,
+            self::UNKNOW
         ];
     }
 }

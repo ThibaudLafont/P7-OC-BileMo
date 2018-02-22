@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Feature;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Feature
@@ -25,10 +26,14 @@ class Feature
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Groups({"product_show"})
      */
     private $name;
 
     /**
+     * @var Array
+     * Sub index for feature specifications
+     *
      * @ORM\OneToMany(
      *     targetEntity="Spec",
      *     mappedBy="feature"
@@ -37,17 +42,8 @@ class Feature
     private $specs;
 
     /**
-     * @var \AppBundle\Entity\Product\Model
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Product\Model",
-     *     mappedBy="feature"
-     * )
-     */
-    private $models;
-
-    /**
-     * @var ProductTest
+     * @var Array
+     * Allow to link a test to a product feature
      *
      * @ORM\OneToMany(
      *     targetEntity="Test",
@@ -57,7 +53,8 @@ class Feature
     private $tests;
 
     /**
-     * @var \AppBundle\Entity\Feature\ProductTest
+     * @var Array
+     * Allow to set a specific guarantee on a product composant
      *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
@@ -65,25 +62,6 @@ class Feature
      * )
      */
     private $specificGuarantees;
-
-    public function getSpecs()
-    {
-        return $this->specs;
-    }
-
-    public function getModels(){
-        return $this->models;
-    }
-
-    public function getTests()
-    {
-        return $this->tests;
-    }
-
-    public function getSpecificGuarantees()
-    {
-        return $this->specificGuarantees;
-    }
   
     /**
      * Get id.
@@ -118,4 +96,35 @@ class Feature
     {
         return $this->name;
     }
+
+    /**
+     * Get specs
+     *
+     * @return mixed
+     */
+    public function getSpecs()
+    {
+        return $this->specs;
+    }
+
+    /**
+     * Get tests
+     *
+     * @return array
+     */
+    public function getTests()
+    {
+        return $this->tests;
+    }
+
+    /**
+     * Get specificGuarantees
+     *
+     * @return Array
+     */
+    public function getSpecificGuarantees()
+    {
+        return $this->specificGuarantees;
+    }
+
 }

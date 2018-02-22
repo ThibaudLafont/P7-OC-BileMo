@@ -3,13 +3,17 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Asset;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
+ * Implement most par of logic for Doctrine Provider
  *
  * @ORM\MappedSuperclass()
+ * @ORM\EntityListeners({"AppBundle\EventListener\UserListener"})
  */
-abstract class User
+abstract class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -22,39 +26,103 @@ abstract class User
 
     /**
      * @var string
+     * Username of user
      *
-     * @ORM\Column(name="firstName", type="string", length=70)
+     * @ORM\Column(name="username", type="string", length=55, unique=true)
+     *
+     * @Asset\NotBlank(
+     *     message="Vous devez renseigner un username"
+     * )
+     * @Asset\Length(
+     *     min=2,
+     *     minMessage="Le nom d'utilisateur doit contenir plus de {{ limit }} caractères",
+     *     max=55,
+     *     maxMessage="Le nom d'utilisateur ne doit pas dépasser {{ limit }} caractères"
+     * )
      */
-    private $firstName;
+    private $username;
 
     /**
      * @var string
+     * Bcrypt hashed pwd (though PasswordEncoderInterface)
      *
-     * @ORM\Column(name="lastName", type="string", length=155)
+     * @ORM\Column(name="password", type="string", length=255)
      */
-    private $lastName;
+    private $password;
 
     /**
      * @var string
+     * Used for user register
      *
-     * @ORM\Column(name="userName", type="string", length=55, unique=true)
+     * @Asset\NotBlank(
+     *     message="Veuillez renseigner un mot de passe"
+     * )
+     * @Asset\Length(
+     *     min=7,
+     *     minMessage="Le mot de passe doit contenir {{ limit }} caractères minimum",
+     *     max=30,
+     *     maxMessage="Le mot de passe ne doit pas contenir plus de {{ limit }} caractères"
+     * )
      */
-    private $userName;
+    private $plainPassword;
+
+    // Authentication
 
     /**
-     * @var string
+     * String representation of object
      *
-     * @ORM\Column(name="mail_address", type="string", length=255, unique=true)
+     * @return string the string representation of the object or null
      */
-    private $mailAddress;
+    public function serialize()
+    {
+        return serialize([
+            $this->getId(),
+            $this->getUserName(),
+            $this->getPassword()
+        ]);
+    }
 
     /**
-     * @var int
+     * Constructs the object
      *
-     * @ORM\Column(name="role", type="integer")
+     * @param string $serialized <p>
+     *
+     * @return void
      */
-    private $role;
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->userName,
+            $this->password,
+            ) = unserialize($serialized);
+    }
 
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        $this->setPlainPassword(null);
+    }
+
+
+    // GETTERS / SETTERS
 
     /**
      * Get id.
@@ -67,122 +135,67 @@ abstract class User
     }
 
     /**
-     * Set firstName.
-     *
-     * @param string $firstName
-     *
-     * @return User
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * Get firstName.
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * Set lastName.
-     *
-     * @param string $lastName
-     *
-     * @return User
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Get lastName.
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
      * Set userName.
      *
-     * @param string $userName
+     * @param string $username
      *
      * @return User
      */
-    public function setUserName($userName)
+    public function setUsername($username)
     {
-        $this->userName = $userName;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get userName.
+     * Get username.
      *
      * @return string
      */
-    public function getUserName()
+    public function getUsername()
     {
-        return $this->userName;
+        return $this->username;
     }
 
     /**
-     * Set mailAddress.
+     * Get password
      *
-     * @param string $mailAddress
-     *
-     * @return User
+     * @return string|null
      */
-    public function setMailAddress($mailAddress)
+    public function getPassword() : string
     {
-        $this->mailAddress = $mailAddress;
-
-        return $this;
+        return $this->password;
     }
 
     /**
-     * Get mailAddress.
+     * Set password
+     *
+     * @param string|null $password
+     */
+    public function setPassword(string $password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * Get plainPassword
      *
      * @return string
      */
-    public function getMailAddress()
+    public function getPlainPassword()
     {
-        return $this->mailAddress;
+        return $this->plainPassword;
     }
 
     /**
-     * Set role.
+     * Set plainPassword
      *
-     * @param int $role
-     *
-     * @return User
+     * @param string $plainPassword
      */
-    public function setRole($role)
+    public function setPlainPassword($plainPassword)
     {
-        $this->role = $role;
-
-        return $this;
+        $this->plainPassword = $plainPassword;
     }
 
-    /**
-     * Get role.
-     *
-     * @return int
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
 }

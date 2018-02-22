@@ -4,10 +4,41 @@ namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Feature\SpecValue;
 use AppBundle\Entity\Traits\Hydrate;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * Model
+ *
+ * @ApiResource(
+ *     collectionOperations={
+ *          "model_list"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"model_list"}
+ *              }
+ *          }
+ *     },
+ *     itemOperations={
+ *          "model_show"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"model_show"}
+ *              }
+ *          },
+ *          "model_products"={
+ *              "method"="GET",
+ *              "route_name"="model_products",
+ *              "path"="/model/{id}/products",
+ *              "normalization_context"={
+ *                  "groups"={"model_products"}
+ *              }
+ *          }
+ *     }
+ * )
  *
  * @ORM\Table(name="p_model")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ModelRepository")
@@ -39,6 +70,7 @@ class Model
 
     /**
      * @var string|null
+     * Product page on constructor website (if exists)
      *
      * @ORM\Column(name="constructor_url", type="text", nullable=true)
      */
@@ -46,33 +78,14 @@ class Model
 
     /**
      * @var int
+     * Model release year
      *
      * @ORM\Column(name="release_year", type="bigint")
      */
     private $releaseYear;
 
     /**
-     * @var \AppBundle\Entity\Media\Local\Model
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Local\Model",
-     *     mappedBy="model"
-     * )
-     */
-    private $localMedias;
-
-    /**
-     * @var \AppBundle\Entity\Media\Distant\Model
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Media\Distant\Model",
-     *     mappedBy="model"
-     * )
-     */
-    private $distantMedias;
-
-    /**
-     * @var Brand
+     * @var Family
      *
      * @ORM\ManyToOne(
      *     targetEntity="Family",
@@ -82,7 +95,20 @@ class Model
     private $family;
 
     /**
+     * @var ArrayCollection
+     * Models values to features specifications
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="\AppBundle\Entity\Feature\SpecValue",
+     *     mappedBy="model",
+     *     cascade={"persist"}
+     * )
+     */
+    private $specValues;
+
+    /**
      * @var Product
+     * Products of this model
      *
      * @ORM\OneToMany(
      *     targetEntity="Product",
@@ -91,64 +117,158 @@ class Model
      */
     private $products;
 
-    /**
-     * @var Brand
-     *
-     * @ORM\ManyToOne(
-     *     targetEntity="Brand",
-     *     inversedBy="models")
-     */
-    private $brand;
-
-    /**
-     * @var SpecValue
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Feature\SpecValue",
-     *     mappedBy="spec",
-     *     cascade={"persist"}
-     * )
-     */
-    private $specValue;
-
+    // Traits
     use Hydrate;
 
-    public function getSpecValue()
+    public function __construct()
     {
-        return $this->specValue;
+        $this->specValues = new ArrayCollection();
     }
 
 
-    public function getLocalMedias()
-    {
-        return $this->localMedias;
-    }
-    public function getDistantMedias()
-    {
-        return $this->distantMedias;
+    // Model links
+
+    /**
+     * @return string
+     */
+    public function getSelfUrl(){
+        return "/models/" . $this->getId();
     }
 
-    public function getFamily()
-    {
-        return $this->family;
-    }
-    public function setFamily($family)
-    {
-        $this->family = $family;
+    /**
+     * @return string
+     */
+    public function getProductsSubLink(){
+        return "/models/" . $this->getId() . "/products";
     }
 
-    public function getBrand()
+
+    // Model normalization
+
+    /**
+     * @return array
+     */
+    public function getModelCollection()
     {
-        return $this->brand;
-    }
-    public function setBrand(Brand $brand)
-    {
-        $this->brand = $brand;
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()
+        ];
     }
 
-    public function getProducts()
-    {
-        return $this->products;
+    /**
+     * @return array
+     */
+    public function getModelItem(){
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'release_year' => $this->getReleaseYear(),
+            'description' => $this->getDescription(),
+            'contructor_url' => $this->getConstructorUrl()
+        ];
+    }
+
+    /**
+     * Model _links
+     * @return array
+     */
+    public function getModelLinks(){
+        return [
+            '@self' => $this->getSelfUrl(),
+            '@products' => $this->getProductsSubLink()
+        ];
+    }
+
+    /**
+     * Model _embedded
+     * @return array
+     */
+    public function getModelEmbedded($brand=true, $family=true){
+
+        // Fetch Family and Brand of model
+        $family = $this->getFamily();
+        $brand = $this->getFamily()->getBrand();
+
+        // Init empty array
+        $return = [];
+
+        // Check if family is required
+        if($brand) {
+            $return['brand'] = [
+                'id' => $brand->getId(),
+                'name' => $brand->getName(),
+                '_links' => $brand->getBrandLinks()
+            ];
+        }
+
+        if($family){
+            $return['family'] = [
+                'id' => $family->getId(),
+                'name' => $family->getName(),
+                '_links' => $family->getFamilyLinks()
+            ];
+        }
+    }
+
+    /**
+     * Normalization for model subresource display
+     * @return array
+     */
+    public function getModelSubResource(){
+
+        // Store ModelCollection in var
+        $return = $this->getModelCollection();
+        // Add links
+        $return['_links'] = $this->getModelLinks();
+
+        return $return;
+
+    }
+
+    // Model subresource
+
+    /**
+     * Model's products
+     * @return array
+     */
+    public function getModelProducts(){
+
+        // Init empty array
+        $return = [];
+
+        // Loop on every Model's products
+        foreach($this->getProducts() as $product){
+
+            // Store ProductSubresource in new $return index
+            $return[] = $product->getProductSubResource(false, false, false);
+
+        }
+
+        return $return;
+
+    }
+
+    public function getSpecs(){
+
+        // Init empty array
+        $return = [];
+
+        // Loop on every specValue of object
+        foreach($this->getSpecValues() as $specValue){
+
+            // Get Spec object
+            $spec = $specValue->getSpec();
+            // Get Feature object
+            $feature = $spec->getFeature();
+
+            // Store values in correct array index, create it if not set
+            $return[$feature->getName()][$spec->getName()] = $specValue->getValue();
+        }
+
+        // Return build array
+        return $return;
+
     }
 
     /**
@@ -210,6 +330,8 @@ class Model
     }
 
     /**
+     * Get constructorUrl
+     *
      * @return null|string
      */
     public function getConstructorUrl(): string
@@ -218,6 +340,8 @@ class Model
     }
 
     /**
+     * Set constructorUrl
+     *
      * @param null|string $constructorUrl
      */
     public function setConstructorUrl(string $constructorUrl)
@@ -226,6 +350,8 @@ class Model
     }
 
     /**
+     * Get releaseYear
+     *
      * @return int
      */
     public function getReleaseYear(): int
@@ -234,10 +360,53 @@ class Model
     }
 
     /**
+     * Set releaseYear
+     *
      * @param int $releaseYear
      */
     public function setReleaseYear(int $releaseYear)
     {
         $this->releaseYear = $releaseYear;
     }
+
+    /**
+     * Get family
+     *
+     * @return Family
+     */
+    public function getFamily()
+    {
+        return $this->family;
+    }
+
+    /**
+     * Set family
+     *
+     * @param Family
+     */
+    public function setFamily(Family $family)
+    {
+        $this->family = $family;
+    }
+
+    /**
+     * Get specValues
+     *
+     * @return array
+     */
+    public function getSpecValues()
+    {
+        return $this->specValues;
+    }
+
+    /**
+     * Get products
+     *
+     * @return Product
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
 }

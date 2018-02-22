@@ -29,6 +29,60 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    AppBundle\Serializer\Normalizer\Product:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Product.inner' ]
+
+    AppBundle\Serializer\Normalizer\Model:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Model.inner' ]
+
+    AppBundle\Serializer\Normalizer\Company:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Company.inner' ]
+
+    AppBundle\Serializer\Normalizer\Client:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Client.inner' ]
+
+    AppBundle\Serializer\Normalizer\Partner:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Partner.inner' ]
+
+    AppBundle\Serializer\Normalizer\Brand:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Brand.inner' ]
+
+    AppBundle\Serializer\Normalizer\Family:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Family.inner' ]
+
+    user_listener:
+            class: AppBundle\EventListener\UserListener
+            tags:
+                - { name: doctrine.orm.entity_listener }
+                - { name: doctrine.orm.entity_listener, entity_manager: custom }
+
+#    'AppBundle\Swagger\SwaggerDecorator':
+#        decorates: 'api_platform.swagger.normalizer.documentation'
+#        arguments: [ '@AppBundle\Swagger\SwaggerDecorator.inner' ]
+#        autoconfigure: false
+
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

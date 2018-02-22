@@ -2,7 +2,10 @@
 
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Enumerations\NoticeType;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Notice
@@ -23,17 +26,22 @@ class Notice
 
     /**
      * @var int
+     * Type of notice,
+     * Handle by Enumeration\NoticeType
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\Column(name="type", type="string", length=15)
+     * @Groups("product_show")
      */
     private $type;
 
     /**
      * @var string
+     * Message to display
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="message", type="text")
+     * @Groups("product_show")
      */
-    private $content;
+    private $message;
 
     /**
      * @var Product
@@ -43,19 +51,6 @@ class Notice
      *     inversedBy="notices")
      */
     private $product;
-
-    // Constants
-    const INFO = 1;
-    const ALERT = 2;
-
-    public function getProduct()
-    {
-        return $this->product;
-    }
-    public function setProduct(Product $product)
-    {
-        $this->product = $product;
-    }
 
     /**
      * Get id.
@@ -76,11 +71,9 @@ class Notice
      */
     public function setType($type)
     {
-        if($type === 'info') $type = self::INFO;
-        elseif($type === 'alert') $type = self::ALERT;
-        elseif(
-            !in_array($type, [self::INFO, self::ALERT])
-        ) return false;
+        if (!in_array($type, NoticeType::getAvailableTypes())) {
+            throw new \InvalidArgumentException("Invalid NoticeType");
+        }
 
         $this->type = $type;
 
@@ -94,35 +87,51 @@ class Notice
      */
     public function getType()
     {
-        $type = $this->type;
-
-        if($type === self::INFO) $type = 'Information';
-        elseif($type === self::INFO) $type = 'Alerte';
-
-        return $type;
+        return NoticeType::getValue($this->type);
     }
 
     /**
-     * Set content.
+     * Set message.
      *
-     * @param string $content
+     * @param string $message
      *
      * @return Notice
      */
-    public function setContent($content)
+    public function setMessage($message)
     {
-        $this->content = $content;
+        $this->message = $message;
 
         return $this;
     }
 
     /**
-     * Get content.
+     * Get message.
      *
      * @return string
      */
-    public function getContent()
+    public function getMessage()
     {
-        return $this->content;
+        return $this->message;
     }
+
+    /**
+     * Get product
+     *
+     * @return Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * Set product
+     *
+     * @param Product $product
+     */
+    public function setProduct(Product $product)
+    {
+        $this->product = $product;
+    }
+
 }
