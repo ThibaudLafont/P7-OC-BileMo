@@ -50,126 +50,29 @@ class Product implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        // Store Product instance
-        $this->setProduct($object);
 
-        if($this->belongToSerializeGroup('product_show', $context)){
-
-            // Init $product
-            $product = $this->decorated->normalize($object, $format, $context);
-
-            // Normalize sell_infos whatever serialization group
-            $product['sell_infos'] = $this->productInfos();
-            $product['state'] = $this->productState();
-            $product['specifications'] = $this->productSpecs();
-
-            // Check if product has notices, store them if it does
-            if($this->shouldDisplayNotices())
-                $product['state']['notices'] = $this->productNotices();
-
-            // Check if product has a global guarantee, store it if it does
-            if($this->shouldDisplayGlobalGuarantee())
-                $product['guarantee']['global'] = $this->productGlobalGuarantee();
-            // Check if product has a specific guarantees, store them if it does
-            if($this->shouldDisplaySpecificGuarantees())
-                $product['guarantee']['specific'] = $this->productSpecificGuarantees();
-
-        }elseif($this->belongToSerializeGroup('product_list', $context)){
-            $product = $this->decorated->normalize($object, $format, $context);
-            $product[] = $this->productInfos();
-//            $product['model'] = $this->decorated->normalize($object->getModel(), $format, $context);
-        }
-
-        // Return dynamic build array
-        return $product;
-    }
-
-    public function belongToSerializeGroup($group, $context)
-    {
-        return in_array($group, $context['groups']);
-    }
-
-    public function productInfos(){
-        $product = $this->getProduct();
-        return [
-            'id' => $product->getId(),
-            'title' => $product->getTitle(),
-            'sellState' => $product->getState(),
-            'description' => $product->getDescription(),
-            'price' => $product->getPrice(),
-            'available' => $product->getAvailable()
-        ];
-    }
-
-    public function productState(){
-        $product = $this->getProduct();
-        return [
-            'physicState' => $product->getCondition(),
-            'boot_properly' => $product->getBootProperly(),
-            'is_formatted' => $product->getFormatted(),
-            'history' => $product->getHistory()
-        ];
-    }
-
-    public function productSpecs(){
-        $product = $this->getProduct();
-        return [
-            'imei' => $product->getImei(),
-            'color' => $product->getColor(),
-            'memory_size' => $product->getMemorySizeInGb(),
-            'system_version' => $product->getSystemVersion()
-        ];
-    }
-
-    public function shouldDisplayNotices()
-    {
-        return $this->getProduct()
-            ->getNotices()->count() !== 0;
-    }
-
-    public function productNotices()
-    {
         $return = [];
-        foreach($this->getProduct()->getNotices() as $v)
-        {
-            $return[] = [
-                'type' => $v->getType(),
-                'content' => $v->getContent()
-            ];
+
+        if($this->belongToSerializeGroup(['product_list'], $context)){
+            $return = $object->getProductCollection();
+        }elseif($this->belongToSerializeGroup(['product_show'], $context)){
+            $return = $object->getProductItem();
         }
+
+        $return['_links'] = $object->getProductLinks();
+        $return['_embedded']['model'] = $object->getProductModel();
 
         return $return;
+
     }
 
-    public function shouldDisplayGlobalGuarantee(){
-        return $this->getProduct()->getGlobalGuarantee() !== null;
-    }
 
-    public function productGlobalGuarantee()
+    public function belongToSerializeGroup(array $groups, $context)
     {
-        $guar = $this->getProduct()->getGlobalGuarantee();
+        $return = false;
 
-        return [
-            'is_guaranteed' => $guar->isGuaranteed(),
-            'guarantee_length' => $guar->getLengthInMonth(),
-            'message' => $guar->getMessage()
-        ];
-    }
-
-    public function shouldDisplaySpecificGuarantees(){
-        return $this->getProduct()->getSpecificGuarantees()->count() !== 0;
-    }
-
-    public function productSpecificGuarantees(){
-        $guars = $this->getProduct()->getSpecificGuarantees();
-        $return = [];
-        foreach($guars as $guar){
-            $return[] = [
-                'concern' => $guar->getFeature()->getName(),
-                'is_guaranteed' => $guar->isGuaranteed(),
-                'guarantee_length' => $guar->getLengthInMonth(),
-                'message' => $guar->getMessage()
-            ];
+        foreach($groups as $group){
+            if(in_array($group, $context)) $return = true;
         }
 
         return $return;

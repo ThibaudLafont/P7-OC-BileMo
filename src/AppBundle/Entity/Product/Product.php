@@ -239,6 +239,254 @@ class Product
     // Traits
     use Hydrate;
 
+
+    // Links
+
+    /**
+     * @return string
+     */
+    public function getSelfLink(){
+        return "/products/" . $this->getId();
+    }
+
+
+    // Product normalization
+
+    /**
+     * @return array
+     */
+    public function getProductCollection(){
+
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'sellState' => $this->getState(),
+            'description' => $this->getDescription(),
+            'price' => $this->getPrice(),
+            'available' => $this->getAvailable()
+        ];
+
+    }
+
+    /**
+     * @return array
+     */
+    public function getProductItem(){
+
+        // Fill return array with Product properties
+        $return = [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'sellState' => $this->getState(),
+            'description' => $this->getDescription(),
+            'price' => $this->getPrice(),
+            'available' => $this->getAvailable(),
+            'physicState' => $this->getCondition(),
+            'boot_properly' => $this->getBootProperly(),
+            'is_formatted' => $this->getFormatted(),
+            'history' => $this->getHistory(),
+            'imei' => $this->getImei(),
+            'color' => $this->getColor(),
+            'memory_size' => $this->getMemorySizeInGb(),
+            'system_version' => $this->getSystemVersion()
+        ];
+
+        // Check & store notices in $return if needed
+        if($this->shouldDisplayNotices()){
+            $return['notices'] = $this->getProductNotices();
+        }
+
+        // Check & store GlobalGuarantee in $return if needed
+        if($this->shouldDisplayGlobalGuarantee()){
+            $return['guarantees']['global'] = $this->getProductGlobalGuarantee();
+        }
+
+        // Check & store SpecificGuarantees in $return if needed
+        if($this->shouldDisplaySpecificGuarantees()){
+            $return['guarantees']['specifics'] = $this->getProductSpecificGuarantees();
+        }
+
+        return $return;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProductLinks(){
+
+        return [
+            '@self' => $this->getSelfLink(),
+        ];
+
+    }
+
+    /**
+     * @param bool $brand  Should display Brand in _embedded
+     * @param bool $family Should display Family _embedded
+     * @param bool $model  Should display Model in _embedded
+     * @return array
+     */
+    public function getProductSubResource($brand = true, $family = true, $model = true){
+
+        // Store ProductCollection in empty array
+        $return = $this->getProductCollection();
+
+        // Store ProductLinks
+        $return['_links'] = $this->getProductLinks();
+
+        // Check if Brand is needed
+        if($brand){
+
+            // Get brand from $this
+            $object = $this->getModel()->getFamily()->getBrand();
+
+            // Store brand collection in new empty array
+            $brand = $object->getBrandCollection();
+            // Store Brand links in same array
+            $brand['_links'] = $object->getBrandLinks();
+
+            // Store the brand in Product's embedded index
+            $return['_embedded']['brand'] = $brand;
+        }
+
+        // Check if model is needed
+        if($model){
+
+            // Store model collection in new empty array
+            $model = $this->getModel()->getModelCollection();
+            // Store model _links
+            $model['_links'] = $this->getModel()->getModelLinks();
+
+            // Store model in embedded $return index
+            $return['_embedded']['model'] = $model;
+        }
+
+        // Check if family is needed
+        if($family){
+
+            // Store Family Collection in empty array
+            $family = $this->getModel()->getFamily()->getFamilyCollection();
+            // Add Family _links in array
+            $family['_links'] = $this->getModel()->getFamily()->getFamilyLinks();
+
+            // Add new array in Product's _embedded
+            $return['_embedded']['family'] = $family;
+
+        }
+
+        return $return;
+
+    }
+
+
+    // Product SubResources
+
+    // Model
+    /**
+     * @return array
+     */
+    public function getProductModel(){
+
+        // Get and store Model Collection
+        $model = $this->getModel()->getModelCollection();
+        // Add _links
+        $model['_links'] = $this->getModel()->getModelLinks();
+        // Add _embedded
+        $model['_embedded'] = $this->getModel()->getModelEmbedded();
+
+        return $model;
+
+    }
+
+    // Notices
+    /**
+     * Return true if product has notices
+     * @return bool
+     */
+    public function shouldDisplayNotices()
+    {
+        return $this->getNotices()->count() !== 0;
+    }
+
+    /**
+     * Normalize Notices
+     * @return array
+     */
+    public function getProductNotices()
+    {
+        // Fetch and loop on every notices
+        foreach($this->getNotices() as $v)
+        {
+            // Normalize notice and push it in $return
+            $return[] = [
+                'type' => $v->getType(),
+                'content' => $v->getMessage()
+            ];
+        }
+
+        return $return;
+    }
+
+    // Global Guarantees
+    /**
+     * return true if product have global guarantee
+     * @return bool
+     */
+    public function shouldDisplayGlobalGuarantee(){
+        return $this->getGlobalGuarantee() !== null;
+    }
+
+    /**
+     * Normalize GlobalGuarantee
+     * @return array
+     */
+    public function getProductGlobalGuarantee()
+    {
+        // Fetch GlobalGuarantee
+        $guar = $this->getGlobalGuarantee();
+
+        return [
+            'is_guaranteed' => $guar->isGuaranteed(),
+            'guarantee_length' => $guar->getLengthInMonth(),
+            'message' => $guar->getMessage()
+        ];
+    }
+
+    // Specifics guarantees
+    /**
+     * Return true if product has specific(s) guarantee(s)
+     * @return bool
+     */
+    public function shouldDisplaySpecificGuarantees(){
+        return $this->getSpecificGuarantees()->count() !== 0;
+    }
+
+    /**
+     * Normalize specifics guarantees
+     * @return array
+     */
+    public function getProductSpecificGuarantees(){
+
+        // Get product guarantee(s)
+        $guars = $this->getSpecificGuarantees();
+        // Init empty array
+        $return = [];
+
+        // Loop on every guarantee
+        foreach($guars as $guar){
+            // Build Product normalization
+            $return[] = [
+                'concern' => $guar->getFeature()->getName(),
+                'is_guaranteed' => $guar->isGuaranteed(),
+                'guarantee_length' => $guar->getLengthInMonth(),
+                'message' => $guar->getMessage()
+            ];
+        }
+
+        return $return;
+    }
+
+
     /**
      * Get id.
      *

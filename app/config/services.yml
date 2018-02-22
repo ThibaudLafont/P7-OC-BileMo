@@ -41,6 +41,30 @@ services:
         tags: [serializer.normalizer]
         arguments: [ '@AppBundle\Serializer\Normalizer\Model.inner' ]
 
+    AppBundle\Serializer\Normalizer\Company:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Company.inner' ]
+
+    AppBundle\Serializer\Normalizer\Client:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Client.inner' ]
+
+    AppBundle\Serializer\Normalizer\Brand:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Brand.inner' ]
+
+    AppBundle\Serializer\Normalizer\Family:
+        decorates: 'api_platform.jsonld.normalizer.item'
+        public: false
+        tags: [serializer.normalizer]
+        arguments: [ '@AppBundle\Serializer\Normalizer\Family.inner' ]
+
     user_listener:
             class: AppBundle\EventListener\UserListener
             tags:

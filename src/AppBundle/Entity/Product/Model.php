@@ -7,7 +7,7 @@ use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
@@ -28,6 +28,14 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  *              "normalization_context"={
  *                  "groups"={"model_show"}
  *              }
+ *          },
+ *          "model_products"={
+ *              "method"="GET",
+ *              "route_name"="model_products",
+ *              "path"="/model/{id}/products",
+ *              "normalization_context"={
+ *                  "groups"={"model_products"}
+ *              }
  *          }
  *     }
  * )
@@ -43,8 +51,6 @@ class Model
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @Groups({"brand_show", "family_show", "model_list", "model_show"})
      */
     private $id;
 
@@ -52,8 +58,6 @@ class Model
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55)
-     *
-     * @Groups({"brand_show", "family_show", "model_list", "model_show"})
      */
     private $name;
 
@@ -61,7 +65,6 @@ class Model
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", nullable=true)
-     * @Groups({"model_show"})
      */
     private $description;
 
@@ -70,7 +73,6 @@ class Model
      * Product page on constructor website (if exists)
      *
      * @ORM\Column(name="constructor_url", type="text", nullable=true)
-     * @Groups({"model_show"})
      */
     private $constructorUrl;
 
@@ -79,7 +81,6 @@ class Model
      * Model release year
      *
      * @ORM\Column(name="release_year", type="bigint")
-     * @Groups("model_show")
      */
     private $releaseYear;
 
@@ -90,7 +91,6 @@ class Model
      *     targetEntity="Family",
      *     inversedBy="models"
      * )
-     * @Groups({"model_list", "model_show"})
      */
     private $family;
 
@@ -114,7 +114,6 @@ class Model
      *     targetEntity="Product",
      *     mappedBy="model"
      * )
-     * @Groups({"model_show"})
      */
     private $products;
 
@@ -126,26 +125,144 @@ class Model
         $this->specValues = new ArrayCollection();
     }
 
-    /**
-     * @Groups({"model_list", "model_show"})
-     */
-    public function getBrand(){
-        // Fetch brand from model family
-        $brand = $this->getFamily()->getBrand();
 
-        // Build and return array
+    // Model links
+
+    /**
+     * @return string
+     */
+    public function getSelfUrl(){
+        return "/models/" . $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductsSubLink(){
+        return "/models/" . $this->getId() . "/products";
+    }
+
+
+    // Model normalization
+
+    /**
+     * @return array
+     */
+    public function getModelCollection()
+    {
         return [
-            'id' => $brand->getId(),
-            'name' => $brand->getName(),
-            '@show' => $brand->getShowUrl()
+            'id' => $this->getId(),
+            'name' => $this->getName()
         ];
     }
 
     /**
-     * @Groups({"brand_show", "family_show", "model_list"})
+     * @return array
      */
-    public function getShowUrl(){
-        return "/models/" . $this->getId();
+    public function getModelItem(){
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'release_year' => $this->getReleaseYear(),
+            'description' => $this->getDescription(),
+            'contructor_url' => $this->getConstructorUrl()
+        ];
+    }
+
+    /**
+     * Model _links
+     * @return array
+     */
+    public function getModelLinks(){
+        return [
+            '@self' => $this->getSelfUrl(),
+            '@products' => $this->getProductsSubLink()
+        ];
+    }
+
+    /**
+     * Model _embedded
+     * @return array
+     */
+    public function getModelEmbedded(){
+
+        // Fetch Family and Brand of model
+        $family = $this->getFamily();
+        $brand = $this->getFamily()->getBrand();
+
+        // Return builded array
+        return [
+            'brand' => [
+                'id' => $brand->getId(),
+                'name' => $brand->getName(),
+                '_links' => $brand->getBrandLinks()
+            ],
+            'family' => [
+                'id' => $family->getId(),
+                'name' => $family->getName(),
+                '_links' => $family->getFamilyLinks()
+            ]
+        ];
+    }
+
+    /**
+     * Normalization for model subresource display
+     * @return array
+     */
+    public function getModelSubResource(){
+
+        // Store ModelCollection in var
+        $return = $this->getModelCollection();
+        // Add links
+        $return['_links'] = $this->getModelLinks();
+
+        return $return;
+
+    }
+
+    // Model subresource
+
+    /**
+     * Model's products
+     * @return array
+     */
+    public function getModelProducts(){
+
+        // Init empty array
+        $return = [];
+
+        // Loop on every Model's products
+        foreach($this->getProducts() as $product){
+
+            // Store ProductSubresource in new $return index
+            $return[] = $product->getProductSubResource(false, false, false);
+
+        }
+
+        return $return;
+
+    }
+
+    public function getSpecs(){
+
+        // Init empty array
+        $return = [];
+
+        // Loop on every specValue of object
+        foreach($this->getSpecValues() as $specValue){
+
+            // Get Spec object
+            $spec = $specValue->getSpec();
+            // Get Feature object
+            $feature = $spec->getFeature();
+
+            // Store values in correct array index, create it if not set
+            $return[$feature->getName()][$spec->getName()] = $specValue->getValue();
+        }
+
+        // Return build array
+        return $return;
+
     }
 
     /**

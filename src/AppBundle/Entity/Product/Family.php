@@ -4,8 +4,6 @@ namespace AppBundle\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Family
@@ -25,13 +23,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "normalization_context"={
  *                  "groups"={"family_show"}
  *              }
- *          }
- *     },
- *     subresourceOperations={
- *          "api_brands_families_get_subresource"={
+ *          },
+ *          "family_models"={
  *              "method"="GET",
+ *              "route_name"="family_models",
+ *              "path"="/families/{id}/models",
  *              "normalization_context"={
- *                  "groups"={"brand_subresource"}
+ *                  "groups"={"family_models"}
+ *              }
+ *          },
+ *          "family_products"={
+ *              "method"="GET",
+ *              "route_name"="family_products",
+ *              "path"="/families/{id}/products",
+ *              "normalization_context"={
+ *                  "groups"={"family_products"}
  *              }
  *          }
  *     }
@@ -48,7 +54,6 @@ class Family
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Groups({"brand_show", "family_list", "family_show", "model_list", "model_show"})
      */
     private $id;
 
@@ -56,8 +61,6 @@ class Family
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55)
-     *
-     * @Groups({"brand_show", "family_list", "family_show", "model_list", "model_show"})
      */
     private $name;
 
@@ -65,7 +68,6 @@ class Family
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-     * @Groups({"family_show"})
      */
     private $description;
 
@@ -77,7 +79,6 @@ class Family
      *     targetEntity="Brand",
      *     inversedBy="families"
      * )
-     * @Groups({"family_list", "family_show"})
      */
     private $brand;
 
@@ -89,16 +90,114 @@ class Family
      *     targetEntity="Model",
      *     mappedBy="family"
      * )
-     * @Groups({"brand_show", "family_show"})
      */
     private $models;
 
     /**
-     * @Groups({"brand_show", "family_list", "model_list", "model_show"})
+     * @var array
      */
-    public function getShowUrl(){
+    private $products;
+
+
+    // Links of Family
+
+    /**
+     * @return string
+     */
+    public function getSelfUrl(){
         return "/families/" . $this->getId();
     }
+
+    /**
+     * @return string
+     */
+    public function getModelsSubLink(){
+        return "/families/" . $this->getId() . "/models";
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductsSubLink(){
+        return "/families/" . $this->getId() . "/products";
+    }
+
+
+    // Family normalization
+
+    /**
+     * Collection normalization
+     * @return array
+     */
+    public function getFamilyCollection(){
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()
+        ];
+    }
+
+    /**
+     * Item normalization
+     * @return array
+     */
+    public function getFamilyItem(){
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription()
+        ];
+    }
+
+    /**
+     * Family _links
+     * @return array
+     */
+    public function getFamilyLinks(){
+        return [
+            '@self' => $this->getSelfUrl(),
+            '@models' => $this->getModelsSubLink(),
+            '@products' => $this->getProductsSubLink()
+        ];
+    }
+
+    /**
+     * Family _embedded
+     * @return mixed
+     */
+    public function getFamilyEmbedded(){
+        $return['brand'] = $this->getBrand()->getBrandCollection();
+        $return['brand']['_links'] = $this->getBrand()->getBrandLinks();
+
+        return $return;
+    }
+
+
+    // Family Subresources
+
+    /**
+     * Family's models
+     * @return array
+     */
+    public function getFamilyModels(){
+        $return = [];
+        foreach($this->getModels() as $model){
+            $return[] = $model->getModelSubResource();
+        }
+        return $return;
+    }
+
+    /**
+     * Family's products
+     * @return array
+     */
+    public function getFamilyProducts(){
+        $return = [];
+        foreach($this->getProducts() as $product){
+            $return[] = $product->getProductSubResource(false, false, true);
+        }
+        return $return;
+    }
+
 
     /**
      * Get id.
@@ -186,6 +285,22 @@ class Family
     public function getModels()
     {
         return $this->models;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param mixed $products
+     */
+    public function setProducts($products)
+    {
+        $this->products = $products;
     }
 
 }

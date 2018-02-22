@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Serializer\Normalizer;
 
+use AppBundle\Entity\Guarantee\ProductGlobal;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExtraAttributesException;
@@ -13,18 +14,8 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
-class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
-
-    private $decorated;
-
-    public function __construct(NormalizerInterface $decorated)
-    {
-        if (!$decorated instanceof DenormalizerInterface) {
-            throw new \InvalidArgumentException(sprintf('The decorated normalizer must implement the %s.', DenormalizerInterface::class));
-        }
-
-        $this->decorated = $decorated;
-    }
+class Client implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
+{
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -43,37 +34,19 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
     public function normalize($object, $format = null, array $context = array())
     {
 
-        // Init empty array
-        $return = [];
+        // Handle a collection request
+        if($this->belongToSerializeGroup(['company_subresource', 'client_list'], $context)){
 
-        // Case of collection request
-        if($this->belongToSerializeGroup(['brand_show', 'family_show', 'model_list', 'model_products'], $context))
-        {
-            // Get collection array from object
-            $return = $object->getModelCollection();
+            $return = $object->getClientCollection();
 
-        }
-        // Case of item request
-        elseif($this->belongToSerializeGroup(['model_show'], $context)){
+        }elseif($this->belongToSerializeGroup(['client_show'], $context)){
 
-            // Get model item infos
-            $return = $object->getModelItem();
-            $return['specifications'] = $object->getSpecs();
+            $return = $object->getClientItem();
 
         }
 
-        if($this->belongToSerializeGroup(['model_products'], $context)){
-
-            $return['products'] = $object->getModelProducts();
-
-        }
-
-        // Set links and embedded
-        $return['_links'] = $object->getModelLinks();
-        $return['_embedded'] = $object->getModelEmbedded();
-
-        // Return build array
         return $return;
+
     }
 
     public function belongToSerializeGroup(array $groups, $context)
@@ -97,7 +70,7 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof \AppBundle\Entity\Product\Model;
+        return $data instanceof \AppBundle\Entity\User\Client;
     }
 
     /**

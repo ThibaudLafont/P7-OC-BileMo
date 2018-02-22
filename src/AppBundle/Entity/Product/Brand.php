@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * Brand
@@ -26,6 +27,30 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "normalization_context"={
  *                  "groups"={"brand_show"}
  *              }
+ *          },
+ *          "brand_families"={
+ *              "method"="GET",
+ *              "route_name"="brand_families",
+ *              "path"="/brands/{id}/families",
+ *              "normalization_context"={
+ *                  "groups"={"brand_families"}
+ *              }
+ *          },
+ *          "brand_products"={
+ *              "method"="GET",
+ *              "route_name"="brand_products",
+ *              "path"="/brands/{id}/products",
+ *              "normalization_context"={
+ *                  "groups"={"brand_products"}
+ *              }
+ *          },
+ *          "brand_models"={
+ *              "method"="GET",
+ *              "route_name"="brand_models",
+ *              "path"="/brands/{id}/models",
+ *              "normalization_context"={
+ *                  "groups"={"brand_models"}
+ *              }
  *          }
  *     }
  * )
@@ -41,8 +66,6 @@ class Brand
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @Groups({"brand_list", "brand_show", "family_list", "family_show"})
      */
     private $id;
 
@@ -50,7 +73,6 @@ class Brand
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55, unique=true)
-     * @Groups({"brand_list", "brand_show", "family_list", "family_show"})
      */
     private $name;
 
@@ -58,7 +80,6 @@ class Brand
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", nullable=true)
-     * @Groups({"brand_show"})
      */
     private $description;
 
@@ -67,7 +88,6 @@ class Brand
      * Brand home page
      *
      * @ORM\Column(name="website_url", type="string", length=255, nullable=true)
-     * @Groups({"brand_show"})
      */
     private $websiteUrl;
 
@@ -79,35 +99,169 @@ class Brand
      *     targetEntity="Family",
      *     mappedBy="brand"
      * )
-     *
-     * @ApiSubresource
-     * @Groups({"brand_show"})
      */
     private $families;
 
     /**
      * @var array
-     * Brand's models
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="Model",
-     *     mappedBy="brand"
-     * )
-     *
-     * @ApiSubresource
+     */
+    private $products;
+
+    /**
+     * @var array
      */
     private $models;
 
     // Traits
     use Hydrate;
 
+
+    // Links of Brand
+
     /**
      * @return string
-     *
-     * @Groups({"brand_list", "family_list", "family_show"})
      */
-    public function getShowUrl(){
+    public function getSelfUrl(){
         return "/brands/" . $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getFamiliesSubLink(){
+        return '/brands/' . $this->getId() . '/families';
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelsSubLink(){
+        return '/brands/' . $this->getId() . '/models';
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductsSubLink(){
+        return '/brands/' . $this->getId() . '/products';
+    }
+
+    /**
+     * Brand's _links
+     * @return array
+     */
+    public function getBrandLinks(){
+        return [
+            '@self' => $this->getSelfUrl(),
+            '@families' => $this->getFamiliesSubLink(),
+            '@models' => $this->getModelsSubLink(),
+            '@products' => $this->getProductsSubLink()
+        ];
+    }
+
+
+    // Brand normalization
+
+    /**
+     * @return array
+     */
+    public function getBrandCollection(){
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getBrandItem(){
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'constructor_url' => $this->getWebsiteUrl()
+        ];
+    }
+
+
+    // Subresource normalization
+
+    /**
+     * Brand's products
+     * @return array
+     */
+    public function getBrandProducts(){
+
+        // Init empty array
+        $return = [];
+
+        // loop on every stored products
+        foreach($this->getProducts() as $product){
+
+            // Add product to return array
+            $return[] = $product->getProductSubResource(false, true, true);
+
+        }
+
+        return $return;
+
+    }
+
+    /**
+     * Brand's models
+     * @return array
+     */
+    public function getBrandModels(){
+
+        //Init empty return array
+        $return = [];
+
+        // Loop on every stored models
+        foreach($this->getModels() as $model){
+
+            // Normalize family
+            $family = $model->getFamily()->getFamilyCollection();
+            $family['_links'] = $model->getFamily()->getFamilyLinks();
+
+            // Normalize model
+            $insert = $model->getModelCollection();
+            $insert['_links'] = $model->getModelLinks();
+
+            // Assembly fetched datas
+            $insert['_embedded']['family'] = $family;
+
+            // Push new model in return array
+            $return[] = $insert;
+        }
+
+        return $return;
+    }
+
+    /**
+     * Brand's families
+     * @return array
+     */
+    public function getBrandFamilies(){
+
+        // Init empty array
+        $return = [];
+
+        // Loop on every stored family
+        foreach($this->getFamilies() as $family){
+
+            // Store Family Collection array
+            $insert = $family->getFamilyCollection();
+
+            // Store Family links
+            $insert['_links'] = $family->getFamilyLinks();
+
+            // Push new datas in return array
+            $return[] = $insert;
+
+        }
+
+        return $return;
     }
 
     /**
@@ -203,13 +357,31 @@ class Brand
     }
 
     /**
-     * Get models
-     *
      * @return array
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    public function setProducts($products){
+        $this->products = $products;
+    }
+
+    /**
+     * @return mixed
      */
     public function getModels()
     {
         return $this->models;
+    }
+
+    /**
+     * @param mixed $models
+     */
+    public function setModels($models)
+    {
+        $this->models = $models;
     }
 
 }

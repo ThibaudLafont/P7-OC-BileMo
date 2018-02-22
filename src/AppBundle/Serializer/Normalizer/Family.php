@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
-class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
+class Family implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
 
     private $decorated;
 
@@ -42,38 +42,38 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
      */
     public function normalize($object, $format = null, array $context = array())
     {
-
         // Init empty array
-        $return = [];
+        $family = [];
 
         // Case of collection request
-        if($this->belongToSerializeGroup(['brand_show', 'family_show', 'model_list', 'model_products'], $context))
-        {
-            // Get collection array from object
-            $return = $object->getModelCollection();
+        if($this->belongToSerializeGroup(['family_list', 'family_models', 'family_products'], $context)){
+
+            // Get FamilyCollection infos in array
+            $family = $object->getFamilyCollection();
 
         }
-        // Case of item request
-        elseif($this->belongToSerializeGroup(['model_show'], $context)){
+        elseif($this->belongToSerializeGroup(['family_show'], $context)){
 
-            // Get model item infos
-            $return = $object->getModelItem();
-            $return['specifications'] = $object->getSpecs();
+            // Get FamilyItem infos in array
+            $family = $object->getFamilyItem();
 
         }
 
-        if($this->belongToSerializeGroup(['model_products'], $context)){
+        if($this->belongToSerializeGroup(['family_models'], $context)){
 
-            $return['products'] = $object->getModelProducts();
+            $family['models'] = $object->getFamilyModels();
+
+        }elseif($this->belongToSerializeGroup(['family_products'], $context)){
+
+            $family['products'] = $object->getFamilyProducts();
 
         }
 
-        // Set links and embedded
-        $return['_links'] = $object->getModelLinks();
-        $return['_embedded'] = $object->getModelEmbedded();
+        $family['_links'] = $object->getFamilyLinks();
+        $family['_embedded'] = $object->getFamilyEmbedded();
 
         // Return build array
-        return $return;
+        return $family;
     }
 
     public function belongToSerializeGroup(array $groups, $context)
@@ -81,7 +81,7 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
         $return = false;
 
         foreach($groups as $group){
-            if(in_array($group, $context)) $return = true;
+            if(in_array($group, $context['groups'])) $return = true;
         }
 
         return $return;
@@ -97,7 +97,7 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
      */
     public function supportsNormalization($data, $format = null)
     {
-        return $data instanceof \AppBundle\Entity\Product\Model;
+        return $data instanceof \AppBundle\Entity\Product\Family;
     }
 
     /**
@@ -145,4 +145,5 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
     {
         return;
     }
+
 }

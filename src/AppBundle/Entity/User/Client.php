@@ -6,12 +6,38 @@ use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Client
  * Represent an user of a bilemo's client company
  *
- * @ApiResource
+ * @ApiResource(
+ *     collectionOperations={
+ *          "client_list"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"client_list"}
+ *              }
+ *          }
+ *     },
+ *     itemOperations={
+ *          "client_show"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"client_show"}
+ *              }
+ *          }
+ *     },
+ *     subresourceOperations={
+ *          "api_companies_users_get_subresource"={
+ *              "method"="GET",
+ *              "normalization_context"={
+ *                  "groups"={"company_list"}
+ *              }
+ *          }
+ *     }
+ * )
  *
  * @ORM\Table(name="user_client")
  * @ORM\Entity
@@ -98,6 +124,40 @@ class Client extends User
 
     // Traits
     use Hydrate;
+
+    public function getClientCollection(){
+        return [
+            'id' => $this->getId(),
+            'username' => $this->getUsername(),
+            'full_name' => $this->getFullName()
+        ];
+    }
+
+    public function getClientItem(){
+        return [
+            'id' => $this->getId(),
+            'username' => $this->getUsername(),
+            'fist_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'mail_address' => $this->getMailAddress(),
+            'phone_number' => $this->getPhoneNumber()
+        ];
+    }
+
+    public function getFullName()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    public function getSelfUrl(){
+        return "/clients/" . $this->getId();
+    }
+
+    public function getUserLinks(){
+        return [
+            '@self' => $this->getSelfUrl()
+        ];
+    }
 
     // Authorizations
 

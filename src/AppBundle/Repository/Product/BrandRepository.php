@@ -10,4 +10,51 @@ namespace AppBundle\Repository\Product;
  */
 class BrandRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getProducts($id){
+
+        // DQL statement fetching all brand's products
+        $state = "
+            SELECT p
+            FROM AppBundle:Product\Product p
+            JOIN p.model m 
+            JOIN m.family f 
+            JOIN f.brand b 
+            WHERE b.id = :brand_id
+        ";
+
+        // Execute the query and store results
+        $products = $this->getEntityManager()
+            ->createQuery($state)
+            ->setParameter('brand_id', $id)
+            ->getResult();
+
+        // Return the products
+        return $products;
+
+    }
+
+    public function getModels($id){
+
+        // DQL statement fetching all brand's products
+        $state = "
+            SELECT m
+            FROM AppBundle:Product\Model m
+            JOIN m.family f 
+            JOIN f.brand b 
+            WHERE b.id = :brand_id
+        ";
+
+        // Execute the query and store results
+        $models = $this->getEntityManager()
+            ->createQuery($state)
+            ->setParameter('brand_id', $id)
+            ->getResult();
+
+        // Return the products
+        return $models;
+
+    }
+
+
 }
