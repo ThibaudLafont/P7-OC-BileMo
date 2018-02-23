@@ -11,29 +11,10 @@ use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
-use Symfony\Component\Serializer\Annotation\Groups;
-
 /**
  * Product
  *
- * @ApiResource(
- *     collectionOperations={
- *          "product_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"product_list"}
- *              }
- *          }
- *     },
- *     itemOperations={
- *          "product_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"product_show"}
- *              }
- *          }
- *     }
- * )
+ * @ApiResource()
  *
  * @ORM\Table(name="p_product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ProductRepository")
@@ -298,12 +279,12 @@ class Product
 
         // Check & store GlobalGuarantee in $return if needed
         if($this->shouldDisplayGlobalGuarantee()){
-            $return['guarantees']['global'] = $this->getProductGlobalGuarantee();
+            $return['global_guarantee'] = $this->getProductGlobalGuarantee();
         }
 
         // Check & store SpecificGuarantees in $return if needed
         if($this->shouldDisplaySpecificGuarantees()){
-            $return['guarantees']['specifics'] = $this->getProductSpecificGuarantees();
+            $return['specific_guarantees'] = $this->getProductSpecificGuarantees();
         }
 
         return $return;
@@ -514,13 +495,13 @@ class Product
     }
 
     /**
-     * Set name.
+     * Set title.
      *
      * @param string $title
      *
      * @return Product
      */
-    public function setName($title)
+    public function setTitle($title)
     {
         $this->title = $title;
 

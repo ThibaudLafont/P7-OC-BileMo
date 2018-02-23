@@ -19,15 +19,29 @@ use ApiPlatform\Core\Swagger;
  *              "method"="GET",
  *              "normalization_context"={
  *                  "groups"={"brand_list"}
+ *              },
+ *              "swagger_context"={
+ *                  "responses"= {
+ *                      "201" =  {
+ *                          "description": "List all Brands resources",
+ *                          "schema"={
+ *                              "properties" = {
+ *                                  "description"={"type"="string", "description"="Ceci est une description"},
+ *                                  "name"={"type"="string"},
+ *                                  "brand_id" = {"example"=10}
+ *                              }
+ *                          }
+ *                      }
+ *                  }
  *              }
- *          }
+ *          },
  *     },
  *     itemOperations={
  *          "brand_show"={
  *              "method"="GET",
  *              "normalization_context"={
  *                  "groups"={"brand_show"}
- *              }
+ *              },
  *          },
  *          "brand_families"={
  *              "method"="GET",
