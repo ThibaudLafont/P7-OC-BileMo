@@ -183,7 +183,8 @@ class Brand
     public function getBrandCollection(){
         return [
             'id' => $this->getId(),
-            'name' => $this->getName()
+            'name' => $this->getName(),
+            '_links' => $this->getBrandLinks()
         ];
     }
 
@@ -195,7 +196,8 @@ class Brand
             'id' => $this->getId(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),
-            'constructor_url' => $this->getWebsiteUrl()
+            'constructor_url' => $this->getWebsiteUrl(),
+            '_links' => $this->getBrandLinks()
         ];
     }
 

@@ -45,12 +45,7 @@ class Company implements NormalizerInterface, DenormalizerInterface, Denormalize
         // Handle an item request
         elseif($this->belongToSerializeGroup(['company_show'], $context)){
 
-            //
             $return = $object->getCompanyItem();
-
-            foreach($object->getClients() as $user){
-                $return['clients'][] = $user->getClientCollection();
-            }
 
         }
 

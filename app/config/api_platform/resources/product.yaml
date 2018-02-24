@@ -7,6 +7,76 @@ resources:
         normalization_context:
           groups: [product_list]
         swagger_context:
+          responses:
+            201:
+              description: Get Product resources collection
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: Primary key of resource
+                      example: 1
+                    title:
+                      type: string
+                      description: Main title of product
+                      example: Iphone 5 noir
+                    sell_state:
+                      type: string
+                      description: Sell statement of product, see enumerations
+                      enum: [Neuf, Reconditionné, Occasion, Défectueux]
+                      example: Défectueux
+                    description:
+                      type: string
+                      description: Global description of product
+                      example: Produit ayant subi un sinistre
+                    price:
+                      type: float
+                      description: Price in euros
+                      example: 195.99
+                    available:
+                      type: boolean
+                      description: True if product is still avaible
+                      example: true
+                    _links:
+                      type: array
+                      description: Contain Product resource links for api self-discoverability
+                      items:
+                        type: string
+                        description: Self-discoverability path
+                      example:
+                        '@self': /products/1
+                    _embedded:
+                      type: array
+                      description: Product's related resources
+                      items:
+                        type: object
+                        description: Embedded resources
+                      example:
+                        model:
+                          id: 2
+                          name: Iphone 5
+                          _links:
+                            '@self': /models/2
+                            '@products': /models/2/products
+                        family:
+                          id: 1
+                          name: Iphone
+                          _links:
+                            '@self': /families/1
+                            '@models': /families/1/models
+                            '@products': /families/1/products
+                        brand:
+                          id: 1
+                          name: Apple
+                          _links:
+                            '@self': /brands/1
+                            '@models': /brands/1/models
+                            '@families': /brands/1/families
+                            '@products': /brands/1/products
+
     itemOperations:
       product_show:
         method: GET
@@ -119,17 +189,10 @@ resources:
                     type: array
                     description: Contain Product resource links for api self-discoverability
                     items:
-                      type: object
-                      description: Links to resource other paths
-                      properties:
-                        name:
-                          type: string
-                          description: Index name for resource link action
-                          example: "@self"
-                        path:
-                          type: string
-                          description: Path to resource action
-                          example: /products/1
+                      type: string
+                      description: Self-discoverability path
+                    example:
+                      '@self': /products/1
                   _embedded:
                     type: array
                     description: Product's related resources

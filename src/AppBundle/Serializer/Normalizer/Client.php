@@ -38,14 +38,15 @@ class Client implements NormalizerInterface, DenormalizerInterface, Denormalizer
         if($this->belongToSerializeGroup(['company_subresource', 'client_list'], $context)){
 
             $return = $object->getClientCollection();
-            $return['_links'] = $object->getUserLinks();
+//            $return['_links'] = $object->getUserLinks();
 
         }elseif($this->belongToSerializeGroup(['client_show'], $context)){
 
             $return = $object->getClientItem();
-            $return['_links'] = $object->getUserLinks();
 
         }
+
+        $return['_links'] = $object->getUserLinks();
 
         if(!$this->belongToSerializeGroup(['company_subresource'], $context)){
             $return['_embedded']['company'] = $object->getCompany()->getCompanyCollection();

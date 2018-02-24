@@ -154,7 +154,8 @@ class Family
      * Family _links
      * @return array
      */
-    public function getFamilyLinks(){
+    public function getFamilyLinks()
+    {
         return [
             '@self' => $this->getSelfUrl(),
             '@models' => $this->getModelsSubLink(),
@@ -166,7 +167,8 @@ class Family
      * Family _embedded
      * @return mixed
      */
-    public function getFamilyEmbedded(){
+    public function getFamilyEmbedded()
+    {
         $return['brand'] = $this->getBrand()->getBrandCollection();
         $return['brand']['_links'] = $this->getBrand()->getBrandLinks();
 

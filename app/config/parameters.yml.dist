@@ -16,7 +16,7 @@ parameters:
     mailer_password: ~
 
     # A secret key that's used to generate certain security-related tokens
-    secret: ThisTokenIsNotSoSecretChangeIt
+    secret: $2y$10$xpBAypxCNDIlZv2sJl19iugVgC5p4R1HumIM3Kd06xkNEUlL5rKQq
 
     cors_allow_origin: http://localhost
 

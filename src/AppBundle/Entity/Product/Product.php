@@ -320,6 +320,7 @@ class Product
 
             // Store model in embedded $return index
             $return['_embedded']['model'] = $this->getProductModel();
+
         }
 
         // Check if family is needed
@@ -335,6 +336,7 @@ class Product
 
             // Store the brand in Product's embedded index
             $return['_embedded']['brand'] = $this->getProductBrand();
+
         }
 
         return $return;

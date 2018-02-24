@@ -44,30 +44,47 @@ class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerA
     {
 //        $brand = $this->decorated->normalize($object, $format, $context);
 
+        /**
+         * Brand Properties normalization
+         */
+
+        // Case we want the min informations about Brand Resource
         if($this->belongToSerializeGroup(['brand_list', 'brand_models', 'brand_products', 'brand_families'], $context)){
 
+            // Init Brand with BrandCollection attributes
             $brand = $object->getBrandCollection();
 
-        }
-        elseif($this->belongToSerializeGroup(['brand_show'], $context)){
+        // Case we want all properties of Brand Resource
+        }elseif($this->belongToSerializeGroup(['brand_show'], $context)){
 
+            // Init Brand with BrandItem attributes
             $brand = $object->getBrandItem();
 
         }
+
+
+        /**
+         * Brand Subresource normalization
+         */
+
+        // Brand's families
         if($this->belongToSerializeGroup(['brand_families'], $context)){
 
-            $brand['families'] = $object->getBrandFamilies();
+            $brand['families'] = $object->getBrandFamilies();  // Fetch&Store subresources
 
+        // Brand's models
         }elseif($this->belongToSerializeGroup(['brand_models'], $context)) {
 
-            $brand['models'] = $object->getBrandModels();
+            $brand['models'] = $object->getBrandModels();  // Fetch&Store subresources
 
+        // Brand's products
         }elseif($this->belongToSerializeGroup(['brand_products'], $context)) {
 
-            $brand['products'] = $object->getBrandProducts();
+            $brand['products'] = $object->getBrandProducts();  // Fetch&Store subresources
 
         }
 
+        // Add Brand's resource _links
         $brand['_links'] = $object->getBrandLinks();
 
         return $brand;
