@@ -52,13 +52,13 @@ class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerA
         if($this->belongToSerializeGroup(['brand_list', 'brand_models', 'brand_products', 'brand_families'], $context)){
 
             // Init Brand with BrandCollection attributes
-            $brand = $object->getBrandCollection();
+            $brand = $object->getBrandCollection(false);
 
         // Case we want all properties of Brand Resource
         }elseif($this->belongToSerializeGroup(['brand_show'], $context)){
 
             // Init Brand with BrandItem attributes
-            $brand = $object->getBrandItem();
+            $brand = $object->getBrandItem(false);
 
         }
 

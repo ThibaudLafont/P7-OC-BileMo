@@ -236,9 +236,9 @@ class Product
     /**
      * @return array
      */
-    public function getProductCollection(){
+    public function getProductCollection($links = true, $brand=true, $family=true, $model = true){
 
-        return [
+        $return = [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
             'sellState' => $this->getState(),
@@ -247,12 +247,20 @@ class Product
             'available' => $this->getAvailable()
         ];
 
+        if($links)
+            $return['_links'] = $this->getProductLinks();
+
+
+        if($brand || $family || $model)
+            $return['embedded'] = $this->getProductEmbedded($brand, $family, $model);
+
+        return $return;
     }
 
     /**
      * @return array
      */
-    public function getProductItem(){
+    public function getProductItem($links = true, $brand=true, $family=true, $model = true){
 
         // Fill return array with Product properties
         $return = [
@@ -287,7 +295,14 @@ class Product
             $return['specific_guarantees'] = $this->getProductSpecificGuarantees();
         }
 
+        if($links)
+            $return['_links'] = $this->getProductLinks();
+
+        if($brand || $family || $model)
+            $return['embedded'] = $this->getProductEmbedded($brand, $family, $model);
+
         return $return;
+
     }
 
     /**
@@ -301,47 +316,62 @@ class Product
 
     }
 
+    public function getProductEmbedded($brand, $family, $model){
+
+        $return = [];
+
+        if($brand)
+            $return['brand'] = $this->getModel()->getFamily()->getBrand()->getBrandCollection(true);
+        if($family)
+            $return['family'] = $this->getModel()->getFamily()->getFamilyCollection(true, false);
+        if($model)
+            $return['model'] = $this->getModel()->getModelCollection(true, false, false);
+
+        return $return;
+
+    }
+
     /**
      * @param bool $brand  Should display Brand in _embedded
      * @param bool $family Should display Family _embedded
      * @param bool $model  Should display Model in _embedded
      * @return array
      */
-    public function getProductSubResource($brand = true, $family = true, $model = true){
-
-        // Store ProductCollection in empty array
-        $return = $this->getProductCollection();
-
-        // Store ProductLinks
-        $return['_links'] = $this->getProductLinks();
-
-        // Check if model is needed
-        if($model){
-
-            // Store model in embedded $return index
-            $return['_embedded']['model'] = $this->getProductModel();
-
-        }
-
-        // Check if family is needed
-        if($family){
-
-            // Add new array in Product's _embedded
-            $return['_embedded']['family'] = $this->getProductFamily();
-
-        }
-
-        // Check if Brand is needed
-        if($brand){
-
-            // Store the brand in Product's embedded index
-            $return['_embedded']['brand'] = $this->getProductBrand();
-
-        }
-
-        return $return;
-
-    }
+//    public function getProductSubResource($brand = true, $family = true, $model = true){
+//
+//        // Store ProductCollection in empty array
+//        $return = $this->getProductCollection();
+//
+//        // Store ProductLinks
+//        $return['_links'] = $this->getProductLinks();
+//
+//        // Check if model is needed
+//        if($model){
+//
+//            // Store model in embedded $return index
+//            $return['_embedded']['model'] = $this->getProductModel();
+//
+//        }
+//
+//        // Check if family is needed
+//        if($family){
+//
+//            // Add new array in Product's _embedded
+//            $return['_embedded']['family'] = $this->getProductFamily();
+//
+//        }
+//
+//        // Check if Brand is needed
+//        if($brand){
+//
+//            // Store the brand in Product's embedded index
+//            $return['_embedded']['brand'] = $this->getProductBrand();
+//
+//        }
+//
+//        return $return;
+//
+//    }
 
 
     // Product SubResources
@@ -353,9 +383,7 @@ class Product
     public function getProductModel(){
 
         // Get and store Model Collection
-        $model = $this->getModel()->getModelCollection();
-        // Add _links
-        $model['_links'] = $this->getModel()->getModelLinks();
+        $model = $this->getModel()->getModelCollection(true, false, false, false);
 
         return $model;
 
@@ -363,12 +391,8 @@ class Product
 
     public function getProductFamily(){
 
-        // Store product Family
-        $family = $this->getModel()->getFamily();
-
         // Normalize Family
-        $return = $family->getFamilyCollection();
-        $return['_links'] = $family->getFamilyLinks();
+        $return = $this->getModel()->getFamily()->getFamilyCollection(true, false);
 
         return $return;
 
@@ -380,22 +404,25 @@ class Product
         $brand = $this->getModel()->getFamily()->getBrand();
 
         // Normalize Brand
-        $return = $brand->getBrandCollection();
-        $return['_links'] = $brand->getBrandLinks();
+        $return = $brand->getBrandCollection(true);
 
         return $return;
 
     }
 
-    public function getProductEmbedded(){
-
-        return [
-            'model' => $this->getProductModel(),
-            'family' => $this->getProductFamily(),
-            'brand' => $this->getProductBrand()
-        ];
-
-    }
+//    public function getProductEmbedded($brand, $family, $model){
+//
+//        $return = [];
+//
+//        if($brand)
+//            $return['brand'] = $this->getModel()->getFamily()->getBrand()->getBrandCollection(true);
+//        if($family)
+//            $return['family'] = $this->getModel()->getFamily()->getFamilyCollection(true, false);
+//        if($model)
+//            $return['model'] = $this->getModel()->getModelCollection(true, false, false);
+//
+//        return $return;
+//    }
 
     // Notices
     /**

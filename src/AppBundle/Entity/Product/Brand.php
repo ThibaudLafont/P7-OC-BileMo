@@ -130,75 +130,40 @@ class Brand
     // Traits
     use Hydrate;
 
-
-    // Links of Brand
-
-    /**
-     * @return string
-     */
-    public function getSelfUrl(){
-        return "/brands/" . $this->getId();
-    }
-
-    /**
-     * @return string
-     */
-    public function getFamiliesSubLink(){
-        return '/brands/' . $this->getId() . '/families';
-    }
-
-    /**
-     * @return string
-     */
-    public function getModelsSubLink(){
-        return '/brands/' . $this->getId() . '/models';
-    }
-
-    /**
-     * @return string
-     */
-    public function getProductsSubLink(){
-        return '/brands/' . $this->getId() . '/products';
-    }
-
-    /**
-     * Brand's _links
-     * @return array
-     */
-    public function getBrandLinks(){
-        return [
-            '@self' => $this->getSelfUrl(),
-            '@families' => $this->getFamiliesSubLink(),
-            '@models' => $this->getModelsSubLink(),
-            '@products' => $this->getProductsSubLink()
-        ];
-    }
-
-
     // Brand normalization
 
     /**
      * @return array
      */
-    public function getBrandCollection(){
-        return [
+    public function getBrandCollection($links = true){
+
+        $return = [
             'id' => $this->getId(),
-            'name' => $this->getName(),
-            '_links' => $this->getBrandLinks()
+            'name' => $this->getName()
         ];
+
+        if($links) $return['_links'] = $this->getBrandLinks();
+
+        return $return;
+
     }
 
     /**
      * @return array
      */
-    public function getBrandItem(){
-        return [
+    public function getBrandItem($links = true){
+
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName(),
             'description' => $this->getDescription(),
-            'constructor_url' => $this->getWebsiteUrl(),
-            '_links' => $this->getBrandLinks()
+            'constructor_url' => $this->getWebsiteUrl()
         ];
+
+        if($links) $return['_links'] = $this->getBrandLinks();
+
+        return $return;
+
     }
 
 
@@ -217,7 +182,7 @@ class Brand
         foreach($this->getProducts() as $product){
 
             // Add product to return array
-            $return[] = $product->getProductSubResource(false, true, true);
+            $return[] = $product->getProductCollection(false, false, true, true);
 
         }
 
@@ -237,19 +202,8 @@ class Brand
         // Loop on every stored models
         foreach($this->getModels() as $model){
 
-            // Normalize family
-            $family = $model->getFamily()->getFamilyCollection();
-            $family['_links'] = $model->getFamily()->getFamilyLinks();
+            $return[] = $model->getModelCollection(true, false, true);
 
-            // Normalize model
-            $insert = $model->getModelCollection();
-            $insert['_links'] = $model->getModelLinks();
-
-            // Assembly fetched datas
-            $insert['_embedded']['family'] = $family;
-
-            // Push new model in return array
-            $return[] = $insert;
         }
 
         return $return;
@@ -267,18 +221,56 @@ class Brand
         // Loop on every stored family
         foreach($this->getFamilies() as $family){
 
-            // Store Family Collection array
-            $insert = $family->getFamilyCollection();
-
-            // Store Family links
-            $insert['_links'] = $family->getFamilyLinks();
-
             // Push new datas in return array
-            $return[] = $insert;
+            $return[] = $family->getFamilyCollection(true, false);
 
         }
 
         return $return;
+    }
+
+    /**
+     * Brand's _links
+     * @return array
+     */
+    public function getBrandLinks(){
+        return [
+            '@self' => $this->getSelfUrl(),
+            '@families' => $this->getFamiliesSubLink(),
+            '@models' => $this->getModelsSubLink(),
+            '@products' => $this->getProductsSubLink()
+        ];
+    }
+
+
+    // Links of Brand
+
+    /**
+     * @return string
+     */
+    private function getSelfUrl(){
+        return "/brands/" . $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    private function getFamiliesSubLink(){
+        return '/brands/' . $this->getId() . '/families';
+    }
+
+    /**
+     * @return string
+     */
+    private function getModelsSubLink(){
+        return '/brands/' . $this->getId() . '/models';
+    }
+
+    /**
+     * @return string
+     */
+    private function getProductsSubLink(){
+        return '/brands/' . $this->getId() . '/products';
     }
 
     /**

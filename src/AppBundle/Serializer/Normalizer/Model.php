@@ -50,15 +50,14 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
         if($this->belongToSerializeGroup(['brand_show', 'family_show', 'model_list', 'model_products'], $context))
         {
             // Get collection array from object
-            $return = $object->getModelCollection();
+            $return = $object->getModelCollection(false, false, false);
 
         }
         // Case of item request
         elseif($this->belongToSerializeGroup(['model_show'], $context)){
 
             // Get model item infos
-            $return = $object->getModelItem();
-            $return['specifications'] = $object->getSpecs();
+            $return = $object->getModelItem(false, false, false);
 
         }
 
@@ -81,7 +80,7 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
         $return = false;
 
         foreach($groups as $group){
-            if(in_array($group, $context)) $return = true;
+            if(in_array($group, $context['groups'])) $return = true;
         }
 
         return $return;

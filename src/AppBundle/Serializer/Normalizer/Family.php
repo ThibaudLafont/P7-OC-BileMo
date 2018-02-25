@@ -49,13 +49,13 @@ class Family implements NormalizerInterface, DenormalizerInterface, Denormalizer
         if($this->belongToSerializeGroup(['family_list', 'family_models', 'family_products'], $context)){
 
             // Get FamilyCollection infos in array
-            $family = $object->getFamilyCollection();
+            $family = $object->getFamilyCollection(false, false);
 
         }
         elseif($this->belongToSerializeGroup(['family_show'], $context)){
 
             // Get FamilyItem infos in array
-            $family = $object->getFamilyItem();
+            $family = $object->getFamilyItem(false, false);
 
         }
 

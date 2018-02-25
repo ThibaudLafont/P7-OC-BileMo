@@ -25,6 +25,7 @@ class Family extends Controller
         return $family;
 
     }
+
     /**
      * @Route(
      *     name="family_products",

@@ -85,7 +85,7 @@ class Family
     private $brand;
 
     /**
-     * @var Model
+     * @var array
      * Family's models
      *
      * @ORM\OneToMany(
@@ -101,53 +101,80 @@ class Family
     private $products;
 
 
-    // Links of Family
-
-    /**
-     * @return string
-     */
-    public function getSelfUrl(){
-        return "/families/" . $this->getId();
-    }
-
-    /**
-     * @return string
-     */
-    public function getModelsSubLink(){
-        return "/families/" . $this->getId() . "/models";
-    }
-
-    /**
-     * @return string
-     */
-    public function getProductsSubLink(){
-        return "/families/" . $this->getId() . "/products";
-    }
-
-
     // Family normalization
 
     /**
      * Collection normalization
      * @return array
      */
-    public function getFamilyCollection(){
-        return [
+    public function getFamilyCollection($links = true, $embedded = true){
+
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
+
+        if($links) $return['_links'] = $this->getFamilyLinks();
+        if($embedded) $return['_embedded'] = $this->getFamilyEmbedded();
+
+        return $return;
+
     }
 
     /**
      * Item normalization
      * @return array
      */
-    public function getFamilyItem(){
-        return [
+    public function getFamilyItem($links = true, $embedded = true){
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName(),
             'description' => $this->getDescription()
         ];
+
+        if($links) $return['_links'] = $this->getFamilyLinks();
+        if($embedded) $return['_embedded'] = $this->getFamilyEmbedded();
+
+        return $return;
+    }
+
+
+    // Family Subresources
+
+    /**
+     * Family's models
+     * @return array
+     */
+    public function getFamilyModels(){
+
+        $return = [];
+
+        foreach($this->getModels() as $model){
+
+            $return[] = $model->getModelCollection(true, false, false);
+
+        }
+
+        return $return;
+
+    }
+
+    /**
+     * Family's products
+     * @return array
+     */
+    public function getFamilyProducts(){
+
+        $return = [];
+
+        foreach($this->getProducts() as $product){
+
+            $return[] = $product->getProductCollection(true, false, false, true);
+
+        }
+
+        return $return;
+
     }
 
     /**
@@ -169,37 +196,33 @@ class Family
      */
     public function getFamilyEmbedded()
     {
-        $return['brand'] = $this->getBrand()->getBrandCollection();
-        $return['brand']['_links'] = $this->getBrand()->getBrandLinks();
+        $return['brand'] = $this->getBrand()->getBrandCollection(true);
 
         return $return;
     }
 
 
-    // Family Subresources
+    // Links of Family
 
     /**
-     * Family's models
-     * @return array
+     * @return string
      */
-    public function getFamilyModels(){
-        $return = [];
-        foreach($this->getModels() as $model){
-            $return[] = $model->getModelSubResource();
-        }
-        return $return;
+    private function getSelfUrl(){
+        return "/families/" . $this->getId();
     }
 
     /**
-     * Family's products
-     * @return array
+     * @return string
      */
-    public function getFamilyProducts(){
-        $return = [];
-        foreach($this->getProducts() as $product){
-            $return[] = $product->getProductSubResource(false, false, true);
-        }
-        return $return;
+    private function getModelsSubLink(){
+        return "/families/" . $this->getId() . "/models";
+    }
+
+    /**
+     * @return string
+     */
+    private function getProductsSubLink(){
+        return "/families/" . $this->getId() . "/products";
     }
 
 

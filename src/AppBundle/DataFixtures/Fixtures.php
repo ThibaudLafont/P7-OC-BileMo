@@ -193,7 +193,7 @@ class Fixtures extends Fixture
 
             // Create a new product and assign first datas
             $product = new Product();
-            $product->setName($k);
+            $product->setTitle($k);
             $product->setModel($model);
             $product->hydrate($v);
 

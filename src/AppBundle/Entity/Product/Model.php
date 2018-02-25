@@ -126,104 +126,54 @@ class Model
     }
 
 
-    // Model links
-
-    /**
-     * @return string
-     */
-    public function getSelfUrl(){
-        return "/models/" . $this->getId();
-    }
-
-    /**
-     * @return string
-     */
-    public function getProductsSubLink(){
-        return "/models/" . $this->getId() . "/products";
-    }
-
-
     // Model normalization
 
     /**
      * @return array
      */
-    public function getModelCollection()
+    public function getModelCollection($links = true, $brand = true, $family = true)
     {
-        return [
+
+        // Properties for Model Collection
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
+
+        // Add links if needed
+        if($links) $return['_links'] = $this->getModelLinks();
+
+        // Add embedded resources if needed
+        if($brand || $family) // Model's Brand
+            $return['_embedded'] = $this->getModelEmbedded($brand, $family);
+
+        return $return;
+
     }
 
     /**
      * @return array
      */
-    public function getModelItem(){
-        return [
+    public function getModelItem($links = true, $brand = true, $family = true){
+
+        // Properties for Model Item
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName(),
             'release_year' => $this->getReleaseYear(),
             'description' => $this->getDescription(),
-            'contructor_url' => $this->getConstructorUrl()
+            'contructor_url' => $this->getConstructorUrl(),
+            'specifications' => $this->getSpecs()
         ];
-    }
 
-    /**
-     * Model _links
-     * @return array
-     */
-    public function getModelLinks(){
-        return [
-            '@self' => $this->getSelfUrl(),
-            '@products' => $this->getProductsSubLink()
-        ];
-    }
+        // Add links if needed
+        if($links) $return['_links'] = $this->getModelLinks();
 
-    /**
-     * Model _embedded
-     * @return array
-     */
-    public function getModelEmbedded($brand=true, $family=true){
-
-        // Fetch Family and Brand of model
-        $family = $this->getFamily();
-        $brand = $this->getFamily()->getBrand();
-
-        // Init empty array
-        $return = [];
-
-        // Check if family is required
-        if($brand) {
-            $return['brand'] = [
-                'id' => $brand->getId(),
-                'name' => $brand->getName(),
-                '_links' => $brand->getBrandLinks()
-            ];
-        }
-
-        if($family){
-            $return['family'] = [
-                'id' => $family->getId(),
-                'name' => $family->getName(),
-                '_links' => $family->getFamilyLinks()
-            ];
-        }
-    }
-
-    /**
-     * Normalization for model subresource display
-     * @return array
-     */
-    public function getModelSubResource(){
-
-        // Store ModelCollection in var
-        $return = $this->getModelCollection();
-        // Add links
-        $return['_links'] = $this->getModelLinks();
+        // Add embedded resources if needed
+        if($brand || $family) // Model's Brand
+            $return['_embedded'] = $this->getModelEmbedded($brand, $family);
 
         return $return;
-
     }
 
     // Model subresource
@@ -241,7 +191,7 @@ class Model
         foreach($this->getProducts() as $product){
 
             // Store ProductSubresource in new $return index
-            $return[] = $product->getProductSubResource(false, false, false);
+            $return[] = $product->getProductCollection(true, false, false, false);
 
         }
 
@@ -269,6 +219,54 @@ class Model
         // Return build array
         return $return;
 
+    }
+
+    /**
+     * Model _links
+     * @return array
+     */
+    public function getModelLinks(){
+
+        return [
+            '@self' => $this->getSelfUrl(),
+            '@products' => $this->getProductsSubLink()
+        ];
+
+    }
+
+    /**
+     * Model _embedded
+     * @return array
+     */
+    public function getModelEmbedded($brand=true, $family=true){
+
+        // Check if brand is required
+        if($brand) {
+            $return['brand'] =$this->getFamily()->getBrand()->getBrandCollection(true);
+        }
+
+        // Check if family is needed
+        if($family){
+            $return['family'] = $this->getFamily()->getFamilyCollection(true, false);
+        }
+
+        return $return;
+    }
+
+    // Model links
+
+    /**
+     * @return string
+     */
+    private function getSelfUrl(){
+        return "/models/" . $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    private function getProductsSubLink(){
+        return "/models/" . $this->getId() . "/products";
     }
 
     /**
