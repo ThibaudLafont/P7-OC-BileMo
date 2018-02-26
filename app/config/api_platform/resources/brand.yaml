@@ -1,0 +1,89 @@
+resources:
+  AppBundle\Entity\Product\Brand:
+    collectionOperations:
+      brand_list:
+        method: GET
+        path: /brands
+        normalization_context:
+          groups: ['brand_list']
+        swagger_context:
+          responses:
+            201:
+              description: Get Brand resources collection
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Brand-brand_list'
+    itemOperations:
+      brand_show:
+        method: GET
+        path: /brands/{id}
+        normalization_context:
+          groups: ['brand_show']
+        swagger_context:
+          summary: Retrieve one Brand resource
+          description: Retrieve Brand resource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Brand's resource id you want to reach
+          responses:
+            201:
+              description: Get specific Brand resource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Brand-brand_show'
+      brand_families:
+        method: GET
+        path: /brands/{id}/families
+        normalization_context:
+          groups: ['brand_families']
+        swagger_context:
+          summary: Get all Brand Families subresource
+          description: Retrieve all Families related to Brand resource
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Brand's id you want to reach
+          responses:
+            201:
+              description: Get Brand Families subresource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Brand-brand_families'
+      brand_models:
+        method: GET
+        path: /brands/{id}/models
+        normalization_context:
+          groups: ['brand_models']
+        swagger_context:
+          summary: Get all Brand Models subresource
+          description: Retrieve all Models related to Brand resource
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Brand's id you want to reach
+          responses:
+            201:
+              description: Get Brand Models subresource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Brand-brand_models'
+      brand_products:
+        method: GET
+        path: /brands/{id}/products
+        normalization_context:
+          groups: ['brand_products']
+        swagger_context:
+          summary: Get all Brand Products subresource
+          description: Retrieve all Products related to Brand resource
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Brand's id you want to reach
+          responses:
+            201:
+              description: Get Brand Products subresource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Brand-brand_products'

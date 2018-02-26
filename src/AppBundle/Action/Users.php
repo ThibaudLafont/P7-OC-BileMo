@@ -19,7 +19,7 @@ class Users extends Controller
      *     defaults={"_api_resource_class"=AppBundle\Entity\User\Company::class, "_api_item_operation_name"="company_users"}
      * )
      */
-    public function modelProductsAction(\AppBundle\Entity\User\Company $company)
+    public function companyUsersAction(\AppBundle\Entity\User\Company $company)
     {
 
         // Return Brand Object

@@ -71,18 +71,6 @@ services:
         tags: [serializer.normalizer]
         arguments: [ '@AppBundle\Serializer\Normalizer\Family.inner' ]
 
-    AppBundle\Entity\Product\Brand:
-        properties:
-            description:
-                attributes:
-                    swagger_context:
-                        type: string
-                        example: axaxaxa
-            name:
-                attributes:
-                    swagger_context:
-                        type: string
-
     user_listener:
             class: AppBundle\EventListener\UserListener
             tags:

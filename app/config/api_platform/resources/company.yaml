@@ -1,0 +1,53 @@
+resources:
+  AppBundle\Entity\User\Company:
+    collectionOperations:
+      company_list:
+        method: GET
+        path: /companies
+        normalization_context:
+          groups: ['company_list']
+        swagger_context:
+          responses:
+            201:
+              description: Get Company resources collection
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Company-company_list'
+    itemOperations:
+      company_show:
+        method: GET
+        path: /companies/{id}
+        normalization_context:
+          groups: ['company_show']
+        swagger_context:
+          summary: Retrieve one Company resource
+          description: Retrieve Company resource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Company's resource id you want to reach
+          responses:
+            201:
+              description: Get specific Company resource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Company-company_show'
+      company_users:
+        method: GET
+        path: /companies/{id}/clients
+        normalization_context:
+          groups: ['company_users']
+        swagger_context:
+          summary: Retrieve Users subresource of id related Company
+          description: Retrieve Users subresource of id related Company
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Company's resource id you want to reach
+          responses:
+            201:
+              description: Get Company Client subresources related to given id paramameter
+              schema:
+                $ref: '#/definitions/Company-company_users'

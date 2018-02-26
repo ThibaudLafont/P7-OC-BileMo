@@ -1,0 +1,71 @@
+resources:
+  AppBundle\Entity\Product\Family:
+    collectionOperations:
+      family_list:
+        method: GET
+        path: /families
+        normalization_context:
+          groups: ['family_list']
+        swagger_context:
+          responses:
+            201:
+              description: Get Family resources collection
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Family-family_list'
+    itemOperations:
+      family_show:
+        method: GET
+        path: /families/{id}
+        normalization_context:
+          groups: ['family_show']
+        swagger_context:
+          summary: Retrieve one Family resource
+          description: Retrieve Family resource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Family's resource id you want to reach
+          responses:
+            201:
+              description: Get specific Family resource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Family-family_show'
+      family_models:
+        method: GET
+        path: /families/{id}/models
+        normalization_context:
+          groups: ['family_models']
+        swagger_context:
+          summary: Retrieve Family Models subresources
+          description: Retrieve Family Models subresource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Family's Models subresource id you want to reach
+          responses:
+            201:
+              description: Get specific Family's Models subresource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Family-family_models'
+      family_products:
+        method: GET
+        path: /families/{id}/products
+        normalization_context:
+          groups: ['family_products']
+        swagger_context:
+          summary: Retrieve Family Products subresources
+          description: Retrieve Family Products subresource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Family's Products subresource id you want to reach
+          responses:
+            201:
+              description: Get specific Family's Products subresource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Family-family_products'

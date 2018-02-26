@@ -25,7 +25,7 @@ class ProductFormatStatus
     private static $values = [
         self::FORMATTED => "Réinitialisé",
         self::NOT_FORMATTED => "Non réinitialisé",
-        self::UNKNOW => "Non renseigné"
+        self::UNKNOW => "Inconnu"
     ];
 
     /**

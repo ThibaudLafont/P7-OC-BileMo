@@ -1,0 +1,12 @@
+AppBundle\Entity\Product\Family:
+  attributes:
+    id:
+      groups: ['family_list', 'family_show', 'family_models', 'family_products']
+    name:
+      groups: ['family_list', 'family_show', 'family_models', 'family_products']
+    description:
+      groups: ['family_show']
+    models:
+      groups: ['family_models']
+    products:
+      groups: ['family_products']

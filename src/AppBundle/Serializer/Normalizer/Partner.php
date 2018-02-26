@@ -91,7 +91,11 @@ class Partner implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function denormalize($data, $class, $format = null, array $context = array())
     {
-        return;
+        $partner = new \AppBundle\Entity\User\Partner();
+        $partner->setUsername($data['username']);
+        $partner->setPlainPassword($data['plainPassword']);
+
+        return $partner;
     }
 
     /**
@@ -105,6 +109,6 @@ class Partner implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return;
+        return true;
     }
 }

@@ -43,17 +43,6 @@ class Feature
 
     /**
      * @var Array
-     * Allow to link a test to a product feature
-     *
-     * @ORM\OneToMany(
-     *     targetEntity="Test",
-     *     mappedBy="feature"
-     * )
-     */
-    private $tests;
-
-    /**
-     * @var Array
      * Allow to set a specific guarantee on a product composant
      *
      * @ORM\OneToMany(
@@ -105,16 +94,6 @@ class Feature
     public function getSpecs()
     {
         return $this->specs;
-    }
-
-    /**
-     * Get tests
-     *
-     * @return array
-     */
-    public function getTests()
-    {
-        return $this->tests;
     }
 
     /**

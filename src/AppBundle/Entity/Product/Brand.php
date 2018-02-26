@@ -1,74 +1,13 @@
 <?php
-
 namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Swagger;
 
 /**
  * Brand
- *
- * @ApiResource(
- *     collectionOperations={
- *          "brand_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"brand_list"}
- *              },
- *              "swagger_context"={
- *                  "responses"= {
- *                      "201" =  {
- *                          "description": "List all Brands resources",
- *                          "schema"={
- *                              "properties" = {
- *                                  "description"={"type"="string", "description"="Ceci est une description"},
- *                                  "name"={"type"="string"},
- *                                  "brand_id" = {"example"=10}
- *                              }
- *                          }
- *                      }
- *                  }
- *              }
- *          },
- *     },
- *     itemOperations={
- *          "brand_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"brand_show"}
- *              },
- *          },
- *          "brand_families"={
- *              "method"="GET",
- *              "route_name"="brand_families",
- *              "path"="/brands/{id}/families",
- *              "normalization_context"={
- *                  "groups"={"brand_families"}
- *              }
- *          },
- *          "brand_products"={
- *              "method"="GET",
- *              "route_name"="brand_products",
- *              "path"="/brands/{id}/products",
- *              "normalization_context"={
- *                  "groups"={"brand_products"}
- *              }
- *          },
- *          "brand_models"={
- *              "method"="GET",
- *              "route_name"="brand_models",
- *              "path"="/brands/{id}/models",
- *              "normalization_context"={
- *                  "groups"={"brand_models"}
- *              }
- *          }
- *     }
- * )
  *
  * @ORM\Table(name="p_brand")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\BrandRepository")
@@ -77,24 +16,54 @@ class Brand
 {
     /**
      * @var int
+     * Primary key of resource
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "1"
+     *          }
+     *     }
+     * )
      */
     private $id;
 
     /**
      * @var string
+     * Name of Brand
      *
      * @ORM\Column(name="name", type="string", length=55, unique=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Apple"
+     *          }
+     *     }
+     * )
      */
     private $name;
 
     /**
      * @var string|null
+     * Short description about Brand resource
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Apple est un constructeur de terminaux informatiques"
+     *          }
+     *     }
+     * )
      */
     private $description;
 
@@ -103,6 +72,15 @@ class Brand
      * Brand home page
      *
      * @ORM\Column(name="website_url", type="string", length=255, nullable=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "http://apple.com"
+     *          }
+     *     }
+     * )
      */
     private $websiteUrl;
 
@@ -114,18 +92,53 @@ class Brand
      *     targetEntity="Family",
      *     mappedBy="brand"
      * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items"={
+     *                  "$ref"="#/definitions/Family-family_list"
+     *              }
+     *          }
+     *     }
+     * )
      */
     private $families;
 
     /**
      * @var array
+     * Models of Brand resource
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items"={
+     *                  "$ref"="#/definitions/Model-model_list"
+     *              }
+     *          }
+     *     }
+     * )
      */
-    private $products;
+    private $models;
 
     /**
      * @var array
+     * Products subresource of Brand
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items"={
+     *                  "$ref"="#/definitions/Product-product_list"
+     *              }
+     *          }
+     *     }
+     * )
      */
-    private $models;
+    private $products;
 
     // Traits
     use Hydrate;

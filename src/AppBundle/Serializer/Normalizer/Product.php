@@ -60,7 +60,7 @@ class Product implements NormalizerInterface, DenormalizerInterface, Denormalize
         }
 
         $return['_links'] = $object->getProductLinks();
-        $return['_embedded'] = $object->getProductEmbedded();
+        $return['_embedded'] = $object->getProductEmbedded(true, true, true);
 
         return $return;
 

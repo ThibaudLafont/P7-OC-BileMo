@@ -10,41 +10,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * Family
  *
- * @ApiResource(
- *     collectionOperations={
- *          "family_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"family_list"}
- *              }
- *          }
- *     },
- *     itemOperations={
- *          "family_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"family_show"}
- *              }
- *          },
- *          "family_models"={
- *              "method"="GET",
- *              "route_name"="family_models",
- *              "path"="/families/{id}/models",
- *              "normalization_context"={
- *                  "groups"={"family_models"}
- *              }
- *          },
- *          "family_products"={
- *              "method"="GET",
- *              "route_name"="family_products",
- *              "path"="/families/{id}/products",
- *              "normalization_context"={
- *                  "groups"={"family_products"}
- *              }
- *          }
- *     }
- * )
- *
  * @ORM\Table(name="p_family")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\FamilyRepository")
  */
@@ -52,17 +17,37 @@ class Family
 {
     /**
      * @var int
+     * Primary key of resource
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "1"
+     *          }
+     *     }
+     * )
      */
     private $id;
 
     /**
      * @var string
+     * Name of Family
      *
      * @ORM\Column(name="name", type="string", length=55)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Iphone"
+     *          }
+     *     }
+     * )
      */
     private $name;
 
@@ -70,6 +55,15 @@ class Family
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Iphone représente la gamme smartphone d'Apple"
+     *          }
+     *     }
+     * )
      */
     private $description;
 
@@ -92,11 +86,34 @@ class Family
      *     targetEntity="Model",
      *     mappedBy="family"
      * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items"={
+     *                  "$ref"="#/definitions/Model-model_list"
+     *              }
+     *          }
+     *     }
+     * )
      */
     private $models;
 
     /**
      * @var array
+     * Family's products
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items"={
+     *                  "$ref"="#/definitions/Model-model_list"
+     *              }
+     *          }
+     *     }
+     * )
      */
     private $products;
 
@@ -109,12 +126,16 @@ class Family
      */
     public function getFamilyCollection($links = true, $embedded = true){
 
+        // Family's Collection attributes
         $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
 
+        // Add links if needed
         if($links) $return['_links'] = $this->getFamilyLinks();
+
+        // Add embedded if needed
         if($embedded) $return['_embedded'] = $this->getFamilyEmbedded();
 
         return $return;
@@ -126,13 +147,18 @@ class Family
      * @return array
      */
     public function getFamilyItem($links = true, $embedded = true){
+
+        // Family's Item attributes
         $return = [
             'id' => $this->getId(),
             'name' => $this->getName(),
             'description' => $this->getDescription()
         ];
 
+        // Add links if needed
         if($links) $return['_links'] = $this->getFamilyLinks();
+
+        // Add embedded if needed
         if($embedded) $return['_embedded'] = $this->getFamilyEmbedded();
 
         return $return;
@@ -147,10 +173,13 @@ class Family
      */
     public function getFamilyModels(){
 
+        // Init empty array
         $return = [];
 
+        // Loop on every Family's models
         foreach($this->getModels() as $model){
 
+            // Store Model Collection in return array
             $return[] = $model->getModelCollection(true, false, false);
 
         }
@@ -165,10 +194,12 @@ class Family
      */
     public function getFamilyProducts(){
 
+        // Init empty array
         $return = [];
 
         foreach($this->getProducts() as $product){
 
+            // Store every found product in return array
             $return[] = $product->getProductCollection(true, false, false, true);
 
         }
@@ -183,11 +214,13 @@ class Family
      */
     public function getFamilyLinks()
     {
+
         return [
             '@self' => $this->getSelfUrl(),
             '@models' => $this->getModelsSubLink(),
             '@products' => $this->getProductsSubLink()
         ];
+
     }
 
     /**
@@ -196,9 +229,11 @@ class Family
      */
     public function getFamilyEmbedded()
     {
+
         $return['brand'] = $this->getBrand()->getBrandCollection(true);
 
         return $return;
+
     }
 
 

@@ -19,7 +19,17 @@ framework:
     form: { enabled: false }
     csrf_protection: { enabled: false }
     validation: { enable_annotations: true }
-    serializer: { enable_annotations: true }
+    serializer:
+        enabled: true
+        mapping:
+            paths:
+              - '%kernel.project_dir%/app/config/api_platform/serialization/brand.yaml'
+              - '%kernel.project_dir%/app/config/api_platform/serialization/family.yaml'
+              - '%kernel.project_dir%/app/config/api_platform/serialization/model.yaml'
+              - '%kernel.project_dir%/app/config/api_platform/serialization/product.yaml'
+              - '%kernel.project_dir%/app/config/api_platform/serialization/company.yaml'
+              - '%kernel.project_dir%/app/config/api_platform/serialization/client.yaml'
+              - '%kernel.project_dir%/app/config/api_platform/serialization/partner.yaml'
     templating:
         engines: ['twig']
     default_locale: '%locale%'
@@ -83,7 +93,14 @@ nelmio_cors:
 
 api_platform:
     mapping:
-        paths: [ '%kernel.project_dir%/app/config/api_platform/resources/product.yaml' ]
+        paths:
+          - '%kernel.project_dir%/app/config/api_platform/resources/brand.yaml'
+          - '%kernel.project_dir%/app/config/api_platform/resources/family.yaml'
+          - '%kernel.project_dir%/app/config/api_platform/resources/model.yaml'
+          - '%kernel.project_dir%/app/config/api_platform/resources/product.yaml'
+          - '%kernel.project_dir%/app/config/api_platform/resources/company.yaml'
+          - '%kernel.project_dir%/app/config/api_platform/resources/client.yaml'
+          - '%kernel.project_dir%/app/config/api_platform/resources/partner.yaml'
     http_cache:
         invalidation:
             enabled: true

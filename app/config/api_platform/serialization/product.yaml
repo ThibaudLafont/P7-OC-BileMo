@@ -1,0 +1,34 @@
+AppBundle\Entity\Product\Product:
+  attributes:
+    id:
+      groups: ['product_list', 'product_show']
+    title:
+      groups: ['product_list', 'product_show']
+    state:
+      groups: ['product_list', 'product_show']
+    description:
+      groups: ['product_list', 'product_show']
+    price:
+      groups: ['product_list', 'product_show']
+    available:
+      groups: ['product_list', 'product_show']
+    condition:
+      groups: ['product_show']
+    bootProperly:
+      groups: ['product_show']
+    formatted:
+      groups: ['product_show']
+    history:
+      groups: ['product_show']
+    imei:
+      groups: ['product_show']
+    color:
+      groups: ['product_show']
+    memorySizeInGb:
+      groups: ['product_show']
+    notices:
+      groups: ['product_show']
+    globalGuarantee:
+      groups: ['product_show']
+    specificGuarantees:
+      groups: ['product_show']

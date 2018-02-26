@@ -17,6 +17,7 @@ abstract class User implements UserInterface, \Serializable
 {
     /**
      * @var int
+     * Primary key of resource
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id

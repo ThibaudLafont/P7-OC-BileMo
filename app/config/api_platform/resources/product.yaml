@@ -5,7 +5,7 @@ resources:
         method: GET
         path: /products
         normalization_context:
-          groups: [product_list]
+          groups: ['product_list']
         swagger_context:
           responses:
             201:
@@ -13,76 +13,13 @@ resources:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      description: Primary key of resource
-                      example: 1
-                    title:
-                      type: string
-                      description: Main title of product
-                      example: Iphone 5 noir
-                    sell_state:
-                      type: string
-                      description: Sell statement of product, see enumerations
-                      enum: [Neuf, Reconditionné, Occasion, Défectueux]
-                      example: Défectueux
-                    description:
-                      type: string
-                      description: Global description of product
-                      example: Produit ayant subi un sinistre
-                    price:
-                      type: float
-                      description: Price in euros
-                      example: 195.99
-                    available:
-                      type: boolean
-                      description: True if product is still avaible
-                      example: true
-                    _links:
-                      type: array
-                      description: Contain Product resource links for api self-discoverability
-                      items:
-                        type: string
-                        description: Self-discoverability path
-                      example:
-                        '@self': /products/1
-                    _embedded:
-                      type: array
-                      description: Product's related resources
-                      items:
-                        type: object
-                        description: Embedded resources
-                      example:
-                        model:
-                          id: 2
-                          name: Iphone 5
-                          _links:
-                            '@self': /models/2
-                            '@products': /models/2/products
-                        family:
-                          id: 1
-                          name: Iphone
-                          _links:
-                            '@self': /families/1
-                            '@models': /families/1/models
-                            '@products': /families/1/products
-                        brand:
-                          id: 1
-                          name: Apple
-                          _links:
-                            '@self': /brands/1
-                            '@models': /brands/1/models
-                            '@families': /brands/1/families
-                            '@products': /brands/1/products
-
+                  $ref: '#/definitions/Product-product_list'
     itemOperations:
       product_show:
         method: GET
         path: /products/{id}
         normalization_context:
-          groups: [product_show]
+          groups: ['product_show']
         swagger_context:
           summary: Retrieve one Product resource
           description: Retrieve Product resource with given id param
@@ -95,129 +32,4 @@ resources:
             201:
               description: Get specific Product resource related to given id paramameter
               schema:
-                properties:
-                  id:
-                    type: integer
-                    description: Primary key of resource
-                    example: 1
-                  title:
-                    type: string
-                    description: Main title of product
-                    example: Iphone 5 noir
-                  sell_state:
-                    type: string
-                    description: Sell statement of product, see enumerations
-                    enum: [Neuf, Reconditionné, Occasion, Défectueux]
-                    example: Défectueux
-                  description:
-                    type: string
-                    description: Global description of product
-                    example: Produit ayant subi un sinistre
-                  price:
-                    type: float
-                    description: Price in euros
-                    example: 195.99
-                  available:
-                    type: boolean
-                    description: True if product is still avaible
-                    example: true
-                  notices:
-                    type: array
-                    description: All Product resource related informations
-                    items:
-                      type: object
-                      description: Notices about Product resource
-                      properties:
-                        type:
-                          type: string
-                          enum: [ Information, Alerte ]
-                          example: Alerte
-                        message:
-                          type: string
-                          example: Téléphone oxydé
-                    example:
-                      0:
-                        type: Alerte
-                        message: Téléphone partiellement fonctionnel
-                      1:
-                        type: Information
-                        message: Tous les accessoires d'origine sont fournis
-                  global_guarantee:
-                    type: object
-                    description: Main guarantee of product
-                    properties:
-                      is_guaranteed:
-                        type: boolean
-                        description: True if product has main guarantee
-                        example: true
-                      guarantee_length:
-                        type: float
-                        description: Guarantee length in months
-                        example: 0.25
-                      message:
-                        type: string
-                        description: Informations about main guarantee
-                        example: Attention concerne uniquement les composants non-évoqués en guarantie spécifique
-                    example:
-                      is_guaranteed: false
-                      guarantee_length: 0
-                      message: Téléphone sinistré, pas de guarantie
-                  specifc_guarantees:
-                    type: array
-                    description: Specific guarantees for Product features
-                    items:
-                      type: object
-                      desciption: A specific product's feature guarantee
-                      properties:
-                        concern:
-                          type: string
-                          description: Name of concerned feature
-                          example: main_camera
-                        is_guaranteed:
-                          type: boolean
-                          description: True if feature has guarantee
-                          example: false
-                        guarantee_length:
-                          type: float
-                          description: Guarantee length in months
-                          example: 0
-                        message:
-                          type: string
-                          description: Information about this specific guarantee
-                          example: Composant HS, non guaranti
-                  _links:
-                    type: array
-                    description: Contain Product resource links for api self-discoverability
-                    items:
-                      type: string
-                      description: Self-discoverability path
-                    example:
-                      '@self': /products/1
-                  _embedded:
-                    type: array
-                    description: Product's related resources
-                    items:
-                      type: object
-                      description: Embedded resources
-                    example:
-                      model:
-                        id: 2
-                        name: Iphone 5
-                        _links:
-                          '@self': /models/2
-                          '@products': /models/2/products
-                      family:
-                        id: 1
-                        name: Iphone
-                        _links:
-                          '@self': /families/1
-                          '@models': /families/1/models
-                          '@products': /families/1/products
-                      brand:
-                        id: 1
-                        name: Apple
-                        _links:
-                          '@self': /brands/1
-                          '@models': /brands/1/models
-                          '@families': /brands/1/families
-                          '@products': /brands/1/products
+                $ref: '#/definitions/Product-product_show'

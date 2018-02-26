@@ -1,0 +1,8 @@
+AppBundle\Entity\User\Partner:
+  attributes:
+    id:
+      groups: ['partner_list', 'partner_show', 'partner_create']
+    username:
+      groups: ['partner_list', 'partner_show', 'partner_create']
+    plainPassword:
+      groups: ['partner_create']

@@ -11,10 +11,11 @@ use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiProperty;
+
 /**
- * Product
- *
- * @ApiResource()
+ * Product Resource
  *
  * @ORM\Table(name="p_product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ProductRepository")
@@ -23,11 +24,20 @@ class Product
 {
     /**
      * @var int
+     * Primary key of resource
      *
-     * Doctrine
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "1"
+     *          }
+     *     }
+     * )
      */
     private $id;
 
@@ -37,6 +47,16 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="title", type="string", length=55)
+     *
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Iphone 5 oxydé"
+     *          }
+     *     }
+     * )
      */
     private $title;
 
@@ -46,6 +66,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="description", type="text")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Iphone 5 32GB récupéré par Bilemo après un sinistre. Le téléphone présente des traces d'oxydation"
+     *          }
+     *     }
+     * )
      */
     private $description;
 
@@ -55,6 +84,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="available", type="boolean")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "boolean",
+     *              "example": "true"
+     *          }
+     *     }
+     * )
      */
     private $available;
 
@@ -64,6 +102,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="price", type="float")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "float",
+     *              "example": "195.99"
+     *          }
+     *     }
+     * )
      */
     private $price;
 
@@ -73,15 +120,36 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="phy_condition", type="string", length=15)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "enum"= {"Jamais utilisé", "Comme neuf", "Bon", "Moyen", "Mauvais"},
+     *              "example"= "Mauvais"
+     *          }
+     *     }
+     * )
      */
     private $condition;
 
     /**
-     * Sell state, liked to Enumerations\ProductState
+     * Sell state of product
      * @var string
      *
      * Doctrine
      * @ORM\Column(name="state", type="string", length=15)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "name" = "sell_state",
+     *              "enum"= {"Neuf", "Reconditionné", "Occasion", "Défectueux"},
+     *              "example"= "Défectueux"
+     *          }
+     *     }
+     * )
      */
     private $state;
 
@@ -91,15 +159,34 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="history", type="text", nullable=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Le téléphone appartenait à une flotte mobile d'entreprise, le téléphone
+     *                          a été racheté à une assurance."
+     *          }
+     *     }
+     * )
      */
     private $history;
 
     /**
-     * IMEI number
+     * IMEI of Product
      * @var int
      *
      * Doctrine
      * @ORM\Column(name="imei", type="bigint")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "12345678912345"
+     *          }
+     *     }
+     * )
      */
     private $imei;
 
@@ -109,6 +196,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="memorySizeInGb", type="integer")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "32"
+     *          }
+     *     }
+     * )
      */
     private $memorySizeInGb;
 
@@ -118,6 +214,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="color", type="string", length=55)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Noir ardoise"
+     *          }
+     *     }
+     * )
      */
     private $color;
 
@@ -127,6 +232,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="operator_lock", type="boolean")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "boolean",
+     *              "example": "false"
+     *          }
+     *     }
+     * )
      */
     private $operatorLock;
 
@@ -136,6 +250,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="system_version", type="string", length=55)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "IOS 10.3.3"
+     *          }
+     *     }
+     * )
      */
     private $systemVersion;
 
@@ -145,6 +268,16 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="formatted", type="string")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "enum" = {"Réinitialisé", "Non réinitialisé", "Inconnu"},
+     *              "example": "Inconnu"
+     *          }
+     *     }
+     * )
      */
     private $formatted;
 
@@ -154,6 +287,16 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="boot_properly", type="string")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "enum" = {"Démarre normalement", "Problème soft", "Brick logiciel - Ne démarre pas", "Non testé / Inconnu"},
+     *              "example": "Inconnu"
+     *          }
+     *     }
+     * )
      */
     private $bootProperly;
 
@@ -179,20 +322,32 @@ class Product
      *     mappedBy="product",
      *     cascade={"persist"}
      * )
-     */
-    private $notices;
-
-    /**
-     * Features test
-     * @var \AppBundle\Entity\Feature\Test
      *
-     * Doctrine
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Feature\Test",
-     *     mappedBy="product"
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items"={
+     *                  "type"="object",
+     *                  "properties"={
+     *                      "type"={
+     *                          "type"="string",
+     *                          "description"="Type of Notice",
+     *                          "enum"={"Info", "Alerte"},
+     *                          "example"="Alerte"
+     *                      },
+     *                      "message"={
+     *                          "type"="string",
+     *                          "description"="Content of Notice",
+     *                          "example"="Produit oxydé"
+     *                      }
+     *                  }
+     *              }
+     *          }
+     *     }
      * )
      */
-    private $tests;
+    private $notices;
 
     /**
      * Guarantee linked to specific product feature
@@ -202,6 +357,41 @@ class Product
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
      *     mappedBy="product"
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "description"="Contain specific guarantees of resource",
+     *              "items" = {
+     *                  "type"="object",
+     *                  "description"="Specific guarantee, related to product feature",
+     *                  "properties"={
+     *                      "concern"={
+     *                          "type"="string",
+     *                          "description"="Concerned feature",
+     *                          "example"="main_camera"
+     *                      },
+     *                      "is_guaranteed"={
+     *                          "type"="boolean",
+     *                          "description"="True if feature is guaranteed",
+     *                          "example"="false"
+     *                      },
+     *                      "guarantee_length"={
+     *                          "type"="float",
+     *                          "description"="Guarantee length in month",
+     *                          "example"="1.25"
+     *                      },
+     *                      "message"={
+     *                          "type"="string",
+     *                          "description"="Information about specific guarantee",
+     *                          "example"="Composant HS, non garanti"
+     *                      }
+     *                  }
+     *              }
+     *          }
+     *     }
      * )
      */
     private $specificGuarantees;
@@ -213,6 +403,32 @@ class Product
      * Doctrine
      * @ORM\OneToOne(
      *  targetEntity="\AppBundle\Entity\Guarantee\ProductGlobal"
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type"="object",
+     *              "description"="Main guarantee of Product",
+     *              "properties"={
+     *                  "is_guaranteed"={
+     *                      "type"="boolean",
+     *                      "description"="True if Product is guaranteed",
+     *                      "example"="true"
+     *                  },
+     *                  "guarantee_length"={
+     *                      "type"="float",
+     *                      "description"="Guarantee length in month",
+     *                      "example"="6"
+     *                  },
+     *                  "message"={
+     *                      "type"="string",
+     *                      "description"="Information about global guarantee",
+     *                      "example"="Ne concerne pas les composants mentionnées dans les garanties spécifiques"
+     *                  }
+     *              }
+     *          }
+     *     }
      * )
      */
     private $globalGuarantee;
@@ -241,7 +457,7 @@ class Product
         $return = [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
-            'sellState' => $this->getState(),
+            'sell_state' => $this->getState(),
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
             'available' => $this->getAvailable()
@@ -266,11 +482,11 @@ class Product
         $return = [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
-            'sellState' => $this->getState(),
+            'sell_state' => $this->getState(),
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
             'available' => $this->getAvailable(),
-            'physicState' => $this->getCondition(),
+            'physic_state' => $this->getCondition(),
             'boot_properly' => $this->getBootProperly(),
             'is_formatted' => $this->getFormatted(),
             'history' => $this->getHistory(),
@@ -887,16 +1103,6 @@ class Product
     public function getNotices()
     {
         return $this->notices;
-    }
-
-    /**
-     * Get tests
-     *
-     * @return \AppBundle\Entity\Feature\Test
-     */
-    public function getTests()
-    {
-        return $this->tests;
     }
 
     /**

@@ -5,32 +5,11 @@ namespace AppBundle\Entity\User;
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Client
  * Represent an user of a bilemo's client company
- *
- * @ApiResource(
- *     collectionOperations={
- *          "client_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"client_list"}
- *              }
- *          }
- *     },
- *     itemOperations={
- *          "client_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"client_show"}
- *              }
- *          }
- *     }
- * )
  *
  * @ORM\Table(name="user_client")
  * @ORM\Entity
@@ -40,6 +19,7 @@ class Client extends User
 
     /**
      * @var string
+     * First name of client
      *
      * @ORM\Column(name="firstName", type="string", length=70)
      *
@@ -52,11 +32,21 @@ class Client extends User
      *     max=70,
      *     maxMessage="Le prénom ne peut pas contenir plus de {{ limit }} caractères"
      * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example" = "John"
+     *          }
+     *     }
+     * )
      */
     private $firstName;
 
     /**
      * @var string
+     * Last name of client
      *
      * @ORM\Column(name="lastName", type="string", length=155)
      *
@@ -69,11 +59,21 @@ class Client extends User
      *     max=70,
      *     maxMessage="Le nom de famille ne peut pas contenir plus de {{ limit }} caractères"
      * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example" = "Doe"
+     *          }
+     *     }
+     * )
      */
     private $lastName;
 
     /**
      * @var string
+     * Mail address of Client
      *
      * @ORM\Column(name="mail_address", type="string", length=255, unique=true)
      *
@@ -85,11 +85,21 @@ class Client extends User
      *     checkMX=true,
      *     checkHost=true
      * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example" = "johndoe@gmail.com"
+     *          }
+     *     }
+     * )
      */
     private $mailAddress;
 
     /**
      * @var int
+     * Phone number of client
      *
      * @ORM\Column(name="phone_number", type="bigint")
      *
@@ -100,6 +110,15 @@ class Client extends User
      *     min=10,
      *     max=10,
      *     exactMessage="Veuillez entrer le numéro au format français à 10 chiffres"
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example" = "0677612529"
+     *          }
+     *     }
      * )
      */
     private $phoneNumber;
@@ -117,6 +136,45 @@ class Client extends User
 
     // Traits
     use Hydrate;
+
+
+    // ApiProperties methods
+
+    /**
+     * @return int
+     * Primary key of resource
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example" = "1"
+     *          }
+     *     }
+     * )
+     */
+    public function getId()
+    {
+        return parent::getId();
+    }
+
+    /**
+     * @return string
+     * Username of client
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example" = "johndoe"
+     *          }
+     *     }
+     * )
+     */
+    public function getUsername()
+    {
+        return parent::getUsername();
+    }
 
     public function getClientCollection(){
         return [
@@ -137,6 +195,19 @@ class Client extends User
         ];
     }
 
+    /**
+     * @return string
+     * Fullname of Client
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example" = "John Doe"
+     *          }
+     *     }
+     * )
+     */
     public function getFullName()
     {
         return $this->getFirstName() . ' ' . $this->getLastName();

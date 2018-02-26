@@ -1,0 +1,16 @@
+AppBundle\Entity\Product\Model:
+  attributes:
+    id:
+      groups: ['model_list', 'model_show', 'model_products']
+    name:
+      groups: ['model_list', 'model_show', 'model_products']
+    releaseYear:
+      groups: ['model_show']
+    description:
+      groups: ['model_show']
+    constructorUrl:
+      groups: ['model_show']
+    specs:
+      groups: ['model_show']
+    products:
+      groups: ['model_products']

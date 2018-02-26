@@ -3,40 +3,10 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * Company
- *
- * @ApiResource(
- *     collectionOperations={
- *          "company_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"company_list"}
- *              }
- *          }
- *     },
- *     itemOperations={
- *          "company_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"company_show"}
- *              }
- *          },
- *          "company_users"={
- *              "method"="GET",
- *              "route_name"="company_users",
- *              "path"="/companies/{id}/clients",
- *              "normalization_context"={
- *                  "groups"={"company_users"}
- *              }
- *          }
- *     }
- * )
  *
  * @ORM\Table(name="user_company")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\CompanyRepository")
@@ -45,17 +15,37 @@ class Company
 {
     /**
      * @var int
+     * Primary key of resource
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "1"
+     *          }
+     *     }
+     * )
      */
     private $id;
 
     /**
      * @var string
+     * Name of Company
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Wefix"
+     *          }
+     *     }
+     * )
      */
     private $name;
 
@@ -65,6 +55,17 @@ class Company
      * @ORM\OneToMany(
      *     targetEntity="Client",
      *     mappedBy="company"
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items" = {
+     *                  "$ref"="#/definitions/Client-client_list"
+     *              }
+     *          }
+     *     }
      * )
      */
     private $clients;

@@ -9,36 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * Model
- *
- * @ApiResource(
- *     collectionOperations={
- *          "model_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"model_list"}
- *              }
- *          }
- *     },
- *     itemOperations={
- *          "model_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"model_show"}
- *              }
- *          },
- *          "model_products"={
- *              "method"="GET",
- *              "route_name"="model_products",
- *              "path"="/model/{id}/products",
- *              "normalization_context"={
- *                  "groups"={"model_products"}
- *              }
- *          }
- *     }
- * )
  *
  * @ORM\Table(name="p_model")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ModelRepository")
@@ -51,6 +25,15 @@ class Model
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "1"
+     *          }
+     *     }
+     * )
      */
     private $id;
 
@@ -58,6 +41,15 @@ class Model
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Iphone 5"
+     *          }
+     *     }
+     * )
      */
     private $name;
 
@@ -65,6 +57,15 @@ class Model
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "Dernier modèle avant changement de design"
+     *          }
+     *     }
+     * )
      */
     private $description;
 
@@ -73,6 +74,15 @@ class Model
      * Product page on constructor website (if exists)
      *
      * @ORM\Column(name="constructor_url", type="text", nullable=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "https://apple.com/iphone-5"
+     *          }
+     *     }
+     * )
      */
     private $constructorUrl;
 
@@ -81,6 +91,15 @@ class Model
      * Model release year
      *
      * @ORM\Column(name="release_year", type="bigint")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "2015"
+     *          }
+     *     }
+     * )
      */
     private $releaseYear;
 
@@ -113,6 +132,17 @@ class Model
      * @ORM\OneToMany(
      *     targetEntity="Product",
      *     mappedBy="model"
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items"={
+     *                  "$ref"="#/definitions/Model-model_list"
+     *              }
+     *          }
+     *     }
      * )
      */
     private $products;
@@ -199,6 +229,25 @@ class Model
 
     }
 
+    /**
+     * @return array
+     * Specifications of Model resource
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "example"=
+     *                  {
+     *                      "main_camera"= {
+     *                          "resolution"="8MPX",
+     *                          "flash"="true"
+     *                      }
+     *                  }
+     *          }
+     *     }
+     * )
+     */
     public function getSpecs(){
 
         // Init empty array

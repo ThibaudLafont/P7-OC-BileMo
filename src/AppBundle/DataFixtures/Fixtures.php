@@ -22,6 +22,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Yaml\Yaml;
+
 class Fixtures extends Fixture
 {
 
@@ -212,22 +213,22 @@ class Fixtures extends Fixture
             }
 
             // If Tests are given, loop assign and persist them
-            if(isset($v['tests']))
-            {
-                foreach($v['tests'] as $tk => $tv)
-                {
-                    // Get related feature in DB
-                    $feature = $manager->getRepository('AppBundle:Feature\Feature')
-                        ->findOneBy(['name' => $tk]);
-
-                    // Create, hydrate and persist new Test Object
-                    $test = new Test();
-                    $test->setProduct($product);
-                    $test->setFeature($feature);
-                    $test->hydrate($tv);
-                    $manager->persist($test);
-                }
-            }
+//            if(isset($v['tests']))
+//            {
+//                foreach($v['tests'] as $tk => $tv)
+//                {
+//                    // Get related feature in DB
+//                    $feature = $manager->getRepository('AppBundle:Feature\Feature')
+//                        ->findOneBy(['name' => $tk]);
+//
+//                    // Create, hydrate and persist new Test Object
+//                    $test = new Test();
+//                    $test->setProduct($product);
+//                    $test->setFeature($feature);
+//                    $test->hydrate($tv);
+//                    $manager->persist($test);
+//                }
+//            }
 
             // If Guarantees are given, loop assign and persist them
             if(isset($v['guarantees']))

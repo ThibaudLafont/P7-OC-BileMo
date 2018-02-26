@@ -1,0 +1,35 @@
+resources:
+  AppBundle\Entity\User\Client:
+    collectionOperations:
+      client_list:
+        method: GET
+        path: /clients
+        normalization_context:
+          groups: ['client_list']
+        swagger_context:
+          responses:
+            201:
+              description: Get Client resources collection
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Client-client_list'
+    itemOperations:
+      client_show:
+        method: GET
+        path: /clients/{id}
+        normalization_context:
+          groups: ['client_show']
+        swagger_context:
+          summary: Retrieve one Client resource
+          description: Retrieve Client resource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Client's resource id you want to reach
+          responses:
+            201:
+              description: Get specific Client resource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Client-client_show'
