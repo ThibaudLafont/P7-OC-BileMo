@@ -3,6 +3,26 @@ This project will create an API for Bilemo company. Clients of Bilemo will be ab
 list smartphones products and Bilemo partners will be able to add/edit/delete/list API
 users
 
+## Documentation
+At any time you can check the path `/docs` witch contain a swagger documentation for this
+API.
+However I give you some tips : 
+
+### Get token
+This project use a token authentication and handle authorizations.
+You have to request `/login_check` in POST and send a JSON body with your credentials 
+informations. For example:
+    
+    {
+        "username": "johndoe",
+        "password": "yourpassword"
+    }
+    
+### Request secure paths
+You just have to set a `Authorization Header` and paste the given token as value.
+Beware ! You have to prefix your token with `Bearer`
+
+    Bearer MyApiKey
 
 ## Informations
 This project use ApiPlatform bundle with Symfony framework. 
@@ -11,6 +31,11 @@ This project use ApiPlatform bundle with Symfony framework.
 You can find the object model in this repository
 
     /assets/ddb_diagramm.png
+
+### Class diagramm
+You can find the object model in this repository
+
+    /assets/class_diagramm.png
 
 ### Serialization of resources
 ApiPlatform handle the serialization of resources process, though a configuration 
