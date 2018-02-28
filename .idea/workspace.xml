@@ -2,39 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a34fc940-2f6c-4312-99a0-a3379e029d52" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/bilemo.iml" afterPath="$PROJECT_DIR$/.idea/bilemo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/resources/brand.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/resources/brand.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/resources/client.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/resources/client.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/resources/company.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/resources/company.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/resources/family.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/resources/family.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/resources/model.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/resources/model.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/resources/partner.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/resources/partner.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/resources/product.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/resources/product.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/serialization/client.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/serialization/client.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/serialization/company.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/serialization/company.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/api_platform/serialization/partner.yaml" afterPath="$PROJECT_DIR$/app/config/api_platform/serialization/partner.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.yml" afterPath="$PROJECT_DIR$/app/config/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/security.yml" afterPath="$PROJECT_DIR$/app/config/security.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.yml" afterPath="$PROJECT_DIR$/app/config/services.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Action/Brand.php" afterPath="$PROJECT_DIR$/src/AppBundle/Action/Brand.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Action/Users.php" afterPath="$PROJECT_DIR$/src/AppBundle/Action/Users.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/Fixtures.php" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/Fixtures.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models.yaml" afterPath="$PROJECT_DIR$/src/AppBundle/DataFixtures/datas/yml/Models.yaml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Feature/SpecValue.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Feature/SpecValue.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Product/Brand.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Product/Brand.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Product/Product.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Product/Product.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User/Client.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/User/Client.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User/Company.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/User/Company.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User/Partner.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/User/Partner.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User/User.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/User/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/EventListener/UserListener.php" afterPath="$PROJECT_DIR$/src/AppBundle/EventListener/UserListener.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Repository/User/UserRepository.php" afterPath="$PROJECT_DIR$/src/AppBundle/Repository/User/UserRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Serializer/Normalizer/Brand.php" afterPath="$PROJECT_DIR$/src/AppBundle/Serializer/Normalizer/Brand.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Serializer/Normalizer/Partner.php" afterPath="$PROJECT_DIR$/src/AppBundle/Serializer/Normalizer/Partner.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/.htaccess" afterPath="$PROJECT_DIR$/web/.htaccess" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/ddb_diagram.png" afterPath="$PROJECT_DIR$/assets/ddb_diagram.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/ddb_diagram.xml" afterPath="$PROJECT_DIR$/assets/ddb_diagram.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -437,12 +406,12 @@
       <workItem from="1519468693401" duration="1437000" />
       <workItem from="1519579614217" duration="8683000" />
       <workItem from="1519648953748" duration="30557000" />
-      <workItem from="1519736906676" duration="45254000" />
+      <workItem from="1519736906676" duration="45540000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="265936000" />
+    <option name="totallyTimeSpent" value="266222000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="960" height="1061" extended-state="0" />
