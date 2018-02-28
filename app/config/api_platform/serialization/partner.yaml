@@ -1,8 +1,8 @@
 AppBundle\Entity\User\Partner:
   attributes:
     id:
-      groups: ['partner_list', 'partner_show', 'partner_create']
+      groups: ['partner_list', 'partner_show', 'partner_create', 'partner_edit']
     username:
-      groups: ['partner_list', 'partner_show', 'partner_create']
+      groups: ['partner_list', 'partner_show', 'partner_create', 'partner_edit']
     plainPassword:
-      groups: ['partner_create']
+      groups: ['partner_create', 'partner_edit']

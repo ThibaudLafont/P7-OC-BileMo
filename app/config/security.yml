@@ -46,6 +46,9 @@ security:
             lexik_jwt: ~
 
     access_control:
-#        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/clients, role: ROLE_ADMIN }
-#        - { path: ^/, role: [ ROLE_USER, ROLE_ADMIN ] }
+        - { path: ^/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/docs, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/clients, role: ROLE_ADMIN }
+        - { path: ^/companies, role: ROLE_ADMIN }
+        - { path: ^/partners, role: ROLE_ADMIN }
+        - { path: ^/, role: [ ROLE_USER, ROLE_ADMIN ] }

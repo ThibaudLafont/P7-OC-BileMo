@@ -31,6 +31,7 @@ class Brand extends Controller
         return $brand;
 
     }
+
     /**
      * @Route(
      *     name="brand_products",
@@ -52,6 +53,7 @@ class Brand extends Controller
         return $brand;
 
     }
+
     /**
      * @Route(
      *     name="brand_families",

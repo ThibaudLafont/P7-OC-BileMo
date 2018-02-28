@@ -14,6 +14,18 @@ resources:
                 type: array
                 items:
                   $ref: '#/definitions/Client-client_list'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
+      client_create:
+        method: POST
+        path: /clients
+        validation_groups: ["client_create"]
+        denormalization_context:
+          groups: ['client_create']
+        normalization_context:
+          groups: ['client_show']
     itemOperations:
       client_show:
         method: GET
@@ -33,3 +45,24 @@ resources:
               description: Get specific Client resource related to given id paramameter
               schema:
                 $ref: '#/definitions/Client-client_show'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
+      client_edit:
+        method: PUT
+        path: /clients/{id}
+        validation_groups: ['user_edit', 'client_edit']
+        denormalization_context:
+          groups: ['client_edit']
+        normalization_context:
+          groups: ['client_show']
+        swagger_context:
+          summary: Allow to edit a Client
+          description: Edit Client user
+      client_delete:
+        method: DELETE
+        path: /clients/{id}
+        swagger_context:
+          summary: Delete Client and all related users
+          description: Delete Client with given ID

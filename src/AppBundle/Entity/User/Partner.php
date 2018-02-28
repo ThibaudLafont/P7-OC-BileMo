@@ -4,12 +4,13 @@ namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Partner
  *
  * @ORM\Table(name="user_partner")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\User\PartnerRepository")
  */
 class Partner extends User
 {

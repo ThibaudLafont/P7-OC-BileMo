@@ -4,12 +4,19 @@ namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Asset;
 
 /**
  * Company
  *
  * @ORM\Table(name="user_company")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\CompanyRepository")
+ *
+ * @UniqueEntity(
+ *     "name",
+ *     message="Une société portant ce nom existe déjà"
+ * )
  */
 class Company
 {
@@ -36,7 +43,16 @@ class Company
      * @var string
      * Name of Company
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(
+     *     name="name",
+     *     type="string",
+     *     length=255,
+     *     unique=true
+     * )
+     *
+     * @Asset\NotBlank(
+     *     message="Veuillez indiquer le nom de la société"
+     * )
      *
      * @ApiProperty(
      *     attributes={
@@ -54,7 +70,8 @@ class Company
      *
      * @ORM\OneToMany(
      *     targetEntity="Client",
-     *     mappedBy="company"
+     *     mappedBy="company",
+     *     cascade={"remove"}
      * )
      *
      * @ApiProperty(

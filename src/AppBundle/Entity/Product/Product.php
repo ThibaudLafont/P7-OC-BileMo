@@ -255,7 +255,8 @@ class Product
      *     attributes={
      *          "swagger_context"={
      *              "type" = "string",
-     *              "example": "IOS 10.3.3"
+     *              "example"= "IOS 10.3.3",
+     *              "version"= "2.0"
      *          }
      *     }
      * )
@@ -547,48 +548,6 @@ class Product
 
     }
 
-    /**
-     * @param bool $brand  Should display Brand in _embedded
-     * @param bool $family Should display Family _embedded
-     * @param bool $model  Should display Model in _embedded
-     * @return array
-     */
-//    public function getProductSubResource($brand = true, $family = true, $model = true){
-//
-//        // Store ProductCollection in empty array
-//        $return = $this->getProductCollection();
-//
-//        // Store ProductLinks
-//        $return['_links'] = $this->getProductLinks();
-//
-//        // Check if model is needed
-//        if($model){
-//
-//            // Store model in embedded $return index
-//            $return['_embedded']['model'] = $this->getProductModel();
-//
-//        }
-//
-//        // Check if family is needed
-//        if($family){
-//
-//            // Add new array in Product's _embedded
-//            $return['_embedded']['family'] = $this->getProductFamily();
-//
-//        }
-//
-//        // Check if Brand is needed
-//        if($brand){
-//
-//            // Store the brand in Product's embedded index
-//            $return['_embedded']['brand'] = $this->getProductBrand();
-//
-//        }
-//
-//        return $return;
-//
-//    }
-
 
     // Product SubResources
 
@@ -625,20 +584,6 @@ class Product
         return $return;
 
     }
-
-//    public function getProductEmbedded($brand, $family, $model){
-//
-//        $return = [];
-//
-//        if($brand)
-//            $return['brand'] = $this->getModel()->getFamily()->getBrand()->getBrandCollection(true);
-//        if($family)
-//            $return['family'] = $this->getModel()->getFamily()->getFamilyCollection(true, false);
-//        if($model)
-//            $return['model'] = $this->getModel()->getModelCollection(true, false, false);
-//
-//        return $return;
-//    }
 
     // Notices
     /**

@@ -2,6 +2,7 @@
 namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Traits\Hydrate;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Swagger;
@@ -142,6 +143,11 @@ class Brand
 
     // Traits
     use Hydrate;
+
+    public function __construct(){
+        $this->models = new ArrayCollection();
+        $this->products = new ArrayCollection();
+    }
 
     // Brand normalization
 
@@ -379,7 +385,7 @@ class Brand
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function getProducts()
     {

@@ -1,0 +1,26 @@
+resources:
+  AppBundle\Entity\User\User:
+    collectionOperations:
+      user_list:
+        route_name: user_list
+        swagger_context:
+          summary: Get Partner and Client resources collection
+          description: Get all users whatever their role
+          responses:
+            201:
+              description: Get all users whatever their role
+      login_check:
+        route_name: api_login_check
+        swagger_context:
+          summary: Use it for get ApiToken with credentials
+          description: Use JSON to send your credentials with given parameter example
+          parameters:
+            0:
+              name: credentials
+              description: Login informations at JSON format
+          responses:
+            201:
+              description: Login OK
+            401:
+              description: Wrong login informations
+    itemOperations: []

@@ -14,8 +14,14 @@ resources:
                 type: array
                 items:
                   $ref: '#/definitions/Partner-partner_list'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
       partner_create:
         method: POST
+        path: /partners
+        validation_groups: ['user_create']
         denormalization_context:
           groups: ['partner_create']
         normalization_context:
@@ -42,3 +48,24 @@ resources:
               description: Get specific Partner resource related to given id paramameter
               schema:
                 $ref: '#/definitions/Partner-partner_show'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
+      partner_edit:
+        method: PUT
+        path: /partners/{id}
+        validation_groups: ['user_edit']
+        denormalization_context:
+          groups: ['partner_edit']
+        normalization_context:
+          groups: ['partner_list']
+        swagger_context:
+          summary: Allow to edit username or password of Partner
+          description: Edit Partner user
+      partner_delete:
+        method: DELETE
+        path: /partners/{id}
+        swagger_context:
+          summary: Allow to delete a Partner resource
+          description: Delete Partner user

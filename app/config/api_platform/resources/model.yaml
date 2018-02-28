@@ -14,6 +14,10 @@ resources:
                 type: array
                 items:
                   $ref: '#/definitions/Model-model_list'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
     itemOperations:
       model_show:
         method: GET
@@ -33,6 +37,10 @@ resources:
               description: Get specific Model resource related to given id paramameter
               schema:
                 $ref: '#/definitions/Model-model_show'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
       model_products:
         method: GET
         path: /models/{id}/products
@@ -51,3 +59,7 @@ resources:
               description: Get Model Product subresources related to given id paramameter
               schema:
                 $ref: '#/definitions/Model-model_products'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found

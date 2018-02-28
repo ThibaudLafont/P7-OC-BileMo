@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Title of the page -->
+    <!-- TODO : define the title in each page template -->
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Global stylesheets -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+</head>
+<body>
+
+<!-- Header and NavBar -->
+<header>
+
+    <!-- Inform and home link -->
+    <a href="/">
+
+        <!-- Header title with website name -->
+        <h2>BILEMO API</h2>
+
+        <!-- Page title -->
+        <h3>Erreur pendant le chargement de la page</h3>
+
+    </a>
+
+</header>
+
+<!-- Display of body block -->
+{% block body %}{% endblock %}
+
+<!-- Footer -->
+<footer>
+
+    <!-- Copyright -->
+    <div id="copyright">
+        <span>© 2018 - Bilemo</span>
+    </div>
+
+</footer>
+
+</body>
+</html>

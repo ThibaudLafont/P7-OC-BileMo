@@ -42,7 +42,6 @@ class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerA
      */
     public function normalize($object, $format = null, array $context = array())
     {
-//        $brand = $this->decorated->normalize($object, $format, $context);
 
         /**
          * Brand Properties normalization

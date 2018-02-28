@@ -29,7 +29,7 @@ class Users extends Controller
 
     /**
      * @Route(
-     *     name="all_users",
+     *     name="user_list",
      *     path="/users",
      *     methods={"GET"}
      * )

@@ -26,13 +26,6 @@ use Symfony\Component\Yaml\Yaml;
 class Fixtures extends Fixture
 {
 
-//    private $encoder;
-//
-//    public function __construct(UserPasswordEncoderInterface $encoder)
-//    {
-//        $this->encoder = $encoder;
-//    }
-
     /**
      * Load data fixtures by calling load methods
      *
@@ -211,24 +204,6 @@ class Fixtures extends Fixture
                     $manager->persist($notice);
                 }
             }
-
-            // If Tests are given, loop assign and persist them
-//            if(isset($v['tests']))
-//            {
-//                foreach($v['tests'] as $tk => $tv)
-//                {
-//                    // Get related feature in DB
-//                    $feature = $manager->getRepository('AppBundle:Feature\Feature')
-//                        ->findOneBy(['name' => $tk]);
-//
-//                    // Create, hydrate and persist new Test Object
-//                    $test = new Test();
-//                    $test->setProduct($product);
-//                    $test->setFeature($feature);
-//                    $test->hydrate($tv);
-//                    $manager->persist($test);
-//                }
-//            }
 
             // If Guarantees are given, loop assign and persist them
             if(isset($v['guarantees']))

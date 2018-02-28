@@ -4,6 +4,7 @@ namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Asset;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -12,6 +13,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\MappedSuperclass()
  * @ORM\EntityListeners({"AppBundle\EventListener\UserListener"})
+ *
+ * @UniqueEntity(
+ *     fields= "username",
+ *     repositoryMethod="findUser",
+ *     message="Ce nom d'utilisateur n'est pas disponible"
+ * )
  */
 abstract class User implements UserInterface, \Serializable
 {
@@ -32,13 +39,15 @@ abstract class User implements UserInterface, \Serializable
      * @ORM\Column(name="username", type="string", length=55, unique=true)
      *
      * @Asset\NotBlank(
-     *     message="Vous devez renseigner un username"
+     *     message="Vous devez renseigner un username",
+     *     groups={"user_create"}
      * )
      * @Asset\Length(
      *     min=2,
      *     minMessage="Le nom d'utilisateur doit contenir plus de {{ limit }} caractères",
      *     max=55,
-     *     maxMessage="Le nom d'utilisateur ne doit pas dépasser {{ limit }} caractères"
+     *     maxMessage="Le nom d'utilisateur ne doit pas dépasser {{ limit }} caractères",
+     *     groups={"user_create", "user_edit"}
      * )
      */
     private $username;
@@ -56,13 +65,15 @@ abstract class User implements UserInterface, \Serializable
      * Used for user register
      *
      * @Asset\NotBlank(
-     *     message="Veuillez renseigner un mot de passe"
+     *     message="Veuillez renseigner un mot de passe",
+     *     groups={"user_create"}
      * )
      * @Asset\Length(
      *     min=7,
      *     minMessage="Le mot de passe doit contenir {{ limit }} caractères minimum",
      *     max=30,
-     *     maxMessage="Le mot de passe ne doit pas contenir plus de {{ limit }} caractères"
+     *     maxMessage="Le mot de passe ne doit pas contenir plus de {{ limit }} caractères",
+     *     groups={"user_create", "user_edit"}
      * )
      */
     private $plainPassword;

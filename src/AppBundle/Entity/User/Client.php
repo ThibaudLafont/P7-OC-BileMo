@@ -5,6 +5,7 @@ namespace AppBundle\Entity\User;
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
@@ -13,6 +14,11 @@ use ApiPlatform\Core\Annotation\ApiProperty;
  *
  * @ORM\Table(name="user_client")
  * @ORM\Entity
+ *
+ * @UniqueEntity(
+ *     "username",
+ *     message="Ce nom d'utilisateur n'est pas disponible"
+ * )
  */
 class Client extends User
 {
@@ -24,13 +30,15 @@ class Client extends User
      * @ORM\Column(name="firstName", type="string", length=70)
      *
      * @Assert\NotBlank(
-     *     message="Le prénom est obligatoire"
+     *     message="Le prénom est obligatoire",
+     *     groups={"client_create"}
      * )
      * @Assert\Length(
      *     min=2,
      *     minMessage="Le prénom doit contenir plus de {{ limit }} caractères",
      *     max=70,
-     *     maxMessage="Le prénom ne peut pas contenir plus de {{ limit }} caractères"
+     *     maxMessage="Le prénom ne peut pas contenir plus de {{ limit }} caractères",
+     *     groups={"client_create", "client_edit"}
      * )
      *
      * @ApiProperty(
@@ -51,13 +59,15 @@ class Client extends User
      * @ORM\Column(name="lastName", type="string", length=155)
      *
      * @Assert\NotBlank(
-     *     message="Le nom de famille est obligatoire"
+     *     message="Le nom de famille est obligatoire",
+     *     groups={"client_create"}
      * )
      * @Assert\Length(
      *     min=2,
      *     minMessage="Le nom de famille doit contenir plus de {{ limit }} caractères",
      *     max=70,
-     *     maxMessage="Le nom de famille ne peut pas contenir plus de {{ limit }} caractères"
+     *     maxMessage="Le nom de famille ne peut pas contenir plus de {{ limit }} caractères",
+     *     groups={"client_create", "client_edit"}
      * )
      *
      * @ApiProperty(
@@ -78,12 +88,14 @@ class Client extends User
      * @ORM\Column(name="mail_address", type="string", length=255, unique=true)
      *
      * @Assert\NotBlank(
-     *     message="L'adresse mail est obligatoire"
+     *     message="L'adresse mail est obligatoire",
+     *     groups={"client_create"}
      * )
      * @Assert\Email(
      *     message="Veuillez entrer une adresse mail valide",
      *     checkMX=true,
-     *     checkHost=true
+     *     checkHost=true,
+     *     groups={"client_create", "client_edit"}
      * )
      *
      * @ApiProperty(
@@ -101,15 +113,17 @@ class Client extends User
      * @var int
      * Phone number of client
      *
-     * @ORM\Column(name="phone_number", type="bigint")
+     * @ORM\Column(name="phone_number", type="bigint",  options={"unsigned"=true})
      *
      * @Assert\NotBlank(
-     *     message="Veuillez renseigner un numéro de téléphone"
+     *     message="Veuillez renseigner un numéro de téléphone",
+     *     groups={"client_create"}
      * )
      * @Assert\Length(
      *     min=10,
      *     max=10,
-     *     exactMessage="Veuillez entrer le numéro au format français à 10 chiffres"
+     *     exactMessage="Veuillez entrer le numéro au format français à 10 chiffres (0XXXXXXXXX)",
+     *     groups={"client_create", "client_edit"}
      * )
      *
      * @ApiProperty(
@@ -133,6 +147,30 @@ class Client extends User
      * )
      */
     private $company;
+
+    /**
+     * @var integer
+     * Used by client_create for retrieve Client Company
+     *
+     * @Assert\NotBlank(
+     *     message="Veuillez renseigner l'id de la companie à laquelle appartient le client",
+     *     groups={"client_create"}
+     * )
+     * @Assert\Type(
+     *     type="integer",
+     *     groups={"client_create", "client_edit"}
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example" = "1"
+     *          }
+     *     }
+     * )
+     */
+    private $companyId;
 
     // Traits
     use Hydrate;
@@ -349,6 +387,22 @@ class Client extends User
      */
     public function setCompany(Company $company){
         $this->company = $company;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompanyId()
+    {
+        return $this->companyId;
+    }
+
+    /**
+     * @param mixed $companyId
+     */
+    public function setCompanyId($companyId)
+    {
+        $this->companyId = $companyId;
     }
 
 }
