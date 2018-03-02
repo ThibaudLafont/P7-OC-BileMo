@@ -15,6 +15,11 @@ class HttpException implements EventSubscriberInterface
      */
     private $twig;
 
+    /**
+     * @var GetResponseForExceptionEvent
+     */
+    private $event;
+
     public function __construct(TwigEngine $twig){
 
         // Store twig in attributes
@@ -27,48 +32,42 @@ class HttpException implements EventSubscriberInterface
         // return the subscribed events, their methods and priorities
         return array(
             KernelEvents::EXCEPTION => array(
-                array('testRedirection', 10)
+                array('handleExceptions', 10)
             )
         );
     }
 
-    public function testRedirection(GetResponseForExceptionEvent $event)
+    public function handleExceptions(GetResponseForExceptionEvent $event)
     {
+        // Store event
+        $this->setEvent($event);
 
         // Get HTTP StatusCode
-        $statusCode = $event->getException()->getCode();
-
-        // Handle the case where ApiPlatform set 500 status code in place of 404
-        $content = $event->getException()->getMessage();                // Get the content of Exception
-        if(strpos($content, "No route found") === 0) $statusCode = 404; // If message contain "No route", set 404 code
+        $statusCode = $this->getStatusCode();
 
         // Get Request Content-Type header value
         $contentType = $event->getRequest()->getContentType();
 
         // Case where Content-Type is not defined of set to "text/html"
         if (
-            $contentType === 'html' ||
-            is_null($contentType)
+            $contentType !== 'json'
         ){
 
-            // If error is 0, set it to 500
-            if($statusCode === 0) $statusCode = 500;
-
             // Then build template path with status code
-            $template = '@Twig/Exception/error' . $statusCode . '.html.twig';
+            $template =  $this->getTemplatePath($statusCode, 'html');
 
             // Set content-type
             $contentType = 'text/html';
 
         // Case where Content-Type is set to JSON, and errors are 404 or 500
         } elseif (
-            $contentType === 'json' &&
             $statusCode == 404 ||
+            $statusCode == 405 ||
             $statusCode == 500
         ) {
 
             // Build template with status code
-            $template = '@Twig/Exception/error' . $statusCode . '.json.twig';
+            $template = $this->getTemplatePath($statusCode, 'json');
 
             // Set content-type
             $contentType = 'application/json';
@@ -88,6 +87,55 @@ class HttpException implements EventSubscriberInterface
             $event->setResponse($response);
         }
 
+    }
+
+    private function getStatusCode(){
+
+        // Store Exception
+        $exception = $this->getEvent()->getException();
+
+        // Store Exception code & message
+        $code = $exception->getCode();
+        $message = $exception->getMessage();
+
+        // If "No route found", it's 404 or 405 http code
+        if(strpos($message, "No route found") == 0){
+
+            // If isset "Method Not Allowed", 405 error
+            if(strpos($message, "Method Not Allowed")) $code = 405;
+            // Else 404 error
+            else $code = 404;
+
+        }
+
+        // Only if content-type is not json and $code = 0,
+        // cause we let Hydra handle other kinds of request exceptions
+        if (
+            $this->getEvent()->getRequest()->getContentType() !== 'json' &&
+            $code == 0
+        ) $code = 500;
+
+        return $code;
+    }
+
+    private function getTemplatePath($statusCode, $type){
+        return '@Twig/Exception/error' . $statusCode . '.' . $type . '.twig';
+    }
+
+    /**
+     * @return GetResponseForExceptionEvent
+     */
+    public function getEvent(): GetResponseForExceptionEvent
+    {
+        return $this->event;
+    }
+
+    /**
+     * @param GetResponseForExceptionEvent $event
+     */
+    public function setEvent(GetResponseForExceptionEvent $event)
+    {
+        $this->event = $event;
     }
 
 }

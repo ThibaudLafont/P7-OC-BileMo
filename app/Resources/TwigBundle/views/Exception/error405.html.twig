@@ -1,11 +1,9 @@
 {% extends '@Twig/base.html.twig' %}
 
 {% block body %}
-
-    <h1>Erreur 403 - Accès interdit</h1>
+    <h1>Erreur 405 - Méthode non autorisée</h1>
 
     <p id="error_message">
-        Vous n'êtes pas autorisé à consulter cette page...
+        Méthode http non autorisée pour cette route
     </p>
-
 {% endblock %}
