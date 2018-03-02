@@ -71,6 +71,11 @@ services:
         tags: [serializer.normalizer]
         arguments: [ '@AppBundle\Serializer\Normalizer\Family.inner' ]
 
+    AppBundle\EventSubscriber\HttpException:
+        arguments: ['@templating']
+        tags:
+            - { name: kernel.event_subscriber, event: kernel.exception }
+
     user_listener:
         class: AppBundle\EventListener\UserListener
         tags:

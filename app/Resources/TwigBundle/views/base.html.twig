@@ -12,6 +12,7 @@
 
     <!-- Global stylesheets -->
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="stylesheet" href="/css/twig.css">
 
 </head>
 <body>
@@ -19,31 +20,25 @@
 <!-- Header and NavBar -->
 <header>
 
-    <!-- Inform and home link -->
-    <a href="/">
+    <!-- Header title with website name -->
+    <h2>BILEMO API</h2>
 
-        <!-- Header title with website name -->
-        <h2>BILEMO API</h2>
-
-        <!-- Page title -->
-        <h3>Erreur pendant le chargement de la page</h3>
-
-    </a>
+    <!-- Page title -->
+    <h2>Erreur pendant le chargement de la page</h2>
 
 </header>
 
-<!-- Display of body block -->
-{% block body %}{% endblock %}
+<section id="content">
 
-<!-- Footer -->
-<footer>
+    <!-- Display of body block -->
+    {% block body %}{% endblock %}
 
-    <!-- Copyright -->
-    <div id="copyright">
-        <span>© 2018 - Bilemo</span>
-    </div>
+    <p id="error_inform">
+        Ceci est une API et vous devriez normalement attendre un contenu de type JSON. <br/>
+        À tout moment, vous pouvez <a href="/doc">consulter la documentation</a>
+    </p>
 
-</footer>
+</section>
 
 </body>
 </html>

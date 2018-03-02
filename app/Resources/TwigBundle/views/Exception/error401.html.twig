@@ -1,9 +1,9 @@
-{% extends 'TwigBundle:base.html.twig' %}
+{% extends '@Twig/base.html.twig' %}
 
 {% block body %}
-    <h1>Problème d'authentifcation</h1>
+    <h1>Erreur 401 - Non autorisé</h1>
 
-    <p>
-        Vous n'avez pas les droits... Consultez la <a href="/doc">Documentation</a>
+    <p id="error_message">
+        Vous n'êtes pas autorisé à consulter cette resource.
     </p>
 {% endblock %}
