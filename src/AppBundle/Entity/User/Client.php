@@ -43,6 +43,10 @@ class Client extends User
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/givenName",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example" = "John"

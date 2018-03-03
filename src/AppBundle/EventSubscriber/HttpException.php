@@ -84,7 +84,7 @@ class HttpException implements EventSubscriberInterface
             $response = new Response($content, $statusCode, ['content-type' => $contentType]);
 
             // Set response to $event
-            $event->setResponse($response);
+//            $event->setResponse($response);
         }
 
     }

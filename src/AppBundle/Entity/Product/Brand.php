@@ -42,12 +42,6 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
-     *          "jsonld_context"={
-     *             "someProperty"={
-     *                 "a"="textA",
-     *                 "b"="textB"
-     *             }
-     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Apple"
@@ -65,12 +59,6 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
-     *          "jsonld_context"={
-     *             "someProperty"={
-     *                 "a"="textA",
-     *                 "b"="textB"
-     *             }
-     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Apple est un constructeur de terminaux informatiques"
@@ -88,12 +76,6 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
-     *          "jsonld_context"={
-     *             "someProperty"={
-     *                 "a"="textA",
-     *                 "b"="textB"
-     *             }
-     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "http://apple.com"

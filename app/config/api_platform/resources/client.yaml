@@ -1,5 +1,8 @@
 resources:
   AppBundle\Entity\User\Client:
+    attributes:
+      jsonld_context:
+        "@vocab": blablabla
     collectionOperations:
       client_list:
         method: GET
