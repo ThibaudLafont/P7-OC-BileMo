@@ -87,42 +87,47 @@ class Company
      */
     private $clients;
 
-    public function getCompanyCollection(){
-        return [
+    public function normalizeCompanyCollection($links = true){
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
+
+        if($links) $return['_links'] = $this->normalizeCompanyLinks();
+        return $return;
     }
 
-    public function getCompanyItem(){
-        return [
+    public function normalizeCompanyItem($links=true){
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
+
+        if($links) $return['_links'] = $this->normalizeCompanyLinks();
+        return $return;
     }
 
-    public function getCompanyLinks(){
+    public function normalizeCompanyLinks(){
         return [
             '@self' => $this->getSelfUrl(),
             '@users' => $this->getUserSubLink()
         ];
     }
 
-    public function getSelfUrl(){
+    private function getSelfUrl(){
         return "/companies/" . $this->getId();
     }
 
-    public function getUserSubLink(){
+    private function getUserSubLink(){
         return $this->getSelfUrl() . "/users";
     }
 
-    public function getCompanyUsers(){
+    public function normalizeCompanyUsers(){
 
         $return = [];
 
         foreach($this->getCLients() as $user){
-            $insert = $user->getClientCollection();
-            $insert['_links'] = $user->getUserLinks();
+            $insert = $user->normalizeClientCollection(true);
 
             $return[] = $insert;
         }

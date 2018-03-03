@@ -39,23 +39,23 @@ class Company implements NormalizerInterface, DenormalizerInterface, Denormalize
         // Handle a collection request
         if($this->belongToSerializeGroup(['company_list', 'company_users'], $context)){
 
-            $return = $object->getCompanyCollection();
+            $return = $object->normalizeCompanyCollection(false);
 
         }
         // Handle an item request
         elseif($this->belongToSerializeGroup(['company_show'], $context)){
 
-            $return = $object->getCompanyItem();
+            $return = $object->normalizeCompanyItem(false);
 
         }
 
         if($this->belongToSerializeGroup(['company_users'], $context)){
 
-            $return['clients'] = $object->getCompanyUsers();
+            $return['clients'] = $object->normalizeCompanyUsers();
 
         }
 
-        $return['_links'] = $object->getCompanyLinks();
+        $return['_links'] = $object->normalizeCompanyLinks();
 
         return $return;
 

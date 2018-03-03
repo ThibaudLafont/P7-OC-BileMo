@@ -161,7 +161,7 @@ class Model
     /**
      * @return array
      */
-    public function getModelCollection($links = true, $brand = true, $family = true)
+    public function normalizeModelCollection($links = true, $brand = true, $family = true)
     {
 
         // Properties for Model Collection
@@ -171,11 +171,11 @@ class Model
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->getModelLinks();
+        if($links) $return['_links'] = $this->normalizeModelLinks();
 
         // Add embedded resources if needed
         if($brand || $family) // Model's Brand
-            $return['_embedded'] = $this->getModelEmbedded($brand, $family);
+            $return['_embedded'] = $this->normalizeModelEmbedded($brand, $family);
 
         return $return;
 
@@ -184,7 +184,7 @@ class Model
     /**
      * @return array
      */
-    public function getModelItem($links = true, $brand = true, $family = true){
+    public function normalizeModelItem($links = true, $brand = true, $family = true){
 
         // Properties for Model Item
         $return = [
@@ -193,15 +193,15 @@ class Model
             'release_year' => $this->getReleaseYear(),
             'description' => $this->getDescription(),
             'contructor_url' => $this->getConstructorUrl(),
-            'specifications' => $this->getSpecs()
+            'specifications' => $this->normalizeSpecs()
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->getModelLinks();
+        if($links) $return['_links'] = $this->normalizeModelLinks();
 
         // Add embedded resources if needed
         if($brand || $family) // Model's Brand
-            $return['_embedded'] = $this->getModelEmbedded($brand, $family);
+            $return['_embedded'] = $this->normalizeModelEmbedded($brand, $family);
 
         return $return;
     }
@@ -212,7 +212,7 @@ class Model
      * Model's products
      * @return array
      */
-    public function getModelProducts(){
+    public function normalizeModelProducts(){
 
         // Init empty array
         $return = [];
@@ -221,7 +221,7 @@ class Model
         foreach($this->getProducts() as $product){
 
             // Store ProductSubresource in new $return index
-            $return[] = $product->getProductCollection(true, false, false, false);
+            $return[] = $product->normalizeProductCollection(true, false, false, false);
 
         }
 
@@ -248,7 +248,7 @@ class Model
      *     }
      * )
      */
-    public function getSpecs(){
+    public function normalizeSpecs(){
 
         // Init empty array
         $return = [];
@@ -274,7 +274,7 @@ class Model
      * Model _links
      * @return array
      */
-    public function getModelLinks(){
+    public function normalizeModelLinks(){
 
         return [
             '@self' => $this->getSelfUrl(),
@@ -287,16 +287,16 @@ class Model
      * Model _embedded
      * @return array
      */
-    public function getModelEmbedded($brand=true, $family=true){
+    public function normalizeModelEmbedded($brand=true, $family=true){
 
         // Check if brand is required
         if($brand) {
-            $return['brand'] =$this->getFamily()->getBrand()->getBrandCollection(true);
+            $return['brand'] =$this->getFamily()->getBrand()->normalizeBrandCollection(true);
         }
 
         // Check if family is needed
         if($family){
-            $return['family'] = $this->getFamily()->getFamilyCollection(true, false);
+            $return['family'] = $this->getFamily()->normalizeFamilyCollection(true, false);
         }
 
         return $return;

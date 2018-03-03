@@ -54,13 +54,13 @@ class Product implements NormalizerInterface, DenormalizerInterface, Denormalize
         $return = [];
 
         if($this->belongToSerializeGroup(['product_list'], $context)){
-            $return = $object->getProductCollection();
+            $return = $object->normalizeProductCollection();
         }elseif($this->belongToSerializeGroup(['product_show'], $context)){
-            $return = $object->getProductItem();
+            $return = $object->normalizeProductItem();
         }
 
-        $return['_links'] = $object->getProductLinks();
-        $return['_embedded'] = $object->getProductEmbedded(true, true, true);
+        $return['_links'] = $object->normalizeProductLinks();
+        $return['_embedded'] = $object->normalizeProductEmbedded(true, true, true);
 
         return $return;
 

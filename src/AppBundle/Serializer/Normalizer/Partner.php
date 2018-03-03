@@ -45,7 +45,7 @@ class Partner implements NormalizerInterface, DenormalizerInterface, Denormalize
     public function normalize($object, $format = null, array $context = array())
     {
 
-        return $object->getPartnerCollection();
+        return $object->normalizePartnerCollection();
 
     }
 

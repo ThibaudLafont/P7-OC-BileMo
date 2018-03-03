@@ -124,7 +124,7 @@ class Family
      * Collection normalization
      * @return array
      */
-    public function getFamilyCollection($links = true, $embedded = true){
+    public function normalizeFamilyCollection($links = true, $embedded = true){
 
         // Family's Collection attributes
         $return = [
@@ -133,10 +133,10 @@ class Family
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->getFamilyLinks();
+        if($links) $return['_links'] = $this->normalizeFamilyLinks();
 
         // Add embedded if needed
-        if($embedded) $return['_embedded'] = $this->getFamilyEmbedded();
+        if($embedded) $return['_embedded'] = $this->normalizeFamilyEmbedded();
 
         return $return;
 
@@ -146,7 +146,7 @@ class Family
      * Item normalization
      * @return array
      */
-    public function getFamilyItem($links = true, $embedded = true){
+    public function normalizeFamilyItem($links = true, $embedded = true){
 
         // Family's Item attributes
         $return = [
@@ -156,10 +156,10 @@ class Family
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->getFamilyLinks();
+        if($links) $return['_links'] = $this->normalizeFamilyLinks();
 
         // Add embedded if needed
-        if($embedded) $return['_embedded'] = $this->getFamilyEmbedded();
+        if($embedded) $return['_embedded'] = $this->normalizeFamilyEmbedded();
 
         return $return;
     }
@@ -171,7 +171,7 @@ class Family
      * Family's models
      * @return array
      */
-    public function getFamilyModels(){
+    public function normalizeFamilyModels(){
 
         // Init empty array
         $return = [];
@@ -180,7 +180,7 @@ class Family
         foreach($this->getModels() as $model){
 
             // Store Model Collection in return array
-            $return[] = $model->getModelCollection(true, false, false);
+            $return[] = $model->normalizeModelCollection(true, false, false);
 
         }
 
@@ -192,7 +192,7 @@ class Family
      * Family's products
      * @return array
      */
-    public function getFamilyProducts(){
+    public function normalizeFamilyProducts(){
 
         // Init empty array
         $return = [];
@@ -200,7 +200,7 @@ class Family
         foreach($this->getProducts() as $product){
 
             // Store every found product in return array
-            $return[] = $product->getProductCollection(true, false, false, true);
+            $return[] = $product->normalizeProductCollection(true, false, false, true);
 
         }
 
@@ -212,7 +212,7 @@ class Family
      * Family _links
      * @return array
      */
-    public function getFamilyLinks()
+    public function normalizeFamilyLinks()
     {
 
         return [
@@ -227,10 +227,10 @@ class Family
      * Family _embedded
      * @return mixed
      */
-    public function getFamilyEmbedded()
+    public function normalizeFamilyEmbedded()
     {
 
-        $return['brand'] = $this->getBrand()->getBrandCollection(true);
+        $return['brand'] = $this->getBrand()->normalizeBrandCollection(true);
 
         return $return;
 

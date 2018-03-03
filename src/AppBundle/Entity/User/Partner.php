@@ -59,7 +59,7 @@ class Partner extends User
     /**
      * @return array
      */
-    public function getPartnerCollection(){
+    public function normalizePartnerCollection(){
         return [
             'id' => $this->getId(),
             'username' => $this->getUsername(),
@@ -69,7 +69,7 @@ class Partner extends User
         ];
     }
 
-    public function getSelfUrl(){
+    private function getSelfUrl(){
         return "/partners/" . $this->getId();
     }
 

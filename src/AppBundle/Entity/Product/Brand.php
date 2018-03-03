@@ -42,6 +42,12 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *             "someProperty"={
+     *                 "a"="textA",
+     *                 "b"="textB"
+     *             }
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Apple"
@@ -59,6 +65,12 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *             "someProperty"={
+     *                 "a"="textA",
+     *                 "b"="textB"
+     *             }
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Apple est un constructeur de terminaux informatiques"
@@ -76,6 +88,12 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *             "someProperty"={
+     *                 "a"="textA",
+     *                 "b"="textB"
+     *             }
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "http://apple.com"
@@ -154,14 +172,14 @@ class Brand
     /**
      * @return array
      */
-    public function getBrandCollection($links = true){
+    public function normalizeBrandCollection($links = true){
 
         $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
 
-        if($links) $return['_links'] = $this->getBrandLinks();
+        if($links) $return['_links'] = $this->normalizeBrandLinks();
 
         return $return;
 
@@ -170,7 +188,7 @@ class Brand
     /**
      * @return array
      */
-    public function getBrandItem($links = true){
+    public function normalizeBrandItem($links = true){
 
         $return = [
             'id' => $this->getId(),
@@ -179,7 +197,7 @@ class Brand
             'constructor_url' => $this->getWebsiteUrl()
         ];
 
-        if($links) $return['_links'] = $this->getBrandLinks();
+        if($links) $return['_links'] = $this->normalizeBrandLinks();
 
         return $return;
 
@@ -192,7 +210,7 @@ class Brand
      * Brand's products
      * @return array
      */
-    public function getBrandProducts(){
+    public function normalizeBrandProducts(){
 
         // Init empty array
         $return = [];
@@ -201,7 +219,7 @@ class Brand
         foreach($this->getProducts() as $product){
 
             // Add product to return array
-            $return[] = $product->getProductCollection(false, false, true, true);
+            $return[] = $product->normalizeProductCollection(false, false, true, true);
 
         }
 
@@ -213,7 +231,7 @@ class Brand
      * Brand's models
      * @return array
      */
-    public function getBrandModels(){
+    public function normalizeBrandModels(){
 
         //Init empty return array
         $return = [];
@@ -221,7 +239,7 @@ class Brand
         // Loop on every stored models
         foreach($this->getModels() as $model){
 
-            $return[] = $model->getModelCollection(true, false, true);
+            $return[] = $model->normalizeModelCollection(true, false, true);
 
         }
 
@@ -232,7 +250,7 @@ class Brand
      * Brand's families
      * @return array
      */
-    public function getBrandFamilies(){
+    public function normalizeBrandFamilies(){
 
         // Init empty array
         $return = [];
@@ -241,7 +259,7 @@ class Brand
         foreach($this->getFamilies() as $family){
 
             // Push new datas in return array
-            $return[] = $family->getFamilyCollection(true, false);
+            $return[] = $family->normalizeFamilyCollection(true, false);
 
         }
 
@@ -252,7 +270,7 @@ class Brand
      * Brand's _links
      * @return array
      */
-    public function getBrandLinks(){
+    public function normalizeBrandLinks(){
         return [
             '@self' => $this->getSelfUrl(),
             '@families' => $this->getFamiliesSubLink(),

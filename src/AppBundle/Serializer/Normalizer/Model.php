@@ -50,26 +50,26 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
         if($this->belongToSerializeGroup(['brand_show', 'family_show', 'model_list', 'model_products'], $context))
         {
             // Get collection array from object
-            $return = $object->getModelCollection(false, false, false);
+            $return = $object->normalizeModelCollection(false, false, false);
 
         }
         // Case of item request
         elseif($this->belongToSerializeGroup(['model_show'], $context)){
 
             // Get model item infos
-            $return = $object->getModelItem(false, false, false);
+            $return = $object->normalizeModelItem(false, false, false);
 
         }
 
         if($this->belongToSerializeGroup(['model_products'], $context)){
 
-            $return['products'] = $object->getModelProducts();
+            $return['products'] = $object->normalizeModelProducts();
 
         }
 
         // Set links and embedded
-        $return['_links'] = $object->getModelLinks();
-        $return['_embedded'] = $object->getModelEmbedded();
+        $return['_links'] = $object->normalizeModelLinks();
+        $return['_embedded'] = $object->normalizeModelEmbedded();
 
         // Return build array
         return $return;

@@ -214,16 +214,20 @@ class Client extends User
         return parent::getUsername();
     }
 
-    public function getClientCollection(){
-        return [
+    public function normalizeClientCollection($links = true){
+        $return = [
             'id' => $this->getId(),
             'username' => $this->getUsername(),
             'full_name' => $this->getFullName()
         ];
+
+        if($links) $return['links'] = $this->normalizeUserLinks();
+
+        return $return;
     }
 
-    public function getClientItem(){
-        return [
+    public function normalizeClientItem($links = true){
+        $return = [
             'id' => $this->getId(),
             'username' => $this->getUsername(),
             'fist_name' => $this->getFirstName(),
@@ -231,6 +235,10 @@ class Client extends User
             'mail_address' => $this->getMailAddress(),
             'phone_number' => $this->getPhoneNumber()
         ];
+
+        if($links) $return['links'] = $this->normalizeUserLinks();
+
+        return $return;
     }
 
     /**
@@ -251,11 +259,11 @@ class Client extends User
         return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
-    public function getSelfUrl(){
+    private function getSelfUrl(){
         return "/clients/" . $this->getId();
     }
 
-    public function getUserLinks(){
+    public function normalizeUserLinks(){
         return [
             '@self' => $this->getSelfUrl()
         ];
