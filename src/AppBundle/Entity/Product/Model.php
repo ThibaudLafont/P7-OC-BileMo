@@ -9,36 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
+use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * Model
- *
- * @ApiResource(
- *     collectionOperations={
- *          "model_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"model_list"}
- *              }
- *          }
- *     },
- *     itemOperations={
- *          "model_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"model_show"}
- *              }
- *          },
- *          "model_products"={
- *              "method"="GET",
- *              "route_name"="model_products",
- *              "path"="/model/{id}/products",
- *              "normalization_context"={
- *                  "groups"={"model_products"}
- *              }
- *          }
- *     }
- * )
  *
  * @ORM\Table(name="p_model")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ModelRepository")
@@ -51,6 +25,15 @@ class Model
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "1"
+     *          }
+     *     }
+     * )
      */
     private $id;
 
@@ -58,6 +41,15 @@ class Model
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Iphone 5"
+     *          }
+     *     }
+     * )
      */
     private $name;
 
@@ -65,6 +57,15 @@ class Model
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "Dernier modèle avant changement de design"
+     *          }
+     *     }
+     * )
      */
     private $description;
 
@@ -73,6 +74,15 @@ class Model
      * Product page on constructor website (if exists)
      *
      * @ORM\Column(name="constructor_url", type="text", nullable=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "https://apple.com/iphone-5"
+     *          }
+     *     }
+     * )
      */
     private $constructorUrl;
 
@@ -81,6 +91,15 @@ class Model
      * Model release year
      *
      * @ORM\Column(name="release_year", type="bigint")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "2015"
+     *          }
+     *     }
+     * )
      */
     private $releaseYear;
 
@@ -114,6 +133,17 @@ class Model
      *     targetEntity="Product",
      *     mappedBy="model"
      * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items"={
+     *                  "$ref"="#/definitions/Model-model_list"
+     *              }
+     *          }
+     *     }
+     * )
      */
     private $products;
 
@@ -126,104 +156,54 @@ class Model
     }
 
 
-    // Model links
-
-    /**
-     * @return string
-     */
-    public function getSelfUrl(){
-        return "/models/" . $this->getId();
-    }
-
-    /**
-     * @return string
-     */
-    public function getProductsSubLink(){
-        return "/models/" . $this->getId() . "/products";
-    }
-
-
     // Model normalization
 
     /**
      * @return array
      */
-    public function getModelCollection()
+    public function normalizeModelCollection($links = true, $brand = true, $family = true)
     {
-        return [
+
+        // Properties for Model Collection
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
+
+        // Add links if needed
+        if($links) $return['_links'] = $this->normalizeModelLinks();
+
+        // Add embedded resources if needed
+        if($brand || $family) // Model's Brand
+            $return['_embedded'] = $this->normalizeModelEmbedded($brand, $family);
+
+        return $return;
+
     }
 
     /**
      * @return array
      */
-    public function getModelItem(){
-        return [
+    public function normalizeModelItem($links = true, $brand = true, $family = true){
+
+        // Properties for Model Item
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName(),
             'release_year' => $this->getReleaseYear(),
             'description' => $this->getDescription(),
-            'contructor_url' => $this->getConstructorUrl()
+            'contructor_url' => $this->getConstructorUrl(),
+            'specifications' => $this->normalizeSpecs()
         ];
-    }
 
-    /**
-     * Model _links
-     * @return array
-     */
-    public function getModelLinks(){
-        return [
-            '@self' => $this->getSelfUrl(),
-            '@products' => $this->getProductsSubLink()
-        ];
-    }
+        // Add links if needed
+        if($links) $return['_links'] = $this->normalizeModelLinks();
 
-    /**
-     * Model _embedded
-     * @return array
-     */
-    public function getModelEmbedded($brand=true, $family=true){
-
-        // Fetch Family and Brand of model
-        $family = $this->getFamily();
-        $brand = $this->getFamily()->getBrand();
-
-        // Init empty array
-        $return = [];
-
-        // Check if family is required
-        if($brand) {
-            $return['brand'] = [
-                'id' => $brand->getId(),
-                'name' => $brand->getName(),
-                '_links' => $brand->getBrandLinks()
-            ];
-        }
-
-        if($family){
-            $return['family'] = [
-                'id' => $family->getId(),
-                'name' => $family->getName(),
-                '_links' => $family->getFamilyLinks()
-            ];
-        }
-    }
-
-    /**
-     * Normalization for model subresource display
-     * @return array
-     */
-    public function getModelSubResource(){
-
-        // Store ModelCollection in var
-        $return = $this->getModelCollection();
-        // Add links
-        $return['_links'] = $this->getModelLinks();
+        // Add embedded resources if needed
+        if($brand || $family) // Model's Brand
+            $return['_embedded'] = $this->normalizeModelEmbedded($brand, $family);
 
         return $return;
-
     }
 
     // Model subresource
@@ -232,7 +212,7 @@ class Model
      * Model's products
      * @return array
      */
-    public function getModelProducts(){
+    public function normalizeModelProducts(){
 
         // Init empty array
         $return = [];
@@ -241,7 +221,7 @@ class Model
         foreach($this->getProducts() as $product){
 
             // Store ProductSubresource in new $return index
-            $return[] = $product->getProductSubResource(false, false, false);
+            $return[] = $product->normalizeProductCollection(true, false, false, false);
 
         }
 
@@ -249,7 +229,26 @@ class Model
 
     }
 
-    public function getSpecs(){
+    /**
+     * @return array
+     * Specifications of Model resource
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "example"=
+     *                  {
+     *                      "main_camera"= {
+     *                          "resolution"="8MPX",
+     *                          "flash"="true"
+     *                      }
+     *                  }
+     *          }
+     *     }
+     * )
+     */
+    public function normalizeSpecs(){
 
         // Init empty array
         $return = [];
@@ -269,6 +268,54 @@ class Model
         // Return build array
         return $return;
 
+    }
+
+    /**
+     * Model _links
+     * @return array
+     */
+    public function normalizeModelLinks(){
+
+        return [
+            '@self' => $this->getSelfUrl(),
+            '@products' => $this->getProductsSubLink()
+        ];
+
+    }
+
+    /**
+     * Model _embedded
+     * @return array
+     */
+    public function normalizeModelEmbedded($brand=true, $family=true){
+
+        // Check if brand is required
+        if($brand) {
+            $return['brand'] =$this->getFamily()->getBrand()->normalizeBrandCollection(true);
+        }
+
+        // Check if family is needed
+        if($family){
+            $return['family'] = $this->getFamily()->normalizeFamilyCollection(true, false);
+        }
+
+        return $return;
+    }
+
+    // Model links
+
+    /**
+     * @return string
+     */
+    private function getSelfUrl(){
+        return "/models/" . $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    private function getProductsSubLink(){
+        return "/models/" . $this->getId() . "/products";
     }
 
     /**

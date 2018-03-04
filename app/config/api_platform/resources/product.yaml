@@ -1,0 +1,43 @@
+resources:
+  AppBundle\Entity\Product\Product:
+    collectionOperations:
+      product_list:
+        method: GET
+        path: /products
+        normalization_context:
+          groups: ['product_list']
+        swagger_context:
+          responses:
+            201:
+              description: Get Product resources collection
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Product-product_list'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
+    itemOperations:
+      product_show:
+        method: GET
+        path: /products/{id}
+        normalization_context:
+          groups: ['product_show']
+        swagger_context:
+          summary: Retrieve one Product resource
+          description: Retrieve Product resource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Product's resource id you want to reach
+          responses:
+            201:
+              description: Get specific Product resource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Product-product_show'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found

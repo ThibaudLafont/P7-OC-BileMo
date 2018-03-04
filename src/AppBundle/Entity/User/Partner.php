@@ -3,40 +3,63 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Partner
  *
  * @ORM\Table(name="user_partner")
- * @ORM\Entity
- *
- * @ApiResource(
- *     collectionOperations={
- *          "partner_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"partner_list"}
- *              }
- *          }
- *     },
- *     itemOperations={
- *          "partner_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"partner_show"}
- *              }
- *          }
- *     }
- * )
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\User\PartnerRepository")
  */
 class Partner extends User
 {
 
+    // ApiProperties methods
+
+    /**
+     * @return int
+     * Primary key of resource
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example" = "1"
+     *          }
+     *     }
+     * )
+     */
+    public function getId()
+    {
+        return parent::getId();
+    }
+
+    /**
+     * @return string
+     * Username of User
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example" = "johndoe"
+     *          }
+     *     }
+     * )
+     */
+    public function getUsername()
+    {
+        return parent::getUsername();
+    }
+
+
+    // Normalization methods
+
     /**
      * @return array
      */
-    public function getPartnerCollection(){
+    public function normalizePartnerCollection(){
         return [
             'id' => $this->getId(),
             'username' => $this->getUsername(),
@@ -46,7 +69,7 @@ class Partner extends User
         ];
     }
 
-    public function getSelfUrl(){
+    private function getSelfUrl(){
         return "/partners/" . $this->getId();
     }
 

@@ -1,0 +1,87 @@
+resources:
+  AppBundle\Entity\User\Company:
+    collectionOperations:
+      company_list:
+        method: GET
+        path: /companies
+        normalization_context:
+          groups: ['company_list']
+        swagger_context:
+          responses:
+            201:
+              description: Get Company resources collection
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Company-company_list'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
+      company_create:
+        method: POST
+        path: /companies
+        denormalization_context:
+          groups: ['company_create']
+        normalization_context:
+          groups: ['company_list']
+        swagger_context:
+          summary: Allow to add new Company resource in DB
+          description: Create new Company
+    itemOperations:
+      company_show:
+        method: GET
+        path: /companies/{id}
+        normalization_context:
+          groups: ['company_show']
+        swagger_context:
+          summary: Retrieve one Company resource
+          description: Retrieve Company resource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Company's resource id you want to reach
+          responses:
+            201:
+              description: Get specific Company resource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Company-company_show'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
+      company_edit:
+        method: PUT
+        path: /companies/{id}
+        denormalization_context:
+          groups: ['company_edit']
+        normalization_context:
+          groups: ['company_list']
+        swagger_context:
+          summary: Allow to edit username or password of Partner
+          description: Edit Partner user
+      company_delete:
+        method: DELETE
+        path: /companies/{id}
+        swagger_context:
+          summary: Delete Company and all related users
+          description: Delete Company with given ID
+      company_users:
+        method: GET
+        path: /companies/{id}/clients
+        normalization_context:
+          groups: ['company_users']
+        swagger_context:
+          summary: Retrieve Users subresource of id related Company
+          description: Retrieve Users subresource of id related Company
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Company's resource id you want to reach
+          responses:
+            201:
+              description: Get Company Client subresources related to given id paramameter
+              schema:
+                $ref: '#/definitions/Company-company_users'

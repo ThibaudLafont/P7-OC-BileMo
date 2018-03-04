@@ -4,8 +4,6 @@ namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Enumerations\NoticeType;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Notice
@@ -30,7 +28,6 @@ class Notice
      * Handle by Enumeration\NoticeType
      *
      * @ORM\Column(name="type", type="string", length=15)
-     * @Groups("product_show")
      */
     private $type;
 
@@ -39,7 +36,6 @@ class Notice
      * Message to display
      *
      * @ORM\Column(name="message", type="text")
-     * @Groups("product_show")
      */
     private $message;
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Title of the page -->
+    <!-- TODO : define the title in each page template -->
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Global stylesheets -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="stylesheet" href="/css/twig.css">
+
+</head>
+<body>
+
+<!-- Header and NavBar -->
+<header>
+
+    <!-- Header title with website name -->
+    <h2>BILEMO API</h2>
+
+    <!-- Page title -->
+    <h2>Erreur pendant le chargement de la page</h2>
+
+</header>
+
+<section id="content">
+
+    <!-- Display of body block -->
+    {% block body %}{% endblock %}
+
+    <p id="error_inform">
+        Ceci est une API et vous devriez normalement attendre un contenu de type JSON. <br/>
+        À tout moment, vous pouvez <a href="/doc">consulter la documentation</a>
+    </p>
+
+</section>
+
+</body>
+</html>

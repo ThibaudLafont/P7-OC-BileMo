@@ -3,59 +3,65 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Asset;
 
 /**
  * Company
  *
- * @ApiResource(
- *     collectionOperations={
- *          "company_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"company_list"}
- *              }
- *          }
- *     },
- *     itemOperations={
- *          "company_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"company_show"}
- *              }
- *          },
- *          "company_users"={
- *              "method"="GET",
- *              "route_name"="company_users",
- *              "path"="/companies/{id}/clients",
- *              "normalization_context"={
- *                  "groups"={"company_users"}
- *              }
- *          }
- *     }
- * )
- *
  * @ORM\Table(name="user_company")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\CompanyRepository")
+ *
+ * @UniqueEntity(
+ *     "name",
+ *     message="Une société portant ce nom existe déjà"
+ * )
  */
 class Company
 {
     /**
      * @var int
+     * Primary key of resource
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "1"
+     *          }
+     *     }
+     * )
      */
     private $id;
 
     /**
      * @var string
+     * Name of Company
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(
+     *     name="name",
+     *     type="string",
+     *     length=255,
+     *     unique=true
+     * )
+     *
+     * @Asset\NotBlank(
+     *     message="Veuillez indiquer le nom de la société"
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Wefix"
+     *          }
+     *     }
+     * )
      */
     private $name;
 
@@ -64,47 +70,64 @@ class Company
      *
      * @ORM\OneToMany(
      *     targetEntity="Client",
-     *     mappedBy="company"
+     *     mappedBy="company",
+     *     cascade={"remove"}
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items" = {
+     *                  "$ref"="#/definitions/Client-client_list"
+     *              }
+     *          }
+     *     }
      * )
      */
     private $clients;
 
-    public function getCompanyCollection(){
-        return [
+    public function normalizeCompanyCollection($links = true){
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
+
+        if($links) $return['_links'] = $this->normalizeCompanyLinks();
+        return $return;
     }
 
-    public function getCompanyItem(){
-        return [
+    public function normalizeCompanyItem($links=true){
+        $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
+
+        if($links) $return['_links'] = $this->normalizeCompanyLinks();
+        return $return;
     }
 
-    public function getCompanyLinks(){
+    public function normalizeCompanyLinks(){
         return [
             '@self' => $this->getSelfUrl(),
             '@users' => $this->getUserSubLink()
         ];
     }
 
-    public function getSelfUrl(){
+    private function getSelfUrl(){
         return "/companies/" . $this->getId();
     }
 
-    public function getUserSubLink(){
+    private function getUserSubLink(){
         return $this->getSelfUrl() . "/users";
     }
 
-    public function getCompanyUsers(){
+    public function normalizeCompanyUsers(){
 
         $return = [];
 
         foreach($this->getCLients() as $user){
-            $insert = $user->getClientCollection();
-            $insert['_links'] = $user->getUserLinks();
+            $insert = $user->normalizeClientCollection(true);
 
             $return[] = $insert;
         }

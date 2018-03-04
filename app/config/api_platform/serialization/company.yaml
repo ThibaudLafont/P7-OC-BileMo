@@ -1,0 +1,8 @@
+AppBundle\Entity\User\Company:
+  attributes:
+    id:
+      groups: ['company_list', 'company_show', 'company_users']
+    name:
+      groups: ['company_list', 'company_show', 'company_users', 'company_create', 'company_edit']
+    clients:
+      groups: ['company_users']

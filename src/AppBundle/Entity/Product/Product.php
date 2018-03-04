@@ -12,28 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
- * Product
- *
- * @ApiResource(
- *     collectionOperations={
- *          "product_list"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"product_list"}
- *              }
- *          }
- *     },
- *     itemOperations={
- *          "product_show"={
- *              "method"="GET",
- *              "normalization_context"={
- *                  "groups"={"product_show"}
- *              }
- *          }
- *     }
- * )
+ * Product Resource
  *
  * @ORM\Table(name="p_product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ProductRepository")
@@ -42,11 +24,20 @@ class Product
 {
     /**
      * @var int
+     * Primary key of resource
      *
-     * Doctrine
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "1"
+     *          }
+     *     }
+     * )
      */
     private $id;
 
@@ -56,6 +47,16 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="title", type="string", length=55)
+     *
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Iphone 5 oxydé"
+     *          }
+     *     }
+     * )
      */
     private $title;
 
@@ -65,6 +66,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="description", type="text")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Iphone 5 32GB récupéré par Bilemo après un sinistre. Le téléphone présente des traces d'oxydation"
+     *          }
+     *     }
+     * )
      */
     private $description;
 
@@ -74,6 +84,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="available", type="boolean")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "boolean",
+     *              "example": "true"
+     *          }
+     *     }
+     * )
      */
     private $available;
 
@@ -83,6 +102,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="price", type="float")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "float",
+     *              "example": "195.99"
+     *          }
+     *     }
+     * )
      */
     private $price;
 
@@ -92,15 +120,36 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="phy_condition", type="string", length=15)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "enum"= {"Jamais utilisé", "Comme neuf", "Bon", "Moyen", "Mauvais"},
+     *              "example"= "Mauvais"
+     *          }
+     *     }
+     * )
      */
     private $condition;
 
     /**
-     * Sell state, liked to Enumerations\ProductState
+     * Sell state of product
      * @var string
      *
      * Doctrine
      * @ORM\Column(name="state", type="string", length=15)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "name" = "sell_state",
+     *              "enum"= {"Neuf", "Reconditionné", "Occasion", "Défectueux"},
+     *              "example"= "Défectueux"
+     *          }
+     *     }
+     * )
      */
     private $state;
 
@@ -110,15 +159,34 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="history", type="text", nullable=true)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Le téléphone appartenait à une flotte mobile d'entreprise, le téléphone
+     *                          a été racheté à une assurance."
+     *          }
+     *     }
+     * )
      */
     private $history;
 
     /**
-     * IMEI number
+     * IMEI of Product
      * @var int
      *
      * Doctrine
      * @ORM\Column(name="imei", type="bigint")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "12345678912345"
+     *          }
+     *     }
+     * )
      */
     private $imei;
 
@@ -128,6 +196,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="memorySizeInGb", type="integer")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "integer",
+     *              "example": "32"
+     *          }
+     *     }
+     * )
      */
     private $memorySizeInGb;
 
@@ -137,6 +214,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="color", type="string", length=55)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example": "Noir ardoise"
+     *          }
+     *     }
+     * )
      */
     private $color;
 
@@ -146,6 +232,15 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="operator_lock", type="boolean")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "boolean",
+     *              "example": "false"
+     *          }
+     *     }
+     * )
      */
     private $operatorLock;
 
@@ -155,6 +250,16 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="system_version", type="string", length=55)
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "example"= "IOS 10.3.3",
+     *              "version"= "2.0"
+     *          }
+     *     }
+     * )
      */
     private $systemVersion;
 
@@ -164,6 +269,16 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="formatted", type="string")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "enum" = {"Réinitialisé", "Non réinitialisé", "Inconnu"},
+     *              "example": "Inconnu"
+     *          }
+     *     }
+     * )
      */
     private $formatted;
 
@@ -173,6 +288,16 @@ class Product
      *
      * Doctrine
      * @ORM\Column(name="boot_properly", type="string")
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "string",
+     *              "enum" = {"Démarre normalement", "Problème soft", "Brick logiciel - Ne démarre pas", "Non testé / Inconnu"},
+     *              "example": "Inconnu"
+     *          }
+     *     }
+     * )
      */
     private $bootProperly;
 
@@ -198,20 +323,32 @@ class Product
      *     mappedBy="product",
      *     cascade={"persist"}
      * )
-     */
-    private $notices;
-
-    /**
-     * Features test
-     * @var \AppBundle\Entity\Feature\Test
      *
-     * Doctrine
-     * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Feature\Test",
-     *     mappedBy="product"
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "items"={
+     *                  "type"="object",
+     *                  "properties"={
+     *                      "type"={
+     *                          "type"="string",
+     *                          "description"="Type of Notice",
+     *                          "enum"={"Info", "Alerte"},
+     *                          "example"="Alerte"
+     *                      },
+     *                      "message"={
+     *                          "type"="string",
+     *                          "description"="Content of Notice",
+     *                          "example"="Produit oxydé"
+     *                      }
+     *                  }
+     *              }
+     *          }
+     *     }
      * )
      */
-    private $tests;
+    private $notices;
 
     /**
      * Guarantee linked to specific product feature
@@ -221,6 +358,41 @@ class Product
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
      *     mappedBy="product"
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type" = "array",
+     *              "description"="Contain specific guarantees of resource",
+     *              "items" = {
+     *                  "type"="object",
+     *                  "description"="Specific guarantee, related to product feature",
+     *                  "properties"={
+     *                      "concern"={
+     *                          "type"="string",
+     *                          "description"="Concerned feature",
+     *                          "example"="main_camera"
+     *                      },
+     *                      "is_guaranteed"={
+     *                          "type"="boolean",
+     *                          "description"="True if feature is guaranteed",
+     *                          "example"="false"
+     *                      },
+     *                      "guarantee_length"={
+     *                          "type"="float",
+     *                          "description"="Guarantee length in month",
+     *                          "example"="1.25"
+     *                      },
+     *                      "message"={
+     *                          "type"="string",
+     *                          "description"="Information about specific guarantee",
+     *                          "example"="Composant HS, non garanti"
+     *                      }
+     *                  }
+     *              }
+     *          }
+     *     }
      * )
      */
     private $specificGuarantees;
@@ -232,6 +404,32 @@ class Product
      * Doctrine
      * @ORM\OneToOne(
      *  targetEntity="\AppBundle\Entity\Guarantee\ProductGlobal"
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "swagger_context"={
+     *              "type"="object",
+     *              "description"="Main guarantee of Product",
+     *              "properties"={
+     *                  "is_guaranteed"={
+     *                      "type"="boolean",
+     *                      "description"="True if Product is guaranteed",
+     *                      "example"="true"
+     *                  },
+     *                  "guarantee_length"={
+     *                      "type"="float",
+     *                      "description"="Guarantee length in month",
+     *                      "example"="6"
+     *                  },
+     *                  "message"={
+     *                      "type"="string",
+     *                      "description"="Information about global guarantee",
+     *                      "example"="Ne concerne pas les composants mentionnées dans les garanties spécifiques"
+     *                  }
+     *              }
+     *          }
+     *     }
      * )
      */
     private $globalGuarantee;
@@ -245,7 +443,7 @@ class Product
     /**
      * @return string
      */
-    public function getSelfLink(){
+    private function getSelfLink(){
         return "/products/" . $this->getId();
     }
 
@@ -255,33 +453,41 @@ class Product
     /**
      * @return array
      */
-    public function getProductCollection(){
+    public function normalizeProductCollection($links = true, $brand=true, $family=true, $model = true){
 
-        return [
+        $return = [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
-            'sellState' => $this->getState(),
+            'sell_state' => $this->getState(),
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
             'available' => $this->getAvailable()
         ];
 
+        if($links)
+            $return['_links'] = $this->normalizeProductLinks();
+
+
+        if($brand || $family || $model)
+            $return['embedded'] = $this->normalizeProductEmbedded($brand, $family, $model);
+
+        return $return;
     }
 
     /**
      * @return array
      */
-    public function getProductItem(){
+    public function normalizeProductItem($links = true, $brand=true, $family=true, $model = true){
 
         // Fill return array with Product properties
         $return = [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
-            'sellState' => $this->getState(),
+            'sell_state' => $this->getState(),
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
             'available' => $this->getAvailable(),
-            'physicState' => $this->getCondition(),
+            'physic_state' => $this->getCondition(),
             'boot_properly' => $this->getBootProperly(),
             'is_formatted' => $this->getFormatted(),
             'history' => $this->getHistory(),
@@ -293,26 +499,33 @@ class Product
 
         // Check & store notices in $return if needed
         if($this->shouldDisplayNotices()){
-            $return['notices'] = $this->getProductNotices();
+            $return['notices'] = $this->normalizeProductNotices();
         }
 
         // Check & store GlobalGuarantee in $return if needed
         if($this->shouldDisplayGlobalGuarantee()){
-            $return['guarantees']['global'] = $this->getProductGlobalGuarantee();
+            $return['global_guarantee'] = $this->normalizeProductGlobalGuarantee();
         }
 
         // Check & store SpecificGuarantees in $return if needed
         if($this->shouldDisplaySpecificGuarantees()){
-            $return['guarantees']['specifics'] = $this->getProductSpecificGuarantees();
+            $return['specific_guarantees'] = $this->normalizeProductSpecificGuarantees();
         }
 
+        if($links)
+            $return['_links'] = $this->normalizeProductLinks();
+
+        if($brand || $family || $model)
+            $return['embedded'] = $this->normalizeProductEmbedded($brand, $family, $model);
+
         return $return;
+
     }
 
     /**
      * @return array
      */
-    public function getProductLinks(){
+    public function normalizeProductLinks(){
 
         return [
             '@self' => $this->getSelfLink(),
@@ -320,41 +533,16 @@ class Product
 
     }
 
-    /**
-     * @param bool $brand  Should display Brand in _embedded
-     * @param bool $family Should display Family _embedded
-     * @param bool $model  Should display Model in _embedded
-     * @return array
-     */
-    public function getProductSubResource($brand = true, $family = true, $model = true){
+    public function normalizeProductEmbedded($brand, $family, $model){
 
-        // Store ProductCollection in empty array
-        $return = $this->getProductCollection();
+        $return = [];
 
-        // Store ProductLinks
-        $return['_links'] = $this->getProductLinks();
-
-        // Check if model is needed
-        if($model){
-
-            // Store model in embedded $return index
-            $return['_embedded']['model'] = $this->getProductModel();
-        }
-
-        // Check if family is needed
-        if($family){
-
-            // Add new array in Product's _embedded
-            $return['_embedded']['family'] = $this->getProductFamily();
-
-        }
-
-        // Check if Brand is needed
-        if($brand){
-
-            // Store the brand in Product's embedded index
-            $return['_embedded']['brand'] = $this->getProductBrand();
-        }
+        if($brand)
+            $return['brand'] = $this->getModel()->getFamily()->getBrand()->normalizeBrandCollection(true);
+        if($family)
+            $return['family'] = $this->getModel()->getFamily()->normalizeFamilyCollection(true, false);
+        if($model)
+            $return['model'] = $this->getModel()->normalizeModelCollection(true, false, false);
 
         return $return;
 
@@ -367,52 +555,35 @@ class Product
     /**
      * @return array
      */
-    public function getProductModel(){
+//    public function normalizeProductModel(){
+//
+//        // Get and store Model Collection
+//        $model = $this->getModel()->normalizeModelCollection(true, false, false, false);
+//
+//        return $model;
+//
+//    }
 
-        // Get and store Model Collection
-        $model = $this->getModel()->getModelCollection();
-        // Add _links
-        $model['_links'] = $this->getModel()->getModelLinks();
+//    public function normalizeProductFamily(){
+//
+//        // Normalize Family
+//        $return = $this->getModel()->getFamily()->normalizeFamilyCollection(true, false);
+//
+//        return $return;
+//
+//    }
 
-        return $model;
-
-    }
-
-    public function getProductFamily(){
-
-        // Store product Family
-        $family = $this->getModel()->getFamily();
-
-        // Normalize Family
-        $return = $family->getFamilyCollection();
-        $return['_links'] = $family->getFamilyLinks();
-
-        return $return;
-
-    }
-
-    public function getProductBrand(){
-
-        // Store product brand
-        $brand = $this->getModel()->getFamily()->getBrand();
-
-        // Normalize Brand
-        $return = $brand->getBrandCollection();
-        $return['_links'] = $brand->getBrandLinks();
-
-        return $return;
-
-    }
-
-    public function getProductEmbedded(){
-
-        return [
-            'model' => $this->getProductModel(),
-            'family' => $this->getProductFamily(),
-            'brand' => $this->getProductBrand()
-        ];
-
-    }
+//    public function normalizeProductBrand(){
+//
+//        // Store product brand
+//        $brand = $this->getModel()->getFamily()->normalizeBrand();
+//
+//        // Normalize Brand
+//        $return = $brand->normalizeBrandCollection(true);
+//
+//        return $return;
+//
+//    }
 
     // Notices
     /**
@@ -428,7 +599,7 @@ class Product
      * Normalize Notices
      * @return array
      */
-    public function getProductNotices()
+    public function normalizeProductNotices()
     {
         // Fetch and loop on every notices
         foreach($this->getNotices() as $v)
@@ -456,7 +627,7 @@ class Product
      * Normalize GlobalGuarantee
      * @return array
      */
-    public function getProductGlobalGuarantee()
+    public function normalizeProductGlobalGuarantee()
     {
         // Fetch GlobalGuarantee
         $guar = $this->getGlobalGuarantee();
@@ -481,7 +652,7 @@ class Product
      * Normalize specifics guarantees
      * @return array
      */
-    public function getProductSpecificGuarantees(){
+    public function normalizeProductSpecificGuarantees(){
 
         // Get product guarantee(s)
         $guars = $this->getSpecificGuarantees();
@@ -514,13 +685,13 @@ class Product
     }
 
     /**
-     * Set name.
+     * Set title.
      *
      * @param string $title
      *
      * @return Product
      */
-    public function setName($title)
+    public function setTitle($title)
     {
         $this->title = $title;
 
@@ -877,16 +1048,6 @@ class Product
     public function getNotices()
     {
         return $this->notices;
-    }
-
-    /**
-     * Get tests
-     *
-     * @return \AppBundle\Entity\Feature\Test
-     */
-    public function getTests()
-    {
-        return $this->tests;
     }
 
     /**

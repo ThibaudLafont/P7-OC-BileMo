@@ -9,7 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class Brand extends Controller
 {
 
-
     /**
      * @Route(
      *     name="brand_models",
@@ -31,6 +30,7 @@ class Brand extends Controller
         return $brand;
 
     }
+
     /**
      * @Route(
      *     name="brand_products",
@@ -52,6 +52,7 @@ class Brand extends Controller
         return $brand;
 
     }
+
     /**
      * @Route(
      *     name="brand_families",
@@ -67,4 +68,5 @@ class Brand extends Controller
         return $brand;
 
     }
+
 }

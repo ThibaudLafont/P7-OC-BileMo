@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header, #content{
+    padding: 1.5rem 1rem;
+}
+
+header{
+    background-color: #288690;
+    color: white;
+}
+
+h1{
+    margin-bottom: 0.5rem;
+}
+
+#error_message{
+    margin-bottom: 1.5rem;
+}

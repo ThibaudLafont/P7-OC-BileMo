@@ -1,0 +1,16 @@
+AppBundle\Entity\Product\Brand:
+  attributes:
+    id:
+      groups: ['brand_list', 'brand_show', 'brand_families', 'brand_models', 'brand_products']
+    name:
+      groups: ['brand_list', 'brand_show', 'brand_families', 'brand_models', 'brand_products']
+    description:
+      groups: ['brand_show']
+    websiteUrl:
+      groups: ['brand_show']
+    families:
+      groups: ['brand_families']
+    models:
+      groups: ['brand_models']
+    products:
+      groups: ['brand_products']

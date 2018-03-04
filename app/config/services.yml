@@ -71,11 +71,21 @@ services:
         tags: [serializer.normalizer]
         arguments: [ '@AppBundle\Serializer\Normalizer\Family.inner' ]
 
+    AppBundle\EventSubscriber\HttpException:
+        arguments: ['@templating']
+        tags:
+            - { name: kernel.event_subscriber, event: kernel.exception }
+
     user_listener:
-            class: AppBundle\EventListener\UserListener
-            tags:
-                - { name: doctrine.orm.entity_listener }
-                - { name: doctrine.orm.entity_listener, entity_manager: custom }
+        class: AppBundle\EventListener\UserListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
+            - { name: doctrine.orm.entity_listener, entity_manager: custom }
+
+#    AppBundle\Serializer\ContextBuilder\ApiVersionning:
+#         decorates: 'api_platform.serializer.context_builder'
+#         arguments: [ '@AppBundle\Serializer\ContextBuilder\ApiVersionning.inner' ]
+#         autoconfigure: false
 
 #    'AppBundle\Swagger\SwaggerDecorator':
 #        decorates: 'api_platform.swagger.normalizer.documentation'

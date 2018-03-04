@@ -72,8 +72,6 @@ class SpecValue
      */
     public function setValue($value)
     {
-        // Check if value is array
-        if(is_array($value)) $value = serialize($value);
         // Check if value is boolean
         if(is_bool($value)) $value = $value ? "true" : "false";
 
@@ -91,9 +89,6 @@ class SpecValue
     {
         // Store value in var
         $value = $this->value;
-
-        // Check if value is serialized
-//        if(unserialize($value)) $value = unserialize($value);
 
         // Check if value is boolean
         if($value === "true") $value = true;

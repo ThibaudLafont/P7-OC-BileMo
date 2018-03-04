@@ -1,52 +1,136 @@
-<p align="center"><img src="https://api-platform.com/logo-250x250.png" alt="API Platform"></p>
+# Bilemo API
+This project will create an API for Bilemo company. Clients of Bilemo will be able to 
+list smartphones products and Bilemo partners will be able to add/edit/delete/list API
+users
 
-API Platform is a next-generation web framework designed to easily create API-first projects without
-compromising extensibility and flexibility:
+## Documentation
+At any time you can check the path `/docs` witch contain a swagger documentation for this
+API.
+However I give you some tips : 
 
-* Design your own data model as plain old PHP classes or [**import an existing one**](https://api-platform.com/docs/schema-generator/) from the [Schema.org](https://schema.org/) vocabulary
-* **Expose in minutes a hypermedia REST API** with pagination, data validation, access control, relation embedding, filters and error handling...
-* Benefit from Content Negotiation: [JSON-LD](http://json-ld.org), [Hydra](http://hydra-cg.com), [HAL](http://stateless.co/hal_specification.html), [YAML](http://yaml.org/), [JSON](http://www.json.org/), [XML](https://www.w3.org/XML/) and [CSV](https://www.ietf.org/rfc/rfc4180.txt) are supported out of the box
-* Enjoy the **beautiful automatically generated API documentation** (Swagger/OpenAPI)
-* Add [**a convenient Material Design administration interface**](https://github.com/api-platform/admin) built with [React](https://facebook.github.io/react/) without writing a line of code
-* **Scaffold a fully functional Single-Page-Application** built with [React](https://facebook.github.io/react/), [Redux](http://redux.js.org/), [React Router](https://reacttraining.com/react-router/) and [Bootstrap](https://getbootstrap.com/) thanks to [the client generator](https://api-platform.com/docs/client-generator/)
-* Install a development environment and deploy your project in production using **[Docker](https://docker.com)**
-* Easily add **[JSON Web Token](https://jwt.io/) or [OAuth](https://oauth.net/) authentication**
-* Create specs and tests with a **developer friendly API testing tool** on top
-  of [Behat](http://behat.org/)
+### Get token
+This project use a token authentication and handle authorizations.
+You have to request `/login_check` in POST and send a JSON body with your credentials 
+informations. For example:
+    
+    {
+        "username": "johndoe",
+        "password": "yourpassword"
+    }
+    
+### Request secure paths
+You just have to set a `Authorization Header` and paste the given token as value.
+Beware ! You have to prefix your token with `Bearer`
 
-[![Build Status](https://travis-ci.org/api-platform/core.svg?branch=master)](https://travis-ci.org/api-platform/core)
-[![Build status](https://ci.appveyor.com/api/projects/status/grwuyprts3wdqx5l?svg=true)](https://ci.appveyor.com/project/dunglas/dunglasapibundle)
-[![Coverage Status](https://coveralls.io/repos/github/api-platform/core/badge.svg)](https://coveralls.io/github/api-platform/core)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/92d78899-946c-4282-89a3-ac92344f9a93/mini.png)](https://insight.sensiolabs.com/projects/92d78899-946c-4282-89a3-ac92344f9a93)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/api-platform/core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/api-platform/core/?branch=master)
+    Bearer MyApiKey
 
-The official project documentation is available **[on the API Platform website](https://api-platform.com)**.
+## Informations
+This project use ApiPlatform bundle with Symfony framework. 
 
-API Platform embraces open web standards (Swagger, JSON-LD, Hydra, HAL, JWT, OAuth,
-HTTP...) and the [Linked Data](https://www.w3.org/standards/semanticweb/data) movement. Your API will automatically
-expose structured data in Schema.org/JSON-LD. It means that your API Platform application
-is usable **out of the box** with technologies of the semantic
-web.
+### Object model
+You can find the object model in this repository
 
-It also means that **your SEO will be improved** because **[Google leverages these
-formats](https://developers.google.com/structured-data/)**.
+    /assets/ddb_diagramm.png
 
-Last but not least, API Platform is built on top of the [Symfony](https://symfony.com) framework.
-It means than you can:
+### Class diagramm
+You can find the object model in this repository
 
-* use **thousands of Symfony bundles** with API Platform
-* integrate API Platform in **any existing Symfony application**
-* reuse **all your Symfony skills** and benefit of the incredible
-  amount of Symfony documentation
-* enjoy the popular [Doctrine ORM](http://www.doctrine-project.org/projects/orm.html) (used by default, but fully optional: you can
-  use the data provider you want, including but not limited to MongoDB ODM and ElasticSearch)
+    /assets/class_diagramm.png
 
-Install
--------
+### Serialization of resources
+ApiPlatform handle the serialization of resources process, though a configuration 
+witch is explained here.
+#### Routing
+Resources routes are defined and configured in :
+    
+    /app/config/api_platform/resources/
+    
+Some specials roads are also build in :
+    
+    /src/AppBundle/Action/
+    
+#### Serialization groups
+Serialization groups are defined though YAML configuration, find them here :
 
-[Read the official "Getting Started" guide](https://api-platform.com/docs/core/getting-started).
+    /app/config/api_platform/serialization/
+    
+#### Normalization
+A custom normalizer have been created foreach resource. You can find them in 
+    
+    /src/AppBundle/Serializer/Normalizer/
+    
+### Resource Models
+Resource models are used for swagger documentation, though `@ApiProperty` in each
+Entity object
 
-Credits
--------
+### Authentication
+The provider was settled up though DoctrineUserProvider. The main class is 
+`AppBundle\Entity\User\User`, Partner and Client extend of it.    
+The project use JWT for authentication, witch create a token used for 
+authenticate http requests before delivering resources.   
+Always thanks to Doctrine a authorization had been settled with two types of
+users : clients and coworkers of Bilemo.   
+Users passwords are bcrypt crypted in DB.
 
-Created by [Kévin Dunglas](https://dunglas.fr). Commercial support available at [Les-Tilleuls.coop](https://les-tilleuls.coop).
+## Installation
+### Summary
+  - Install and configure the project  
+  - Load a dataset with DoctrineFixtures
+  - Switch in production 
+  - opt: Varnish implement
+    
+#### Install and configure the project
+The PHP version need to bee > 7 cause of usage of new array syntax []   
+
+First of all, you will need Composer and the most recent source code from this repository.  
+Once it's done, open a terminal and go to the project folder. Then run a composer install  
+
+    composer install
+
+This command will load the required dependencies and re-create the symfony's parameters file.
+Open this file and adapt it to your configuration
+
+    # /app/config/parameters.yml
+        
+    parameters:
+        
+        database_host:      DB_IP_ADDRESS
+        database_port:      DB_PORT
+        
+        database_name:      DB_NAME
+        database_user:      DB_USER
+        database_password:  DB_PASSWORD
+        
+        mailer_transport:   MAILER_PROTOCOL
+        mailer_host:        MAILER_SERVER_URL
+        mailer_user:        APP_SEND_MAIL
+        mailer_password:    SEND_MAIL_PASSWORD
+        secret:             CHANGE_BY_RANDOM_STRING
+        
+        varnish_urls:       ARRAY WITH VARNISH URLS
+        
+Now database host connection is set, we can init the base and the tables. Go to project folder
+with a terminal and launch these commands
+        
+        bin/console doctrine:database:create   # Create the base
+        bin/console doctrine:schema:create     # Execute SQL queries for build tables
+        
+This project initially use Varnish as cache server, if you decide to use it complete
+the `VARNISH_URLS` parameter with your url. You can leave it blank if you don't have 
+utility of it.
+
+#### Load dataset from DoctrineFixtures
+Really simple ! launch `bin/console doctrine:fixtures:load` from the project folder
+
+#### Switch in production
+Once again, really simple. Open `/web/.htaccess` and find the above line. Change `app.php`
+to `app_dev.php`
+        
+    <IfModule mod_rewrite.c>
+    
+        // Stuff
+        
+        RewriteRule ^ %{ENV:BASE}/app.php [L]
+    </IfModule>
+    
+Once it's done, launch `bin/console cache:clear --env=prod` from the project folder

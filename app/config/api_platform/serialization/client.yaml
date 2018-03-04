@@ -1,0 +1,20 @@
+AppBundle\Entity\User\Client:
+  attributes:
+    id:
+      groups: ['client_list', 'client_show']
+    username:
+      groups: ['client_list', 'client_show', 'client_create', 'client_edit']
+    fullName:
+      groups: ['client_list']
+    firstName:
+      groups: ['client_show', 'client_create', 'client_edit']
+    lastName:
+      groups: ['client_show', 'client_create', 'client_edit']
+    mailAddress:
+      groups: ['client_show', 'client_create', 'client_edit']
+    phoneNumber:
+      groups: ['client_show', 'client_create', 'client_edit']
+    plainPassword:
+      groups: ['client_create', 'client_edit']
+    companyId:
+      groups: ['client_create']

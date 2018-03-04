@@ -17,6 +17,17 @@ use Symfony\Component\Serializer\Normalizer\scalar;
 class Partner implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
 {
 
+    private $decorated;
+
+    public function __construct(NormalizerInterface $decorated)
+    {
+        if (!$decorated instanceof DenormalizerInterface) {
+            throw new \InvalidArgumentException(sprintf('The decorated normalizer must implement the %s.', DenormalizerInterface::class));
+        }
+
+        $this->decorated = $decorated;
+    }
+
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
@@ -34,7 +45,7 @@ class Partner implements NormalizerInterface, DenormalizerInterface, Denormalize
     public function normalize($object, $format = null, array $context = array())
     {
 
-        return $object->getPartnerCollection();
+        return $object->normalizePartnerCollection();
 
     }
 
@@ -91,7 +102,11 @@ class Partner implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function denormalize($data, $class, $format = null, array $context = array())
     {
-        return;
+        $partner = new \AppBundle\Entity\User\Partner();
+        $partner->setUsername($data['username']);
+        $partner->setPlainPassword($data['plainPassword']);
+
+        return $partner;
     }
 
     /**
@@ -105,6 +120,6 @@ class Partner implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return;
+        return $this->decorated->supportsDenormalization($data, $type, $format);
     }
 }

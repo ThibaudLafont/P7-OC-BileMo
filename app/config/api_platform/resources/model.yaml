@@ -1,0 +1,65 @@
+resources:
+  AppBundle\Entity\Product\Model:
+    collectionOperations:
+      model_list:
+        method: GET
+        path: /models
+        normalization_context:
+          groups: ['model_list']
+        swagger_context:
+          responses:
+            201:
+              description: Get Model resources collection
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Model-model_list'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
+    itemOperations:
+      model_show:
+        method: GET
+        path: /models/{id}
+        normalization_context:
+          groups: ['model_show']
+        swagger_context:
+          summary: Retrieve one Model resource
+          description: Retrieve Model resource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Model's resource id you want to reach
+          responses:
+            201:
+              description: Get specific Model resource related to given id paramameter
+              schema:
+                $ref: '#/definitions/Model-model_show'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found
+      model_products:
+        method: GET
+        path: /models/{id}/products
+        normalization_context:
+          groups: ['model_products']
+        swagger_context:
+          summary: Retrieve one Model Products subresource
+          description: Retrieve Model Products subresource with given id param
+          parameters:
+            0:
+              name: id
+              type: integer
+              description: Model's resource id you want to reach
+          responses:
+            201:
+              description: Get Model Product subresources related to given id paramameter
+              schema:
+                $ref: '#/definitions/Model-model_products'
+            401:
+              description: Bad credentials, check authentication and authorization
+            404:
+              description: Resource not found

@@ -35,12 +35,36 @@ class UserListener
      */
     public function prePersist($user)
     {
+        $this->setUserPassword($user);
+    }
+
+    /**
+     * Before User update, check if password was changed
+     *
+     * @param $user
+     */
+    public function preFlush($user){
+
+        // Check if password was submitted
+        if($user->getPlainPassword() !== null){
+
+            // Encode and set password
+            $this->setUserPassword($user);
+        }
+
+    }
+
+    private function setUserPassword($user){
+
+        // Set user password
         $user->setPassword(
+            // Encode pwd
             $this->encoder->encodePassword(
                 $user,
-                $user->getPlainPassword()
+                $user->getPlainPassword() // From plainPassword
             )
         );
+
     }
 
 }
