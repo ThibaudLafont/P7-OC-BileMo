@@ -117,7 +117,7 @@ class Client extends User
      * @var int
      * Phone number of client
      *
-     * @ORM\Column(name="phone_number", type="bigint",  options={"unsigned"=true})
+     * @ORM\Column(name="phone_number", type="string")
      *
      * @Assert\NotBlank(
      *     message="Veuillez renseigner un numéro de téléphone",

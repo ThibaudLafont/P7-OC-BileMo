@@ -272,7 +272,7 @@ class Fixtures extends Fixture
                 $user = new Client();
                 $user->setCompany($company);
                 $user->setUsername($k);
-                $user->setPlainPassword($k);
+                $user->setPwd($k);
                 $user->hydrate($v);
 
                 // Persist it in DB
@@ -285,7 +285,7 @@ class Fixtures extends Fixture
             // Create and hydrate new Partner object
             $user = new Partner();
             $user->setUsername($admin);
-            $user->setPlainPassword($admin);
+            $user->setPwd($admin);
 
             // Persist Partner in DB
             $manager->persist($user);
