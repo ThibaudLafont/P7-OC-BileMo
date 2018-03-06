@@ -28,7 +28,8 @@ class UserListener
      *
      * @param UserPasswordEncoderInterface $encoder
      */
-    public function __construct(UserPasswordEncoderInterface $encoder){
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
         $this->encoder = $encoder;
     }
 
@@ -47,16 +48,15 @@ class UserListener
      *
      * @param $user User
      */
-    public function preFlush($user){
+    public function preFlush($user)
+    {
 
         // Check if password was submitted
-        if($user->getPwd() !== null){
+        if ($user->getPwd() !== null) {
 
             // Encode and set password
             $this->setUserPassword($user);
-
         }
-
     }
 
     /**
@@ -64,7 +64,8 @@ class UserListener
      *
      * @param $user User
      */
-    private function setUserPassword($user){
+    private function setUserPassword($user)
+    {
 
         // Set user password
         $user->setPassword(
@@ -74,7 +75,5 @@ class UserListener
                 $user->getPwd() // From plainPassword
             )
         );
-
     }
-
 }

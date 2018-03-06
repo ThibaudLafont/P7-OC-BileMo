@@ -39,25 +39,20 @@ class Client implements NormalizerInterface, DenormalizerInterface, Denormalizer
     {
 
         // Handle a collection request
-        if($this->belongToSerializeGroup(['company_subresource', 'client_list'], $context)){
-
+        if ($this->belongToSerializeGroup(['company_subresource', 'client_list'], $context)) {
             $return = $object->normalizeClientCollection(false);
-
-        }elseif($this->belongToSerializeGroup(['client_show'], $context)){
-
+        } elseif ($this->belongToSerializeGroup(['client_show'], $context)) {
             $return = $object->normalizeClientItem(false);
-
         }
 
         $return['_links'] = $object->normalizeUserLinks();
 
-        if(!$this->belongToSerializeGroup(['company_subresource'], $context)){
+        if (!$this->belongToSerializeGroup(['company_subresource'], $context)) {
             $return['_embedded']['company'] = $object->getCompany()->normalizeCompanyCollection();
             $return['_embedded']['company']['_links'] = $object->getCompany()->normalizeCompanyLinks();
         }
 
         return $return;
-
     }
 
     /**

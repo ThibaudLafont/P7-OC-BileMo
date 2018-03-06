@@ -42,33 +42,25 @@ class Company implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function normalize($object, $format = null, array $context = array())
     {
-
         $return = [];
 
         // Handle a collection request
-        if($this->belongToSerializeGroup(['company_list', 'company_users'], $context)){
-
+        if ($this->belongToSerializeGroup(['company_list', 'company_users'], $context)) {
             $return = $object->normalizeCompanyCollection(false);
-
         }
         // Handle an item request
-        elseif($this->belongToSerializeGroup(['company_show'], $context)){
-
+        elseif ($this->belongToSerializeGroup(['company_show'], $context)) {
             $return = $object->normalizeCompanyItem(false);
-
         }
 
         // Handle company_users subresource
-        if($this->belongToSerializeGroup(['company_users'], $context)){
-
+        if ($this->belongToSerializeGroup(['company_users'], $context)) {
             $return['clients'] = $object->normalizeCompanyUsers();
-
         }
 
         $return['_links'] = $object->normalizeCompanyLinks();
 
         return $return;
-
     }
 
     /**

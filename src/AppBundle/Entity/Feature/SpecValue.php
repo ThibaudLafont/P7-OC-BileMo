@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package AppBundle\Entity\Feature
  *
  * @ORM\Table(name="ms_value")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\SpecValueRepository")
+ * @ORM\Entity()
  */
 class SpecValue
 {
@@ -82,7 +82,9 @@ class SpecValue
     public function setValue($value) : SpecValue
     {
         // Check if value is boolean
-        if(is_bool($value)) $value = $value ? "true" : "false";
+        if (is_bool($value)) {
+            $value = $value ? "true" : "false";
+        }
 
         $this->value = $value;
 
@@ -100,8 +102,11 @@ class SpecValue
         $value = $this->value;
 
         // Check if value is boolean
-        if($value === "true") $value = true;
-        elseif($value === "false") $value = false;
+        if ($value === "true") {
+            $value = true;
+        } elseif ($value === "false") {
+            $value = false;
+        }
 
         return $value;
     }
@@ -153,5 +158,4 @@ class SpecValue
 
         return $this;
     }
-
 }

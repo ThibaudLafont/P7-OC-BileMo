@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @package AppBundle\Entity\User
  *
  * @ORM\Table(name="user_partner")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\User\PartnerRepository")
+ * @ORM\Entity()
  */
 class Partner extends User
 {
@@ -97,5 +97,4 @@ class Partner extends User
     {
         return ['ROLE_ADMIN'];
     }
-
 }

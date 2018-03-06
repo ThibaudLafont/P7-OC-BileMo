@@ -23,11 +23,12 @@ trait Normalizer
     {
         $return = false;
 
-        foreach($groups as $group){
-            if(in_array($group, $context['groups'])) $return = true;
+        foreach ($groups as $group) {
+            if (in_array($group, $context['groups'])) {
+                $return = true;
+            }
         }
 
         return $return;
     }
-
 }

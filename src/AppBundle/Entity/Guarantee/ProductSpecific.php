@@ -104,5 +104,4 @@ class ProductSpecific extends Guarantee
 
         return $this;
     }
-
 }

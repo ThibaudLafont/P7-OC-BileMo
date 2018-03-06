@@ -37,19 +37,15 @@ class Product implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function normalize($object, $format = null, array $context = array())
     {
-
         $return = [];
 
         // Collection request
-        if($this->belongToSerializeGroup(['product_list'], $context)){
-
+        if ($this->belongToSerializeGroup(['product_list'], $context)) {
             $return = $object->normalizeProductCollection(true, false, false, false);
 
         // Item request
         } elseif ($this->belongToSerializeGroup(['product_show'], $context)) {
-
             $return = $object->normalizeProductItem(true, false, false, false);
-
         }
 
         // Links&Embedded
@@ -57,7 +53,6 @@ class Product implements NormalizerInterface, DenormalizerInterface, Denormalize
         $return['_embedded'] = $object->normalizeProductEmbedded(true, true, true);
 
         return $return;
-
     }
 
     /**

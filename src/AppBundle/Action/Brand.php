@@ -41,7 +41,6 @@ class Brand extends Controller
 
         // Return Brand Object
         return $brand;
-
     }
 
     /**
@@ -69,7 +68,6 @@ class Brand extends Controller
 
         // Return Brand Object
         return $brand;
-
     }
 
     /**
@@ -91,7 +89,5 @@ class Brand extends Controller
 
         // Return Brand Object
         return $brand;
-
     }
-
 }

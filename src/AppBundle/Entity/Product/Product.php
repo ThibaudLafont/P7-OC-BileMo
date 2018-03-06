@@ -20,7 +20,7 @@ use AppBundle\Entity\Traits\Hydrate;
  * @package AppBundle\Entity\Product
  *
  * @ORM\Table(name="p_product")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ProductRepository")
+ * @ORM\Entity()
  */
 class Product
 {
@@ -471,7 +471,6 @@ class Product
      */
     public function normalizeProductCollection($links = true, $brand=true, $family=true, $model = true) : array
     {
-
         $return = [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
@@ -481,12 +480,14 @@ class Product
             'available' => $this->getAvailable()
         ];
 
-        if($links)
+        if ($links) {
             $return['_links'] = $this->normalizeProductLinks();
+        }
 
 
-        if($brand || $family || $model)
+        if ($brand || $family || $model) {
             $return['embedded'] = $this->normalizeProductEmbedded($brand, $family, $model);
+        }
 
         return $return;
     }
@@ -523,28 +524,29 @@ class Product
         ];
 
         // Check & store notices in $return if needed
-        if($this->shouldDisplayNotices()){
+        if ($this->shouldDisplayNotices()) {
             $return['notices'] = $this->normalizeProductNotices();
         }
 
         // Check & store GlobalGuarantee in $return if needed
-        if($this->shouldDisplayGlobalGuarantee()){
+        if ($this->shouldDisplayGlobalGuarantee()) {
             $return['global_guarantee'] = $this->normalizeProductGlobalGuarantee();
         }
 
         // Check & store SpecificGuarantees in $return if needed
-        if($this->shouldDisplaySpecificGuarantees()){
+        if ($this->shouldDisplaySpecificGuarantees()) {
             $return['specific_guarantees'] = $this->normalizeProductSpecificGuarantees();
         }
 
-        if($links)
+        if ($links) {
             $return['_links'] = $this->normalizeProductLinks();
+        }
 
-        if($brand || $family || $model)
+        if ($brand || $family || $model) {
             $return['_embedded'] = $this->normalizeProductEmbedded($brand, $family, $model);
+        }
 
         return $return;
-
     }
 
     /**
@@ -552,12 +554,11 @@ class Product
      *
      * @return array
      */
-    public function normalizeProductLinks(){
-
+    public function normalizeProductLinks()
+    {
         return [
             '@self' => $this->getSelfLink(),
         ];
-
     }
 
     /**
@@ -569,19 +570,21 @@ class Product
      *
      * @return array
      */
-    public function normalizeProductEmbedded($brand, $family, $model){
-
+    public function normalizeProductEmbedded($brand, $family, $model)
+    {
         $return = [];
 
-        if($brand)
+        if ($brand) {
             $return['brand'] = $this->getModel()->getFamily()->getBrand()->normalizeBrandCollection(true);
-        if($family)
+        }
+        if ($family) {
             $return['family'] = $this->getModel()->getFamily()->normalizeFamilyCollection(true, false);
-        if($model)
+        }
+        if ($model) {
             $return['model'] = $this->getModel()->normalizeModelCollection(true, false, false);
+        }
 
         return $return;
-
     }
 
 
@@ -609,8 +612,7 @@ class Product
     private function normalizeProductNotices() : array
     {
         // Fetch and loop on every notices
-        foreach($this->getNotices() as $v)
-        {
+        foreach ($this->getNotices() as $v) {
             // Normalize notice and push it in $return
             $return[] = [
                 'type' => $v->getType(),
@@ -676,7 +678,7 @@ class Product
         $return = [];
 
         // Loop on every guarantee
-        foreach($guars as $guar){
+        foreach ($guars as $guar) {
             // Build Product normalization
             $return[] = [
                 'concern' => $guar->getFeature()->getName(),
@@ -1123,5 +1125,4 @@ class Product
     {
         return $this->globalGuarantee;
     }
-
 }

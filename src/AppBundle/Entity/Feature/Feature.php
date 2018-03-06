@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @package AppBundle\Entity\Feature
  *
  * @ORM\Table(name="f_feature")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\FeatureRepository")
+ * @ORM\Entity()
  */
 class Feature
 {
@@ -114,5 +114,4 @@ class Feature
     {
         return $this->specificGuarantees;
     }
-
 }

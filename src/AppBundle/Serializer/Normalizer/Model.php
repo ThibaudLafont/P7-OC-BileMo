@@ -19,7 +19,8 @@ use Symfony\Component\Serializer\Normalizer\scalar;
  *
  * @package AppBundle\Serializer\Normalizer
  */
-class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
+class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
+{
 
     // Traits
     use Normalizer;
@@ -45,25 +46,20 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
         $return = [];
 
         // Case of collection request
-        if($this->belongToSerializeGroup(['brand_show', 'family_show', 'model_list', 'model_products'], $context))
-        {
+        if ($this->belongToSerializeGroup(['brand_show', 'family_show', 'model_list', 'model_products'], $context)) {
             // Get collection array from object
             $return = $object->normalizeModelCollection(false, false, false);
-
         }
         // Case of item request
-        elseif($this->belongToSerializeGroup(['model_show'], $context)){
+        elseif ($this->belongToSerializeGroup(['model_show'], $context)) {
 
             // Get model item infos
             $return = $object->normalizeModelItem(false, false, false);
-
         }
 
         // Case of model_products subresource
-        if($this->belongToSerializeGroup(['model_products'], $context)){
-
+        if ($this->belongToSerializeGroup(['model_products'], $context)) {
             $return['products'] = $object->normalizeModelProducts();
-
         }
 
         // Set links and embedded
@@ -72,7 +68,6 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
 
         // Return build array
         return $return;
-
     }
 
     /**
@@ -133,5 +128,4 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
     {
         return;
     }
-
 }

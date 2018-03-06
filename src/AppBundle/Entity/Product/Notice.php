@@ -10,7 +10,7 @@ use AppBundle\Entity\Enumerations\NoticeType;
  * @package AppBundle\Entity\Product
  *
  * @ORM\Table(name="p_notice")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\NoticeRepository")
+ * @ORM\Entity()
  */
 class Notice
 {
@@ -143,5 +143,4 @@ class Notice
 
         return $this;
     }
-
 }

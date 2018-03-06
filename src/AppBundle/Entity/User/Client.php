@@ -243,7 +243,9 @@ class Client extends User
         ];
 
         // If needed, add _links
-        if($links) $return['_links'] = $this->normalizeUserLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeUserLinks();
+        }
 
         return $return;
     }
@@ -268,7 +270,9 @@ class Client extends User
         ];
 
         // If needed, add _links
-        if($links) $return['links'] = $this->normalizeUserLinks();
+        if ($links) {
+            $return['links'] = $this->normalizeUserLinks();
+        }
 
         return $return;
     }
@@ -472,5 +476,4 @@ class Client extends User
 
         return $this;
     }
-
 }

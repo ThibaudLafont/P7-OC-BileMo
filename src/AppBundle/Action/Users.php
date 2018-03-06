@@ -36,7 +36,6 @@ class Users extends Controller
 
         // Return Brand Object
         return $company;
-
     }
 
     /**
@@ -52,7 +51,6 @@ class Users extends Controller
      */
     public function allUsersAction() : Response
     {
-
         $clients = $this->getDoctrine()->getRepository("AppBundle:User\Client")->findAll();
         $partners = $this->getDoctrine()->getRepository("AppBundle:User\Partner")->findAll();
 
@@ -65,5 +63,4 @@ class Users extends Controller
 
         return new Response($response, 200, ['Content-Type' => 'application/ld+json; charset=utf-8']);
     }
-
 }

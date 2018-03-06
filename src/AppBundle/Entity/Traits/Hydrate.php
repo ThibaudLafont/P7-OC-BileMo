@@ -18,14 +18,11 @@ trait Hydrate
      */
     public function hydrate(array $data)
     {
-        foreach($data as $k => $v)
-        {
+        foreach ($data as $k => $v) {
             $setter = "set" . ucfirst($k);
-            if(method_exists($this, $setter))
-            {
+            if (method_exists($this, $setter)) {
                 $this->$setter($v);
             }
         }
     }
-
 }

@@ -36,8 +36,11 @@ class NoticeType
      */
     public static function getValue(string $key) : string
     {
-        if(!isset(static::$values[$key])) return "Unknow notice type";
-        else return static::$values[$key];
+        if (!isset(static::$values[$key])) {
+            return "Unknow notice type";
+        } else {
+            return static::$values[$key];
+        }
     }
 
     /**

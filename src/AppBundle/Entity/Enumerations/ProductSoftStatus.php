@@ -39,8 +39,11 @@ class ProductSoftStatus
      */
     public static function getValue(string $key) : string
     {
-        if(!isset(static::$values[$key])) return "Unknow soft status";
-        else return static::$values[$key];
+        if (!isset(static::$values[$key])) {
+            return "Unknow soft status";
+        } else {
+            return static::$values[$key];
+        }
     }
 
     /**

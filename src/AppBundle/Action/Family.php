@@ -33,7 +33,6 @@ class Family extends Controller
 
         // Return Brand Object
         return $family;
-
     }
 
     /**
@@ -63,7 +62,5 @@ class Family extends Controller
 
         // Return Brand Object
         return $family;
-
     }
-
 }

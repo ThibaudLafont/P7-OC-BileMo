@@ -69,11 +69,11 @@ final class ClientCreate implements EventSubscriberInterface
         // Fetch and store Company
         $company = $this->em->getRepository('AppBundle:User\Company')->find($client->getCompanyId());
         // If no match, throw new exception
-        if(is_null($company)) throw new ItemNotFoundException("Aucune companie connue avec cet id", 404);
+        if (is_null($company)) {
+            throw new ItemNotFoundException("Aucune companie connue avec cet id", 404);
+        }
 
         // Assign company to client
         $client->setCompany($company);
-
     }
-
 }

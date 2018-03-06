@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Asset;
  * @package AppBundle\Entity\User
  *
  * @ORM\Table(name="user_company")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\User\CompanyRepository")
+ * @ORM\Entity()
  *
  * @UniqueEntity(
  *     "name",
@@ -110,7 +110,9 @@ class Company
         ];
 
         // If links needed, add them
-        if($links) $return['_links'] = $this->normalizeCompanyLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeCompanyLinks();
+        }
 
         return $return;
     }
@@ -131,7 +133,9 @@ class Company
         ];
 
         // If links needed, add them
-        if($links) $return['_links'] = $this->normalizeCompanyLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeCompanyLinks();
+        }
 
         return $return;
     }
@@ -181,14 +185,13 @@ class Company
         $return = [];
 
         // Loop on every Company Client
-        foreach($this->getClients() as $user){
+        foreach ($this->getClients() as $user) {
 
             // Fetch and store Client normalization
             $insert = $user->normalizeClientCollection(true);
 
             // Add Client in return array
             $return[] = $insert;
-
         }
 
         return $return;
@@ -237,5 +240,4 @@ class Company
     {
         return $this->clients;
     }
-
 }

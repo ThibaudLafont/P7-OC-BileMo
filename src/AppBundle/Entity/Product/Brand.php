@@ -181,10 +181,11 @@ class Brand
         ];
 
         // If links are wanted, add it to array
-        if($links) $return['_links'] = $this->normalizeBrandLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeBrandLinks();
+        }
 
         return $return;
-
     }
 
     /**
@@ -206,10 +207,11 @@ class Brand
         ];
 
         // If links are wanted, add it to array
-        if($links) $return['_links'] = $this->normalizeBrandLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeBrandLinks();
+        }
 
         return $return;
-
     }
 
 
@@ -227,15 +229,13 @@ class Brand
         $return = [];
 
         // loop on every stored products
-        foreach($this->getProducts() as $product){
+        foreach ($this->getProducts() as $product) {
 
             // Add product to return array
             $return[] = $product->normalizeProductCollection(false, false, true, true);
-
         }
 
         return $return;
-
     }
 
     /**
@@ -250,10 +250,8 @@ class Brand
         $return = [];
 
         // Loop on every stored models
-        foreach($this->getModels() as $model){
-
+        foreach ($this->getModels() as $model) {
             $return[] = $model->normalizeModelCollection(true, false, true);
-
         }
 
         return $return;
@@ -271,11 +269,10 @@ class Brand
         $return = [];
 
         // Loop on every stored family
-        foreach($this->getFamilies() as $family){
+        foreach ($this->getFamilies() as $family) {
 
             // Push new datas in return array
             $return[] = $family->normalizeFamilyCollection(true, false);
-
         }
 
         return $return;
@@ -478,5 +475,4 @@ class Brand
 
         return $this;
     }
-
 }

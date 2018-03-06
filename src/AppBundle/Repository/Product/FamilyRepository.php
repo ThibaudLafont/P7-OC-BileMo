@@ -16,7 +16,8 @@ class FamilyRepository extends \Doctrine\ORM\EntityRepository
      * @param int $id -Family id
      * @return mixed
      */
-    public function getProducts(int $id){
+    public function getProducts(int $id)
+    {
 
         // DQL statement fetching all brand's products
         $state = "
@@ -35,6 +36,5 @@ class FamilyRepository extends \Doctrine\ORM\EntityRepository
 
         // Return the products
         return $models;
-
     }
 }

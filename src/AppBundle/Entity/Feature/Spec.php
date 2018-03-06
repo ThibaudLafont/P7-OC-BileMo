@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @package AppBundle\Entity\Feature
  *
  * @ORM\Table(name="f_spec")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\SpecRepository")
+ * @ORM\Entity()
  */
 class Spec
 {
@@ -128,5 +128,4 @@ class Spec
     {
         return $this->specValues;
     }
-
 }

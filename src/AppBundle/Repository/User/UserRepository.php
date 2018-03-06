@@ -17,8 +17,8 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      * @param array $criteria
      * @return array
      */
-    public function findUser(array $criteria){
-
+    public function findUser(array $criteria)
+    {
         $statement = "
             SELECT p
             FROM AppBundle:User\Partner p
@@ -31,8 +31,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('username', $criteria['username'])
             ->getArrayResult();
 
-        if(count($user) == 0){
-
+        if (count($user) == 0) {
             $statement = "
                 SELECT c
                 FROM AppBundle:User\Client c
@@ -47,7 +46,5 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         }
 
         return $user;
-
     }
-
 }

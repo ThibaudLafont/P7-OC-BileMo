@@ -36,7 +36,6 @@ class BrandRepository extends \Doctrine\ORM\EntityRepository
 
         // Return the products
         return $products;
-
     }
 
     /**
@@ -65,7 +64,5 @@ class BrandRepository extends \Doctrine\ORM\EntityRepository
 
         // Return the products
         return $models;
-
     }
-
 }

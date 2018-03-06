@@ -147,13 +147,16 @@ class Family
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->normalizeFamilyLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeFamilyLinks();
+        }
 
         // Add embedded if needed
-        if($embedded) $return['_embedded'] = $this->normalizeFamilyEmbedded();
+        if ($embedded) {
+            $return['_embedded'] = $this->normalizeFamilyEmbedded();
+        }
 
         return $return;
-
     }
 
     /**
@@ -175,10 +178,14 @@ class Family
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->normalizeFamilyLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeFamilyLinks();
+        }
 
         // Add embedded if needed
-        if($embedded) $return['_embedded'] = $this->normalizeFamilyEmbedded();
+        if ($embedded) {
+            $return['_embedded'] = $this->normalizeFamilyEmbedded();
+        }
 
         return $return;
     }
@@ -198,15 +205,13 @@ class Family
         $return = [];
 
         // Loop on every Family's models
-        foreach($this->getModels() as $model){
+        foreach ($this->getModels() as $model) {
 
             // Store Model Collection in return array
             $return[] = $model->normalizeModelCollection(true, false, false);
-
         }
 
         return $return;
-
     }
 
     /**
@@ -220,15 +225,13 @@ class Family
         // Init empty array
         $return = [];
 
-        foreach($this->getProducts() as $product){
+        foreach ($this->getProducts() as $product) {
 
             // Store every found product in return array
             $return[] = $product->normalizeProductCollection(true, false, false, true);
-
         }
 
         return $return;
-
     }
 
     /**
@@ -238,13 +241,11 @@ class Family
      */
     public function normalizeFamilyLinks() : array
     {
-
         return [
             '@self' => $this->getSelfUrl(),
             '@models' => $this->getModelsSubLink(),
             '@products' => $this->getProductsSubLink()
         ];
-
     }
 
     /**
@@ -254,11 +255,9 @@ class Family
      */
     public function normalizeFamilyEmbedded() : array
     {
-
         $return['brand'] = $this->getBrand()->normalizeBrandCollection(true);
 
         return $return;
-
     }
 
 
@@ -410,5 +409,4 @@ class Family
 
         return $this;
     }
-
 }

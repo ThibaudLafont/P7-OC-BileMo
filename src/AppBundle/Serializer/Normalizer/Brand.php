@@ -19,7 +19,8 @@ use Symfony\Component\Serializer\Normalizer\scalar;
  *
  * @package AppBundle\Serializer\Normalizer
  */
-class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
+class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
+{
 
     // Traits
     use Normalizer;
@@ -46,17 +47,16 @@ class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerA
          */
 
         // Case we want the min informations about Brand Resource
-        if($this->belongToSerializeGroup(['brand_list', 'brand_models', 'brand_products', 'brand_families'], $context)){
+        if ($this->belongToSerializeGroup(['brand_list', 'brand_models', 'brand_products', 'brand_families'], $context)) {
 
             // Init Brand with BrandCollection attributes
             $brand = $object->normalizeBrandCollection(false);
 
         // Case we want all properties of Brand Resource
-        }elseif($this->belongToSerializeGroup(['brand_show'], $context)){
+        } elseif ($this->belongToSerializeGroup(['brand_show'], $context)) {
 
             // Init Brand with BrandItem attributes
             $brand = $object->normalizeBrandItem(false);
-
         }
 
 
@@ -65,20 +65,16 @@ class Brand implements NormalizerInterface, DenormalizerInterface, DenormalizerA
          */
 
         // Brand's families
-        if($this->belongToSerializeGroup(['brand_families'], $context)){
-
+        if ($this->belongToSerializeGroup(['brand_families'], $context)) {
             $brand['families'] = $object->normalizeBrandFamilies();  // Fetch&Store subresources
 
         // Brand's models
-        }elseif($this->belongToSerializeGroup(['brand_models'], $context)) {
-
+        } elseif ($this->belongToSerializeGroup(['brand_models'], $context)) {
             $brand['models'] = $object->normalizeBrandModels();  // Fetch&Store subresources
 
         // Brand's products
-        }elseif($this->belongToSerializeGroup(['brand_products'], $context)) {
-
+        } elseif ($this->belongToSerializeGroup(['brand_products'], $context)) {
             $brand['products'] = $object->normalizeBrandProducts();  // Fetch&Store subresources
-
         }
 
         // Brand's resource _links

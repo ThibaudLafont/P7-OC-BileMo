@@ -19,7 +19,8 @@ use Symfony\Component\Serializer\Normalizer\scalar;
  *
  * @package AppBundle\Serializer\Normalizer
  */
-class Family implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
+class Family implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
+{
 
     // Traits
     use Normalizer;
@@ -44,7 +45,7 @@ class Family implements NormalizerInterface, DenormalizerInterface, Denormalizer
         $family = [];
 
         // Case of collection request
-        if($this->belongToSerializeGroup(['family_list', 'family_models', 'family_products'], $context)){
+        if ($this->belongToSerializeGroup(['family_list', 'family_models', 'family_products'], $context)) {
 
             // Get FamilyCollection infos in array
             $family = $object->normalizeFamilyCollection(false, false);
@@ -54,19 +55,15 @@ class Family implements NormalizerInterface, DenormalizerInterface, Denormalizer
 
             // Get FamilyItem infos in array
             $family = $object->normalizeFamilyItem(false, false);
-
         }
 
         // Case of family_models subresource
-        if($this->belongToSerializeGroup(['family_models'], $context)){
-
+        if ($this->belongToSerializeGroup(['family_models'], $context)) {
             $family['models'] = $object->normalizeFamilyModels();
 
         // Case of family_products subresource
         } elseif ($this->belongToSerializeGroup(['family_products'], $context)) {
-
             $family['products'] = $object->normalizeFamilyProducts();
-
         }
 
         // Links&Embedded
@@ -75,7 +72,6 @@ class Family implements NormalizerInterface, DenormalizerInterface, Denormalizer
 
         // Return build array
         return $family;
-
     }
 
     /**
@@ -136,5 +132,4 @@ class Family implements NormalizerInterface, DenormalizerInterface, Denormalizer
     {
         return;
     }
-
 }

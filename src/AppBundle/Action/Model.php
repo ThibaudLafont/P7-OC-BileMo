@@ -33,7 +33,5 @@ class Model extends Controller
 
         // Return Brand Object
         return $model;
-
     }
-
 }

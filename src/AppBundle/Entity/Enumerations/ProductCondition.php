@@ -40,8 +40,11 @@ class ProductCondition
      */
     public static function getValue(string $key) : string
     {
-        if(!isset(static::$values[$key])) return "Unknow condition";
-        else return static::$values[$key];
+        if (!isset(static::$values[$key])) {
+            return "Unknow condition";
+        } else {
+            return static::$values[$key];
+        }
     }
 
     /**

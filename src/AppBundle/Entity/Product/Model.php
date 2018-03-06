@@ -13,7 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @package AppBundle\Entity\Product
  *
  * @ORM\Table(name="p_model")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ModelRepository")
+ * @ORM\Entity()
  */
 class Model
 {
@@ -191,14 +191,16 @@ class Model
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->normalizeModelLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeModelLinks();
+        }
 
         // Add embedded resources if needed
-        if($brand || $family) // Model's Brand
+        if ($brand || $family) { // Model's Brand
             $return['_embedded'] = $this->normalizeModelEmbedded($brand, $family);
+        }
 
         return $return;
-
     }
 
     /**
@@ -224,11 +226,14 @@ class Model
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->normalizeModelLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeModelLinks();
+        }
 
         // Add embedded resources if needed
-        if($brand || $family) // Model's Brand
+        if ($brand || $family) { // Model's Brand
             $return['_embedded'] = $this->normalizeModelEmbedded($brand, $family);
+        }
 
         return $return;
     }
@@ -247,15 +252,13 @@ class Model
         $return = [];
 
         // Loop on every Model's products
-        foreach($this->getProducts() as $product){
+        foreach ($this->getProducts() as $product) {
 
             // Store ProductSubresource in new $return index
             $return[] = $product->normalizeProductCollection(true, false, false, false);
-
         }
 
         return $return;
-
     }
 
     /**
@@ -285,7 +288,7 @@ class Model
         $return = [];
 
         // Loop on every specValue of object
-        foreach($this->getSpecValues() as $specValue){
+        foreach ($this->getSpecValues() as $specValue) {
 
             // Get Spec object
             $spec = $specValue->getSpec();
@@ -298,7 +301,6 @@ class Model
 
         // Return build array
         return $return;
-
     }
 
     /**
@@ -308,12 +310,10 @@ class Model
      */
     public function normalizeModelLinks() : array
     {
-
         return [
             '@self' => $this->getSelfUrl(),
             '@products' => $this->getProductsSubLink()
         ];
-
     }
 
     /**
@@ -328,12 +328,12 @@ class Model
     {
 
         // Check if brand is required
-        if($brand) {
+        if ($brand) {
             $return['brand'] =$this->getFamily()->getBrand()->normalizeBrandCollection(true);
         }
 
         // Check if family is needed
-        if($family){
+        if ($family) {
             $return['family'] = $this->getFamily()->normalizeFamilyCollection(true, false);
         }
 
@@ -511,5 +511,4 @@ class Model
     {
         return $this->products;
     }
-
 }
