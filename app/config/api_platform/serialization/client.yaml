@@ -14,7 +14,7 @@ AppBundle\Entity\User\Client:
       groups: ['client_show', 'client_create', 'client_edit']
     phoneNumber:
       groups: ['client_show', 'client_create', 'client_edit']
-    plainPassword:
+    pwd:
       groups: ['client_create', 'client_edit']
     companyId:
       groups: ['client_create']
