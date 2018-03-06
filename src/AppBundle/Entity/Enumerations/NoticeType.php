@@ -3,7 +3,8 @@ namespace AppBundle\Entity\Enumerations;
 
 /**
  * Class NoticeType
- * Define differents types od ProductNotice
+ *
+ * Define different types od ProductNotice
  *
  * @package AppBundle\Entity\Enumerations
  */
@@ -29,12 +30,17 @@ class NoticeType
     /**
      * Permit to get a value related to a key
      *
-     * @param $type
+     * @param $key string
+     *
      * @return mixed|string
      */
-    public static function getValue($type){
-        if(!isset(static::$values[$type])) return "Unknow notice type";
-        else return static::$values[$type];
+    public static function getValue(string $key) : string
+    {
+        if (!isset(static::$values[$key])) {
+            return "Unknow notice type";
+        } else {
+            return static::$values[$key];
+        }
     }
 
     /**
@@ -42,7 +48,8 @@ class NoticeType
      *
      * @return array
      */
-    public static function getAvailableTypes(){
+    public static function getAvailableTypes() : array
+    {
         return [
             self::INFO,
             self::ALERT

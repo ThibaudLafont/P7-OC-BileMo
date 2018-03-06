@@ -2,6 +2,7 @@
 namespace AppBundle\Serializer\Normalizer;
 
 use AppBundle\Entity\Guarantee\ProductGlobal;
+use AppBundle\Serializer\Normalizer\Traits\Normalizer;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExtraAttributesException;
@@ -17,22 +18,8 @@ use Symfony\Component\Serializer\Normalizer\scalar;
 class Product implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
 {
 
-    /**
-     * Product Instance witch call the normalizer
-     *
-     * @var \AppBundle\Entity\Product\Product
-     */
-    private $product;
-    private $decorated;
-
-    public function __construct(NormalizerInterface $decorated)
-    {
-        if (!$decorated instanceof DenormalizerInterface) {
-            throw new \InvalidArgumentException(sprintf('The decorated normalizer must implement the %s.', DenormalizerInterface::class));
-        }
-
-        $this->decorated = $decorated;
-    }
+    // Traits
+    use Normalizer;
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -50,30 +37,20 @@ class Product implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function normalize($object, $format = null, array $context = array())
     {
-
         $return = [];
 
-        if($this->belongToSerializeGroup(['product_list'], $context)){
-            $return = $object->normalizeProductCollection();
-        }elseif($this->belongToSerializeGroup(['product_show'], $context)){
-            $return = $object->normalizeProductItem();
+        // Collection request
+        if ($this->belongToSerializeGroup(['product_list'], $context)) {
+            $return = $object->normalizeProductCollection(true, false, false, false);
+
+        // Item request
+        } elseif ($this->belongToSerializeGroup(['product_show'], $context)) {
+            $return = $object->normalizeProductItem(true, false, false, false);
         }
 
+        // Links&Embedded
         $return['_links'] = $object->normalizeProductLinks();
         $return['_embedded'] = $object->normalizeProductEmbedded(true, true, true);
-
-        return $return;
-
-    }
-
-
-    public function belongToSerializeGroup(array $groups, $context)
-    {
-        $return = false;
-
-        foreach($groups as $group){
-            if(in_array($group, $context)) $return = true;
-        }
 
         return $return;
     }
@@ -89,22 +66,6 @@ class Product implements NormalizerInterface, DenormalizerInterface, Denormalize
     public function supportsNormalization($data, $format = null)
     {
         return $data instanceof \AppBundle\Entity\Product\Product;
-    }
-
-    /**
-     * @return \AppBundle\Entity\Product\Product
-     */
-    public function getProduct(): \AppBundle\Entity\Product\Product
-    {
-        return $this->product;
-    }
-
-    /**
-     * @param \AppBundle\Entity\Product\Product $product
-     */
-    public function setProduct(\AppBundle\Entity\Product\Product $product)
-    {
-        $this->product = $product;
     }
 
     /**

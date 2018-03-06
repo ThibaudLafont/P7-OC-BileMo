@@ -6,14 +6,19 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * SpecValue
+ *
  * Link model and spec with value
  *
+ * @package AppBundle\Entity\Feature
+ *
  * @ORM\Table(name="ms_value")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\SpecValueRepository")
+ * @ORM\Entity()
  */
 class SpecValue
 {
     /**
+     * Primary key of resource
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -23,15 +28,18 @@ class SpecValue
     private $id;
 
     /**
-     * @var string
+     * Value of Model for Spec
+     *
+     * @var mixed
      *
      * @ORM\Column(name="value", type="text")
      */
     private $value;
 
     /**
+     * Concerned Spec
+     *
      * @var Spec
-     * Concerned spec
      *
      * @ORM\ManyToOne(
      *     targetEntity="Spec",
@@ -42,8 +50,9 @@ class SpecValue
     private $spec;
 
     /**
+     * Concerned Model
+     *
      * @var \AppBundle\Entity\Product\Model
-     * Concerned model
      *
      * @ORM\ManyToOne(
      *     targetEntity="\AppBundle\Entity\Product\Model",
@@ -58,7 +67,7 @@ class SpecValue
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -70,10 +79,12 @@ class SpecValue
      *
      * @return SpecValue
      */
-    public function setValue($value)
+    public function setValue($value) : SpecValue
     {
         // Check if value is boolean
-        if(is_bool($value)) $value = $value ? "true" : "false";
+        if (is_bool($value)) {
+            $value = $value ? "true" : "false";
+        }
 
         $this->value = $value;
 
@@ -83,7 +94,7 @@ class SpecValue
     /**
      * Get value.
      *
-     * @return string
+     * @return mixed
      */
     public function getValue()
     {
@@ -91,8 +102,11 @@ class SpecValue
         $value = $this->value;
 
         // Check if value is boolean
-        if($value === "true") $value = true;
-        elseif($value === "false") $value = false;
+        if ($value === "true") {
+            $value = true;
+        } elseif ($value === "false") {
+            $value = false;
+        }
 
         return $value;
     }
@@ -102,7 +116,8 @@ class SpecValue
      *
      * @return Spec
      */
-    public function getSpec(){
+    public function getSpec() : Spec
+    {
         return $this->spec;
     }
 
@@ -110,10 +125,14 @@ class SpecValue
      * Set spec
      *
      * @param Spec $spec
+     *
+     * @return SpecValue
      */
-    public function setSpec(Spec $spec)
+    public function setSpec(Spec $spec) : SpecValue
     {
         $this->spec = $spec;
+
+        return $this;
     }
 
     /**
@@ -121,7 +140,7 @@ class SpecValue
      *
      * @return \AppBundle\Entity\Product\Model
      */
-    public function getModel(): \AppBundle\Entity\Product\Model
+    public function getModel() : \AppBundle\Entity\Product\Model
     {
         return $this->model;
     }
@@ -130,10 +149,13 @@ class SpecValue
      * Set model
      *
      * @param \AppBundle\Entity\Product\Model $model
+     *
+     * @return SpecValue
      */
     public function setModel(\AppBundle\Entity\Product\Model $model)
     {
         $this->model = $model;
-    }
 
+        return $this;
+    }
 }

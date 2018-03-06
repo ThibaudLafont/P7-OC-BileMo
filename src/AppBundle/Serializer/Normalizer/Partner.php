@@ -2,6 +2,7 @@
 namespace AppBundle\Serializer\Normalizer;
 
 use AppBundle\Entity\Guarantee\ProductGlobal;
+use AppBundle\Serializer\Normalizer\Traits\Normalizer;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExtraAttributesException;
@@ -14,19 +15,16 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
+/**
+ * Class PartnerNormalizer
+ *
+ * @package AppBundle\Serializer\Normalizer
+ */
 class Partner implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
 {
 
-    private $decorated;
-
-    public function __construct(NormalizerInterface $decorated)
-    {
-        if (!$decorated instanceof DenormalizerInterface) {
-            throw new \InvalidArgumentException(sprintf('The decorated normalizer must implement the %s.', DenormalizerInterface::class));
-        }
-
-        $this->decorated = $decorated;
-    }
+    // Traits
+    use Normalizer;
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -44,20 +42,7 @@ class Partner implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function normalize($object, $format = null, array $context = array())
     {
-
         return $object->normalizePartnerCollection();
-
-    }
-
-    public function belongToSerializeGroup(array $groups, $context)
-    {
-        $return = false;
-
-        foreach($groups as $group){
-            if(in_array($group, $context['groups'])) $return = true;
-        }
-
-        return $return;
     }
 
     /**
@@ -102,11 +87,7 @@ class Partner implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function denormalize($data, $class, $format = null, array $context = array())
     {
-        $partner = new \AppBundle\Entity\User\Partner();
-        $partner->setUsername($data['username']);
-        $partner->setPlainPassword($data['plainPassword']);
-
-        return $partner;
+        return;
     }
 
     /**
@@ -120,6 +101,6 @@ class Partner implements NormalizerInterface, DenormalizerInterface, Denormalize
      */
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return $this->decorated->supportsDenormalization($data, $type, $format);
+        return;
     }
 }

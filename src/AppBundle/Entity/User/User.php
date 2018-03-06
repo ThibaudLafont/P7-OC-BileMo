@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +8,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
- * Implement most par of logic for Doctrine Provider
+ *
+ * Implement most part of Doctrine Provider logic
  *
  * @ORM\MappedSuperclass()
  * @ORM\EntityListeners({"AppBundle\EventListener\UserListener"})
@@ -22,9 +22,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 abstract class User implements UserInterface, \Serializable
 {
+
     /**
-     * @var int
      * Primary key of resource
+     *
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -33,8 +35,9 @@ abstract class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @var string
      * Username of user
+     *
+     * @var string
      *
      * @ORM\Column(name="username", type="string", length=55, unique=true)
      *
@@ -53,16 +56,20 @@ abstract class User implements UserInterface, \Serializable
     private $username;
 
     /**
+     * Bcrypt hashed password
+     *
      * @var string
-     * Bcrypt hashed pwd (though PasswordEncoderInterface)
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
     /**
+     * PlainPassword
+     *
+     * Temp store of non-crypted password, used for user create, user edit and login
+     *
      * @var string
-     * Used for user register
      *
      * @Asset\NotBlank(
      *     message="Veuillez renseigner un mot de passe",
@@ -85,7 +92,7 @@ abstract class User implements UserInterface, \Serializable
      *
      * @return string the string representation of the object or null
      */
-    public function serialize()
+    public function serialize() : string
     {
         return serialize([
             $this->getId(),
@@ -103,7 +110,7 @@ abstract class User implements UserInterface, \Serializable
      */
     public function unserialize($serialized)
     {
-        list (
+        list(
             $this->id,
             $this->userName,
             $this->password,
@@ -141,7 +148,7 @@ abstract class User implements UserInterface, \Serializable
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -153,7 +160,7 @@ abstract class User implements UserInterface, \Serializable
      *
      * @return User
      */
-    public function setUsername($username)
+    public function setUsername(string $username)
     {
         $this->username = $username;
 
@@ -165,7 +172,7 @@ abstract class User implements UserInterface, \Serializable
      *
      * @return string
      */
-    public function getUsername()
+    public function getUsername() : string
     {
         return $this->username;
     }
@@ -184,16 +191,20 @@ abstract class User implements UserInterface, \Serializable
      * Set password
      *
      * @param string|null $password
+     *
+     * @return User
      */
     public function setPassword(string $password)
     {
         $this->password = $password;
+
+        return $this;
     }
 
     /**
      * Get pwd
      *
-     * @return string
+     * @return string|null
      */
     public function getPwd()
     {
@@ -204,10 +215,13 @@ abstract class User implements UserInterface, \Serializable
      * Set pwd
      *
      * @param string $pwd
+     *
+     * @return User
      */
     public function setPwd($pwd)
     {
         $this->pwd = $pwd;
-    }
 
+        return $this;
+    }
 }

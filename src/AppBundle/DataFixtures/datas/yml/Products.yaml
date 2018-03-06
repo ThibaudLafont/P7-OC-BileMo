@@ -6,7 +6,7 @@ Iphone 6s seconde main:
     state: good
     available: true
     history: A appartenu à un particulier. Pas de trace de réparation.
-    IMEI: 123456789012347
+    IMEI: "123456789012347"
     memorySizeInGb: 32
     operatorLock: false
     color: Noir&Ardoise
@@ -22,7 +22,7 @@ Iphone X neuf:
     state: unused
     available: true
     history: null
-    IMEI: 123456789012348
+    IMEI: "123456789012348"
     memorySizeInGb: 256
     operatorLock: false
     color: Noir&Ardoise
@@ -38,7 +38,7 @@ Iphone 5 accidenté:
     state: bad
     available: true
     history: A chuté mais ne présente pas de traces d'oxydation
-    IMEI: 123456789012342
+    IMEI: "123456789012342"
     memorySizeInGb: 16
     operatorLock: false
     color: Noir&Ardoise
@@ -80,7 +80,7 @@ Iphone 5 reconditionné:
     state: like_new
     available: true
     history: Reconditionné à neuf dans nos locaux, aucun d'historique
-    IMEI: 123456789012342
+    IMEI: "123456789012342"
     memorySizeInGb: 64
     operatorLock: true
     color: Argent
@@ -98,7 +98,7 @@ Galaxy S4 sous blister:
     state: unused
     available: true
     history: null
-    IMEI: 123456789112348
+    IMEI: "123456789112348"
     memorySizeInGb: 32
     operatorLock: false
     color: Noir
@@ -115,7 +115,7 @@ GS4 reconditionné à neuf:
     state: like_new
     available: true
     history: Un particulier a bénéficié d'une offre de reprise pour ce téléphone dont le LCD était HS.
-    IMEI: 128556789112348
+    IMEI: "128556789112348"
     memorySizeInGb: 16
     operatorLock: false
     color: Blanc
@@ -132,7 +132,7 @@ Galaxy Note 2 pour pièces:
     state: like_new
     available: true
     history: Téléphone professionnel racheté à une assurance, a subi un sinistre
-    IMEI: 123456789112348
+    IMEI: "123456789112348"
     memorySizeInGb: 32
     operatorLock: false
     color: Noir

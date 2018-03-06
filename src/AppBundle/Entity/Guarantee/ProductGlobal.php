@@ -14,6 +14,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 /**
  * Class ProductGlobal
  *
+ * @package AppBundle\Entity\Guarantee
+ *
  * @ORM\Entity()
  * @ORM\Table(name="p_global_guarantee")
  */

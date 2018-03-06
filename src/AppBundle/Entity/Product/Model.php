@@ -1,25 +1,26 @@
 <?php
-
 namespace AppBundle\Entity\Product;
 
 use AppBundle\Entity\Feature\SpecValue;
+use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
-use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * Model
  *
+ * @package AppBundle\Entity\Product
+ *
  * @ORM\Table(name="p_model")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ModelRepository")
+ * @ORM\Entity()
  */
 class Model
 {
+
     /**
+     * Primary key of resource
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -38,6 +39,8 @@ class Model
     private $id;
 
     /**
+     * Model name
+     *
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=55)
@@ -54,6 +57,8 @@ class Model
     private $name;
 
     /**
+     * Description of model
+     *
      * @var string|null
      *
      * @ORM\Column(name="description", type="text", nullable=true)
@@ -70,8 +75,9 @@ class Model
     private $description;
 
     /**
-     * @var string|null
      * Product page on constructor website (if exists)
+     *
+     * @var string|null
      *
      * @ORM\Column(name="constructor_url", type="text", nullable=true)
      *
@@ -87,8 +93,9 @@ class Model
     private $constructorUrl;
 
     /**
-     * @var int
      * Model release year
+     *
+     * @var int
      *
      * @ORM\Column(name="release_year", type="bigint")
      *
@@ -104,6 +111,8 @@ class Model
     private $releaseYear;
 
     /**
+     * Family of Model
+     *
      * @var Family
      *
      * @ORM\ManyToOne(
@@ -114,8 +123,9 @@ class Model
     private $family;
 
     /**
-     * @var ArrayCollection
-     * Models values to features specifications
+     * Models values for features specifications
+     *
+     * @var mixed
      *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Feature\SpecValue",
@@ -126,8 +136,9 @@ class Model
     private $specValues;
 
     /**
-     * @var Product
      * Products of this model
+     *
+     * @var mixed
      *
      * @ORM\OneToMany(
      *     targetEntity="Product",
@@ -150,6 +161,9 @@ class Model
     // Traits
     use Hydrate;
 
+    /**
+     * Model constructor.
+     */
     public function __construct()
     {
         $this->specValues = new ArrayCollection();
@@ -159,9 +173,15 @@ class Model
     // Model normalization
 
     /**
+     * Normalize Model for collection
+     *
+     * @param bool $links -Normalize with _links
+     * @param bool $brand -Normalize with _embedded[brand]
+     * @param bool $family -Normalize with _embedded[family]
+     *
      * @return array
      */
-    public function normalizeModelCollection($links = true, $brand = true, $family = true)
+    public function normalizeModelCollection($links = true, $brand = true, $family = true) : array
     {
 
         // Properties for Model Collection
@@ -171,20 +191,29 @@ class Model
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->normalizeModelLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeModelLinks();
+        }
 
         // Add embedded resources if needed
-        if($brand || $family) // Model's Brand
+        if ($brand || $family) { // Model's Brand
             $return['_embedded'] = $this->normalizeModelEmbedded($brand, $family);
+        }
 
         return $return;
-
     }
 
     /**
+     * Normalize Model for item
+     *
+     * @param bool $links -Normalize with _links
+     * @param bool $brand -Normalize with _embedded[brand]
+     * @param bool $family -Normalize with _embedded[family]
+     *
      * @return array
      */
-    public function normalizeModelItem($links = true, $brand = true, $family = true){
+    public function normalizeModelItem($links = true, $brand = true, $family = true) : array
+    {
 
         // Properties for Model Item
         $return = [
@@ -197,11 +226,14 @@ class Model
         ];
 
         // Add links if needed
-        if($links) $return['_links'] = $this->normalizeModelLinks();
+        if ($links) {
+            $return['_links'] = $this->normalizeModelLinks();
+        }
 
         // Add embedded resources if needed
-        if($brand || $family) // Model's Brand
+        if ($brand || $family) { // Model's Brand
             $return['_embedded'] = $this->normalizeModelEmbedded($brand, $family);
+        }
 
         return $return;
     }
@@ -209,29 +241,30 @@ class Model
     // Model subresource
 
     /**
-     * Model's products
+     * Model's products normalization
+     *
      * @return array
      */
-    public function normalizeModelProducts(){
+    public function normalizeModelProducts() : array
+    {
 
         // Init empty array
         $return = [];
 
         // Loop on every Model's products
-        foreach($this->getProducts() as $product){
+        foreach ($this->getProducts() as $product) {
 
             // Store ProductSubresource in new $return index
             $return[] = $product->normalizeProductCollection(true, false, false, false);
-
         }
 
         return $return;
-
     }
 
     /**
-     * @return array
      * Specifications of Model resource
+     *
+     * @return array
      *
      * @ApiProperty(
      *     attributes={
@@ -248,13 +281,14 @@ class Model
      *     }
      * )
      */
-    public function normalizeSpecs(){
+    private function normalizeSpecs() : array
+    {
 
         // Init empty array
         $return = [];
 
         // Loop on every specValue of object
-        foreach($this->getSpecValues() as $specValue){
+        foreach ($this->getSpecValues() as $specValue) {
 
             // Get Spec object
             $spec = $specValue->getSpec();
@@ -267,35 +301,39 @@ class Model
 
         // Return build array
         return $return;
-
     }
 
     /**
-     * Model _links
+     * Model _links normalization
+     *
      * @return array
      */
-    public function normalizeModelLinks(){
-
+    public function normalizeModelLinks() : array
+    {
         return [
             '@self' => $this->getSelfUrl(),
             '@products' => $this->getProductsSubLink()
         ];
-
     }
 
     /**
-     * Model _embedded
-     * @return array
+     * Model _embedded normalization
+     *
+     * @param bool $brand -Normalize with _embedded[brand]
+     * @param bool $family -Normalize with _embedded[family]
+     *
+     * @return array|null
      */
-    public function normalizeModelEmbedded($brand=true, $family=true){
+    public function normalizeModelEmbedded($brand=true, $family=true)
+    {
 
         // Check if brand is required
-        if($brand) {
+        if ($brand) {
             $return['brand'] =$this->getFamily()->getBrand()->normalizeBrandCollection(true);
         }
 
         // Check if family is needed
-        if($family){
+        if ($family) {
             $return['family'] = $this->getFamily()->normalizeFamilyCollection(true, false);
         }
 
@@ -305,16 +343,22 @@ class Model
     // Model links
 
     /**
+     * Get URL to item
+     *
      * @return string
      */
-    private function getSelfUrl(){
+    private function getSelfUrl() : string
+    {
         return "/models/" . $this->getId();
     }
 
     /**
+     * Get URL to Model Products subresource
+     *
      * @return string
      */
-    private function getProductsSubLink(){
+    private function getProductsSubLink() : string
+    {
         return "/models/" . $this->getId() . "/products";
     }
 
@@ -323,7 +367,7 @@ class Model
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -335,7 +379,7 @@ class Model
      *
      * @return Model
      */
-    public function setName($name)
+    public function setName(string $name) : Model
     {
         $this->name = $name;
 
@@ -347,7 +391,7 @@ class Model
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -359,7 +403,7 @@ class Model
      *
      * @return Model
      */
-    public function setDescription($description = null)
+    public function setDescription($description = null) : Model
     {
         $this->description = $description;
 
@@ -390,10 +434,14 @@ class Model
      * Set constructorUrl
      *
      * @param null|string $constructorUrl
+     *
+     * @return Model
      */
-    public function setConstructorUrl(string $constructorUrl)
+    public function setConstructorUrl(string $constructorUrl) : Model
     {
         $this->constructorUrl = $constructorUrl;
+
+        return $this;
     }
 
     /**
@@ -410,10 +458,14 @@ class Model
      * Set releaseYear
      *
      * @param int $releaseYear
+     *
+     * @return Model
      */
-    public function setReleaseYear(int $releaseYear)
+    public function setReleaseYear(int $releaseYear) : Model
     {
         $this->releaseYear = $releaseYear;
+
+        return $this;
     }
 
     /**
@@ -421,7 +473,7 @@ class Model
      *
      * @return Family
      */
-    public function getFamily()
+    public function getFamily() : Family
     {
         return $this->family;
     }
@@ -430,16 +482,20 @@ class Model
      * Set family
      *
      * @param Family
+     *
+     * @return Model
      */
-    public function setFamily(Family $family)
+    public function setFamily(Family $family) : Model
     {
         $this->family = $family;
+
+        return $this;
     }
 
     /**
      * Get specValues
      *
-     * @return array
+     * @return mixed
      */
     public function getSpecValues()
     {
@@ -449,11 +505,10 @@ class Model
     /**
      * Get products
      *
-     * @return Product
+     * @return mixed
      */
     public function getProducts()
     {
         return $this->products;
     }
-
 }

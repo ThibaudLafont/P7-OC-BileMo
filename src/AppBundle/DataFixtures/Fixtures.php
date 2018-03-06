@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\DataFixtures;
 
-
 use AppBundle\Entity\Feature\Feature;
 use AppBundle\Entity\Feature\ModelFeature;
 use AppBundle\Entity\Feature\ProductTest;
@@ -20,9 +19,15 @@ use AppBundle\Entity\User\Company;
 use AppBundle\Entity\User\Partner;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class for Fixtures
+ *
+ * This class parse YAML and treats datas in order to persist objects in DB
+ *
+ * @package AppBundle\DataFixtures
+ */
 class Fixtures extends Fixture
 {
 
@@ -30,6 +35,8 @@ class Fixtures extends Fixture
      * Load data fixtures by calling load methods
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
     public function load(ObjectManager $manager)
     {
@@ -44,15 +51,16 @@ class Fixtures extends Fixture
      * Parse and process YAML file to persist phone brands
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
-    public function loadBrands(ObjectManager $manager)
+    private function loadBrands(ObjectManager $manager)
     {
         // First get and parse the yaml file
         $brands = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Brand.yaml'));
 
         // Loop on every index found
-        foreach($brands as $k => $v)
-        {
+        foreach ($brands as $k => $v) {
 
             // Create new Brand object
             $brand = new Brand();
@@ -61,27 +69,26 @@ class Fixtures extends Fixture
             $brand->hydrate($v);
             // Then persist the build entity
             $manager->persist($brand);
-
         }
 
         $manager->flush();
-
     }
   
     /**
      * Parse and process YAML file for Families persist
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
-    public function loadFamilies(ObjectManager $manager)
+    private function loadFamilies(ObjectManager $manager)
     {
 
         // First get and parse the yaml file
         $families = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Family.yaml'));
 
         // Loop on every family
-        foreach($families as $k => $v)
-        {
+        foreach ($families as $k => $v) {
             // With brand_name, find the object in DB
             $brand = $manager->getRepository('AppBundle:Product\Brand')->findOneBy(['name' => $v['brand']]);
 
@@ -96,22 +103,23 @@ class Fixtures extends Fixture
 
         // When loop is done, flush datasr
         $manager->flush();
-
     }
 
     /**
      * Parse and process YAML file for Families persist
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
-    public function loadModels(ObjectManager $manager)
+    private function loadModels(ObjectManager $manager)
     {
 
         // First get and parse the yaml file
         $models = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Models.yaml'));
 
         // Loop en every entry of yaml
-        foreach($models as $k => $v){
+        foreach ($models as $k => $v) {
 
             // Get family object in DB from given name
             $family = $manager->getRepository('AppBundle:Product\Family')
@@ -124,29 +132,26 @@ class Fixtures extends Fixture
             $model->hydrate($v);
 
             // Loop on every feature given for this model
-            foreach($v['features'] as $fk => $fv)
-            {
+            foreach ($v['features'] as $fk => $fv) {
                 // Check if feature is already in DDB
                 $feature = $manager->getRepository('AppBundle:Feature\Feature')
                     ->findOneBy(['name' => $fk]);
 
                 // If not knowed, create and persist it
-                if(is_null($feature))
-                {
+                if (is_null($feature)) {
                     $feature = new Feature();
                     $feature->setName($fk);
                     $manager->persist($feature);
                 }
 
                 // Loop on feature specifications
-                foreach($fv as $fsk => $fsv)
-                {
+                foreach ($fv as $fsk => $fsv) {
                     // Check if spec exists in DDB
                     $spec = $manager->getRepository('AppBundle:Feature\Spec')
                         ->findOneBy(['name' => $fsk]);
 
                     // If not, create and persist
-                    if(is_null($spec)){
+                    if (is_null($spec)) {
                         $spec = new Spec();
                         $spec->setName($fsk);
                         $spec->setFeature($feature);
@@ -169,17 +174,22 @@ class Fixtures extends Fixture
 
             $manager->flush();
         }
-
     }
-  
-    public function loadProducts(ObjectManager $manager)
+
+    /**
+     * Parse Yaml and perform Product persist
+     *
+     * @param ObjectManager $manager
+     *
+     * @return void
+     */
+    private function loadProducts(ObjectManager $manager)
     {
         // First get and parse the yaml file
         $products = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Products.yaml'));
 
         // Loop on every index
-        foreach($products as $k => $v)
-        {
+        foreach ($products as $k => $v) {
 
             // Find the Model Object from given name
             $model = $manager->getRepository('AppBundle:Product\Model')
@@ -192,10 +202,8 @@ class Fixtures extends Fixture
             $product->hydrate($v);
 
             // If Notices are given, loop assign and persist them
-            if(isset($v['notices']))
-            {
-                foreach($v['notices'] as $nk => $nv)
-                {
+            if (isset($v['notices'])) {
+                foreach ($v['notices'] as $nk => $nv) {
                     // Create, hydrate and persist new Notice Object
                     $notice = new Notice();
                     $notice->setType($nk);
@@ -206,15 +214,13 @@ class Fixtures extends Fixture
             }
 
             // If Guarantees are given, loop assign and persist them
-            if(isset($v['guarantees']))
-            {
-                foreach($v['guarantees'] as $gk => $gv)
-                {
+            if (isset($v['guarantees'])) {
+                foreach ($v['guarantees'] as $gk => $gv) {
                     // Check if guarantee is link to product or feature
-                    if($gk === 'global'){
+                    if ($gk === 'global') {
                         // If ProductGuarantee, create new Object
                         $guarantee = new ProductGlobal();
-                    }else{
+                    } else {
                         // If FeatureGuarantee, first find related feature
                         $feature = $manager->getRepository('AppBundle:Feature\Feature')
                             ->findOneBy(['name' => $gk]);
@@ -228,7 +234,7 @@ class Fixtures extends Fixture
                     $guarantee->hydrate($gv);
 
                     // If is GlobalGuarantee, link product to it
-                    if($gk === 'global'){
+                    if ($gk === 'global') {
                         $product->setGlobalGuarantee($guarantee);
                     }
 
@@ -246,18 +252,20 @@ class Fixtures extends Fixture
     }
 
     /**
-     * Load users in DB
+     * Parse Yaml and perform Users persist
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
-    public function loadUsers(ObjectManager $manager){
+    private function loadUsers(ObjectManager $manager)
+    {
 
         // First get and parse the yaml file, only contain clients users
         $companies = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Clients.yaml'));
 
         // Foreach company found, loop
-        foreach($companies as $name => $workers)
-        {
+        foreach ($companies as $name => $workers) {
             // Create object and assign name
             $company = new Company();
             $company->setName($name);
@@ -266,8 +274,7 @@ class Fixtures extends Fixture
             $manager->persist($company);
 
             // Foreach workers found, loop
-            foreach($workers as $k => $v)
-            {
+            foreach ($workers as $k => $v) {
                 // Create and hydrate new Client object
                 $user = new Client();
                 $user->setCompany($company);
@@ -281,7 +288,7 @@ class Fixtures extends Fixture
         }
 
         // Now create Partner users
-        foreach(['jean', 'murielle', 'thib'] as $admin){
+        foreach (['jean', 'murielle', 'thib'] as $admin) {
             // Create and hydrate new Partner object
             $user = new Partner();
             $user->setUsername($admin);
@@ -293,6 +300,5 @@ class Fixtures extends Fixture
 
         // Flush all changes
         $manager->flush();
-
     }
 }

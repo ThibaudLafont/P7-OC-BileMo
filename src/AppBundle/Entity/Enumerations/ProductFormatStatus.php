@@ -3,6 +3,7 @@ namespace AppBundle\Entity\Enumerations;
 
 /**
  * Class ProductFormatStatus
+ *
  * Say if product is formatted or not or unknow
  *
  * @package AppBundle\Entity\Enumerations
@@ -31,13 +32,17 @@ class ProductFormatStatus
     /**
      * Permit to get a value related to a key
      *
-     * @param $type
-     * @return mixed|string
+     * @param $key string
+     *
+     * @return string
      */
-    public static function getValue($type)
+    public static function getValue(string $key) : string
     {
-        if(!isset(static::$values[$type])) return "Unknow format status";
-        else return static::$values[$type];
+        if (!isset(static::$values[$key])) {
+            return "Unknow format status";
+        } else {
+            return static::$values[$key];
+        }
     }
 
     /**
@@ -45,7 +50,8 @@ class ProductFormatStatus
      *
      * @return array
      */
-    public static function getAvailableTypes(){
+    public static function getAvailableTypes() : array
+    {
         return [
             self::FORMATTED,
             self::NOT_FORMATTED,

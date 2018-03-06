@@ -3,6 +3,7 @@ namespace AppBundle\Entity\Enumerations;
 
 /**
  * Class ProductCondition
+ *
  * Define different sell status for Product
  *
  * @package AppBundle\Entity\Enumerations
@@ -33,13 +34,17 @@ class ProductCondition
     /**
      * Permit to get a value related to a key
      *
-     * @param $type
-     * @return mixed|string
+     * @param $key string
+     *
+     * @return string
      */
-    public static function getValue($type)
+    public static function getValue(string $key) : string
     {
-        if(!isset(static::$values[$type])) return "Unknow condition";
-        else return static::$values[$type];
+        if (!isset(static::$values[$key])) {
+            return "Unknow condition";
+        } else {
+            return static::$values[$key];
+        }
     }
 
     /**
@@ -47,7 +52,8 @@ class ProductCondition
      *
      * @return array
      */
-    public static function getAvailableTypes(){
+    public static function getAvailableTypes() : array
+    {
         return [
             self::NEW,
             self::REFURB,

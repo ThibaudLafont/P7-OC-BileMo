@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Serializer\Normalizer;
 
+use AppBundle\Serializer\Normalizer\Traits\Normalizer;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExtraAttributesException;
@@ -13,18 +14,16 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
-class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
+/**
+ * Class ModelNormalizer
+ *
+ * @package AppBundle\Serializer\Normalizer
+ */
+class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
+{
 
-    private $decorated;
-
-    public function __construct(NormalizerInterface $decorated)
-    {
-        if (!$decorated instanceof DenormalizerInterface) {
-            throw new \InvalidArgumentException(sprintf('The decorated normalizer must implement the %s.', DenormalizerInterface::class));
-        }
-
-        $this->decorated = $decorated;
-    }
+    // Traits
+    use Normalizer;
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -47,24 +46,20 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
         $return = [];
 
         // Case of collection request
-        if($this->belongToSerializeGroup(['brand_show', 'family_show', 'model_list', 'model_products'], $context))
-        {
+        if ($this->belongToSerializeGroup(['brand_show', 'family_show', 'model_list', 'model_products'], $context)) {
             // Get collection array from object
             $return = $object->normalizeModelCollection(false, false, false);
-
         }
         // Case of item request
-        elseif($this->belongToSerializeGroup(['model_show'], $context)){
+        elseif ($this->belongToSerializeGroup(['model_show'], $context)) {
 
             // Get model item infos
             $return = $object->normalizeModelItem(false, false, false);
-
         }
 
-        if($this->belongToSerializeGroup(['model_products'], $context)){
-
+        // Case of model_products subresource
+        if ($this->belongToSerializeGroup(['model_products'], $context)) {
             $return['products'] = $object->normalizeModelProducts();
-
         }
 
         // Set links and embedded
@@ -72,17 +67,6 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
         $return['_embedded'] = $object->normalizeModelEmbedded();
 
         // Return build array
-        return $return;
-    }
-
-    public function belongToSerializeGroup(array $groups, $context)
-    {
-        $return = false;
-
-        foreach($groups as $group){
-            if(in_array($group, $context['groups'])) $return = true;
-        }
-
         return $return;
     }
 

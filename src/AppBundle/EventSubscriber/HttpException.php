@@ -7,27 +7,46 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
+/**
+ * Class HttpException
+ *
+ * @package AppBundle\EventSubscriber
+ */
 class HttpException implements EventSubscriberInterface
 {
 
     /**
+     * Allow to render templates
+     *
      * @var TwigEngine
      */
     private $twig;
 
     /**
+     * Subscribed event
+     *
      * @var GetResponseForExceptionEvent
      */
     private $event;
 
-    public function __construct(TwigEngine $twig){
+    /**
+     * HttpException constructor.
+     *
+     * @param TwigEngine $twig
+     */
+    public function __construct(TwigEngine $twig)
+    {
 
         // Store twig in attributes
         $this->twig = $twig;
-
     }
 
-    public static function getSubscribedEvents()
+    /**
+     * Array with listened events
+     *
+     * @return array
+     */
+    public static function getSubscribedEvents() : array
     {
         // return the subscribed events, their methods and priorities
         return array(
@@ -37,8 +56,16 @@ class HttpException implements EventSubscriberInterface
         );
     }
 
+    /**
+     * Function to execute when Exception catch
+     *
+     * Define and set Response to $event
+     *
+     * @param GetResponseForExceptionEvent $event
+     */
     public function handleExceptions(GetResponseForExceptionEvent $event)
     {
+
         // Store event
         $this->setEvent($event);
 
@@ -51,7 +78,7 @@ class HttpException implements EventSubscriberInterface
         // Case where Content-Type is not defined of set to "text/html"
         if (
             $contentType !== 'json'
-        ){
+        ) {
 
             // Then build template path with status code
             $template =  $this->getTemplatePath($statusCode, 'html');
@@ -71,11 +98,10 @@ class HttpException implements EventSubscriberInterface
 
             // Set content-type
             $contentType = 'application/json';
-
         }
 
         // If $template is set, then render Twig Template
-        if(isset($template)){
+        if (isset($template)) {
 
             // Set $content for Response
             $content = $this->twig->render($template);
@@ -86,10 +112,15 @@ class HttpException implements EventSubscriberInterface
             // Set response to $event
 //            $event->setResponse($response);
         }
-
     }
 
-    private function getStatusCode(){
+    /**
+     * Handle the definition of appropriate HTTP code
+     *
+     * @return int|mixed
+     */
+    private function getStatusCode()
+    {
 
         // Store Exception
         $exception = $this->getEvent()->getException();
@@ -99,13 +130,16 @@ class HttpException implements EventSubscriberInterface
         $message = $exception->getMessage();
 
         // If "No route found", it's 404 or 405 http code
-        if(strpos($message, "No route found") == 0){
+        if (strpos($message, "No route found") == 0) {
 
             // If isset "Method Not Allowed", 405 error
-            if(strpos($message, "Method Not Allowed")) $code = 405;
+            if (strpos($message, "Method Not Allowed")) {
+                $code = 405;
+            }
             // Else 404 error
-            else $code = 404;
-
+            else {
+                $code = 404;
+            }
         }
 
         // Only if content-type is not json and $code = 0,
@@ -113,16 +147,29 @@ class HttpException implements EventSubscriberInterface
         if (
             $this->getEvent()->getRequest()->getContentType() !== 'json' &&
             $code == 0
-        ) $code = 500;
+        ) {
+            $code = 500;
+        }
 
         return $code;
     }
 
-    private function getTemplatePath($statusCode, $type){
+    /**
+     * Return path to template
+     *
+     * @param $statusCode int
+     * @param $type string -Response format [html, json]
+     *
+     * @return string
+     */
+    private function getTemplatePath($statusCode, $type) : string
+    {
         return '@Twig/Exception/error' . $statusCode . '.' . $type . '.twig';
     }
 
     /**
+     * Get registred events
+     *
      * @return GetResponseForExceptionEvent
      */
     public function getEvent(): GetResponseForExceptionEvent
@@ -131,11 +178,12 @@ class HttpException implements EventSubscriberInterface
     }
 
     /**
+     * Set registred events
+     *
      * @param GetResponseForExceptionEvent $event
      */
     public function setEvent(GetResponseForExceptionEvent $event)
     {
         $this->event = $event;
     }
-
 }

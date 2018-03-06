@@ -1,19 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: thib
- * Date: 1/28/18
- * Time: 7:54 PM
- */
-
 namespace AppBundle\Entity\Guarantee;
 
+use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Feature\Feature;
 use AppBundle\Entity\Product\Product;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class ProductSpecific
+ *
+ * @package \AppBundle\Entity\Guarantee
  *
  * @ORM\Entity()
  * @ORM\Table(name="p_specific_guarantee")
@@ -22,6 +17,8 @@ class ProductSpecific extends Guarantee
 {
 
     /**
+     * Concerned Feature
+     *
      * @var Feature
      *
      * @ORM\ManyToOne
@@ -33,6 +30,8 @@ class ProductSpecific extends Guarantee
     private $feature;
 
     /**
+     * Concerned Product
+     *
      * @var Product
      *
      * @ORM\ManyToOne
@@ -43,7 +42,13 @@ class ProductSpecific extends Guarantee
      */
     private $product;
 
-    public function productSpecificGuaranteeToArray(){
+    /**
+     * Normalize ProductSpecific
+     *
+     * @return array
+     */
+    public function productSpecificGuaranteeToArray() : array
+    {
         return [
             'concern' => $this->getFeature()->getName(),
             'is_guaranteed' => $this->isGuaranteed(),
@@ -57,7 +62,7 @@ class ProductSpecific extends Guarantee
      *
      * @return mixed
      */
-    public function getFeature()
+    public function getFeature() : Feature
     {
         return $this->feature;
     }
@@ -66,18 +71,22 @@ class ProductSpecific extends Guarantee
      * Set feature
      *
      * @param \AppBundle\Entity\Feature\Feature $feature
+     *
+     * @return ProductSpecific
      */
-    public function setFeature(Feature $feature)
+    public function setFeature(Feature $feature) : ProductSpecific
     {
         $this->feature = $feature;
+
+        return $this;
     }
 
     /**
      * Get product
      *
-     * @return mixed
+     * @return Product
      */
-    public function getProduct()
+    public function getProduct() : Product
     {
         return $this->product;
     }
@@ -86,10 +95,13 @@ class ProductSpecific extends Guarantee
      * Set product
      *
      * @param Product $product
+     *
+     * @return ProductSpecific
      */
-    public function setProduct(Product $product)
+    public function setProduct(Product $product) : ProductSpecific
     {
         $this->product = $product;
-    }
 
+        return $this;
+    }
 }

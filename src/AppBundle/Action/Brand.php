@@ -1,15 +1,28 @@
 <?php
-// api/src/Controller/BookSpecial.php
-
 namespace AppBundle\Action;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Brand Controller
+ *
+ * Used for additional routes
+ *
+ * @package AppBundle\Action
+ */
 class Brand extends Controller
 {
 
     /**
+     * List models for specific Brand resource
+     *
+     * Fetch products with BrandRepository::getModels() and assign them to Brand resource
+     *
+     * @param \AppBundle\Entity\Product\Brand $brand
+     *
+     * @return \AppBundle\Entity\Product\Brand
+     *
      * @Route(
      *     name="brand_models",
      *     path="/brands/{id}/models",
@@ -17,7 +30,7 @@ class Brand extends Controller
      *     defaults={"_api_resource_class"=AppBundle\Entity\Product\Brand::class, "_api_item_operation_name"="brand_models"}
      * )
      */
-    public function brandModelsAction(\AppBundle\Entity\Product\Brand $brand)
+    public function brandModelsAction(\AppBundle\Entity\Product\Brand $brand) : \AppBundle\Entity\Product\Brand
     {
 
         // Get Brand's products
@@ -28,10 +41,15 @@ class Brand extends Controller
 
         // Return Brand Object
         return $brand;
-
     }
 
     /**
+     * List products for specific Brand object
+     *
+     * @param \AppBundle\Entity\Product\Brand $brand
+     *
+     * @return \AppBundle\Entity\Product\Brand
+     *
      * @Route(
      *     name="brand_products",
      *     path="/brands/{id}/products",
@@ -39,7 +57,7 @@ class Brand extends Controller
      *     defaults={"_api_resource_class"=AppBundle\Entity\Product\Brand::class, "_api_item_operation_name"="brand_products"}
      * )
      */
-    public function brandProductsAction(\AppBundle\Entity\Product\Brand $brand)
+    public function brandProductsAction(\AppBundle\Entity\Product\Brand $brand) : \AppBundle\Entity\Product\Brand
     {
 
         // Get Brand's products
@@ -50,10 +68,15 @@ class Brand extends Controller
 
         // Return Brand Object
         return $brand;
-
     }
 
     /**
+     * List all families for specific Brand
+     *
+     * @param \AppBundle\Entity\Product\Brand $brand
+     *
+     * @return \AppBundle\Entity\Product\Brand
+     *
      * @Route(
      *     name="brand_families",
      *     path="/brands/{id}/families",
@@ -61,12 +84,10 @@ class Brand extends Controller
      *     defaults={"_api_resource_class"=AppBundle\Entity\Product\Brand::class, "_api_item_operation_name"="brand_families"}
      * )
      */
-    public function brandFamiliesAction(\AppBundle\Entity\Product\Brand $brand)
+    public function brandFamiliesAction(\AppBundle\Entity\Product\Brand $brand) : \AppBundle\Entity\Product\Brand
     {
 
         // Return Brand Object
         return $brand;
-
     }
-
 }

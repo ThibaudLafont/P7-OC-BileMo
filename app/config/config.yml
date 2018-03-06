@@ -101,7 +101,7 @@ api_platform:
           - '%kernel.project_dir%/app/config/api_platform/resources/company.yaml'
           - '%kernel.project_dir%/app/config/api_platform/resources/client.yaml'
           - '%kernel.project_dir%/app/config/api_platform/resources/partner.yaml'
-          - '%kernel.project_dir%/app/config/api_platform/resources/users.yaml'
+          - '%kernel.project_dir%/app/config/api_platform/resources/user.yaml'
     http_cache:
         invalidation:
             enabled: false

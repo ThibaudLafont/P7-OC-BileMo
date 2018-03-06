@@ -1,19 +1,24 @@
 <?php
-
 namespace AppBundle\Entity\Feature;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Feature
  *
+ * @package AppBundle\Entity\Feature
+ *
  * @ORM\Table(name="f_feature")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\FeatureRepository")
+ * @ORM\Entity()
  */
 class Feature
 {
+
     /**
+     * Primary key of resource
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -23,6 +28,8 @@ class Feature
     private $id;
 
     /**
+     * Name of Feature
+     *
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
@@ -31,8 +38,9 @@ class Feature
     private $name;
 
     /**
-     * @var Array
-     * Sub index for feature specifications
+     * Feature specifications
+     *
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(
      *     targetEntity="Spec",
@@ -42,8 +50,9 @@ class Feature
     private $specs;
 
     /**
-     * @var Array
-     * Allow to set a specific guarantee on a product composant
+     * Link Feature and Product with specific guarantee
+     *
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
@@ -57,7 +66,7 @@ class Feature
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -69,7 +78,7 @@ class Feature
      *
      * @return Feature
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -81,7 +90,7 @@ class Feature
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -89,9 +98,9 @@ class Feature
     /**
      * Get specs
      *
-     * @return mixed
+     * @return ArrayCollection
      */
-    public function getSpecs()
+    public function getSpecs() : ArrayCollection
     {
         return $this->specs;
     }
@@ -99,11 +108,10 @@ class Feature
     /**
      * Get specificGuarantees
      *
-     * @return Array
+     * @return ArrayCollection
      */
-    public function getSpecificGuarantees()
+    public function getSpecificGuarantees() : ArrayCollection
     {
         return $this->specificGuarantees;
     }
-
 }

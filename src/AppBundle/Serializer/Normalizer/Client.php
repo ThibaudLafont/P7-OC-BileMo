@@ -2,6 +2,7 @@
 namespace AppBundle\Serializer\Normalizer;
 
 use AppBundle\Entity\Guarantee\ProductGlobal;
+use AppBundle\Serializer\Normalizer\Traits\Normalizer;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExtraAttributesException;
@@ -16,6 +17,9 @@ use Symfony\Component\Serializer\Normalizer\scalar;
 
 class Client implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
 {
+
+    // Traits
+    use Normalizer;
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -35,34 +39,17 @@ class Client implements NormalizerInterface, DenormalizerInterface, Denormalizer
     {
 
         // Handle a collection request
-        if($this->belongToSerializeGroup(['company_subresource', 'client_list'], $context)){
-
+        if ($this->belongToSerializeGroup(['company_subresource', 'client_list'], $context)) {
             $return = $object->normalizeClientCollection(false);
-//            $return['_links'] = $object->getUserLinks();
-
-        }elseif($this->belongToSerializeGroup(['client_show'], $context)){
-
+        } elseif ($this->belongToSerializeGroup(['client_show'], $context)) {
             $return = $object->normalizeClientItem(false);
-
         }
 
         $return['_links'] = $object->normalizeUserLinks();
 
-        if(!$this->belongToSerializeGroup(['company_subresource'], $context)){
+        if (!$this->belongToSerializeGroup(['company_subresource'], $context)) {
             $return['_embedded']['company'] = $object->getCompany()->normalizeCompanyCollection();
             $return['_embedded']['company']['_links'] = $object->getCompany()->normalizeCompanyLinks();
-        }
-
-        return $return;
-
-    }
-
-    public function belongToSerializeGroup(array $groups, $context)
-    {
-        $return = false;
-
-        foreach($groups as $group){
-            if(in_array($group, $context['groups'])) $return = true;
         }
 
         return $return;
