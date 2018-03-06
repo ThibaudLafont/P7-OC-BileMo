@@ -1,7 +1,7 @@
 <?php
-
 namespace AppBundle\Entity\User;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Constraints as Asset;
 
 /**
  * Company
+ *
+ * @package AppBundle\Entity\User
  *
  * @ORM\Table(name="user_company")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\CompanyRepository")
@@ -20,9 +22,11 @@ use Symfony\Component\Validator\Constraints as Asset;
  */
 class Company
 {
+
     /**
-     * @var int
      * Primary key of resource
+     *
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -40,8 +44,9 @@ class Company
     private $id;
 
     /**
-     * @var string
      * Name of Company
+     *
+     * @var string
      *
      * @ORM\Column(
      *     name="name",
@@ -68,6 +73,8 @@ class Company
     /**
      * Users linked to company
      *
+     * @var mixed
+     *
      * @ORM\OneToMany(
      *     targetEntity="Client",
      *     mappedBy="company",
@@ -87,49 +94,101 @@ class Company
      */
     private $clients;
 
-    public function normalizeCompanyCollection($links = true){
+    /**
+     * Normalize Company for collection request
+     *
+     * @param bool $links -Normalize with _links
+     *
+     * @return array
+     */
+    public function normalizeCompanyCollection($links = true) : array
+    {
+        // Base
         $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
 
+        // If links needed, add them
         if($links) $return['_links'] = $this->normalizeCompanyLinks();
+
         return $return;
     }
 
-    public function normalizeCompanyItem($links=true){
+    /**
+     * Normalize Company for item request
+     *
+     * @param bool $links -Normalize with _links
+     *
+     * @return array
+     */
+    public function normalizeCompanyItem($links=true) : array
+    {
+        // Base
         $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
 
+        // If links needed, add them
         if($links) $return['_links'] = $this->normalizeCompanyLinks();
+
         return $return;
     }
 
-    public function normalizeCompanyLinks(){
+    /**
+     * Normalize _links
+     *
+     * @return array
+     */
+    public function normalizeCompanyLinks() : array
+    {
         return [
             '@self' => $this->getSelfUrl(),
             '@users' => $this->getUserSubLink()
         ];
     }
 
-    private function getSelfUrl(){
+    /**
+     * Get URL to item
+     *
+     * @return string
+     */
+    private function getSelfUrl() : string
+    {
         return "/companies/" . $this->getId();
     }
 
-    private function getUserSubLink(){
+    /**
+     * Get URL to Users subresource
+     *
+     * @return string
+     */
+    private function getUserSubLink() : string
+    {
         return $this->getSelfUrl() . "/users";
     }
 
-    public function normalizeCompanyUsers(){
+    /**
+     * Normalize Clients of Company
+     *
+     * @return array
+     */
+    public function normalizeCompanyUsers() : array
+    {
 
+        // Init empty array
         $return = [];
 
-        foreach($this->getCLients() as $user){
+        // Loop on every Company Client
+        foreach($this->getClients() as $user){
+
+            // Fetch and store Client normalization
             $insert = $user->normalizeClientCollection(true);
 
+            // Add Client in return array
             $return[] = $insert;
+
         }
 
         return $return;
@@ -140,7 +199,7 @@ class Company
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -152,7 +211,7 @@ class Company
      *
      * @return Company
      */
-    public function setName($name)
+    public function setName(string $name) : Company
     {
         $this->name = $name;
 
@@ -164,7 +223,7 @@ class Company
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -174,7 +233,8 @@ class Company
      *
      * @return mixed
      */
-    public function getClients(){
+    public function getClients()
+    {
         return $this->clients;
     }
 

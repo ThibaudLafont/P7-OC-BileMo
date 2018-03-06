@@ -1,23 +1,27 @@
 <?php
 namespace AppBundle\Entity\Product;
 
-use AppBundle\Entity\Traits\Hydrate;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Swagger;
+use AppBundle\Entity\Traits\Hydrate;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Brand
+ *
+ * @package \AppBundle\Entity\Product
  *
  * @ORM\Table(name="p_brand")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\BrandRepository")
  */
 class Brand
 {
+
     /**
-     * @var int
      * Primary key of resource
+     *
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -35,8 +39,9 @@ class Brand
     private $id;
 
     /**
-     * @var string
      * Name of Brand
+     *
+     * @var string
      *
      * @ORM\Column(name="name", type="string", length=55, unique=true)
      *
@@ -52,8 +57,9 @@ class Brand
     private $name;
 
     /**
+     * Short description about Brand
+     *
      * @var string|null
-     * Short description about Brand resource
      *
      * @ORM\Column(name="description", type="text", nullable=true)
      *
@@ -69,8 +75,9 @@ class Brand
     private $description;
 
     /**
+     * Brand website home page
+     *
      * @var string|null
-     * Brand home page
      *
      * @ORM\Column(name="website_url", type="string", length=255, nullable=true)
      *
@@ -86,8 +93,9 @@ class Brand
     private $websiteUrl;
 
     /**
-     * @var array
      * Brand's families
+     *
+     * @var mixed
      *
      * @ORM\OneToMany(
      *     targetEntity="Family",
@@ -108,8 +116,9 @@ class Brand
     private $families;
 
     /**
-     * @var array
      * Models of Brand resource
+     *
+     * @var array
      *
      * @ApiProperty(
      *     attributes={
@@ -125,8 +134,9 @@ class Brand
     private $models;
 
     /**
-     * @var array
      * Products subresource of Brand
+     *
+     * @var array
      *
      * @ApiProperty(
      *     attributes={
@@ -144,23 +154,33 @@ class Brand
     // Traits
     use Hydrate;
 
-    public function __construct(){
-        $this->models = new ArrayCollection();
-        $this->products = new ArrayCollection();
+    /**
+     * Brand constructor
+     */
+    public function __construct()
+    {
+//        $this->products = new ArrayCollection();
     }
 
     // Brand normalization
 
     /**
+     * Normalize Brand for collection
+     *
+     * @param $links boolean - Normalize with links or not
+     *
      * @return array
      */
-    public function normalizeBrandCollection($links = true){
+    public function normalizeBrandCollection($links = true) : array
+    {
 
+        // Base
         $return = [
             'id' => $this->getId(),
             'name' => $this->getName()
         ];
 
+        // If links are wanted, add it to array
         if($links) $return['_links'] = $this->normalizeBrandLinks();
 
         return $return;
@@ -168,10 +188,16 @@ class Brand
     }
 
     /**
+     * Normalize Brand for show
+     *
+     * @param $links boolean - Normalize with links or not
+     *
      * @return array
      */
-    public function normalizeBrandItem($links = true){
+    public function normalizeBrandItem($links = true) : array
+    {
 
+        // Base
         $return = [
             'id' => $this->getId(),
             'name' => $this->getName(),
@@ -179,6 +205,7 @@ class Brand
             'constructor_url' => $this->getWebsiteUrl()
         ];
 
+        // If links are wanted, add it to array
         if($links) $return['_links'] = $this->normalizeBrandLinks();
 
         return $return;
@@ -189,10 +216,12 @@ class Brand
     // Subresource normalization
 
     /**
-     * Brand's products
+     * Brand's products normalization
+     *
      * @return array
      */
-    public function normalizeBrandProducts(){
+    public function normalizeBrandProducts() : array
+    {
 
         // Init empty array
         $return = [];
@@ -210,10 +239,12 @@ class Brand
     }
 
     /**
-     * Brand's models
+     * Brand's models normalization
+     *
      * @return array
      */
-    public function normalizeBrandModels(){
+    public function normalizeBrandModels() : array
+    {
 
         //Init empty return array
         $return = [];
@@ -229,10 +260,12 @@ class Brand
     }
 
     /**
-     * Brand's families
+     * Brand's families normalization
+     *
      * @return array
      */
-    public function normalizeBrandFamilies(){
+    public function normalizeBrandFamilies() : array
+    {
 
         // Init empty array
         $return = [];
@@ -249,10 +282,12 @@ class Brand
     }
 
     /**
-     * Brand's _links
+     * Brand's _links normalization
+     *
      * @return array
      */
-    public function normalizeBrandLinks(){
+    public function normalizeBrandLinks() : array
+    {
         return [
             '@self' => $this->getSelfUrl(),
             '@families' => $this->getFamiliesSubLink(),
@@ -265,30 +300,42 @@ class Brand
     // Links of Brand
 
     /**
+     * URL to Brand show page
+     *
      * @return string
      */
-    private function getSelfUrl(){
+    private function getSelfUrl() : string
+    {
         return "/brands/" . $this->getId();
     }
 
     /**
+     * URL to Brand's families subcollection
+     *
      * @return string
      */
-    private function getFamiliesSubLink(){
+    private function getFamiliesSubLink() : string
+    {
         return '/brands/' . $this->getId() . '/families';
     }
 
     /**
+     * URL to Brand's models subcollection
+     *
      * @return string
      */
-    private function getModelsSubLink(){
+    private function getModelsSubLink() : string
+    {
         return '/brands/' . $this->getId() . '/models';
     }
 
     /**
+     * URL to Brand's products subcollection
+     *
      * @return string
      */
-    private function getProductsSubLink(){
+    private function getProductsSubLink() : string
+    {
         return '/brands/' . $this->getId() . '/products';
     }
 
@@ -297,7 +344,7 @@ class Brand
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -309,7 +356,7 @@ class Brand
      *
      * @return Brand
      */
-    public function setName($name)
+    public function setName($name) : Brand
     {
         $this->name = $name;
 
@@ -321,7 +368,7 @@ class Brand
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -333,7 +380,7 @@ class Brand
      *
      * @return Brand
      */
-    public function setDescription($description = null)
+    public function setDescription($description = null) : Brand
     {
         $this->description = $description;
 
@@ -357,7 +404,7 @@ class Brand
      *
      * @return Brand
      */
-    public function setWebsiteUrl($websiteUrl = null)
+    public function setWebsiteUrl($websiteUrl = null) : Brand
     {
         $this->websiteUrl = $websiteUrl;
 
@@ -377,7 +424,7 @@ class Brand
     /**
      * Get families
      *
-     * @return array
+     * @return mixed
      */
     public function getFamilies()
     {
@@ -385,31 +432,51 @@ class Brand
     }
 
     /**
-     * @return mixed
+     * Get products
+     *
+     * @return array
      */
-    public function getProducts()
+    public function getProducts() : array
     {
         return $this->products;
     }
 
-    public function setProducts($products){
+    /**
+     * Set Brand's products
+     *
+     * @param $products
+     *
+     * @return Brand
+     */
+    public function setProducts($products) : Brand
+    {
         $this->products = $products;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get models
+     *
+     * @return array
      */
-    public function getModels()
+    public function getModels() : array
     {
         return $this->models;
     }
 
     /**
+     * Set Brand's products
+     *
      * @param mixed $models
+     *
+     * @return Brand
      */
-    public function setModels($models)
+    public function setModels($models) : Brand
     {
         $this->models = $models;
+
+        return $this;
     }
 
 }

@@ -1,19 +1,23 @@
 <?php
-
 namespace AppBundle\Entity\Product;
 
-use AppBundle\Entity\Enumerations\NoticeType;
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Enumerations\NoticeType;
 
 /**
  * Notice
+ *
+ * @package AppBundle\Entity\Product
  *
  * @ORM\Table(name="p_notice")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\NoticeRepository")
  */
 class Notice
 {
+
     /**
+     * Primary key of resource
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -23,23 +27,27 @@ class Notice
     private $id;
 
     /**
-     * @var int
      * Type of notice,
      * Handle by Enumeration\NoticeType
+     *
+     * @var string
      *
      * @ORM\Column(name="type", type="string", length=15)
      */
     private $type;
 
     /**
-     * @var string
      * Message to display
+     *
+     * @var string
      *
      * @ORM\Column(name="message", type="text")
      */
     private $message;
 
     /**
+     * Concerned Product
+     *
      * @var Product
      *
      * @ORM\ManyToOne(
@@ -53,20 +61,22 @@ class Notice
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
 
     /**
-     * Set type.
+     * Set type
      *
-     * @param int $type
+     * @param string $type
      *
+     * @throws \InvalidArgumentException
      * @return Notice
      */
-    public function setType($type)
+    public function setType(string $type) : Notice
     {
+        // if unknow type, throw execption
         if (!in_array($type, NoticeType::getAvailableTypes())) {
             throw new \InvalidArgumentException("Invalid NoticeType");
         }
@@ -79,9 +89,9 @@ class Notice
     /**
      * Get type.
      *
-     * @return int
+     * @return string
      */
-    public function getType()
+    public function getType() : string
     {
         return NoticeType::getValue($this->type);
     }
@@ -93,7 +103,7 @@ class Notice
      *
      * @return Notice
      */
-    public function setMessage($message)
+    public function setMessage(string $message) : Notice
     {
         $this->message = $message;
 
@@ -105,7 +115,7 @@ class Notice
      *
      * @return string
      */
-    public function getMessage()
+    public function getMessage() : string
     {
         return $this->message;
     }
@@ -115,7 +125,7 @@ class Notice
      *
      * @return Product
      */
-    public function getProduct()
+    public function getProduct() : Product
     {
         return $this->product;
     }
@@ -124,10 +134,14 @@ class Notice
      * Set product
      *
      * @param Product $product
+     *
+     * @return Notice
      */
-    public function setProduct(Product $product)
+    public function setProduct(Product $product) : Notice
     {
         $this->product = $product;
+
+        return $this;
     }
 
 }

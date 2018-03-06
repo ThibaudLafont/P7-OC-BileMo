@@ -1,30 +1,34 @@
 <?php
-
 namespace AppBundle\Entity\Product;
 
+use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Enumerations\ProductCondition;
 use AppBundle\Entity\Enumerations\ProductFormatStatus;
 use AppBundle\Entity\Enumerations\ProductSoftStatus;
 use AppBundle\Entity\Enumerations\ProductState;
 use AppBundle\Entity\Guarantee\ProductGlobal;
 use AppBundle\Entity\Traits\Hydrate;
-use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
-use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * Product Resource
+ *
+ * @package AppBundle\Entity\Product
  *
  * @ORM\Table(name="p_product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\ProductRepository")
  */
 class Product
 {
+
     /**
-     * @var int
      * Primary key of resource
+     *
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -43,11 +47,10 @@ class Product
 
     /**
      * Main title of product
+     *
      * @var string
      *
-     * Doctrine
      * @ORM\Column(name="title", type="string", length=55)
-     *
      *
      * @ApiProperty(
      *     attributes={
@@ -62,9 +65,9 @@ class Product
 
     /**
      * Main description of product
+     *
      * @var string
      *
-     * Doctrine
      * @ORM\Column(name="description", type="text")
      *
      * @ApiProperty(
@@ -80,9 +83,9 @@ class Product
 
     /**
      * Is the product still available
+     *
      * @var bool
      *
-     * Doctrine
      * @ORM\Column(name="available", type="boolean")
      *
      * @ApiProperty(
@@ -98,9 +101,9 @@ class Product
 
     /**
      * Price of product
+     *
      * @var float
      *
-     * Doctrine
      * @ORM\Column(name="price", type="float")
      *
      * @ApiProperty(
@@ -115,10 +118,11 @@ class Product
     private $price;
 
     /**
-     * Physical condition, linked to Enumerations\ProductCondition
-     * @var string
+     * Physical condition
      *
-     * Doctrine
+     * @var string
+     * @see AppBundle\Entity\Enumerations\ProductCondition
+     *
      * @ORM\Column(name="phy_condition", type="string", length=15)
      *
      * @ApiProperty(
@@ -135,9 +139,10 @@ class Product
 
     /**
      * Sell state of product
-     * @var string
      *
-     * Doctrine
+     * @var string
+     * @see AppBundle\Entity\Enumerations\ProductState
+     *
      * @ORM\Column(name="state", type="string", length=15)
      *
      * @ApiProperty(
@@ -155,9 +160,9 @@ class Product
 
     /**
      * Text about phone historic
+     *
      * @var string|null
      *
-     * Doctrine
      * @ORM\Column(name="history", type="text", nullable=true)
      *
      * @ApiProperty(
@@ -174,10 +179,10 @@ class Product
 
     /**
      * IMEI of Product
-     * @var int
      *
-     * Doctrine
-     * @ORM\Column(name="imei", type="bigint")
+     * @var string
+     *
+     * @ORM\Column(name="imei", type="string")
      *
      * @ApiProperty(
      *     attributes={
@@ -192,9 +197,9 @@ class Product
 
     /**
      * Memory Size in GigaBytes
+     *
      * @var int
      *
-     * Doctrine
      * @ORM\Column(name="memorySizeInGb", type="integer")
      *
      * @ApiProperty(
@@ -210,9 +215,9 @@ class Product
 
     /**
      * Color of product
+     *
      * @var string
      *
-     * Doctrine
      * @ORM\Column(name="color", type="string", length=55)
      *
      * @ApiProperty(
@@ -228,9 +233,9 @@ class Product
 
     /**
      * Is locked by operator
+     *
      * @var bool
      *
-     * Doctrine
      * @ORM\Column(name="operator_lock", type="boolean")
      *
      * @ApiProperty(
@@ -246,9 +251,9 @@ class Product
 
     /**
      * System version
+     *
      * @var string
      *
-     * Doctrine
      * @ORM\Column(name="system_version", type="string", length=55)
      *
      * @ApiProperty(
@@ -265,9 +270,9 @@ class Product
 
     /**
      * Has been formatted
+     *
      * @var bool
      *
-     * Doctrine
      * @ORM\Column(name="formatted", type="string")
      *
      * @ApiProperty(
@@ -284,9 +289,10 @@ class Product
 
     /**
      * Does product boot properly
-     * @var bool
      *
-     * Doctrine
+     * @var string
+     * @see AppBundle\Entity\Enumerations\ProductState
+     *
      * @ORM\Column(name="boot_properly", type="string")
      *
      * @ApiProperty(
@@ -303,9 +309,9 @@ class Product
 
     /**
      * Product model
+     *
      * @var Model
      *
-     * Doctrine
      * @ORM\ManyToOne(
      *     targetEntity="Model",
      *     inversedBy="products"
@@ -314,10 +320,10 @@ class Product
     private $model;
 
     /**
-     * Notices about product
-     * @var Notice
+     * Notices linked to Product
      *
-     * Doctrine
+     * @var mixed
+     *
      * @ORM\OneToMany(
      *     targetEntity="Notice",
      *     mappedBy="product",
@@ -352,9 +358,9 @@ class Product
 
     /**
      * Guarantee linked to specific product feature
-     * @var array
      *
-     * Doctrine
+     * @var mixed
+     *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
      *     mappedBy="product"
@@ -399,9 +405,9 @@ class Product
 
     /**
      * Global product Guarantee
-     * @var ProductGlobal
      *
-     * Doctrine
+     * @var ProductGlobal|null
+     *
      * @ORM\OneToOne(
      *  targetEntity="\AppBundle\Entity\Guarantee\ProductGlobal"
      * )
@@ -441,9 +447,12 @@ class Product
     // Links
 
     /**
+     * Get URL to item
+     *
      * @return string
      */
-    private function getSelfLink(){
+    private function getSelfLink() : string
+    {
         return "/products/" . $this->getId();
     }
 
@@ -451,9 +460,17 @@ class Product
     // Product normalization
 
     /**
+     * Product normalization for collection request
+     *
+     * @param bool $links -Normalize with _links
+     * @param bool $brand -Normalize with _embedded[brand]
+     * @param bool $family -Normalize with _embedded[brand]
+     * @param bool $model -Normalize with _embedded[brand]
+     *
      * @return array
      */
-    public function normalizeProductCollection($links = true, $brand=true, $family=true, $model = true){
+    public function normalizeProductCollection($links = true, $brand=true, $family=true, $model = true) : array
+    {
 
         $return = [
             'id' => $this->getId(),
@@ -475,9 +492,17 @@ class Product
     }
 
     /**
+     * Product normalization for item request
+     *
+     * @param bool $links -Normalize with _links
+     * @param bool $brand -Normalize with _embedded[brand]
+     * @param bool $family -Normalize with _embedded[brand]
+     * @param bool $model -Normalize with _embedded[brand]
+     *
      * @return array
      */
-    public function normalizeProductItem($links = true, $brand=true, $family=true, $model = true){
+    public function normalizeProductItem($links = true, $brand=true, $family=true, $model = true) : array
+    {
 
         // Fill return array with Product properties
         $return = [
@@ -516,13 +541,15 @@ class Product
             $return['_links'] = $this->normalizeProductLinks();
 
         if($brand || $family || $model)
-            $return['embedded'] = $this->normalizeProductEmbedded($brand, $family, $model);
+            $return['_embedded'] = $this->normalizeProductEmbedded($brand, $family, $model);
 
         return $return;
 
     }
 
     /**
+     * Normalize _links
+     *
      * @return array
      */
     public function normalizeProductLinks(){
@@ -533,6 +560,15 @@ class Product
 
     }
 
+    /**
+     * Normalize _embedded
+     *
+     * @param bool $brand -Normalize with _embedded[brand]
+     * @param bool $family -Normalize with _embedded[brand]
+     * @param bool $model -Normalize with _embedded[brand]
+     *
+     * @return array
+     */
     public function normalizeProductEmbedded($brand, $family, $model){
 
         $return = [];
@@ -549,57 +585,28 @@ class Product
     }
 
 
-    // Product SubResources
-
-    // Model
     /**
-     * @return array
+     * Product SubResources normalization
      */
-//    public function normalizeProductModel(){
-//
-//        // Get and store Model Collection
-//        $model = $this->getModel()->normalizeModelCollection(true, false, false, false);
-//
-//        return $model;
-//
-//    }
-
-//    public function normalizeProductFamily(){
-//
-//        // Normalize Family
-//        $return = $this->getModel()->getFamily()->normalizeFamilyCollection(true, false);
-//
-//        return $return;
-//
-//    }
-
-//    public function normalizeProductBrand(){
-//
-//        // Store product brand
-//        $brand = $this->getModel()->getFamily()->normalizeBrand();
-//
-//        // Normalize Brand
-//        $return = $brand->normalizeBrandCollection(true);
-//
-//        return $return;
-//
-//    }
 
     // Notices
+
     /**
      * Return true if product has notices
+     *
      * @return bool
      */
-    public function shouldDisplayNotices()
+    public function shouldDisplayNotices() : bool
     {
         return $this->getNotices()->count() !== 0;
     }
 
     /**
      * Normalize Notices
+     *
      * @return array
      */
-    public function normalizeProductNotices()
+    private function normalizeProductNotices() : array
     {
         // Fetch and loop on every notices
         foreach($this->getNotices() as $v)
@@ -615,19 +622,23 @@ class Product
     }
 
     // Global Guarantees
+
     /**
      * return true if product have global guarantee
+     *
      * @return bool
      */
-    public function shouldDisplayGlobalGuarantee(){
+    public function shouldDisplayGlobalGuarantee() : bool
+    {
         return $this->getGlobalGuarantee() !== null;
     }
 
     /**
      * Normalize GlobalGuarantee
+     *
      * @return array
      */
-    public function normalizeProductGlobalGuarantee()
+    public function normalizeProductGlobalGuarantee() : array
     {
         // Fetch GlobalGuarantee
         $guar = $this->getGlobalGuarantee();
@@ -640,19 +651,24 @@ class Product
     }
 
     // Specifics guarantees
+
     /**
      * Return true if product has specific(s) guarantee(s)
+     *
      * @return bool
      */
-    public function shouldDisplaySpecificGuarantees(){
+    public function shouldDisplaySpecificGuarantees() : bool
+    {
         return $this->getSpecificGuarantees()->count() !== 0;
     }
 
     /**
      * Normalize specifics guarantees
+     *
      * @return array
      */
-    public function normalizeProductSpecificGuarantees(){
+    public function normalizeProductSpecificGuarantees() : array
+    {
 
         // Get product guarantee(s)
         $guars = $this->getSpecificGuarantees();
@@ -679,7 +695,7 @@ class Product
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -691,7 +707,7 @@ class Product
      *
      * @return Product
      */
-    public function setTitle($title)
+    public function setTitle(string $title) : Product
     {
         $this->title = $title;
 
@@ -703,7 +719,7 @@ class Product
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
@@ -715,7 +731,7 @@ class Product
      *
      * @return Product
      */
-    public function setDescription($description)
+    public function setDescription(string $description) : Product
     {
         $this->description = $description;
 
@@ -727,7 +743,7 @@ class Product
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription() : string
     {
         return $this->description;
     }
@@ -739,7 +755,7 @@ class Product
      *
      * @return Product
      */
-    public function setAvailable($available)
+    public function setAvailable(bool $available) : Product
     {
         $this->available = $available;
 
@@ -751,7 +767,7 @@ class Product
      *
      * @return bool
      */
-    public function getAvailable()
+    public function getAvailable() : bool
     {
         return $this->available;
     }
@@ -763,7 +779,7 @@ class Product
      *
      * @return Product
      */
-    public function setPrice($price)
+    public function setPrice(float $price) : Product
     {
         $this->price = $price;
 
@@ -775,7 +791,7 @@ class Product
      *
      * @return float
      */
-    public function getPrice()
+    public function getPrice() : float
     {
         return $this->price;
     }
@@ -784,9 +800,10 @@ class Product
      * Set condition.
      *
      * @param String $condition
+     *
      * @return Product
      */
-    public function setCondition(String $condition)
+    public function setCondition(String $condition) : Product
     {
         if (!in_array($condition, ProductCondition::getAvailableTypes())) {
             throw new \InvalidArgumentException("Invalid ProductCondition");
@@ -800,9 +817,9 @@ class Product
     /**
      * Get condition.
      *
-     * @return int
+     * @return string
      */
-    public function getCondition()
+    public function getCondition() : string
     {
         return ProductCondition::getValue($this->condition);
     }
@@ -814,7 +831,7 @@ class Product
      *
      * @return Product
      */
-    public function setState(String $state)
+    public function setState(String $state) : Product
     {
         if (!in_array($state, ProductState::getAvailableTypes())) {
             throw new \InvalidArgumentException("Invalid ProductState");
@@ -830,7 +847,7 @@ class Product
      *
      * @return String
      */
-    public function getState()
+    public function getState() : string
     {
         return ProductState::getValue($this->state);
     }
@@ -842,7 +859,7 @@ class Product
      *
      * @return Product
      */
-    public function setHistory($history = null)
+    public function setHistory($history = null) : Product
     {
         $this->history = $history;
 
@@ -862,11 +879,11 @@ class Product
     /**
      * Set imei.
      *
-     * @param int $imei
+     * @param string $imei
      *
      * @return Product
      */
-    public function setImei($imei)
+    public function setImei(string $imei) : Product
     {
         $this->imei = $imei;
 
@@ -876,9 +893,9 @@ class Product
     /**
      * Get imei.
      *
-     * @return int
+     * @return string
      */
-    public function getImei()
+    public function getImei() : string
     {
         return $this->imei;
     }
@@ -890,7 +907,7 @@ class Product
      *
      * @return Product
      */
-    public function setMemorySizeInGb($memorySizeInGb)
+    public function setMemorySizeInGb(int $memorySizeInGb) : Product
     {
         $this->memorySizeInGb = $memorySizeInGb;
 
@@ -902,7 +919,7 @@ class Product
      *
      * @return int
      */
-    public function getMemorySizeInGb()
+    public function getMemorySizeInGb() : int
     {
         return $this->memorySizeInGb;
     }
@@ -914,7 +931,7 @@ class Product
      *
      * @return Product
      */
-    public function setColor($color)
+    public function setColor(string $color) : Product
     {
         $this->color = $color;
 
@@ -926,18 +943,33 @@ class Product
      *
      * @return string
      */
-    public function getColor()
+    public function getColor() : string
     {
         return $this->color;
     }
 
-    public function getOperatorLock()
+    /**
+     * Is the product operator-locked
+     *
+     * @return bool
+     */
+    public function getOperatorLock() : bool
     {
         return $this->operatorLock;
     }
-    public function setOperatorLock(bool $locked)
+
+    /**
+     * Set operatorLock
+     *
+     * @param bool $locked
+     *
+     * @return Product
+     */
+    public function setOperatorLock(bool $locked) : Product
     {
         $this->operatorLock = $locked;
+
+        return $this;
     }
 
     /**
@@ -947,7 +979,7 @@ class Product
      *
      * @return Product
      */
-    public function setSystemVersion($systemVersion)
+    public function setSystemVersion(string $systemVersion) : Product
     {
         $this->systemVersion = $systemVersion;
 
@@ -959,7 +991,7 @@ class Product
      *
      * @return string
      */
-    public function getSystemVersion()
+    public function getSystemVersion() : string
     {
         return $this->systemVersion;
     }
@@ -968,10 +1000,12 @@ class Product
      * Set formatted.
      *
      * @param string $formatted
+     * @see ProductFormatStatus
      *
+     * @throw \InvalidArgumentException
      * @return Product
      */
-    public function setFormatted($formatted)
+    public function setFormatted(string $formatted) : Product
     {
         if (!in_array($formatted, ProductFormatStatus::getAvailableTypes())) {
             throw new \InvalidArgumentException("Invalid ProductFormatStatus");
@@ -983,11 +1017,11 @@ class Product
     }
 
     /**
-     * Get formatted.
+     * Get format status.
      *
-     * @return bool
+     * @return string
      */
-    public function getFormatted()
+    public function getFormatted() : string
     {
         return ProductFormatStatus::getValue($this->formatted);
     }
@@ -996,10 +1030,12 @@ class Product
      * Set bootProperly.
      *
      * @param string $bootStatus
+     * @see ProductSoftStatus
      *
+     * @throw \InvalidArgumentException
      * @return Product
      */
-    public function setBootProperly($bootStatus)
+    public function setBootProperly(string $bootStatus) : Product
     {
         if (!in_array($bootStatus, ProductSoftStatus::getAvailableTypes())) {
             throw new \InvalidArgumentException("Invalid ProductSoftStatus");
@@ -1013,9 +1049,9 @@ class Product
     /**
      * Get bootProperly.
      *
-     * @return bool
+     * @return string
      */
-    public function getBootProperly()
+    public function getBootProperly() : string
     {
         return ProductSoftStatus::getValue($this->bootProperly);
     }
@@ -1025,7 +1061,7 @@ class Product
      *
      * @return model
      */
-    public function getModel()
+    public function getModel() : Model
     {
         return $this->model;
     }
@@ -1034,16 +1070,20 @@ class Product
      * Set model
      *
      * @param Model $model
+     *
+     * @return Product
      */
-    public function setModel(Model $model)
+    public function setModel(Model $model) : Product
     {
         $this->model = $model;
+
+        return $this;
     }
 
     /**
      * Get notices
      *
-     * @return Notice
+     * @return mixed
      */
     public function getNotices()
     {
@@ -1053,7 +1093,7 @@ class Product
     /**
      * Get specificGuarantees
      *
-     * @return \AppBundle\Entity\Feature\ProductTest
+     * @return mixed
      */
     public function getSpecificGuarantees()
     {
@@ -1063,17 +1103,21 @@ class Product
     /**
      * Set globalGuarantee
      *
-     * @param $guarantee
+     * @param $guarantee ProductGlobal
+     *
+     * @return Product
      */
-    public function setGlobalGuarantee($guarantee)
+    public function setGlobalGuarantee(ProductGlobal $guarantee) : Product
     {
         $this->globalGuarantee = $guarantee;
+
+        return $this;
     }
 
     /**
      * Get globalGuarantee
      *
-     * @return ProductGlobal
+     * @return ProductGlobal|null
      */
     public function getGlobalGuarantee()
     {

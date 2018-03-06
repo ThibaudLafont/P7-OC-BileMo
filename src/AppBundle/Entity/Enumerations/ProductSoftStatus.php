@@ -1,7 +1,9 @@
 <?php
 namespace AppBundle\Entity\Enumerations;
+
 /**
  * Class ProductSoftStatus
+ *
  * Define different software status for Product
  *
  * @package AppBundle\Entity\Enumerations
@@ -32,13 +34,13 @@ class ProductSoftStatus
     /**
      * Permit to get a value related to a key
      *
-     * @param $type
-     * @return mixed|string
+     * @param $key string
+     * @return string
      */
-    public static function getValue($type)
+    public static function getValue(string $key) : string
     {
-        if(!isset(static::$values[$type])) return "Unknow soft status";
-        else return static::$values[$type];
+        if(!isset(static::$values[$key])) return "Unknow soft status";
+        else return static::$values[$key];
     }
 
     /**
@@ -46,7 +48,8 @@ class ProductSoftStatus
      *
      * @return array
      */
-    public static function getAvailableTypes(){
+    public static function getAvailableTypes() : array
+    {
         return [
             self::BOOT_PROPERLY,
             self::SOFT_DEFECT,

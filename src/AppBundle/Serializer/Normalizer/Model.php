@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Serializer\Normalizer;
 
+use AppBundle\Serializer\Normalizer\Traits\Normalizer;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExtraAttributesException;
@@ -13,18 +14,15 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
+/**
+ * Class ModelNormalizer
+ *
+ * @package AppBundle\Serializer\Normalizer
+ */
 class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
 
-    private $decorated;
-
-    public function __construct(NormalizerInterface $decorated)
-    {
-        if (!$decorated instanceof DenormalizerInterface) {
-            throw new \InvalidArgumentException(sprintf('The decorated normalizer must implement the %s.', DenormalizerInterface::class));
-        }
-
-        $this->decorated = $decorated;
-    }
+    // Traits
+    use Normalizer;
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -61,6 +59,7 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
 
         }
 
+        // Case of model_products subresource
         if($this->belongToSerializeGroup(['model_products'], $context)){
 
             $return['products'] = $object->normalizeModelProducts();
@@ -73,17 +72,7 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
 
         // Return build array
         return $return;
-    }
 
-    public function belongToSerializeGroup(array $groups, $context)
-    {
-        $return = false;
-
-        foreach($groups as $group){
-            if(in_array($group, $context['groups'])) $return = true;
-        }
-
-        return $return;
     }
 
     /**
@@ -144,4 +133,5 @@ class Model implements NormalizerInterface, DenormalizerInterface, DenormalizerA
     {
         return;
     }
+
 }

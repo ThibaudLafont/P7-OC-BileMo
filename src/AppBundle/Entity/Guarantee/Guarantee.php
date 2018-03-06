@@ -7,6 +7,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class Guarantee
+ *
+ * Used for ProductGlobal and ProductSpecific
+ *
  * @package AppBundle\Entity\Guarantee
  *
  * @ORM\MappedSuperclass()
@@ -15,10 +18,10 @@ abstract class Guarantee
 {
 
     /**
-     * Primary Index
+     * Primary Index of resource
+     *
      * @var int
      *
-     * Doctrine
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -27,37 +30,28 @@ abstract class Guarantee
 
     /**
      * Does product feature is guaranteed
+     *
      * @var bool
      *
-     * Doctrine
      * @ORM\Column(name="guaranteed", type="boolean")
-     *
-     * Serialization
-     * @Groups({"product_show"})
      */
     private $guaranteed;
 
     /**
      * Guarantee length in month
+     *
      * @var float
      *
-     * Doctrine
      * @ORM\Column(name="month_length", type="float")
-     *
-     * Serialization
-     * @Groups({"product_show"})
      */
     private $lengthInMonth;
 
     /**
-     * Inform message
+     * Information about guarantee
+     *
      * @var String|null
      *
-     * Doctrine
      * @ORM\Column(name="message", type="text", nullable=true)
-     *
-     * Serialization
-     * @Groups({"product_show"})
      */
     private $message;
 
@@ -69,7 +63,7 @@ abstract class Guarantee
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -88,9 +82,14 @@ abstract class Guarantee
      * Set guaranteed
      *
      * @param bool $guaranteed
+     *
+     * @return Guarantee
      */
-    public function setGuaranteed(bool $guaranteed){
+    public function setGuaranteed(bool $guaranteed) : Guarantee
+    {
         $this->guaranteed = $guaranteed;
+
+        return $this;
     }
 
     /**
@@ -98,7 +97,7 @@ abstract class Guarantee
      *
      * @return float
      */
-    public function getLengthInMonth()
+    public function getLengthInMonth() : float
     {
         return $this->lengthInMonth;
     }
@@ -107,16 +106,20 @@ abstract class Guarantee
      * Set lengthInMonth
      *
      * @param $length
+     *
+     * @return Guarantee
      */
-    public function setLengthInMonth($length)
+    public function setLengthInMonth($length) : Guarantee
     {
         $this->lengthInMonth = $length;
+
+        return $this;
     }
 
     /**
      * Get message
      *
-     * @return string
+     * @return string|null
      */
     public function getMessage()
     {
@@ -127,9 +130,13 @@ abstract class Guarantee
      * Set message
      *
      * @param string $message
+     *
+     * @return Guarantee
      */
-    public function setMessage(string $message)
+    public function setMessage(string $message) : Guarantee
     {
         $this->message = $message;
+
+        return $this;
     }
 }

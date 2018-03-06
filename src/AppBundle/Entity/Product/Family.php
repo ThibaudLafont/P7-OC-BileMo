@@ -1,23 +1,26 @@
 <?php
-
 namespace AppBundle\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Family
+ *
+ * @package AppBundle\Entity\Product
  *
  * @ORM\Table(name="p_family")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Product\FamilyRepository")
  */
 class Family
 {
+
     /**
-     * @var int
      * Primary key of resource
+     *
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -35,8 +38,9 @@ class Family
     private $id;
 
     /**
-     * @var string
      * Name of Family
+     *
+     * @var string
      *
      * @ORM\Column(name="name", type="string", length=55)
      *
@@ -52,6 +56,8 @@ class Family
     private $name;
 
     /**
+     * Short description about Family
+     *
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -68,8 +74,9 @@ class Family
     private $description;
 
     /**
+     * Family Brand
+     *
      * @var Brand
-     * Family's brand
      *
      * @ORM\ManyToOne(
      *     targetEntity="Brand",
@@ -79,8 +86,9 @@ class Family
     private $brand;
 
     /**
+     * Family models
+     *
      * @var array
-     * Family's models
      *
      * @ORM\OneToMany(
      *     targetEntity="Model",
@@ -101,8 +109,9 @@ class Family
     private $models;
 
     /**
-     * @var array
      * Family's products
+     *
+     * @var array
      *
      * @ApiProperty(
      *     attributes={
@@ -121,10 +130,15 @@ class Family
     // Family normalization
 
     /**
-     * Collection normalization
+     * Family normalization for collection
+     *
+     * @param $links boolean -Normalize with _links or not
+     * @param $embedded boolean -Normalize with _embedded or not
+     *
      * @return array
      */
-    public function normalizeFamilyCollection($links = true, $embedded = true){
+    public function normalizeFamilyCollection($links = true, $embedded = true) : array
+    {
 
         // Family's Collection attributes
         $return = [
@@ -143,10 +157,15 @@ class Family
     }
 
     /**
-     * Item normalization
+     * Family normalization for item show
+     *
+     * @param $links boolean -Normalize with _links or not
+     * @param $embedded boolean -Normalize with _embedded or not
+     *
      * @return array
      */
-    public function normalizeFamilyItem($links = true, $embedded = true){
+    public function normalizeFamilyItem($links = true, $embedded = true) : array
+    {
 
         // Family's Item attributes
         $return = [
@@ -168,10 +187,12 @@ class Family
     // Family Subresources
 
     /**
-     * Family's models
+     * Family models normalization
+     *
      * @return array
      */
-    public function normalizeFamilyModels(){
+    public function normalizeFamilyModels() : array
+    {
 
         // Init empty array
         $return = [];
@@ -189,10 +210,12 @@ class Family
     }
 
     /**
-     * Family's products
+     * Family products normalization
+     *
      * @return array
      */
-    public function normalizeFamilyProducts(){
+    public function normalizeFamilyProducts() : array
+    {
 
         // Init empty array
         $return = [];
@@ -210,9 +233,10 @@ class Family
 
     /**
      * Family _links
+     *
      * @return array
      */
-    public function normalizeFamilyLinks()
+    public function normalizeFamilyLinks() : array
     {
 
         return [
@@ -225,9 +249,10 @@ class Family
 
     /**
      * Family _embedded
-     * @return mixed
+     *
+     * @return array
      */
-    public function normalizeFamilyEmbedded()
+    public function normalizeFamilyEmbedded() : array
     {
 
         $return['brand'] = $this->getBrand()->normalizeBrandCollection(true);
@@ -240,23 +265,32 @@ class Family
     // Links of Family
 
     /**
+     * URL to show item
+     *
      * @return string
      */
-    private function getSelfUrl(){
+    private function getSelfUrl() : string
+    {
         return "/families/" . $this->getId();
     }
 
     /**
+     * URL to Family models subresource
+     *
      * @return string
      */
-    private function getModelsSubLink(){
+    private function getModelsSubLink() : string
+    {
         return "/families/" . $this->getId() . "/models";
     }
 
     /**
+     * URL to Family products subresource
+     *
      * @return string
      */
-    private function getProductsSubLink(){
+    private function getProductsSubLink() : string
+    {
         return "/families/" . $this->getId() . "/products";
     }
 
@@ -266,7 +300,7 @@ class Family
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -278,7 +312,7 @@ class Family
      *
      * @return Family
      */
-    public function setName($name)
+    public function setName(string $name) : Family
     {
         $this->name = $name;
 
@@ -290,7 +324,7 @@ class Family
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -302,7 +336,7 @@ class Family
      *
      * @return Family
      */
-    public function setDescription($description)
+    public function setDescription(string $description) : Family
     {
         $this->description = $description;
 
@@ -314,7 +348,7 @@ class Family
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription() : string
     {
         return $this->description;
     }
@@ -324,7 +358,7 @@ class Family
      *
      * @return Brand
      */
-    public function getBrand()
+    public function getBrand() : Brand
     {
         return $this->brand;
     }
@@ -333,16 +367,20 @@ class Family
      * Set brand
      *
      * @param Brand $brand
+     *
+     * @return Family
      */
-    public function setBrand(Brand $brand)
+    public function setBrand(Brand $brand) : Family
     {
         $this->brand = $brand;
+
+        return $this;
     }
 
     /**
      * Get models
      *
-     * @return Model
+     * @return array
      */
     public function getModels()
     {
@@ -350,19 +388,27 @@ class Family
     }
 
     /**
-     * @return mixed
+     * Get Family products
+     *
+     * @return array
      */
-    public function getProducts()
+    public function getProducts() : array
     {
         return $this->products;
     }
 
     /**
+     * Set products
+     *
      * @param mixed $products
+     *
+     * @return Family
      */
-    public function setProducts($products)
+    public function setProducts($products) : Family
     {
         $this->products = $products;
+
+        return $this;
     }
 
 }

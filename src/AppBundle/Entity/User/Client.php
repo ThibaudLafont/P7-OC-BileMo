@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity\User;
 
 use AppBundle\Entity\Traits\Hydrate;
@@ -9,7 +8,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
- * Client
+ * Client Resource
+ *
  * Represent an user of a bilemo's client company
  *
  * @ORM\Table(name="user_client")
@@ -24,8 +24,9 @@ class Client extends User
 {
 
     /**
-     * @var string
      * First name of client
+     *
+     * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=70)
      *
@@ -57,8 +58,9 @@ class Client extends User
     private $firstName;
 
     /**
-     * @var string
      * Last name of client
+     *
+     * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=155)
      *
@@ -86,8 +88,9 @@ class Client extends User
     private $lastName;
 
     /**
-     * @var string
      * Mail address of Client
+     *
+     * @var string
      *
      * @ORM\Column(name="mail_address", type="string", length=255, unique=true)
      *
@@ -114,8 +117,9 @@ class Client extends User
     private $mailAddress;
 
     /**
-     * @var int
      * Phone number of client
+     *
+     * @var string
      *
      * @ORM\Column(name="phone_number", type="string", length=10)
      *
@@ -143,6 +147,7 @@ class Client extends User
 
     /**
      * Company of this user
+     *
      * @var Company
      *
      * @ORM\ManyToOne(
@@ -153,8 +158,9 @@ class Client extends User
     private $company;
 
     /**
-     * @var integer
      * Used by client_create for retrieve Client Company
+     *
+     * @var integer
      *
      * @Assert\NotBlank(
      *     message="Veuillez renseigner l'id de la companie à laquelle appartient le client",
@@ -183,8 +189,9 @@ class Client extends User
     // ApiProperties methods
 
     /**
-     * @return int
      * Primary key of resource
+     *
+     * @return int
      *
      * @ApiProperty(
      *     attributes={
@@ -195,14 +202,15 @@ class Client extends User
      *     }
      * )
      */
-    public function getId()
+    public function getId() : int
     {
         return parent::getId();
     }
 
     /**
-     * @return string
      * Username of client
+     *
+     * @return string
      *
      * @ApiProperty(
      *     attributes={
@@ -213,24 +221,43 @@ class Client extends User
      *     }
      * )
      */
-    public function getUsername()
+    public function getUsername() : string
     {
         return parent::getUsername();
     }
 
-    public function normalizeClientCollection($links = true){
+    /**
+     * Normalize Client for collection request
+     *
+     * @param bool $links -Normalize with _links
+     *
+     * @return array
+     */
+    public function normalizeClientCollection($links = true) : array
+    {
+        // Base
         $return = [
             'id' => $this->getId(),
             'username' => $this->getUsername(),
             'full_name' => $this->getFullName()
         ];
 
-        if($links) $return['links'] = $this->normalizeUserLinks();
+        // If needed, add _links
+        if($links) $return['_links'] = $this->normalizeUserLinks();
 
         return $return;
     }
 
-    public function normalizeClientItem($links = true){
+    /**
+     * Normalize Client for item request
+     *
+     * @param bool $links -Normalize with _links
+     *
+     * @return array
+     */
+    public function normalizeClientItem($links = true) : array
+    {
+        // Base
         $return = [
             'id' => $this->getId(),
             'username' => $this->getUsername(),
@@ -240,14 +267,16 @@ class Client extends User
             'phone_number' => $this->getPhoneNumber()
         ];
 
+        // If needed, add _links
         if($links) $return['links'] = $this->normalizeUserLinks();
 
         return $return;
     }
 
     /**
+     * Get fullname of Client
+     *
      * @return string
-     * Fullname of Client
      *
      * @ApiProperty(
      *     attributes={
@@ -258,16 +287,28 @@ class Client extends User
      *     }
      * )
      */
-    public function getFullName()
+    private function getFullName() : string
     {
         return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
-    private function getSelfUrl(){
+    /**
+     * Return URL to item
+     *
+     * @return string
+     */
+    private function getSelfUrl() : string
+    {
         return "/clients/" . $this->getId();
     }
 
-    public function normalizeUserLinks(){
+    /**
+     * Normalize _links
+     *
+     * @return array
+     */
+    public function normalizeUserLinks() : array
+    {
         return [
             '@self' => $this->getSelfUrl()
         ];
@@ -277,8 +318,10 @@ class Client extends User
 
     /**
      * Returns the roles granted to the user.
+     *
+     * @return array
      */
-    public function getRoles()
+    public function getRoles() : array
     {
         return ['ROLE_USER'];
     }
@@ -291,9 +334,9 @@ class Client extends User
      *
      * @param string $firstName
      *
-     * @return User
+     * @return Client
      */
-    public function setFirstName($firstName)
+    public function setFirstName(string $firstName) : Client
     {
         $this->firstName = $firstName;
 
@@ -305,7 +348,7 @@ class Client extends User
      *
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName() : string
     {
         return $this->firstName;
     }
@@ -315,9 +358,9 @@ class Client extends User
      *
      * @param string $lastName
      *
-     * @return User
+     * @return Client
      */
-    public function setLastName($lastName)
+    public function setLastName(string $lastName) : Client
     {
         $this->lastName = $lastName;
 
@@ -329,7 +372,7 @@ class Client extends User
      *
      * @return string
      */
-    public function getLastName()
+    public function getLastName() : string
     {
         return $this->lastName;
     }
@@ -339,9 +382,9 @@ class Client extends User
      *
      * @param string $mailAddress
      *
-     * @return User
+     * @return Client
      */
-    public function setMailAddress($mailAddress)
+    public function setMailAddress(string $mailAddress) : Client
     {
         $this->mailAddress = $mailAddress;
 
@@ -353,7 +396,7 @@ class Client extends User
      *
      * @return string
      */
-    public function getMailAddress()
+    public function getMailAddress() : string
     {
         return $this->mailAddress;
     }
@@ -361,11 +404,11 @@ class Client extends User
     /**
      * Set phoneNumber.
      *
-     * @param int $phoneNumber
+     * @param string $phoneNumber
      *
      * @return Client
      */
-    public function setPhoneNumber($phoneNumber)
+    public function setPhoneNumber(string $phoneNumber) : Client
     {
         $this->phoneNumber = $phoneNumber;
 
@@ -375,9 +418,9 @@ class Client extends User
     /**
      * Get phoneNumber.
      *
-     * @return int
+     * @return string
      */
-    public function getPhoneNumber()
+    public function getPhoneNumber() : string
     {
         return $this->phoneNumber;
     }
@@ -387,7 +430,7 @@ class Client extends User
      *
      * @return Company
      */
-    public function getCompany()
+    public function getCompany() : Company
     {
         return $this->company;
     }
@@ -396,12 +439,19 @@ class Client extends User
      * Set company
      *
      * @param Company $company
+     *
+     * @return Client
      */
-    public function setCompany(Company $company){
+    public function setCompany(Company $company) : Client
+    {
         $this->company = $company;
+
+        return $this;
     }
 
     /**
+     * Get companyId
+     *
      * @return mixed
      */
     public function getCompanyId()
@@ -410,11 +460,17 @@ class Client extends User
     }
 
     /**
+     * Set companyId
+     *
      * @param mixed $companyId
+     *
+     * @return Client
      */
-    public function setCompanyId($companyId)
+    public function setCompanyId(int $companyId) : Client
     {
         $this->companyId = $companyId;
+
+        return $this;
     }
 
 }

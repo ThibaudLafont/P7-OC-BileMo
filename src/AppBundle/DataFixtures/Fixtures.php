@@ -1,7 +1,6 @@
 <?php
 namespace AppBundle\DataFixtures;
 
-
 use AppBundle\Entity\Feature\Feature;
 use AppBundle\Entity\Feature\ModelFeature;
 use AppBundle\Entity\Feature\ProductTest;
@@ -20,9 +19,15 @@ use AppBundle\Entity\User\Company;
 use AppBundle\Entity\User\Partner;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class for Fixtures
+ *
+ * This class parse YAML and treats datas in order to persist objects in DB
+ *
+ * @package AppBundle\DataFixtures
+ */
 class Fixtures extends Fixture
 {
 
@@ -30,6 +35,8 @@ class Fixtures extends Fixture
      * Load data fixtures by calling load methods
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
     public function load(ObjectManager $manager)
     {
@@ -44,8 +51,10 @@ class Fixtures extends Fixture
      * Parse and process YAML file to persist phone brands
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
-    public function loadBrands(ObjectManager $manager)
+    private function loadBrands(ObjectManager $manager)
     {
         // First get and parse the yaml file
         $brands = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Brand.yaml'));
@@ -72,8 +81,10 @@ class Fixtures extends Fixture
      * Parse and process YAML file for Families persist
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
-    public function loadFamilies(ObjectManager $manager)
+    private function loadFamilies(ObjectManager $manager)
     {
 
         // First get and parse the yaml file
@@ -103,8 +114,10 @@ class Fixtures extends Fixture
      * Parse and process YAML file for Families persist
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
-    public function loadModels(ObjectManager $manager)
+    private function loadModels(ObjectManager $manager)
     {
 
         // First get and parse the yaml file
@@ -171,8 +184,15 @@ class Fixtures extends Fixture
         }
 
     }
-  
-    public function loadProducts(ObjectManager $manager)
+
+    /**
+     * Parse Yaml and perform Product persist
+     *
+     * @param ObjectManager $manager
+     *
+     * @return void
+     */
+    private function loadProducts(ObjectManager $manager)
     {
         // First get and parse the yaml file
         $products = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Products.yaml'));
@@ -246,11 +266,13 @@ class Fixtures extends Fixture
     }
 
     /**
-     * Load users in DB
+     * Parse Yaml and perform Users persist
      *
      * @param ObjectManager $manager
+     *
+     * @return void
      */
-    public function loadUsers(ObjectManager $manager){
+    private function loadUsers(ObjectManager $manager){
 
         // First get and parse the yaml file, only contain clients users
         $companies = Yaml::parse(file_get_contents(__DIR__ . '/datas/yml/Clients.yaml'));

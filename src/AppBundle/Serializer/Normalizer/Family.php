@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Serializer\Normalizer;
 
+use AppBundle\Serializer\Normalizer\Traits\Normalizer;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExtraAttributesException;
@@ -13,18 +14,15 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
+/**
+ * Class FamilyNormalizer
+ *
+ * @package AppBundle\Serializer\Normalizer
+ */
 class Family implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface{
 
-    private $decorated;
-
-    public function __construct(NormalizerInterface $decorated)
-    {
-        if (!$decorated instanceof DenormalizerInterface) {
-            throw new \InvalidArgumentException(sprintf('The decorated normalizer must implement the %s.', DenormalizerInterface::class));
-        }
-
-        $this->decorated = $decorated;
-    }
+    // Traits
+    use Normalizer;
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -51,40 +49,33 @@ class Family implements NormalizerInterface, DenormalizerInterface, Denormalizer
             // Get FamilyCollection infos in array
             $family = $object->normalizeFamilyCollection(false, false);
 
-        }
-        elseif($this->belongToSerializeGroup(['family_show'], $context)){
+        // Case of item request
+        } elseif ($this->belongToSerializeGroup(['family_show'], $context)) {
 
             // Get FamilyItem infos in array
             $family = $object->normalizeFamilyItem(false, false);
 
         }
 
+        // Case of family_models subresource
         if($this->belongToSerializeGroup(['family_models'], $context)){
 
             $family['models'] = $object->normalizeFamilyModels();
 
-        }elseif($this->belongToSerializeGroup(['family_products'], $context)){
+        // Case of family_products subresource
+        } elseif ($this->belongToSerializeGroup(['family_products'], $context)) {
 
             $family['products'] = $object->normalizeFamilyProducts();
 
         }
 
+        // Links&Embedded
         $family['_links'] = $object->normalizeFamilyLinks();
         $family['_embedded'] = $object->normalizeFamilyEmbedded();
 
         // Return build array
         return $family;
-    }
 
-    public function belongToSerializeGroup(array $groups, $context)
-    {
-        $return = false;
-
-        foreach($groups as $group){
-            if(in_array($group, $context['groups'])) $return = true;
-        }
-
-        return $return;
     }
 
     /**

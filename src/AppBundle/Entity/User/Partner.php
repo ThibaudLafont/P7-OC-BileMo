@@ -1,5 +1,4 @@
 <?php
-
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,6 +7,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Partner
+ *
+ * @package AppBundle\Entity\User
  *
  * @ORM\Table(name="user_partner")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\PartnerRepository")
@@ -18,8 +19,9 @@ class Partner extends User
     // ApiProperties methods
 
     /**
-     * @return int
      * Primary key of resource
+     *
+     * @return int
      *
      * @ApiProperty(
      *     attributes={
@@ -30,14 +32,15 @@ class Partner extends User
      *     }
      * )
      */
-    public function getId()
+    public function getId() : int
     {
         return parent::getId();
     }
 
     /**
-     * @return string
      * Username of User
+     *
+     * @return string
      *
      * @ApiProperty(
      *     attributes={
@@ -48,7 +51,7 @@ class Partner extends User
      *     }
      * )
      */
-    public function getUsername()
+    public function getUsername() : string
     {
         return parent::getUsername();
     }
@@ -57,9 +60,12 @@ class Partner extends User
     // Normalization methods
 
     /**
+     * Normalize Partner
+     *
      * @return array
      */
-    public function normalizePartnerCollection(){
+    public function normalizePartnerCollection() : array
+    {
         return [
             'id' => $this->getId(),
             'username' => $this->getUsername(),
@@ -69,7 +75,13 @@ class Partner extends User
         ];
     }
 
-    private function getSelfUrl(){
+    /**
+     * Get URL to item
+     *
+     * @return string
+     */
+    private function getSelfUrl() : string
+    {
         return "/partners/" . $this->getId();
     }
 
@@ -78,8 +90,10 @@ class Partner extends User
 
     /**
      * Returns the roles granted to the user.
+     *
+     * @return array
      */
-    public function getRoles()
+    public function getRoles() : array
     {
         return ['ROLE_ADMIN'];
     }

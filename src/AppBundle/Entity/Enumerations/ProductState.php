@@ -3,6 +3,7 @@ namespace AppBundle\Entity\Enumerations;
 
 /**
  * Class ProductState
+ *
  * Define different physic states for Product
  *
  * @package AppBundle\Entity\Enumerations
@@ -35,12 +36,13 @@ class ProductState
     /**
      * Permit to get a value related to a key
      *
-     * @param $type
-     * @return mixed|string
+     * @param $key string
+     * @return string
      */
-    public static function getValue($type){
-        if(!isset(static::$values[$type])) return "Unknow state type";
-        else return static::$values[$type];
+    public static function getValue(string $key) : string
+    {
+        if(!isset(static::$values[$key])) return "Unknow state type";
+        else return static::$values[$key];
     }
 
     /**
@@ -48,7 +50,8 @@ class ProductState
      *
      * @return array
      */
-    public static function getAvailableTypes(){
+    public static function getAvailableTypes() : array
+    {
         return [
             self::UNUSED,
             self::LIKE_NEW,

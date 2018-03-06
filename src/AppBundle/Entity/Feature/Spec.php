@@ -3,9 +3,12 @@
 namespace AppBundle\Entity\Feature;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Spec
+ *
+ * @package AppBundle\Entity\Feature
  *
  * @ORM\Table(name="f_spec")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Feature\SpecRepository")
@@ -13,6 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Spec
 {
     /**
+     * Primary key of resource
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -22,6 +27,8 @@ class Spec
     private $id;
 
     /**
+     * Name of Spec
+     *
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -29,6 +36,8 @@ class Spec
     private $name;
 
     /**
+     * Feature of Spec
+     *
      * @var Feature
      *
      * @ORM\ManyToOne(
@@ -39,8 +48,9 @@ class Spec
     private $feature;
 
     /**
-     * @var SpecValue
      * Link model value for this spec
+     *
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(
      *     targetEntity="SpecValue",
@@ -56,7 +66,7 @@ class Spec
      *
      * @return int
      */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
@@ -68,7 +78,7 @@ class Spec
      *
      * @return Spec
      */
-    public function setName($name)
+    public function setName(string $name) : Spec
     {
         $this->name = $name;
 
@@ -80,7 +90,7 @@ class Spec
      *
      * @return string
      */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
@@ -90,7 +100,7 @@ class Spec
      *
      * @return Feature
      */
-    public function getFeature()
+    public function getFeature() : Feature
     {
         return $this->feature;
     }
@@ -99,18 +109,22 @@ class Spec
      * Set feature
      *
      * @param Feature $feature
+     *
+     * @return Spec
      */
-    public function setFeature(Feature $feature)
+    public function setFeature(Feature $feature) : Spec
     {
         $this->feature = $feature;
+
+        return $this;
     }
 
     /**
      * Get specValue
      *
-     * @return SpecValue
+     * @return ArrayCollection
      */
-    public function getSpecValues()
+    public function getSpecValues() : ArrayCollection
     {
         return $this->specValues;
     }

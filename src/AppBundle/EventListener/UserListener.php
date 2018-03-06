@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: thib
- * Date: 09/12/17
- * Time: 14:52
- */
-
 namespace AppBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -15,6 +8,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class MessageListener
+ *
  * Execute actions when Doctrine work with Messages entities
  *
  * @package AppBundle\EventListener
@@ -22,8 +16,18 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserListener
 {
 
+    /**
+     * Password encoder
+     *
+     * @var UserPasswordEncoderInterface
+     */
     private $encoder;
 
+    /**
+     * UserListener constructor.
+     *
+     * @param UserPasswordEncoderInterface $encoder
+     */
     public function __construct(UserPasswordEncoderInterface $encoder){
         $this->encoder = $encoder;
     }
@@ -31,7 +35,7 @@ class UserListener
     /**
      * Before Message persist, assign user and creation date
      *
-     * @param Client $user
+     * @param User $user
      */
     public function prePersist($user)
     {
@@ -41,7 +45,7 @@ class UserListener
     /**
      * Before User update, check if password was changed
      *
-     * @param $user
+     * @param $user User
      */
     public function preFlush($user){
 
@@ -50,10 +54,16 @@ class UserListener
 
             // Encode and set password
             $this->setUserPassword($user);
+
         }
 
     }
 
+    /**
+     * Encode and set password from plainPassword
+     *
+     * @param $user User
+     */
     private function setUserPassword($user){
 
         // Set user password

@@ -2,6 +2,7 @@
 namespace AppBundle\Serializer\Normalizer;
 
 use AppBundle\Entity\Guarantee\ProductGlobal;
+use AppBundle\Serializer\Normalizer\Traits\Normalizer;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExtraAttributesException;
@@ -14,8 +15,16 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\scalar;
 
+/**
+ * Class CompanyNormalizer
+ *
+ * @package AppBundle\Serializer\Normalizer
+ */
 class Company implements NormalizerInterface, DenormalizerInterface, DenormalizerAwareInterface
 {
+
+    // Traits
+    use Normalizer;
 
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -49,6 +58,7 @@ class Company implements NormalizerInterface, DenormalizerInterface, Denormalize
 
         }
 
+        // Handle company_users subresource
         if($this->belongToSerializeGroup(['company_users'], $context)){
 
             $return['clients'] = $object->normalizeCompanyUsers();
@@ -61,16 +71,6 @@ class Company implements NormalizerInterface, DenormalizerInterface, Denormalize
 
     }
 
-    public function belongToSerializeGroup(array $groups, $context)
-    {
-        $return = false;
-
-        foreach($groups as $group){
-            if(in_array($group, $context['groups'])) $return = true;
-        }
-
-        return $return;
-    }
     /**
      * Checks whether the given class is supported for normalization by this normalizer.
      *
