@@ -117,7 +117,7 @@ class Client extends User
      * @var int
      * Phone number of client
      *
-     * @ORM\Column(name="phone_number", type="string")
+     * @ORM\Column(name="phone_number", type="string", length=10)
      *
      * @Assert\NotBlank(
      *     message="Veuillez renseigner un numéro de téléphone",
@@ -133,7 +133,7 @@ class Client extends User
      * @ApiProperty(
      *     attributes={
      *          "swagger_context"={
-     *              "type" = "integer",
+     *              "type" = "string",
      *              "example" = "0677612529"
      *          }
      *     }
