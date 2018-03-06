@@ -81,7 +81,7 @@ services:
         tags:
             - { name: doctrine.orm.entity_listener }
             - { name: doctrine.orm.entity_listener, entity_manager: custom }
-            
+
     'Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter': ~
 
 #    AppBundle\Serializer\ContextBuilder\ApiVersionning:
