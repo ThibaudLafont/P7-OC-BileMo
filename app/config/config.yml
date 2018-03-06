@@ -91,6 +91,7 @@ api_platform:
       Bilemo workers are able to list and edit the list of users who can autenticate and access
       to database content
     version: "1.0.0"
+    name_converter: 'Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter'
     mapping:
         paths:
           - '%kernel.project_dir%/app/config/api_platform/resources/brand.yaml'
