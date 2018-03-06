@@ -4,8 +4,7 @@ namespace AppBundle\EventSubscriber;
 use ApiPlatform\Core\EventListener\EventPriorities;
 use ApiPlatform\Core\Exception\ItemNotFoundException;
 use AppBundle\Entity\User\Client;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -24,16 +23,16 @@ final class ClientCreate implements EventSubscriberInterface
     /**
      * Used for find Company with given ID
      *
-     * @var EntityManager
+     * @var ObjectManager
      */
     private $em;
 
     /**
      * Store EntityManager in attributes
      *
-     * @param EntityManager $em
+     * @param ObjectManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(ObjectManager $em)
     {
         $this->em = $em;
     }
@@ -76,4 +75,5 @@ final class ClientCreate implements EventSubscriberInterface
         // Assign company to client
         $client->setCompany($company);
     }
+
 }
