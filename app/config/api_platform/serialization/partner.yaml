@@ -4,5 +4,5 @@ AppBundle\Entity\User\Partner:
       groups: ['partner_list', 'partner_show', 'partner_create', 'partner_edit']
     username:
       groups: ['partner_list', 'partner_show', 'partner_create', 'partner_edit']
-    plainPassword:
+    pwd:
       groups: ['partner_create', 'partner_edit']

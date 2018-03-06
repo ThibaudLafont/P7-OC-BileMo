@@ -46,7 +46,7 @@ class UserListener
     public function preFlush($user){
 
         // Check if password was submitted
-        if($user->getPlainPassword() !== null){
+        if($user->getPwd() !== null){
 
             // Encode and set password
             $this->setUserPassword($user);
@@ -61,7 +61,7 @@ class UserListener
             // Encode pwd
             $this->encoder->encodePassword(
                 $user,
-                $user->getPlainPassword() // From plainPassword
+                $user->getPwd() // From plainPassword
             )
         );
 

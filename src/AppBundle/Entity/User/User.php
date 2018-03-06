@@ -76,7 +76,7 @@ abstract class User implements UserInterface, \Serializable
      *     groups={"user_create", "user_edit"}
      * )
      */
-    private $plainPassword;
+    private $pwd;
 
     // Authentication
 
@@ -130,7 +130,7 @@ abstract class User implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
-        $this->setPlainPassword(null);
+        $this->setPwd(null);
     }
 
 
@@ -191,23 +191,23 @@ abstract class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get plainPassword
+     * Get pwd
      *
      * @return string
      */
-    public function getPlainPassword()
+    public function getPwd()
     {
-        return $this->plainPassword;
+        return $this->pwd;
     }
 
     /**
-     * Set plainPassword
+     * Set pwd
      *
-     * @param string $plainPassword
+     * @param string $pwd
      */
-    public function setPlainPassword($plainPassword)
+    public function setPwd($pwd)
     {
-        $this->plainPassword = $plainPassword;
+        $this->pwd = $pwd;
     }
 
 }
