@@ -10,7 +10,8 @@ users
   - Switch in production 
   - opt: Varnish implement
     
-#### Install and configure the project
+#### Pull and configure the project
+
 The PHP version need to bee > 7 cause of usage of new array syntax []   
 
 First of all, you will need Composer and the most recent source code from this repository.  
@@ -54,6 +55,26 @@ with a terminal and launch these commands
         
 Now you can load a dataset with Doctrine DataFixtures :    
 Really simple ! Launch `bin/console doctrine:fixtures:load`
+
+#### JWT configuration
+
+The project use JWT for authentication, and you need to generate your ssh keys. In order
+to do that, you can follow this instructions picked 
+[here](https://github.com/lexik/LexikJWTAuthenticationBundle/blob/master/Resources/doc/index.md), 
+in the JWT documentation.
+
+With terminal reach your project root folder and execute commands above:
+
+    mkdir var/jwt                                                       # Create the folder for keys
+    openssl genrsa -out var/jwt/private.pem -aes256 4096                # Generate the private key
+    openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem # Generate public key
+
+During the keys generation, openssl will ask you for a pass phrase. 
+You need to inquire it in `/app/config/config.php`
+    
+    lexik_jwt_authentication:
+        ...
+        pass_phrase:         'you_pass_phrase'       
 
 #### Switch in production
 
