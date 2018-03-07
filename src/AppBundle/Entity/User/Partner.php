@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @package AppBundle\Entity\User
  *
  * @ORM\Table(name="user_partner")
- * @ORM\Entity()
+ * @ORM\Entity("AppBundle\Repository\User\UserRepository")
  */
 class Partner extends User
 {
