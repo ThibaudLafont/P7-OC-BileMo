@@ -79,6 +79,10 @@ class Client extends User
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/familyName",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example" = "Doe"
@@ -108,6 +112,10 @@ class Client extends User
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/email",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example" = "johndoe@gmail.com"
@@ -137,6 +145,10 @@ class Client extends User
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/telephone",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example" = "0677612529"
@@ -154,6 +166,15 @@ class Client extends User
      * @ORM\ManyToOne(
      *     targetEntity="Company",
      *     inversedBy="clients"
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/worksFor",
+     *              "@type"="User\Company"
+     *          }
+     *     }
      * )
      */
     private $company;
@@ -174,6 +195,10 @@ class Client extends User
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/identifier",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example" = "1"
@@ -196,6 +221,10 @@ class Client extends User
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/identifier",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example" = "1"
@@ -215,6 +244,10 @@ class Client extends User
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/identifier",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example" = "johndoe"
@@ -285,6 +318,10 @@ class Client extends User
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/alternateName",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example" = "John Doe"

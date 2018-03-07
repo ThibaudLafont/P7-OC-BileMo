@@ -29,6 +29,10 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/identifier",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example": "1"
@@ -47,6 +51,10 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/name",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Apple"
@@ -65,6 +73,10 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/description",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Apple est un constructeur de terminaux informatiques"
@@ -83,6 +95,10 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/url",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "http://apple.com"
@@ -104,6 +120,10 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/category",
+     *              "@type"="Product\Family"
+     *          },
      *          "swagger_context"={
      *              "type" = "array",
      *              "items"={
@@ -122,6 +142,10 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/Product",
+     *              "@type"="Product\Model"
+     *          },
      *          "swagger_context"={
      *              "type" = "array",
      *              "items"={
@@ -140,6 +164,10 @@ class Brand
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/offers",
+     *              "@type"="Product\Product"
+     *          },
      *          "swagger_context"={
      *              "type" = "array",
      *              "items"={
@@ -153,14 +181,6 @@ class Brand
 
     // Traits
     use Hydrate;
-
-    /**
-     * Brand constructor
-     */
-    public function __construct()
-    {
-//        $this->products = new ArrayCollection();
-    }
 
     // Brand normalization
 
