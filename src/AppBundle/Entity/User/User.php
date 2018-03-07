@@ -16,8 +16,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @UniqueEntity(
  *     fields= "username",
- *     repositoryMethod="findUser",
- *     message="Ce nom d'utilisateur n'est pas disponible"
+ *     repositoryMethod="findByInAllUsers",
+ *     message="Ce nom d'utilisateur n'est pas disponible",
+ *     groups={"user_create", "user_edit"}
  * )
  */
 abstract class User implements UserInterface, \Serializable

@@ -13,11 +13,12 @@ use ApiPlatform\Core\Annotation\ApiProperty;
  * Represent an user of a bilemo's client company
  *
  * @ORM\Table(name="user_client")
- * @ORM\Entity
+ * @ORM\Entity("AppBundle\Repository\User\UserRepository")
  *
  * @UniqueEntity(
- *     "username",
- *     message="Ce nom d'utilisateur n'est pas disponible"
+ *     fields= "mailAddress",
+ *     message="Cette addresse mail est déjà enregistrée, peut être possédez-vous un compte ?",
+ *     groups={"client_create", "client_edit"}
  * )
  */
 class Client extends User
@@ -263,7 +264,7 @@ class Client extends User
         $return = [
             'id' => $this->getId(),
             'username' => $this->getUsername(),
-            'fist_name' => $this->getFirstName(),
+            'first_name' => $this->getFirstName(),
             'last_name' => $this->getLastName(),
             'mail_address' => $this->getMailAddress(),
             'phone_number' => $this->getPhoneNumber()

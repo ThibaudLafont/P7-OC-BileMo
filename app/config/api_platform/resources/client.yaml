@@ -24,7 +24,7 @@ resources:
       client_create:
         method: POST
         path: /clients
-        validation_groups: ["client_create"]
+        validation_groups: ["user_create", "client_create"]
         denormalization_context:
           groups: ['client_create']
         normalization_context:

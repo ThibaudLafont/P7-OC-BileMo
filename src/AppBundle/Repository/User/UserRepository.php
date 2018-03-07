@@ -17,8 +17,10 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      * @param array $criteria
      * @return array
      */
-    public function findUser(array $criteria)
+    public function findByInAllUsers(array $criteria)
     {
+
+        // Search same username in Partners
         $statement = "
             SELECT p
             FROM AppBundle:User\Partner p
@@ -32,6 +34,8 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->getArrayResult();
 
         if (count($user) == 0) {
+
+            // If no match, search in Clients
             $statement = "
                 SELECT c
                 FROM AppBundle:User\Client c
@@ -43,8 +47,12 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
                 ->createQuery($statement)
                 ->setParameter('username', $criteria['username'])
                 ->getArrayResult();
+
         }
 
+        // Return result
         return $user;
+
     }
+
 }
