@@ -4,6 +4,7 @@ namespace AppBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Asset;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -62,6 +63,8 @@ abstract class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     *
+     *
      */
     private $password;
 

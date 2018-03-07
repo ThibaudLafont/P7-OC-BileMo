@@ -36,6 +36,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/identifier",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example": "1"
@@ -54,6 +58,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/name",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Iphone 5 oxydé"
@@ -72,6 +80,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/description",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Iphone 5 32GB récupéré par Bilemo après un sinistre. Le téléphone présente des traces d'oxydation"
@@ -90,6 +102,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/availability",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "boolean",
      *              "example": "true"
@@ -108,6 +124,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/price",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "float",
      *              "example": "195.99"
@@ -127,6 +147,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/itemCondition",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "enum"= {"Jamais utilisé", "Comme neuf", "Bon", "Moyen", "Mauvais"},
@@ -147,6 +171,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/itemCondition",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "name" = "sell_state",
@@ -167,6 +195,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/disambiguatingDescription",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Le téléphone appartenait à une flotte mobile d'entreprise, le téléphone
@@ -186,6 +218,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/serialNumber",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example": "12345678912345"
@@ -204,6 +240,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/additionalType",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example": "32"
@@ -222,6 +262,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/additionalType",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Noir ardoise"
@@ -240,6 +284,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/additionalType",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "boolean",
      *              "example": "false"
@@ -258,6 +306,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/additionalType",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example"= "IOS 10.3.3",
@@ -277,6 +329,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/additionalType",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "enum" = {"Réinitialisé", "Non réinitialisé", "Inconnu"},
@@ -297,6 +353,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/additionalType",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "enum" = {"Démarre normalement", "Problème soft", "Brick logiciel - Ne démarre pas", "Non testé / Inconnu"},
@@ -316,6 +376,15 @@ class Product
      *     targetEntity="Model",
      *     inversedBy="products"
      * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/Product",
+     *              "@type"="Product\Model"
+     *          }
+     *     }
+     * )
      */
     private $model;
 
@@ -332,6 +401,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/Thing",
+     *              "@type"="Product\Notice"
+     *          },
      *          "swagger_context"={
      *              "type" = "array",
      *              "items"={
@@ -368,6 +441,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/warranty",
+     *              "@type"="Guarantee\ProductSpecific"
+     *          },
      *          "swagger_context"={
      *              "type" = "array",
      *              "description"="Contain specific guarantees of resource",
@@ -414,6 +491,10 @@ class Product
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/warranty",
+     *              "@type"="Guarantee\ProductGlobal"
+     *          },
      *          "swagger_context"={
      *              "type"="object",
      *              "description"="Main guarantee of Product",

@@ -28,6 +28,10 @@ class Family
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/identifier",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example": "1"
@@ -46,6 +50,10 @@ class Family
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/name",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Iphone"
@@ -64,6 +72,10 @@ class Family
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/description",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Iphone représente la gamme smartphone d'Apple"
@@ -82,6 +94,15 @@ class Family
      *     targetEntity="Brand",
      *     inversedBy="families"
      * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/Brand",
+     *              "@type"="Product\Brand"
+     *          }
+     *     }
+     * )
      */
     private $brand;
 
@@ -97,6 +118,10 @@ class Family
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/Product",
+     *              "@type"="Product\Model"
+     *          },
      *          "swagger_context"={
      *              "type" = "array",
      *              "items"={
@@ -115,6 +140,10 @@ class Family
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/offers",
+     *              "@type"="Product\Product"
+     *          },
      *          "swagger_context"={
      *              "type" = "array",
      *              "items"={

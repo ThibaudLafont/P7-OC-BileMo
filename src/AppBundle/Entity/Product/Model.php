@@ -29,6 +29,10 @@ class Model
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/identifier",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example": "1"
@@ -47,6 +51,10 @@ class Model
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/name",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Iphone 5"
@@ -65,6 +73,10 @@ class Model
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/description",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example": "Dernier modèle avant changement de design"
@@ -83,6 +95,10 @@ class Model
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/url",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "https://apple.com/iphone-5"
@@ -101,6 +117,10 @@ class Model
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/releaseDate",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example": "2015"
@@ -119,6 +139,15 @@ class Model
      *     targetEntity="Family",
      *     inversedBy="models"
      * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/category",
+     *              "@type"="Product\Family"
+     *          }
+     *     }
+     * )
      */
     private $family;
 
@@ -131,6 +160,15 @@ class Model
      *     targetEntity="\AppBundle\Entity\Feature\SpecValue",
      *     mappedBy="model",
      *     cascade={"persist"}
+     * )
+     *
+     * @ApiProperty(
+     *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/Thing",
+     *              "@type"="Model\Spec"
+     *          }
+     *     }
      * )
      */
     private $specValues;
@@ -147,6 +185,10 @@ class Model
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/offers",
+     *              "@type"="Product\Product"
+     *          },
      *          "swagger_context"={
      *              "type" = "array",
      *              "items"={
@@ -161,13 +203,13 @@ class Model
     // Traits
     use Hydrate;
 
-    /**
-     * Model constructor.
-     */
-    public function __construct()
-    {
-        $this->specValues = new ArrayCollection();
-    }
+//    /**
+//     * Model constructor.
+//     */
+//    public function __construct()
+//    {
+//        $this->specValues = new ArrayCollection();
+//    }
 
 
     // Model normalization

@@ -34,6 +34,10 @@ class Company
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/identifier",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "integer",
      *              "example": "1"
@@ -61,6 +65,10 @@ class Company
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="http://schema.org/name",
+     *              "@type"="@id"
+     *          },
      *          "swagger_context"={
      *              "type" = "string",
      *              "example": "Wefix"
@@ -83,6 +91,10 @@ class Company
      *
      * @ApiProperty(
      *     attributes={
+     *          "jsonld_context"={
+     *              "@id"="https://schema.org/employee",
+     *              "@type"="User\Client"
+     *          },
      *          "swagger_context"={
      *              "type" = "array",
      *              "items" = {
