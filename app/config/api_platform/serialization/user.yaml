@@ -1,5 +1,0 @@
-AppBundle\Entity\User\User:
-    username:
-      groups: ['user_list', 'client_show']
-    pwd:
-      groups: ['user_list', 'client_show']

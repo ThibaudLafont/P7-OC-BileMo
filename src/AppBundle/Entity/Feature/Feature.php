@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\Feature;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -60,6 +61,9 @@ class Feature
      * )
      */
     private $specificGuarantees;
+
+    // Traits
+    use Hydrate;
   
     /**
      * Get id.

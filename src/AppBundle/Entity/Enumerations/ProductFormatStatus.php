@@ -19,9 +19,9 @@ class ProductFormatStatus
     const UNKNOW = "unknow";
 
     /**
-     * @var array
-     *
      * String to display by cont key
+     *
+     * @var array
      */
     private static $values = [
         self::FORMATTED => "Réinitialisé",
@@ -29,21 +29,8 @@ class ProductFormatStatus
         self::UNKNOW => "Inconnu"
     ];
 
-    /**
-     * Permit to get a value related to a key
-     *
-     * @param $key string
-     *
-     * @return string
-     */
-    public static function getValue(string $key) : string
-    {
-        if (!isset(static::$values[$key])) {
-            return "Unknow format status";
-        } else {
-            return static::$values[$key];
-        }
-    }
+    // Traits
+    use Traits\Enumeration;
 
     /**
      * Return the differents availables keys
@@ -58,4 +45,5 @@ class ProductFormatStatus
             self::UNKNOW
         ];
     }
+
 }

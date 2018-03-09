@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Feature;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -60,6 +61,8 @@ class Spec
      */
     private $specValues;
 
+    // Traits
+    use Hydrate;
 
     /**
      * Get id.

@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\User;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Asset;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -88,6 +89,9 @@ abstract class User implements UserInterface, \Serializable
      * )
      */
     private $pwd;
+
+    // Traits
+    use Hydrate;
 
     // Authentication
 

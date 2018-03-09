@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\User;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -105,6 +106,10 @@ class Company
      * )
      */
     private $clients;
+
+    // Traits
+    use Hydrate;
+
 
     /**
      * Normalize Company for collection request

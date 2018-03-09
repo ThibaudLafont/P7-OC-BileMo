@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
@@ -154,6 +155,9 @@ class Family
      * )
      */
     private $products;
+
+    // Traits
+    use Hydrate;
 
 
     // Family normalization

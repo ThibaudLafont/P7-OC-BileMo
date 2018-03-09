@@ -2,8 +2,8 @@ Iphone 6s seconde main:
     model_name: Iphone 6s
     description: Très bon état général, micro-rayures au dos de l'appareil.
     price: 200
-    condition: used
-    state: good
+    sellState: used
+    physicState: good
     available: true
     history: A appartenu à un particulier. Pas de trace de réparation.
     IMEI: "123456789012347"
@@ -12,14 +12,14 @@ Iphone 6s seconde main:
     color: Noir&Ardoise
     systemVersion: 11
     formatted: formatted
-    bootProperly: boot_properly
+    softStatus: boot_properly
 
 Iphone X neuf:
     model_name: Iphone X
     description: Appareil neuf avec boite d'origine, encore sous blister
     price: 1400
-    condition: new
-    state: unused
+    sellState: new
+    physicState: unused
     available: true
     history: null
     IMEI: "123456789012348"
@@ -28,14 +28,14 @@ Iphone X neuf:
     color: Noir&Ardoise
     systemVersion: 11
     formatted: formatted
-    bootProperly: boot_properly
+    softStatus: boot_properly
 
 Iphone 5 accidenté:
     model_name: Iphone 5
     description: Appareil abimé avec écran cassé et caméra avant HS
     price: 80
-    condition: defective
-    state: bad
+    sellState: defective
+    physicState: bad
     available: true
     history: A chuté mais ne présente pas de traces d'oxydation
     IMEI: "123456789012342"
@@ -44,7 +44,7 @@ Iphone 5 accidenté:
     color: Noir&Ardoise
     systemVersion: 10.3.3
     formatted: not_formatted
-    bootProperly: boot_properly
+    softStatus: boot_properly
     notices:
         info: Le téléphone n'a pas été réinitialisé et demande un code de déverouillage, qui ne nous a pas été
               communiqué
@@ -76,8 +76,8 @@ Iphone 5 reconditionné:
     model_name: Iphone 5
     description: Comme neuf, reconditionné par l'atelier BileMo
     price: 140
-    condition: refurb
-    state: like_new
+    sellState: refurb
+    physicState: like_new
     available: true
     history: Reconditionné à neuf dans nos locaux, aucun d'historique
     IMEI: "123456789012342"
@@ -86,7 +86,7 @@ Iphone 5 reconditionné:
     color: Argent
     systemVersion: 10.3.3
     formatted: formatted
-    bootProperly: boot_properly
+    softStatus: boot_properly
 
 
 Galaxy S4 sous blister:
@@ -94,8 +94,8 @@ Galaxy S4 sous blister:
     model_name: Galaxy S4 I9505
     description: Appareil neuf avec boite d'origine, encore sous blister
     price: 200
-    condition: new
-    state: unused
+    sellState: new
+    physicState: unused
     available: true
     history: null
     IMEI: "123456789112348"
@@ -104,15 +104,15 @@ Galaxy S4 sous blister:
     color: Noir
     systemVersion: 5.0.1
     formatted: formatted
-    bootProperly: boot_properly
+    softStatus: boot_properly
 
 GS4 reconditionné à neuf:
     title: Galaxy S4
     model_name: Galaxy S4 I9505
     description: Appareil reconditionné à neuf
     price: 170
-    condition: refurb
-    state: like_new
+    sellState: refurb
+    physicState: like_new
     available: true
     history: Un particulier a bénéficié d'une offre de reprise pour ce téléphone dont le LCD était HS.
     IMEI: "128556789112348"
@@ -121,15 +121,15 @@ GS4 reconditionné à neuf:
     color: Blanc
     systemVersion: 4.4
     formatted: formatted
-    bootProperly: boot_properly
+    softStatus: boot_properly
 
 Galaxy Note 2 pour pièces:
     title: Galaxy Note 2 non fonctionnel
     model_name: Galaxy Note 2
     description: Téléphone oxydé non testé, état esthétique parfait
     price: 200
-    condition: defective
-    state: like_new
+    sellState: defective
+    physicState: like_new
     available: true
     history: Téléphone professionnel racheté à une assurance, a subi un sinistre
     IMEI: "123456789112348"
@@ -138,7 +138,7 @@ Galaxy Note 2 pour pièces:
     color: Noir
     systemVersion: 5.0.1
     formatted: unknow
-    bootProperly: unknow
+    softStatus: unknow
     notices:
         alert: Téléphone oxydé
         info: Aucune désoxydation n'a été effectuée, mais le téléphone a été placé non-démonté dans de la silice

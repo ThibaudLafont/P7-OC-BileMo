@@ -203,14 +203,6 @@ class Model
     // Traits
     use Hydrate;
 
-//    /**
-//     * Model constructor.
-//     */
-//    public function __construct()
-//    {
-//        $this->specValues = new ArrayCollection();
-//    }
-
 
     // Model normalization
 

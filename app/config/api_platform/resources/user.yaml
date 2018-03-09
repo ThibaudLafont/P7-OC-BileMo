@@ -1,5 +1,10 @@
 resources:
   AppBundle\Entity\User\User:
+    attributes:
+      normalization_context:
+        groups: ['partner_list', 'client_list']
+      denormalization_context:
+        groups: ['user_create']
     collectionOperations:
       user_list:
         route_name: user_list
@@ -9,6 +14,10 @@ resources:
           responses:
             201:
               description: Get all users whatever their role
+              schema:
+                type: array
+                items:
+                  $ref: '#/definitions/Partner-partner_list'
       login_check:
         route_name: api_login_check
         swagger_context:
@@ -21,6 +30,12 @@ resources:
           responses:
             201:
               description: Login OK
+              schema:
+                type: array
+                items:
+                  type: string
+                example:
+                  token: MyApiKey
             401:
               description: Wrong login informations
     itemOperations: []
