@@ -29,21 +29,8 @@ class ProductFormatStatus
         self::UNKNOW => "Inconnu"
     ];
 
-    /**
-     * Permit to get a value related to a key
-     *
-     * @param $key string
-     *
-     * @return string
-     */
-    public static function getValue(string $key) : string
-    {
-        if (!isset(static::$values[$key])) {
-            return "Unknow format status";
-        } else {
-            return static::$values[$key];
-        }
-    }
+    // Traits
+    use Traits\Enumeration;
 
     /**
      * Return the differents availables keys

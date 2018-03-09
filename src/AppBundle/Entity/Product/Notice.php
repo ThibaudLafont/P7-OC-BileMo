@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Traits\Hydrate;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Enumerations\NoticeType;
 
@@ -55,6 +56,10 @@ class Notice
      *     inversedBy="notices")
      */
     private $product;
+
+    // Traits
+    use Hydrate;
+
 
     /**
      * Get id.

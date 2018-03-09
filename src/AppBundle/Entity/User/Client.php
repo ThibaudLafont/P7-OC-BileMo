@@ -208,9 +208,6 @@ class Client extends User
      */
     private $companyId;
 
-    // Traits
-    use Hydrate;
-
 
     // ApiProperties methods
 

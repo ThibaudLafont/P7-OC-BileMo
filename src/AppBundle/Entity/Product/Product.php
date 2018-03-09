@@ -1,6 +1,8 @@
 <?php
 namespace AppBundle\Entity\Product;
 
+use AppBundle\Entity\Enumerations\PhysicState;
+use AppBundle\Entity\Enumerations\SellState;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
@@ -141,9 +143,9 @@ class Product
      * Physical condition
      *
      * @var string
-     * @see AppBundle\Entity\Enumerations\ProductCondition
+     * @see AppBundle\Entity\Enumerations\PhysicState
      *
-     * @ORM\Column(name="phy_condition", type="string", length=15)
+     * @ORM\Column(name="physic_state", type="string", length=15)
      *
      * @ApiProperty(
      *     attributes={
@@ -159,15 +161,15 @@ class Product
      *     }
      * )
      */
-    private $condition;
+    private $physicState;
 
     /**
      * Sell state of product
      *
      * @var string
-     * @see AppBundle\Entity\Enumerations\ProductState
+     * @see AppBundle\Entity\Enumerations\SellState
      *
-     * @ORM\Column(name="state", type="string", length=15)
+     * @ORM\Column(name="sell_state", type="string", length=15)
      *
      * @ApiProperty(
      *     attributes={
@@ -184,7 +186,7 @@ class Product
      *     }
      * )
      */
-    private $state;
+    private $sellState;
 
     /**
      * Text about phone historic
@@ -349,7 +351,7 @@ class Product
      * @var string
      * @see AppBundle\Entity\Enumerations\ProductState
      *
-     * @ORM\Column(name="boot_properly", type="string")
+     * @ORM\Column(name="soft_status", type="string")
      *
      * @ApiProperty(
      *     attributes={
@@ -365,7 +367,7 @@ class Product
      *     }
      * )
      */
-    private $bootProperly;
+    private $softStatus;
 
     /**
      * Product model
@@ -555,7 +557,7 @@ class Product
         $return = [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
-            'sell_state' => $this->getState(),
+            'sell_state' => $this->getSellState(),
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
             'available' => $this->getAvailable()
@@ -590,12 +592,12 @@ class Product
         $return = [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
-            'sell_state' => $this->getState(),
+            'sell_state' => $this->getSellState(),
             'description' => $this->getDescription(),
             'price' => $this->getPrice(),
             'available' => $this->getAvailable(),
-            'physic_state' => $this->getCondition(),
-            'boot_properly' => $this->getBootProperly(),
+            'physic_state' => $this->getPhysicState(),
+            'soft_status' => $this->getSoftStatus(),
             'is_formatted' => $this->getFormatted(),
             'history' => $this->getHistory(),
             'imei' => $this->getImei(),
@@ -880,59 +882,59 @@ class Product
     }
 
     /**
-     * Set condition.
+     * Set physicState.
      *
-     * @param String $condition
+     * @param String $physicState
      *
      * @return Product
      */
-    public function setCondition(String $condition) : Product
+    public function setPhysicState(String $physicState) : Product
     {
-        if (!in_array($condition, ProductCondition::getAvailableTypes())) {
-            throw new \InvalidArgumentException("Invalid ProductCondition");
+        if (!in_array($physicState, PhysicState::getAvailableTypes())) {
+            throw new \InvalidArgumentException("Invalid ProductPhysicState");
         }
 
-        $this->condition = $condition;
+        $this->physicState = $physicState;
 
         return $this;
     }
 
     /**
-     * Get condition.
+     * Get physicState.
      *
      * @return string
      */
-    public function getCondition() : string
+    public function getPhysicState() : string
     {
-        return ProductCondition::getValue($this->condition);
+        return PhysicState::getValue($this->physicState);
     }
 
     /**
-     * Set state.
+     * Set sellState.
      *
-     * @param String $state
+     * @param String $sellState
      *
      * @return Product
      */
-    public function setState(String $state) : Product
+    public function setSellState(String $sellState) : Product
     {
-        if (!in_array($state, ProductState::getAvailableTypes())) {
+        if (!in_array($sellState, SellState::getAvailableTypes())) {
             throw new \InvalidArgumentException("Invalid ProductState");
         }
 
-        $this->state = $state;
+        $this->sellState = $sellState;
 
         return $this;
     }
 
     /**
-     * Get state.
+     * Get sellState.
      *
      * @return String
      */
-    public function getState() : string
+    public function getSellState() : string
     {
-        return ProductState::getValue($this->state);
+        return SellState::getValue($this->sellState);
     }
 
     /**
@@ -1110,7 +1112,7 @@ class Product
     }
 
     /**
-     * Set bootProperly.
+     * Set softStatus.
      *
      * @param string $bootStatus
      * @see ProductSoftStatus
@@ -1118,25 +1120,25 @@ class Product
      * @throw \InvalidArgumentException
      * @return Product
      */
-    public function setBootProperly(string $bootStatus) : Product
+    public function setSoftStatus(string $bootStatus) : Product
     {
         if (!in_array($bootStatus, ProductSoftStatus::getAvailableTypes())) {
             throw new \InvalidArgumentException("Invalid ProductSoftStatus");
         }
 
-        $this->bootProperly = $bootStatus;
+        $this->softStatus = $bootStatus;
 
         return $this;
     }
 
     /**
-     * Get bootProperly.
+     * Get softStatus.
      *
      * @return string
      */
-    public function getBootProperly() : string
+    public function getSoftStatus() : string
     {
-        return ProductSoftStatus::getValue($this->bootProperly);
+        return ProductSoftStatus::getValue($this->softStatus);
     }
 
     /**
