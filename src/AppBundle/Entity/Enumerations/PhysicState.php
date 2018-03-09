@@ -21,9 +21,9 @@ class PhysicState
     const BAD = "bad";
 
     /**
-     * @var array
-     *
      * String to display by cont key
+     *
+     * @var array
      */
     private static $values = [
         self::UNUSED => "Jamais utilisé",
@@ -51,4 +51,5 @@ class PhysicState
             self::BAD
         ];
     }
+
 }

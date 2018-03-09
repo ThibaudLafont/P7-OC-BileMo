@@ -20,9 +20,9 @@ class ProductSoftStatus
     const UNKNOW = "unknow";
 
     /**
-     * @var array
-     *
      * String to display by cont key
+     *
+     * @var array
      */
     private static $values = [
         self::BOOT_PROPERLY => "Démarre normalement",
@@ -48,4 +48,5 @@ class ProductSoftStatus
             self::UNKNOW
         ];
     }
+
 }

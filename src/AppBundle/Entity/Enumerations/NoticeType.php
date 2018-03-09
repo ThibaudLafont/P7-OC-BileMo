@@ -18,9 +18,9 @@ class NoticeType
     const ALERT = "alert";
 
     /**
-     * @var array
-     *
      * String to display by cont key
+     *
+     * @var array
      */
     private static $values = [
         self::INFO => "Information",

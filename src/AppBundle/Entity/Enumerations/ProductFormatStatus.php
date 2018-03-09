@@ -19,9 +19,9 @@ class ProductFormatStatus
     const UNKNOW = "unknow";
 
     /**
-     * @var array
-     *
      * String to display by cont key
+     *
+     * @var array
      */
     private static $values = [
         self::FORMATTED => "Réinitialisé",
@@ -45,4 +45,5 @@ class ProductFormatStatus
             self::UNKNOW
         ];
     }
+
 }
