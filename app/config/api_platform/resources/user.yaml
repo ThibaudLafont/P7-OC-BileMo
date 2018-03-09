@@ -35,7 +35,7 @@ resources:
                 items:
                   type: string
                 example:
-                  token: MyApiKey
+                  api_key: MyApiKey
             401:
               description: Wrong login informations
     itemOperations: []
