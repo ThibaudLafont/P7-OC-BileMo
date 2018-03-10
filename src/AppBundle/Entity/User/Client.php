@@ -29,7 +29,7 @@ class Client extends User
      *
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=70)
+     * @ORM\Column(name="first_name", type="string", length=70)
      *
      * @Assert\NotBlank(
      *     message="Le prénom est obligatoire",
@@ -63,7 +63,7 @@ class Client extends User
      *
      * @var string
      *
-     * @ORM\Column(name="lastName", type="string", length=155)
+     * @ORM\Column(name="last_name", type="string", length=155)
      *
      * @Assert\NotBlank(
      *     message="Le nom de famille est obligatoire",

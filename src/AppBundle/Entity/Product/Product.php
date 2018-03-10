@@ -238,7 +238,7 @@ class Product
      *
      * @var int
      *
-     * @ORM\Column(name="memorySizeInGb", type="integer")
+     * @ORM\Column(name="memory_size_in_gb", type="integer")
      *
      * @ApiProperty(
      *     attributes={
