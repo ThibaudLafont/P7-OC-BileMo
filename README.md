@@ -5,11 +5,63 @@ users
 
 ## Installation
 #### Summary
+  - Server configuration
+  - Varnish implement
   - Install and configure the project  
   - Load a dataset with DoctrineFixtures
-  - Switch in production 
-  - opt: Varnish implement
+  - Switch environnement
     
+#### Server configuration
+
+You have two choices to configure the server, by .htaccess or by apache configuration.
+You also can use Nginx but I will not treat the case here. You can find the way to configure it
+ in [SymfonyDocs](https://symfony.com/doc/3.3/setup/web_server_configuration.html#nginx).
+
+> Note it is a better practice to configure apache virtual host than use .htaccess
+
+##### By .htaccess
+
+In this repository you can find `/assets/base_htaccess` file. You have to rename it for
+`.htaccess` and move it in `/web`.   
+
+##### By VirtualHost configuration
+
+Open the config file of the target apache virtual host. Add and adapt the above configuration
+
+    <VirtualHost *:80>
+    
+        DocumentRoot /var/www/html/web     # Adapt to your config
+        
+        <Directory /var/www/html/web>      # Adapt to your config
+            AllowOverride None
+            Order Allow,Deny
+            Allow from All
+    
+            <IfModule mod_rewrite.c>
+                Options -MultiViews
+                RewriteEngine On
+                RewriteCond %{REQUEST_FILENAME} !-f
+                RewriteRule ^(.*)$ app.php [QSA,L]
+            </IfModule>
+        </Directory>
+        
+        <Directory /var/www/html/web/bundles>
+            <IfModule mod_rewrite.c>
+                RewriteEngine Off
+            </IfModule>
+        </Directory>
+        
+        ErrorLog /var/log/apache2/project_error.log
+        CustomLog /var/log/apache2/project_access.log combined
+        
+    </VirtualHost>
+    
+#### Varnish implement
+
+If you want to, the project can be cached thought Varnish proxy server.     
+I will not detail the installation process but you can find a configuration file adapted
+to the project in `/assets/varnish_default.vcl`.
+
 #### Pull and configure the project
 
 The PHP version need to bee > 7 cause of usage of new array syntax []   
@@ -76,23 +128,18 @@ You need to inquire it in `/app/config/config.php`
         ...
         pass_phrase:         'you_pass_phrase'       
 
-#### Switch in production
+#### Switch environnement
 
 > Note it is a better practice to configure apache virtual host than use .htaccess
 
-Once again, really simple. Open `/web/.htaccess` and find the above line. Change `app.php`
-to `app_dev.php`
-        
-    <IfModule mod_rewrite.c>
-    
-        // Stuff
-        
-        RewriteRule ^ %{ENV:BASE}/app.php [L]
-    </IfModule>
-    
-Once it's done, launch `bin/console cache:clear --env=prod` from the project folder in order
-to clear cache.
+Once again, really simple. The file to edit depend on the way you choose to configure 
+your server redirection. You have to find and edit the line where redirection is set : 
 
+    //
+    ...
+    RewriteRule ^(.*)$ app.php [QSA,L]  # put app_dev.php for development environnement  
+    ...
+    //
 
 ## Documentation
 At any time you can check the path `/docs` witch contain a swagger documentation for this
