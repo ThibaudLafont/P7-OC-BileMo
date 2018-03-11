@@ -14,6 +14,10 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
+    event_dispatcher:
+        class: 'Symfony\Component\EventDispatcher\EventDispatcher'
+        public: true
+
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     AppBundle\:
@@ -28,6 +32,18 @@ services:
         resource: '../../src/AppBundle/Action'
         public: true
         tags: ['controller.service_arguments']
+
+    AppBundle\Entity\Product\Brand:
+        class: '\AppBundle\Entity\Product\Brand'
+
+    AppBundle\Entity\Product\Family:
+        class: '\AppBundle\Entity\Product\Family'
+
+    AppBundle\Entity\Product\Model:
+        class: '\AppBundle\Entity\Product\Model'
+
+    AppBundle\Entity\User\Company:
+        class: '\AppBundle\Entity\User\Company'
 
     AppBundle\Serializer\Normalizer\Product:
         decorates: 'api_platform.jsonld.normalizer.item'

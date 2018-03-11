@@ -33,6 +33,7 @@ framework:
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
+        name: PHPSESSIDBILEMOAPI
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
     fragments: { enabled: false }
@@ -57,7 +58,7 @@ doctrine:
         dbname: '%database_name%'
         user: '%database_user%'
         password: '%database_password%'
-        server_version: '5.7'
+        server_version: 5.7
         charset: UTF8
 
     orm:
@@ -87,9 +88,7 @@ nelmio_cors:
 
 api_platform:
     title: Bilemo API
-    description: This API store smartphones products resources selled by Bilemo enterprise.
-      Bilemo workers are able to list and edit the list of users who can autenticate and access
-      to database content
+    description: This API store smartphones products resources selled by Bilemo enterprise. Bilemo workers are able to list and edit the list of users who can autenticate and access to database content
     version: "1.0.0"
     name_converter: 'Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter'
     mapping:

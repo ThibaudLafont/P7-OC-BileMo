@@ -1,4 +1,7 @@
 # Bilemo API
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f413c6c3-d49a-4960-aa25-bf76ae500484/small.png)](https://insight.sensiolabs.com/projects/f413c6c3-d49a-4960-aa25-bf76ae500484)
+
 This project will create an API for Bilemo company. Clients of Bilemo will be able to 
 list smartphones products and Bilemo partners will be able to add/edit/delete/list API
 users
@@ -40,14 +43,14 @@ Open the config file of the target apache virtual host. Add and adapt the above 
             <IfModule mod_rewrite.c>
                 Options -MultiViews
                 RewriteEngine On
+
+                # JWT 
+                RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+                RewriteCond %{REQUEST_FILENAME} !-f
+
+                # Symfony
                 RewriteCond %{REQUEST_FILENAME} !-f
                 RewriteRule ^(.*)$ app.php [QSA,L]
-            </IfModule>
-        </Directory>
-        
-        <Directory /var/www/html/web/bundles>
-            <IfModule mod_rewrite.c>
-                RewriteEngine Off
             </IfModule>
         </Directory>
         
