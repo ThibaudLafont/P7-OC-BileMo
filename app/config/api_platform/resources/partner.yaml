@@ -69,4 +69,3 @@ resources:
         swagger_context:
           summary: Allow to delete a Partner resource
           description: Delete Partner user
-          
