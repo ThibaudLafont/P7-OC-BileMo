@@ -1,4 +1,7 @@
 # Bilemo API
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f413c6c3-d49a-4960-aa25-bf76ae500484/small.png)](https://insight.sensiolabs.com/projects/f413c6c3-d49a-4960-aa25-bf76ae500484)
+
 This project will create an API for Bilemo company. Clients of Bilemo will be able to 
 list smartphones products and Bilemo partners will be able to add/edit/delete/list API
 users
