@@ -40,14 +40,14 @@ Open the config file of the target apache virtual host. Add and adapt the above 
             <IfModule mod_rewrite.c>
                 Options -MultiViews
                 RewriteEngine On
+
+                # JWT 
+                RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+                RewriteCond %{REQUEST_FILENAME} !-f
+
+                # Symfony
                 RewriteCond %{REQUEST_FILENAME} !-f
                 RewriteRule ^(.*)$ app.php [QSA,L]
-            </IfModule>
-        </Directory>
-        
-        <Directory /var/www/html/web/bundles>
-            <IfModule mod_rewrite.c>
-                RewriteEngine Off
             </IfModule>
         </Directory>
         

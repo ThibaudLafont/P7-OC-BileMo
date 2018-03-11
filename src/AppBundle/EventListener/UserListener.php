@@ -5,6 +5,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\User\Client;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use AppBundle\Entity\User\User;
 
 /**
  * Class MessageListener
@@ -38,7 +39,7 @@ class UserListener
      *
      * @param User $user
      */
-    public function prePersist($user)
+    public function prePersist(User $user)
     {
         $this->setUserPassword($user);
     }
@@ -48,7 +49,7 @@ class UserListener
      *
      * @param $user User
      */
-    public function preFlush($user)
+    public function preFlush(User $user)
     {
 
         // Check if password was submitted
@@ -64,7 +65,7 @@ class UserListener
      *
      * @param $user User
      */
-    private function setUserPassword($user)
+    private function setUserPassword(User $user)
     {
 
         // Set user password
