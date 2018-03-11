@@ -14,3 +14,4 @@ AppBundle\Entity\Product\Model:
       groups: ['model_show']
     products:
       groups: ['model_products']
+      

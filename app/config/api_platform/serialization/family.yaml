@@ -10,3 +10,4 @@ AppBundle\Entity\Product\Family:
       groups: ['family_models']
     products:
       groups: ['family_products']
+      

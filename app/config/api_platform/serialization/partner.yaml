@@ -6,3 +6,4 @@ AppBundle\Entity\User\Partner:
       groups: ['partner_list', 'partner_show', 'partner_create', 'partner_edit']
     pwd:
       groups: ['partner_create', 'partner_edit']
+      

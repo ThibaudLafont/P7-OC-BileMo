@@ -1,7 +1,0 @@
-types:
-    # Parent class of Person
-    Thing:
-        properties:
-            name: ~
-        config:
-            accessorMethods: false

@@ -18,3 +18,4 @@ AppBundle\Entity\User\Client:
       groups: ['client_create', 'client_edit']
     companyId:
       groups: ['client_create']
+      
