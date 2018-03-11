@@ -29,6 +29,9 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    BrandEntity:
+        class: '\AppBundle\Entity\Product\Brand'
+
     AppBundle\Serializer\Normalizer\Product:
         decorates: 'api_platform.jsonld.normalizer.item'
         public: false
