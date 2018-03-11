@@ -130,15 +130,15 @@ class HttpException implements EventSubscriberInterface
         $message = $exception->getMessage();
 
         // If "No route found", it's 404 or 405 http code
-        if (strpos($message, "No route found") == 0 &&
-            $this->getEvent()->getRequest()->getContentType() !== 'json') {
+        if (strpos($message, "No route found") == 0             
+        ) {
 
             // If isset "Method Not Allowed", 405 error
             if (strpos($message, "Method Not Allowed")) {
                 $code = 405;
             }
             // Else 404 error
-            else {
+            elseif($this->getEvent()->getRequest()->getContentType() !== 'json') {
                 $code = 404;
             }
         }
