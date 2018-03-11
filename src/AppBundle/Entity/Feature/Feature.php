@@ -56,7 +56,8 @@ class Feature
      * @var ArrayCollection
      *
      * @ORM\OneToMany(
-     *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific"
+     *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
+     *     mappedBy="feature"
      * )
      */
     private $specificGuarantees;
