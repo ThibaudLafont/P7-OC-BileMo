@@ -32,4 +32,3 @@ AppBundle\Entity\Product\Product:
       groups: ['product_show']
     specificGuarantees:
       groups: ['product_show']
-      

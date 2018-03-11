@@ -6,4 +6,3 @@ AppBundle\Entity\User\Company:
       groups: ['company_list', 'company_show', 'company_users', 'company_create', 'company_edit']
     clients:
       groups: ['company_users']
-      

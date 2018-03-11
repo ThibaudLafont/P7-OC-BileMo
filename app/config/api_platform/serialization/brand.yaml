@@ -14,4 +14,3 @@ AppBundle\Entity\Product\Brand:
       groups: ['brand_models']
     products:
       groups: ['brand_products']
-      
