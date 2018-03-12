@@ -53,4 +53,5 @@ security:
         - { path: ^/clients, role: ROLE_ADMIN }
         - { path: ^/companies, role: ROLE_ADMIN }
         - { path: ^/partners, role: ROLE_ADMIN }
+        - { path: ^/users, role: ROLE_ADMIN }
         - { path: ^/, role: [ ROLE_USER, ROLE_ADMIN ] }

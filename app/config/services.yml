@@ -92,6 +92,10 @@ services:
         tags:
             - { name: kernel.event_subscriber, event: kernel.exception }
 
+    AppBundle\EventSubscriber\CacheControl:
+        tags:
+            - { name: kernel.event_subscriber, event: kernel.response }
+
     user_listener:
         class: AppBundle\EventListener\UserListener
         tags:
