@@ -24,7 +24,7 @@ You also can use Nginx but I will not treat the case here. You can find the way 
 
 ##### By .htaccess
 
-In this repository you can find `/assets/base_htaccess` file. You have to rename it for
+In this repository you can find `/assets/htaccess` file. You have to rename it for
 `.htaccess` and move it in `/web`.   
 
 ##### By VirtualHost configuration
@@ -62,8 +62,42 @@ Open the config file of the target apache virtual host. Add and adapt the above 
 #### Varnish implement
 
 If you want to, the project can be cached thought Varnish proxy server.     
-I will not detail the installation process but you can find a configuration file adapted
-to the project in `/assets/varnish_default.vcl`.
+You can find a configuration file adapted to the project in `/assets/varnish_default.vcl`.    
+
+For an Debian Server implementation, follow below explanations :
++ First, install Varnish    
+`apt-get install varnish` 
++ Then edit Varnish default config file, generally in `/etc/default/varnish`. Search and edit
+following lines    
+    
+
+    DAEMON_OPTS="-a :80 \
+                 -T localhost:8000 \
+                 -f /etc/varnish/default.vcl \
+                 -u varnish -g varnish \
+                 -S /etc/varnish/secret \
+                 -s file,/var/lib/varnish/varnish_storage.bin,1G"
+    ...
+    VARNISH_LISTEN_PORT=80
+    ...
+    VARNISH_ADMIN_LISTEN_PORT=8000
+    
++ Edit the Apache listen port for 8080 (frequently situated in `/etc/apache2/ports.conf`)
+
+    
+    ...
+    Listen 8080
+    ...
+    
++ Now configure virtual host listen port
+
+
+    <VirtualHost *:8080>
+        ...
+    </VirtualHost>
+    
++ The last thing you have to do is to replace `/etc/varnish/default.vcl` by the given config
+file in this repo `/assets/varnish/varnish_default/vcl`.
 
 #### Pull and configure the project
 
