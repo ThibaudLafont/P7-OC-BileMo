@@ -33,7 +33,8 @@ framework:
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
-        name: PHPSESSIDBILEMOAPI
+        enabled: true
+        name: PHPSESSID
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
     fragments: { enabled: false }
@@ -103,12 +104,8 @@ api_platform:
           - '%kernel.project_dir%/app/config/api_platform/resources/user.yaml'
     http_cache:
         invalidation:
-            enabled: false
+            enabled: true
             varnish_urls: '%varnish_urls%'
-        max_age: 7800
-        shared_max_age: 3600
-        vary: ['Content-Type', 'Authorization']
-#        public: true
     swagger:
          api_keys:
              apiKey:
