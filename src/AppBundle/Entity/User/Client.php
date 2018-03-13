@@ -214,7 +214,7 @@ class Client extends User
     /**
      * Primary key of resource
      *
-     * @return int
+     * @return int|null
      *
      * @ApiProperty(
      *     attributes={
@@ -229,7 +229,7 @@ class Client extends User
      *     }
      * )
      */
-    public function getId() : int
+    public function getId()
     {
         return parent::getId();
     }
