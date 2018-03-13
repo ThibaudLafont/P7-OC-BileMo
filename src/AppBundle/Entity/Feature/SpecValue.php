@@ -69,9 +69,9 @@ class SpecValue
     /**
      * Get id.
      *
-     * @return int
+     * @return int|null
      */
-    public function getId() : int
+    public function getId()
     {
         return $this->id;
     }

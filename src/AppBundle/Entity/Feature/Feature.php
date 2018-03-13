@@ -41,7 +41,7 @@ class Feature
     /**
      * Feature specifications
      *
-     * @var ArrayCollection
+     * @var mixed
      *
      * @ORM\OneToMany(
      *     targetEntity="Spec",
@@ -53,7 +53,7 @@ class Feature
     /**
      * Link Feature and Product with specific guarantee
      *
-     * @var ArrayCollection
+     * @var mixed
      *
      * @ORM\OneToMany(
      *     targetEntity="\AppBundle\Entity\Guarantee\ProductSpecific",
@@ -68,9 +68,9 @@ class Feature
     /**
      * Get id.
      *
-     * @return int
+     * @return int|null
      */
-    public function getId() : int
+    public function getId()
     {
         return $this->id;
     }
@@ -104,7 +104,7 @@ class Feature
      *
      * @return ArrayCollection
      */
-    public function getSpecs() : ArrayCollection
+    public function getSpecs()
     {
         return $this->specs;
     }
@@ -114,7 +114,7 @@ class Feature
      *
      * @return ArrayCollection
      */
-    public function getSpecificGuarantees() : ArrayCollection
+    public function getSpecificGuarantees()
     {
         return $this->specificGuarantees;
     }

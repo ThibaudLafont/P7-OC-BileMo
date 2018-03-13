@@ -45,8 +45,8 @@ Open the config file of the target apache virtual host. Add and adapt the above 
                 RewriteEngine On
 
                 # JWT 
+                RewriteCond %{HTTP:Authorization} ^(.*)
                 RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
-                RewriteCond %{REQUEST_FILENAME} !-f
 
                 # Symfony
                 RewriteCond %{REQUEST_FILENAME} !-f
@@ -76,10 +76,10 @@ following lines
                  -f /etc/varnish/default.vcl \
                  -u varnish -g varnish \
                  -S /etc/varnish/secret \
-                 -s file,/var/lib/varnish/varnish_storage.bin,1G"
-    ...
-    VARNISH_LISTEN_PORT=80
-    ...
+                 -s file,/var/lib/varnish/varnish_storage.bin,1G"    
+    ...    
+    VARNISH_LISTEN_PORT=80    
+    ...    
     VARNISH_ADMIN_LISTEN_PORT=8000
     
 + Edit the Apache listen port for 8080 (frequently situated in `/etc/apache2/ports.conf`)
@@ -97,7 +97,7 @@ following lines
     </VirtualHost>
     
 + The last thing you have to do is to replace `/etc/varnish/default.vcl` by the given config
-file in this repo `/assets/varnish/varnish_default/vcl`.
+file in this repo `/assets/varnish/default.vcl`.
 
 #### Pull and configure the project
 
