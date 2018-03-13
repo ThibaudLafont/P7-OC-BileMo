@@ -45,8 +45,8 @@ Open the config file of the target apache virtual host. Add and adapt the above 
                 RewriteEngine On
 
                 # JWT 
+                RewriteCond %{HTTP:Authorization} ^(.*)
                 RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
-                RewriteCond %{REQUEST_FILENAME} !-f
 
                 # Symfony
                 RewriteCond %{REQUEST_FILENAME} !-f
