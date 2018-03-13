@@ -3,145 +3,142 @@
   <ID>PHP</ID>
   <OriginalElement>\AppBundle\Action\Brand</OriginalElement>
   <nodes>
-    <node x="3515.75" y="2772.0">\Symfony\Component\EventDispatcher\EventSubscriberInterface</node>
-    <node x="0.0" y="2290.5">\AppBundle\Entity\User\Partner</node>
-    <node x="1060.0" y="3707.0">\AppBundle\Action\Users</node>
-    <node x="178.0" y="3416.0">\AppBundle\Repository\User\UserRepository</node>
-    <node x="206.0" y="3655.0">\AppBundle\Entity\Enumerations\ProductSoftStatus</node>
-    <node x="2564.0" y="3057.0">\AppBundle\Serializer\Normalizer\Family</node>
-    <node x="2939.0" y="3057.0">\AppBundle\Serializer\Normalizer\Brand</node>
-    <node x="1016.0" y="3057.0">\AppBundle\Serializer\Normalizer\Model</node>
-    <node x="1817.75" y="2785.0">\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface</node>
-    <node x="618.0" y="3642.0">\AppBundle\Entity\Enumerations\PhysicState</node>
-    <node x="2798.25" y="243.0">\AppBundle\Entity\Product\Product</node>
-    <node x="824.0" y="3668.0">\AppBundle\Entity\Enumerations\ProductFormatStatus</node>
-    <node x="1882.0" y="3694.0">\AppBundle\Action\Brand</node>
-    <node x="3650.0" y="2946.0">\AppBundle\EventSubscriber\ClientCreate</node>
-    <node x="1749.25" y="711.0">\AppBundle\Entity\Product\Brand</node>
-    <node x="1810.75" y="52.0">\AppBundle\Entity\Traits\Hydrate</node>
-    <node x="1391.0" y="3057.0">\AppBundle\Serializer\Normalizer\Partner</node>
-    <node x="412.0" y="3655.0">\AppBundle\Entity\Enumerations\SellState</node>
-    <node x="2102.75" y="2772.0">\Symfony\Component\Serializer\Normalizer\DenormalizerInterface</node>
-    <node x="2038.25" y="711.0">\AppBundle\Entity\Product\Model</node>
-    <node x="267.0" y="2017.0">\AppBundle\Entity\User\Client</node>
-    <node x="0.0" y="3681.0">\AppBundle\Entity\Enumerations\NoticeType</node>
-    <node x="1495.75" y="2772.0">\Symfony\Component\Serializer\Normalizer\NormalizerInterface</node>
-    <node x="1782.0" y="3057.0">\AppBundle\Serializer\Normalizer\Client</node>
-    <node x="1613.0" y="3720.0">\AppBundle\Action\Model</node>
-    <node x="1309.25" y="971.0">\AppBundle\Entity\Feature\Feature</node>
-    <node x="422.0" y="3403.0">\AppBundle\Repository\Product\BrandRepository</node>
-    <node x="3246.25" y="945.0">\AppBundle\Entity\Product\Notice</node>
-    <node x="1545.25" y="958.0">\AppBundle\Entity\Feature\Spec</node>
-    <node x="2432.0" y="3533.0">\AppBundle\EventListener\UserListener</node>
-    <node x="4.654882154882216" y="0.0">\Symfony\Component\Security\Core\User\UserInterface</node>
-    <node x="2173.0" y="3057.0">\AppBundle\Serializer\Normalizer\Company</node>
-    <node x="0.0" y="3416.0">\AppBundle\Repository\Product\FamilyRepository</node>
-    <node x="641.0" y="3057.0">\AppBundle\Serializer\Normalizer\Product</node>
-    <node x="1506.5" y="3533.0">\Symfony\Bundle\FrameworkBundle\Controller\Controller</node>
-    <node x="3470.25" y="945.0">\AppBundle\Entity\Feature\SpecValue</node>
-    <node x="432.5" y="3533.0">\AppBundle\Entity\Enumerations\Traits\Enumeration</node>
-    <node x="202.65488215488222" y="39.0">\Serializable</node>
-    <node x="1346.0" y="3707.0">\AppBundle\Action\Family</node>
-    <node x="912.0" y="2355.5">\AppBundle\Entity\Guarantee\ProductGlobal</node>
-    <node x="2241.5" y="3533.0">\Doctrine\Bundle\FixturesBundle\Fixture</node>
-    <node x="114.0" y="2772.0">\Doctrine\ORM\EntityRepository</node>
-    <node x="2174.0" y="3616.0">\AppBundle\DataFixtures\Fixtures</node>
-    <node x="998.25" y="919.0">\AppBundle\Entity\User\Company</node>
-    <node x="2426.25" y="763.0">\AppBundle\Entity\Product\Family</node>
-    <node x="735.25" y="945.0">\AppBundle\Entity\Guarantee\Guarantee</node>
-    <node x="149.09553872053857" y="893.0">\AppBundle\Entity\User\User</node>
-    <node x="3339.0" y="2881.0">\AppBundle\EventSubscriber\HttpException</node>
-    <node x="584.0" y="2264.0">\AppBundle\Entity\Guarantee\ProductSpecific</node>
+    <node x="1371.0" y="2262.0">\Symfony\Component\EventDispatcher\EventSubscriberInterface</node>
+    <node x="774.0" y="960.5">\AppBundle\Entity\User\Partner</node>
+    <node x="0.0" y="2410.0">\AppBundle\Entity\Enumerations\ProductSoftStatus</node>
+    <node x="269.0" y="2807.0">\AppBundle\Action\Users</node>
+    <node x="2149.0" y="644.0">\AppBundle\Repository\User\UserRepository</node>
+    <node x="2250.0" y="2054.0">\AppBundle\Serializer\Normalizer\Family</node>
+    <node x="750.0" y="2054.0">\AppBundle\Serializer\Normalizer\Brand</node>
+    <node x="1500.0" y="2054.0">\AppBundle\Serializer\Normalizer\Model</node>
+    <node x="1496.0" y="1782.0">\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface</node>
+    <node x="206.0" y="2397.0">\AppBundle\Entity\Enumerations\PhysicState</node>
+    <node x="824.0" y="2423.0">\AppBundle\Entity\Enumerations\ProductFormatStatus</node>
+    <node x="0.0" y="0.0">\AppBundle\Entity\Product\Product</node>
+    <node x="822.0" y="2794.0">\AppBundle\Action\Brand</node>
+    <node x="1371.0" y="2436.0">\AppBundle\EventSubscriber\ClientCreate</node>
+    <node x="1479.0" y="0.0">\AppBundle\Entity\Product\Brand</node>
+    <node x="-440.50000000000006" y="920.4999999999995">\AppBundle\Entity\Traits\Hydrate</node>
+    <node x="412.0" y="2410.0">\AppBundle\Entity\Enumerations\SellState</node>
+    <node x="1125.0" y="2054.0">\AppBundle\Serializer\Normalizer\Partner</node>
+    <node x="799.0" y="1769.0">\Symfony\Component\Serializer\Normalizer\DenormalizerInterface</node>
+    <node x="1066.0" y="0.0">\AppBundle\Entity\Product\Model</node>
+    <node x="473.0" y="687.0">\AppBundle\Entity\User\Client</node>
+    <node x="618.0" y="2436.0">\AppBundle\Entity\Enumerations\NoticeType</node>
+    <node x="1174.0" y="1769.0">\Symfony\Component\Serializer\Normalizer\NormalizerInterface</node>
+    <node x="0.0" y="2820.0">\AppBundle\Action\Model</node>
+    <node x="375.0" y="2054.0">\AppBundle\Serializer\Normalizer\Client</node>
+    <node x="-315.5000000000001" y="1772.9999999999998">\AppBundle\Entity\Feature\Feature</node>
+    <node x="1793.0" y="631.0">\AppBundle\Repository\Product\BrandRepository</node>
+    <node x="2205.0" y="2262.0">\AppBundle\Entity\Product\Notice</node>
+    <node x="2667.0" y="2262.0">\AppBundle\Entity\Feature\Spec</node>
+    <node x="1114.0" y="2685.0">\AppBundle\EventListener\UserListener</node>
+    <node x="561.25" y="0.0">\Symfony\Component\Security\Core\User\UserInterface</node>
+    <node x="0.0" y="2054.0">\AppBundle\Serializer\Normalizer\Company</node>
+    <node x="1971.0" y="644.0">\AppBundle\Repository\Product\FamilyRepository</node>
+    <node x="1613.0" y="2463.0">\AppBundle\EventSubscriber\CacheControl</node>
+    <node x="1875.0" y="2054.0">\AppBundle\Serializer\Normalizer\Product</node>
+    <node x="443.25" y="2685.0">\Symfony\Bundle\FrameworkBundle\Controller\Controller</node>
+    <node x="2454.0" y="2262.0">\AppBundle\Entity\Feature\SpecValue</node>
+    <node x="432.5" y="2262.0">\AppBundle\Entity\Enumerations\Traits\Enumeration</node>
+    <node x="759.25" y="39.0">\Serializable</node>
+    <node x="555.0" y="2807.0">\AppBundle\Action\Family</node>
+    <node x="3127.0" y="461.5">\AppBundle\Entity\Guarantee\ProductGlobal</node>
+    <node x="2963.5" y="2262.0">\Doctrine\Bundle\FixturesBundle\Fixture</node>
+    <node x="1882.0" y="0.0">\Doctrine\ORM\EntityRepository</node>
+    <node x="2896.0" y="2345.0">\AppBundle\DataFixtures\Fixtures</node>
+    <node x="1869.0" y="2262.0">\AppBundle\Entity\User\Company</node>
+    <node x="2418.0" y="0.0">\AppBundle\Entity\Product\Family</node>
+    <node x="2954.25" y="0.0">\AppBundle\Entity\Guarantee\Guarantee</node>
+    <node x="645.0" y="213.0">\AppBundle\Entity\User\User</node>
+    <node x="1060.0" y="2371.0">\AppBundle\EventSubscriber\HttpException</node>
+    <node x="2815.0" y="370.0">\AppBundle\Entity\Guarantee\ProductSpecific</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="\AppBundle\Serializer\Normalizer\Client" target="\Symfony\Component\Serializer\Normalizer\NormalizerInterface">
+      <point x="0.0" y="-81.5" />
+      <point x="552.5" y="1984.0" />
+      <point x="1238.7142857142858" y="1984.0" />
+      <point x="-86.28571428571422" y="42.5" />
+    </edge>
     <edge source="\AppBundle\Entity\Guarantee\ProductGlobal" target="\AppBundle\Entity\Guarantee\Guarantee">
       <point x="0.0" y="-16.5" />
-      <point x="975.5" y="1992.0" />
-      <point x="917.5" y="1992.0" />
+      <point x="3190.5" y="345.0" />
+      <point x="3136.5" y="345.0" />
       <point x="60.75" y="160.0" />
     </edge>
-    <edge source="\AppBundle\Serializer\Normalizer\Client" target="\Symfony\Component\Serializer\Normalizer\NormalizerInterface">
-      <point x="-123.66666666666674" y="-81.5" />
-      <point x="1843.8333333333333" y="2967.0" />
-      <point x="1646.75" y="2967.0" />
+    <edge source="\AppBundle\Entity\Enumerations\SellState" target="\AppBundle\Entity\Enumerations\Traits\Enumeration">
+      <point x="0.0" y="-108.5" />
       <point x="0.0" y="42.5" />
     </edge>
-    <edge source="\AppBundle\Entity\Enumerations\SellState" target="\AppBundle\Entity\Enumerations\Traits\Enumeration">
-      <point x="0.0" y="-95.5" />
-      <point x="0.0" y="29.5" />
+    <edge source="\AppBundle\Serializer\Normalizer\Family" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
+      <point x="118.33333333333348" y="-81.5" />
+      <point x="2545.8333333333335" y="1874.0" />
+      <point x="1742.0714285714287" y="1874.0" />
+      <point x="113.57142857142867" y="29.5" />
     </edge>
     <edge source="\AppBundle\Entity\Enumerations\ProductSoftStatus" target="\AppBundle\Entity\Enumerations\Traits\Enumeration">
-      <point x="0.0" y="-95.5" />
-      <point x="299.0" y="3622.0" />
-      <point x="476.0" y="3622.0" />
-      <point x="-29.0" y="29.5" />
-    </edge>
-    <edge source="\AppBundle\Serializer\Normalizer\Family" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
-      <point x="0.0" y="-81.5" />
-      <point x="2741.5" y="2917.0" />
-      <point x="2025.9642857142858" y="2917.0" />
-      <point x="75.71428571428578" y="29.5" />
+      <point x="0.0" y="-108.5" />
+      <point x="93.0" y="2367.0" />
+      <point x="447.0" y="2367.0" />
+      <point x="-58.0" y="42.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Family" target="\Symfony\Component\Serializer\Normalizer\DenormalizerInterface">
-      <point x="118.33333333333337" y="-81.5" />
-      <point x="2859.8333333333335" y="2907.0" />
-      <point x="2394.25" y="2907.0" />
-      <point x="106.0" y="42.5" />
+      <point x="-118.33333333333348" y="-81.5" />
+      <point x="2309.1666666666665" y="1894.0" />
+      <point x="1128.642857142857" y="1894.0" />
+      <point x="152.1428571428571" y="42.5" />
     </edge>
     <edge source="\AppBundle\Entity\Enumerations\ProductFormatStatus" target="\AppBundle\Entity\Enumerations\Traits\Enumeration">
-      <point x="0.0" y="-82.5" />
-      <point x="919.5" y="3612.0" />
-      <point x="563.0" y="3612.0" />
-      <point x="58.0" y="29.5" />
+      <point x="0.0" y="-95.5" />
+      <point x="919.5" y="2367.0" />
+      <point x="563.0" y="2367.0" />
+      <point x="58.0" y="42.5" />
     </edge>
     <edge source="\AppBundle\Entity\User\Partner" target="\AppBundle\Entity\User\User">
       <point x="0.0" y="-81.5" />
-      <point x="123.5" y="1992.0" />
-      <point x="204.34553872053857" y="1992.0" />
-      <point x="-55.25" y="212.0" />
+      <point x="897.5" y="662.0" />
+      <point x="810.75" y="662.0" />
+      <point x="55.25" y="212.0" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Product" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
-      <point x="0.0" y="-81.5" />
-      <point x="818.5" y="2977.0" />
-      <point x="1836.6785714285716" y="2977.0" />
-      <point x="-113.57142857142856" y="29.5" />
-    </edge>
-    <edge source="\AppBundle\Serializer\Normalizer\Product" target="\Symfony\Component\Serializer\Normalizer\DenormalizerInterface">
-      <point x="118.33333333333326" y="-81.5" />
-      <point x="936.8333333333333" y="3007.0" />
-      <point x="2129.25" y="3007.0" />
-      <point x="-159.0" y="42.5" />
+      <point x="118.33333333333348" y="-81.5" />
+      <point x="2170.8333333333335" y="1904.0" />
+      <point x="1704.2142857142858" y="1904.0" />
+      <point x="75.71428571428578" y="29.5" />
     </edge>
     <edge source="\AppBundle\Entity\Product\Product" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-862.0" />
-      <point x="3012.25" y="203.0" />
-      <point x="1923.5681818181818" y="203.0" />
-      <point x="39.818181818181756" y="29.5" />
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="\AppBundle\Serializer\Normalizer\Product" target="\Symfony\Component\Serializer\Normalizer\DenormalizerInterface">
+      <point x="-118.33333333333326" y="-81.5" />
+      <point x="1934.1666666666667" y="1924.0" />
+      <point x="1077.9285714285713" y="1924.0" />
+      <point x="101.42857142857133" y="42.5" />
     </edge>
     <edge source="\AppBundle\Action\Model" target="\Symfony\Bundle\FrameworkBundle\Controller\Controller">
       <point x="0.0" y="-29.5" />
-      <point x="1737.5" y="3674.0" />
-      <point x="1627.75" y="3674.0" />
-      <point x="24.25" y="55.5" />
+      <point x="124.5" y="2764.0" />
+      <point x="467.5" y="2764.0" />
+      <point x="-72.75" y="29.5" />
     </edge>
     <edge source="\AppBundle\EventSubscriber\ClientCreate" target="\Symfony\Component\EventDispatcher\EventSubscriberInterface">
       <point x="0.0" y="-69.5" />
-      <point x="3753.0" y="2856.0" />
-      <point x="3670.25" y="2856.0" />
-      <point x="51.5" y="29.5" />
-    </edge>
-    <edge source="\AppBundle\Serializer\Normalizer\Client" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
-      <point x="0.0" y="-81.5" />
-      <point x="1967.5" y="2997.0" />
-      <point x="1950.25" y="2997.0" />
       <point x="0.0" y="29.5" />
     </edge>
+    <edge source="\AppBundle\Serializer\Normalizer\Client" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
+      <point x="118.33333333333337" y="-81.5" />
+      <point x="670.8333333333334" y="2014.0" />
+      <point x="1552.7857142857142" y="2014.0" />
+      <point x="-75.71428571428578" y="29.5" />
+    </edge>
     <edge source="\AppBundle\Entity\Enumerations\PhysicState" target="\AppBundle\Entity\Enumerations\Traits\Enumeration">
-      <point x="0.0" y="-108.5" />
-      <point x="711.0" y="3622.0" />
-      <point x="534.0" y="3622.0" />
-      <point x="29.0" y="29.5" />
+      <point x="0.0" y="-121.5" />
+      <point x="299.0" y="2377.0" />
+      <point x="476.0" y="2377.0" />
+      <point x="-29.0" y="42.5" />
     </edge>
     <edge source="\AppBundle\DataFixtures\Fixtures" target="\Doctrine\Bundle\FixturesBundle\Fixture">
       <point x="0.0" y="-94.5" />
@@ -149,224 +146,212 @@
     </edge>
     <edge source="\AppBundle\Repository\Product\BrandRepository" target="\Doctrine\ORM\EntityRepository">
       <point x="0.0" y="-42.5" />
-      <point x="509.0" y="3378.0" />
-      <point x="407.3333333333335" y="3378.0" />
-      <point x="117.33333333333348" y="290.5" />
+      <point x="1872.0" y="606.0" />
+      <point x="1938.0" y="606.0" />
+      <point x="-112.0" y="290.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Client" target="\Symfony\Component\Serializer\Normalizer\DenormalizerInterface">
-      <point x="123.66666666666674" y="-81.5" />
-      <point x="2091.166666666667" y="3037.0" />
-      <point x="2288.25" y="3037.0" />
-      <point x="0.0" y="42.5" />
+      <point x="-118.33333333333331" y="-81.5" />
+      <point x="434.16666666666674" y="1954.0" />
+      <point x="875.0714285714286" y="1954.0" />
+      <point x="-101.42857142857144" y="42.5" />
     </edge>
     <edge source="\AppBundle\EventSubscriber\HttpException" target="\Symfony\Component\EventDispatcher\EventSubscriberInterface">
       <point x="0.0" y="-134.5" />
-      <point x="3484.5" y="2856.0" />
-      <point x="3567.25" y="2856.0" />
-      <point x="-51.5" y="29.5" />
+      <point x="1205.5" y="2346.0" />
+      <point x="1408.0" y="2346.0" />
+      <point x="-74.0" y="29.5" />
     </edge>
     <edge source="\AppBundle\Entity\Feature\SpecValue" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-160.0" />
-      <point x="3554.25" y="183.0" />
-      <point x="1950.1136363636365" y="183.0" />
-      <point x="66.36363636363649" y="29.5" />
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Partner" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
-      <point x="0.0" y="-81.5" />
-      <point x="1576.5" y="2997.0" />
-      <point x="1912.392857142857" y="2997.0" />
-      <point x="-37.85714285714289" y="29.5" />
+      <point x="118.33333333333326" y="-81.5" />
+      <point x="1420.8333333333333" y="2034.0" />
+      <point x="1628.5" y="2034.0" />
+      <point x="0.0" y="29.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Company" target="\Symfony\Component\Serializer\Normalizer\NormalizerInterface">
-      <point x="-123.66666666666669" y="-81.5" />
-      <point x="2234.8333333333335" y="2957.0" />
-      <point x="1689.892857142857" y="2957.0" />
-      <point x="43.14285714285711" y="42.5" />
+      <point x="0.0" y="-81.5" />
+      <point x="177.5" y="1974.0" />
+      <point x="1195.5714285714284" y="1974.0" />
+      <point x="-129.42857142857156" y="42.5" />
     </edge>
     <edge source="\AppBundle\Entity\User\Client" target="\AppBundle\Entity\User\User">
       <point x="0.0" y="-355.0" />
-      <point x="415.5" y="1992.0" />
-      <point x="314.84553872053857" y="1992.0" />
-      <point x="55.25" y="212.0" />
+      <point x="613.5" y="662.0" />
+      <point x="700.25" y="662.0" />
+      <point x="-55.25" y="212.0" />
     </edge>
     <edge source="\AppBundle\Action\Family" target="\Symfony\Bundle\FrameworkBundle\Controller\Controller">
       <point x="0.0" y="-42.5" />
-      <point x="1469.5" y="3674.0" />
-      <point x="1579.25" y="3674.0" />
-      <point x="-24.25" y="55.5" />
+      <point x="678.5" y="2774.0" />
+      <point x="564.5" y="2774.0" />
+      <point x="24.25" y="29.5" />
     </edge>
     <edge source="\AppBundle\Action\Brand" target="\Symfony\Bundle\FrameworkBundle\Controller\Controller">
-      <point x="-5.6843418860808015E-14" y="-55.5" />
-      <point x="2005.5" y="3664.0" />
-      <point x="1676.25" y="3664.0" />
-      <point x="72.75" y="55.5" />
+      <point x="0.0" y="-55.5" />
+      <point x="945.5" y="2764.0" />
+      <point x="613.0" y="2764.0" />
+      <point x="72.75" y="29.5" />
     </edge>
     <edge source="\AppBundle\Action\Users" target="\Symfony\Bundle\FrameworkBundle\Controller\Controller">
       <point x="0.0" y="-42.5" />
-      <point x="1193.0" y="3664.0" />
-      <point x="1530.75" y="3664.0" />
-      <point x="-72.75" y="55.5" />
-    </edge>
-    <edge source="\AppBundle\Entity\Product\Model" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-394.0" />
-      <point x="2222.25" y="223.0" />
-      <point x="1897.0227272727273" y="223.0" />
-      <point x="13.272727272727252" y="29.5" />
+      <point x="402.0" y="2774.0" />
+      <point x="516.0" y="2774.0" />
+      <point x="-24.25" y="29.5" />
     </edge>
     <edge source="\AppBundle\Entity\User\User" target="\Serializable">
-      <point x="0.0" y="-212.0" />
-      <point x="259.59553872053857" y="223.0" />
-      <point x="304.1548821548822" y="223.0" />
+      <point x="55.25" y="-212.0" />
+      <point x="810.75" y="188.0" />
+      <point x="860.75" y="188.0" />
       <point x="0.0" y="42.5" />
     </edge>
-    <edge source="\AppBundle\Serializer\Normalizer\Brand" target="\Symfony\Component\Serializer\Normalizer\DenormalizerInterface">
-      <point x="118.33333333333326" y="-81.5" />
-      <point x="3234.833333333333" y="2877.0" />
-      <point x="2447.25" y="2877.0" />
-      <point x="159.0" y="42.5" />
+    <edge source="\AppBundle\Entity\Product\Model" target="\AppBundle\Entity\Traits\Hydrate">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
     </edge>
-    <edge source="\AppBundle\Serializer\Normalizer\Brand" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
-      <point x="0.0" y="-81.5" />
-      <point x="3116.5" y="2887.0" />
-      <point x="2063.8214285714284" y="2887.0" />
-      <point x="113.57142857142867" y="29.5" />
+    <edge source="\AppBundle\Serializer\Normalizer\Brand" target="\Symfony\Component\Serializer\Normalizer\DenormalizerInterface">
+      <point x="-118.33333333333326" y="-81.5" />
+      <point x="809.1666666666667" y="1964.0" />
+      <point x="925.7857142857142" y="1964.0" />
+      <point x="-50.71428571428578" y="42.5" />
     </edge>
     <edge source="\AppBundle\Entity\Product\Family" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-342.0" />
-      <point x="2602.25" y="213.0" />
-      <point x="1910.2954545454545" y="213.0" />
-      <point x="26.545454545454504" y="29.5" />
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="\AppBundle\Serializer\Normalizer\Brand" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
+      <point x="118.33333333333326" y="-81.5" />
+      <point x="1045.8333333333333" y="2024.0" />
+      <point x="1590.642857142857" y="2024.0" />
+      <point x="-37.85714285714289" y="29.5" />
     </edge>
     <edge source="\AppBundle\Entity\Guarantee\Guarantee" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-160.0" />
-      <point x="856.75" y="193.0" />
-      <point x="1830.659090909091" y="193.0" />
-      <point x="-53.09090909090901" y="29.5" />
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
     </edge>
     <edge source="\AppBundle\Entity\Feature\Spec" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-147.0" />
-      <point x="1637.25" y="223.0" />
-      <point x="1870.4772727272727" y="223.0" />
-      <point x="-13.272727272727252" y="29.5" />
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
     </edge>
     <edge source="\AppBundle\Entity\User\User" target="\Symfony\Component\Security\Core\User\UserInterface">
-      <point x="-73.66666666666669" y="-212.0" />
-      <point x="185.92887205387183" y="223.0" />
-      <point x="93.65488215488222" y="223.0" />
+      <point x="-55.25" y="-212.0" />
+      <point x="700.25" y="188.0" />
+      <point x="650.25" y="188.0" />
       <point x="0.0" y="81.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Company" target="\Symfony\Component\Serializer\Normalizer\DenormalizerInterface">
-      <point x="123.66666666666669" y="-81.5" />
-      <point x="2482.166666666667" y="2937.0" />
-      <point x="2341.25" y="2937.0" />
-      <point x="53.0" y="42.5" />
+      <point x="-118.33333333333331" y="-81.5" />
+      <point x="59.16666666666674" y="1944.0" />
+      <point x="824.3571428571429" y="1944.0" />
+      <point x="-152.1428571428571" y="42.5" />
     </edge>
     <edge source="\AppBundle\Entity\Product\Notice" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-160.0" />
-      <point x="3348.25" y="193.0" />
-      <point x="1936.840909090909" y="193.0" />
-      <point x="53.09090909090901" y="29.5" />
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
     </edge>
     <edge source="\AppBundle\Entity\User\User" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="73.66666666666669" y="-212.0" />
-      <point x="333.2622053872053" y="183.0" />
-      <point x="1817.3863636363635" y="183.0" />
-      <point x="-66.36363636363649" y="29.5" />
-    </edge>
-    <edge source="\AppBundle\Serializer\Normalizer\Brand" target="\Symfony\Component\Serializer\Normalizer\NormalizerInterface">
-      <point x="-118.33333333333326" y="-81.5" />
-      <point x="2998.166666666667" y="2897.0" />
-      <point x="1776.1785714285713" y="2897.0" />
-      <point x="129.42857142857133" y="42.5" />
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
     </edge>
     <edge source="\AppBundle\Entity\Feature\Feature" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-134.0" />
-      <point x="1417.25" y="213.0" />
-      <point x="1857.2045454545455" y="213.0" />
-      <point x="-26.545454545454504" y="29.5" />
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="\AppBundle\Serializer\Normalizer\Brand" target="\Symfony\Component\Serializer\Normalizer\NormalizerInterface">
+      <point x="0.0" y="-81.5" />
+      <point x="927.5" y="1994.0" />
+      <point x="1281.857142857143" y="1994.0" />
+      <point x="-43.14285714285711" y="42.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Model" target="\Symfony\Component\Serializer\Normalizer\NormalizerInterface">
-      <point x="-118.33333333333348" y="-81.5" />
-      <point x="1075.1666666666665" y="2957.0" />
-      <point x="1560.4642857142858" y="2957.0" />
-      <point x="-86.28571428571422" y="42.5" />
+      <point x="0.0" y="-81.5" />
+      <point x="1677.5" y="1944.0" />
+      <point x="1368.142857142857" y="1944.0" />
+      <point x="43.14285714285711" y="42.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Partner" target="\Symfony\Component\Serializer\Normalizer\DenormalizerInterface">
-      <point x="123.66666666666652" y="-81.5" />
-      <point x="1700.1666666666665" y="3027.0" />
-      <point x="2235.25" y="3027.0" />
-      <point x="-53.0" y="42.5" />
+      <point x="-118.33333333333326" y="-81.5" />
+      <point x="1184.1666666666667" y="1964.0" />
+      <point x="976.5" y="1964.0" />
+      <point x="0.0" y="42.5" />
     </edge>
     <edge source="\AppBundle\Repository\User\UserRepository" target="\Doctrine\ORM\EntityRepository">
       <point x="0.0" y="-29.5" />
-      <point x="0.0" y="290.5" />
+      <point x="2261.0" y="606.0" />
+      <point x="2162.0" y="606.0" />
+      <point x="112.0" y="290.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Family" target="\Symfony\Component\Serializer\Normalizer\NormalizerInterface">
-      <point x="-118.33333333333331" y="-81.5" />
-      <point x="2623.166666666667" y="2927.0" />
-      <point x="1733.0357142857142" y="2927.0" />
-      <point x="86.28571428571422" y="42.5" />
+      <point x="0.0" y="-81.5" />
+      <point x="2427.5" y="1884.0" />
+      <point x="1454.4285714285713" y="1884.0" />
+      <point x="129.42857142857133" y="42.5" />
     </edge>
     <edge source="\AppBundle\Entity\Guarantee\ProductSpecific" target="\AppBundle\Entity\Guarantee\Guarantee">
       <point x="0.0" y="-108.0" />
-      <point x="738.0" y="1992.0" />
-      <point x="796.0" y="1992.0" />
+      <point x="2961.0" y="345.0" />
+      <point x="3015.0" y="345.0" />
       <point x="-60.75" y="160.0" />
     </edge>
     <edge source="\AppBundle\Repository\Product\FamilyRepository" target="\Doctrine\ORM\EntityRepository">
       <point x="0.0" y="-29.5" />
-      <point x="79.0" y="3378.0" />
-      <point x="172.66666666666652" y="3378.0" />
-      <point x="-117.33333333333348" y="290.5" />
+      <point x="0.0" y="290.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Company" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
-      <point x="0.0" y="-81.5" />
-      <point x="2358.5" y="2947.0" />
-      <point x="1988.107142857143" y="2947.0" />
-      <point x="37.85714285714289" y="29.5" />
+      <point x="118.33333333333331" y="-81.5" />
+      <point x="295.83333333333326" y="2004.0" />
+      <point x="1514.9285714285716" y="2004.0" />
+      <point x="-113.57142857142844" y="29.5" />
     </edge>
     <edge source="\AppBundle\Entity\Enumerations\NoticeType" target="\AppBundle\Entity\Enumerations\Traits\Enumeration">
-      <point x="0.0" y="-69.5" />
-      <point x="93.0" y="3612.0" />
-      <point x="447.0" y="3612.0" />
-      <point x="-58.0" y="29.5" />
+      <point x="0.0" y="-82.5" />
+      <point x="711.0" y="2377.0" />
+      <point x="534.0" y="2377.0" />
+      <point x="29.0" y="42.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Partner" target="\Symfony\Component\Serializer\Normalizer\NormalizerInterface">
-      <point x="-123.66666666666674" y="-81.5" />
-      <point x="1452.8333333333333" y="2967.0" />
-      <point x="1603.607142857143" y="2967.0" />
-      <point x="-43.14285714285711" y="42.5" />
-    </edge>
-    <edge source="\AppBundle\Entity\Product\Brand" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-394.0" />
-      <point x="0.0" y="29.5" />
+      <point x="0.0" y="-81.5" />
+      <point x="1302.5" y="1994.0" />
+      <point x="1325.0" y="1994.0" />
+      <point x="0.0" y="42.5" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Model" target="\Symfony\Component\Serializer\Normalizer\DenormalizerInterface">
-      <point x="118.33333333333348" y="-81.5" />
-      <point x="1311.8333333333335" y="3017.0" />
-      <point x="2182.25" y="3017.0" />
-      <point x="-106.0" y="42.5" />
+      <point x="-118.33333333333326" y="-81.5" />
+      <point x="1559.1666666666667" y="1954.0" />
+      <point x="1027.2142857142856" y="1954.0" />
+      <point x="50.71428571428555" y="42.5" />
+    </edge>
+    <edge source="\AppBundle\Entity\Product\Brand" target="\AppBundle\Entity\Traits\Hydrate">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Product" target="\Symfony\Component\Serializer\Normalizer\NormalizerInterface">
-      <point x="-118.33333333333326" y="-81.5" />
-      <point x="700.1666666666667" y="2947.0" />
-      <point x="1517.3214285714284" y="2947.0" />
-      <point x="-129.42857142857156" y="42.5" />
+      <point x="0.0" y="-81.5" />
+      <point x="2052.5" y="1914.0" />
+      <point x="1411.2857142857142" y="1914.0" />
+      <point x="86.28571428571422" y="42.5" />
+    </edge>
+    <edge source="\AppBundle\EventSubscriber\CacheControl" target="\Symfony\Component\EventDispatcher\EventSubscriberInterface">
+      <point x="0.0" y="-42.5" />
+      <point x="1718.5" y="2346.0" />
+      <point x="1556.0" y="2346.0" />
+      <point x="74.0" y="29.5" />
     </edge>
     <edge source="\AppBundle\Entity\User\Company" target="\AppBundle\Entity\Traits\Hydrate">
-      <point x="0.0" y="-186.0" />
-      <point x="1143.75" y="203.0" />
-      <point x="1843.9318181818182" y="203.0" />
-      <point x="-39.818181818181756" y="29.5" />
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
     </edge>
     <edge source="\AppBundle\Serializer\Normalizer\Model" target="\Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface">
-      <point x="0.0" y="-81.5" />
-      <point x="1193.5" y="2987.0" />
-      <point x="1874.5357142857142" y="2987.0" />
-      <point x="-75.71428571428567" y="29.5" />
+      <point x="118.33333333333326" y="-81.5" />
+      <point x="1795.8333333333333" y="1934.0" />
+      <point x="1666.357142857143" y="1934.0" />
+      <point x="37.85714285714289" y="29.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.40000000000000013" x="2001.2499999999993" y="2731.4999999999995" />
+  <settings layout="Hierarchic Group" zoom="0.40000000000000013" x="1358.2499999999993" y="910.4999999999995" />
   <SelectedNodes>
     <node>\AppBundle\Action\Brand</node>
   </SelectedNodes>
