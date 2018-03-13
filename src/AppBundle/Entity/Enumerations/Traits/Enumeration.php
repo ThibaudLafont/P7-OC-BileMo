@@ -24,5 +24,4 @@ trait Enumeration
             return static::$values[$key];
         }
     }
-
 }

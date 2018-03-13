@@ -19,12 +19,6 @@ class CacheControl implements EventSubscriberInterface
 {
 
     /**
-     * Subscribed event
-     *
-     * @var GetResponseForExceptionEvent
-     */
-    private $event;
-    /**
      * Array with listened events
      *
      * @return array
@@ -53,25 +47,22 @@ class CacheControl implements EventSubscriberInterface
         $resp = new Response($content);
 
         // If sensible road, add Cache-Control:no-cache and setPrivate
-        if(
+        if (
             $url == "/users"    ||
             $url == "/clients"  ||
             $url == "/partners" ||
             $url == "/login_check" ||
             preg_match("@^/companies*@", $url)
         ) {
-
             $resp->headers->set('Cache-Control', 'no-cache');
             $resp->setPrivate();
 
         // Else, set public
-        }else {
+        } else {
             $resp->setPublic();
         }
 
         // Set Response
         $event->setResponse($resp);
-
     }
-
 }

@@ -47,12 +47,9 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
                 ->createQuery($statement)
                 ->setParameter('username', $criteria['username'])
                 ->getArrayResult();
-
         }
 
         // Return result
         return $user;
-
     }
-
 }

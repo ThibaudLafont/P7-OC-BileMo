@@ -75,5 +75,4 @@ final class ClientCreate implements EventSubscriberInterface
         // Assign company to client
         $client->setCompany($company);
     }
-
 }

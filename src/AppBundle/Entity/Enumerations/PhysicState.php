@@ -51,5 +51,4 @@ class PhysicState
             self::BAD
         ];
     }
-
 }

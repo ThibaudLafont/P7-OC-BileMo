@@ -42,5 +42,4 @@ class NoticeType
             self::ALERT
         ];
     }
-
 }

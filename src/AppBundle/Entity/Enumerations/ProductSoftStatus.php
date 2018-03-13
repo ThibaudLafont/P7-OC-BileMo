@@ -48,5 +48,4 @@ class ProductSoftStatus
             self::UNKNOW
         ];
     }
-
 }

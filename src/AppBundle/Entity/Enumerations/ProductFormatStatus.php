@@ -45,5 +45,4 @@ class ProductFormatStatus
             self::UNKNOW
         ];
     }
-
 }
