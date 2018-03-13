@@ -48,4 +48,12 @@ class SellState
             self::DEFECTIVE
         ];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValues(): array
+    {
+        return self::$values;
+    }
 }

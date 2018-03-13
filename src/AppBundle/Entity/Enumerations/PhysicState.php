@@ -51,4 +51,12 @@ class PhysicState
             self::BAD
         ];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValues(): array
+    {
+        return self::$values;
+    }
 }

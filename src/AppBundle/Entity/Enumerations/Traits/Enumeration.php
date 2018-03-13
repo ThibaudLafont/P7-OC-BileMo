@@ -24,4 +24,12 @@ trait Enumeration
             return static::$values[$key];
         }
     }
+
+    /**
+     * Return all values
+     *
+     * @return array
+     */
+    abstract public function getValues() : array;
+
 }

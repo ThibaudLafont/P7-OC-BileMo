@@ -42,4 +42,12 @@ class NoticeType
             self::ALERT
         ];
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getValues(): array
+    {
+        return self::$values;
+    }
 }
