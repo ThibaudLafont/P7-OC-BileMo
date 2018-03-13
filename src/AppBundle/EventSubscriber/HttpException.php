@@ -110,7 +110,7 @@ class HttpException implements EventSubscriberInterface
             $response = new Response($content, $statusCode, ['content-type' => $contentType]);
 
             // Set response to $event
-           $event->setResponse($response);
+            $event->setResponse($response);
         }
     }
 
@@ -130,7 +130,7 @@ class HttpException implements EventSubscriberInterface
         $message = $exception->getMessage();
 
         // If "No route found", it's 404 or 405 http code
-        if (strpos($message, "No route found") == 0             
+        if (strpos($message, "No route found") == 0
         ) {
 
             // If isset "Method Not Allowed", 405 error
@@ -138,7 +138,7 @@ class HttpException implements EventSubscriberInterface
                 $code = 405;
             }
             // Else 404 error
-            elseif($this->getEvent()->getRequest()->getContentType() !== 'json') {
+            elseif ($this->getEvent()->getRequest()->getContentType() !== 'json') {
                 $code = 404;
             }
         }
@@ -147,7 +147,7 @@ class HttpException implements EventSubscriberInterface
         // cause we let Hydra handle other kinds of request exceptions
         if (
             $this->getEvent()->getRequest()->getContentType() !== 'json' &&
-            $code == 0 
+            $code == 0
         ) {
             $code = 500;
         }

@@ -52,4 +52,11 @@ class PhysicState
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getValues(): array
+    {
+        return self::$values;
+    }
 }

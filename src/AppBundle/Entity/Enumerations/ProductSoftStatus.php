@@ -49,4 +49,11 @@ class ProductSoftStatus
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getValues(): array
+    {
+        return self::$values;
+    }
 }

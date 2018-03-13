@@ -43,4 +43,11 @@ class NoticeType
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getValues(): array
+    {
+        return self::$values;
+    }
 }

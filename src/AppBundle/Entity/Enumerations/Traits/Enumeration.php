@@ -25,4 +25,11 @@ trait Enumeration
         }
     }
 
+    /**
+     * Return all values
+     *
+     * @return array
+     */
+    abstract public function getValues() : array;
+
 }

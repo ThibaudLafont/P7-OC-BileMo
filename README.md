@@ -212,12 +212,17 @@ This project use ApiPlatform bundle with Symfony framework.
 #### Object model
 You can find the object model in this repository
 
-    /assets/ddb_diagramm.png
+    /assets/UML/ddb_diagramm.jpg
 
 #### Class diagramm
-You can find the object model in this repository
+You can find the class diagramm in this repository
 
-    /assets/class_diagramm.png
+    /assets/UML/class_diagramm.jpg
+
+#### Sequency diagramms
+You can find the sequency diagramms in this repository
+
+    /assets/UML/
 
 #### Serialization of resources
 ApiPlatform handle the serialization of resources process, though a configuration 

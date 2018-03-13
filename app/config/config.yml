@@ -34,7 +34,7 @@ framework:
     trusted_hosts: ~
     session:
         enabled: true
-        name: PHPSESSID
+        name: PHPSESSIDAPIBILEMO
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
     fragments: { enabled: false }
