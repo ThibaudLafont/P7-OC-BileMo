@@ -138,7 +138,7 @@ class HttpException implements EventSubscriberInterface
                 $code = 405;
             }
             // Else 404 error
-            elseif ($this->getEvent()->getRequest()->getContentType() !== 'json') {
+            elseif ($message !== "Not Found") {
                 $code = 404;
             }
         }
